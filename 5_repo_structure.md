@@ -20,6 +20,7 @@ The `curriculum_and_progress/` directory will contain the active curriculum and 
 ```text
 curriculum_and_progress/
 ├── division_into_topics_description.md
+├── curriculum_table.md
 └── topics/
     ├── <topic_01_name>/
     │   ├── topic_plan_and_session_timeline.md
@@ -47,8 +48,16 @@ curriculum_and_progress/
 - how the curriculum is divided into topics;
 - the purpose and scope of each topic;
 - dependencies and relationships between topics;
-- the recommended order of study;
 - the status of each topic, such as planned, active, completed, or deferred.
+
+`curriculum_table.md` will describe:
+
+- the recommended order of study;
+- global curriculum table
+- columns represent topics
+- rows repersent sessions within each topic, the rows proceed from simplest to more advanced sessions
+- the schedule proceedes from left to right changing topics every week 
+
 
 ### Topic directories
 
