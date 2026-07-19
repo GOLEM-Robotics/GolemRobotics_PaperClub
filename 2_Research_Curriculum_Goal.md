@@ -8,9 +8,11 @@ The objective is not merely to follow existing implementations or reproduce the 
 
 ## Starting Point
 
-The team already has a solid base in programming, robotics, classical machine learning, deep learning, generative models, and selected reinforcement-learning concepts. The curriculum should therefore avoid becoming a general introduction to AI.
+The organization collectively has a solid base in programming, robotics, classical machine learning, deep learning, generative models, and selected reinforcement-learning concepts.
 
-It should instead close the gaps between this existing engineering knowledge and research-level competence in modern robot learning, reinforcement learning, world models, multimodal foundation models, embodied reasoning, and large-scale learning systems.
+Individual members may have uneven backgrounds. Topic planning should identify missing prerequisites and provide targeted foundations where needed without turning the curriculum into a complete general introduction to AI.
+
+The curriculum should close the gaps between the existing engineering knowledge of the organization and research-level competence in modern robot learning, reinforcement learning, world models, multimodal foundation models, embodied reasoning, and large-scale learning systems.
 
 Different members do not need to become experts in every area. The shared core should establish a common technical language and research standard, after which members can specialize while remaining capable of collaborating on integrated systems.
 
@@ -19,8 +21,8 @@ Different members do not need to become experts in every area. The shared core s
 Through successive curriculum cycles, members should learn to:
 
 - reconstruct the assumptions, mathematics, architecture, training procedure, and evidence behind important methods;
-- read papers critically, distinguish demonstrated results from claims, and identify hidden dependencies on data, compute, benchmarks, and implementation choices;
-- implement or reproduce representative methods, design controlled comparisons and ablations, and diagnose failure rather than only report success;
+- read papers critically, distinguish demonstrated results from claims, and identify hidden dependencies on data, compute, benchmarks, hardware, and implementation choices;
+- implement or reproduce representative methods where useful, design controlled comparisons and ablations, and diagnose failure rather than only report success;
 - reason across the complete embodied-intelligence stack: perception, representation, memory, reasoning, planning, learning, control, data, simulation, hardware, and safety;
 - train, adapt, evaluate, compress, and deploy relevant models at a scale feasible for the organization, including small language and multimodal models when this provides genuine understanding;
 - formulate original hypotheses and carry research from question selection through implementation, evaluation, interpretation, and technical communication.
@@ -42,6 +44,8 @@ The curriculum should build a connected understanding of six major areas:
 6. **Data, evaluation, and research systems** — robot-data collection, teleoperation, synchronization, dataset composition, synthetic and self-supervised data, distributed training, experiment tracking, reproducibility, benchmark design, generalization, robustness, uncertainty, latency, hardware-in-the-loop testing, and systematic failure analysis.
 
 The eventual paper-level curriculum should trace the major intellectual lineages connecting these areas rather than treating them as independent subjects. Vision-language-action models and general-purpose robot policies should appear as a major synthesis point, not as the sole organizing principle.
+
+The complete intellectual map may contain more material than can be executed immediately. The curriculum should therefore distinguish the shared core, active research tracks, specializations, optional material, frontier candidates, and deferred topics.
 
 ## Governing Question
 
