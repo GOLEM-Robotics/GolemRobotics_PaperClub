@@ -1,16 +1,18 @@
 # Research Curriculum Construction Rules
 
-1. Produce a structured curriculum, not an explanatory essay.
+1. Produce a structured curriculum map and paper inventory, not an explanatory essay.
 
-2. Focus on:
-   - defining the research scope;
+2. This stage is responsible for:
+   - defining the curriculum-wide research scope;
    - decomposing it into areas, subareas, and topics;
    - selecting the relevant papers;
-   - ordering topics and papers into a coherent learning progression.
+   - establishing conceptual dependencies and ordered paper sequences.
 
-3. Do not design individual meetings, reading sessions, exercises, supplementary materials, presentation formats, or other operational aspects of running the curriculum.
+   Its output is the source material for topic-level timeline planning.
 
-4. Decompose the complete Intellectual Scope into a clear and sufficiently detailed hierarchy:
+3. Do not design individual sessions, reading procedures, exercises, supplementary materials, presentation formats, or other operational aspects of running the curriculum.
+
+4. Decompose the complete Intellectual Scope defined in `2_Research_Curriculum_Goal.md` into a clear and sufficiently detailed hierarchy:
    - shared foundations;
    - core research areas;
    - specialized branches;
@@ -19,6 +21,7 @@
 
 5. For each topic, define:
    - its scope and included concepts;
+   - its primary area and important cross-area relationships;
    - prerequisite and related topics;
    - its place in the broader curriculum;
    - the ordered paper sequence.
@@ -72,14 +75,20 @@
 
 18. State the literature-search cutoff date and use the newest authoritative paper versions available by that date. By default, use the date on which the literature search for the curriculum is performed.
 
-19. Present the final result as a consistent hierarchy of areas, subareas, topics, and ordered papers, supplemented by:
-    - a global dependency map;
-    - a final paper index with each paper listed once under its primary topic.
+19. Present the final result as:
+    - a consistent hierarchy of areas, subareas, and topics;
+    - a global topic-dependency map;
+    - an ordered paper sequence for every topic;
+    - a complete paper index in which each paper appears once under its primary topic and may be cross-referenced elsewhere.
+
+20. The ordering produced at this stage represents conceptual and literature progression, not a schedule of study sessions. Topic-level session timelines are constructed separately under `4_Topic_Planning_Guideline.md`.
 
 [^paper-quality]: **Fixed Paper Quality Score (0–100):** rate each component from 0 to 10 and calculate
+
     \[
     Q = 10(0.20S + 0.20E + 0.20M + 0.15I + 0.15R + 0.10T),
     \]
+
     where:
     - **S** = scientific significance;
     - **E** = strength of evidence;
@@ -88,11 +97,10 @@
     - **R** = current relevance;
     - **T** = transparency and verifiability.
 
-Scoring and reporting:
-- use **0** for absent or unsupported, **5** for adequate, and **10** for exceptional; intermediate values are allowed;
-- assess influence using age-normalized citations and demonstrated downstream adoption rather than raw citation count alone;
-- report the component scores, total score, and source/retrieval date of quantitative statistics;
-- if a component cannot be assessed, mark it **N/A** and renormalize the remaining weights;
-- treat reproduction feasibility as separate from quality; it does not affect `Q`;
-- reduce the score for large compute, proprietary data, specialized hardware, or unavailable code only when they materially weaken the evidence or verifiability.
-
+    Scoring and reporting:
+    - use **0** for absent or unsupported, **5** for adequate, and **10** for exceptional; intermediate values are allowed;
+    - assess influence using age-normalized citations and demonstrated downstream adoption rather than raw citation count alone;
+    - report the component scores, total score, and source/retrieval date of quantitative statistics;
+    - if a component cannot be assessed, mark it **N/A** and renormalize the remaining weights;
+    - treat reproduction feasibility as separate from quality; it does not affect `Q`;
+    - reduce the score for large compute, proprietary data, specialized hardware, or unavailable code only when they materially weaken the evidence or verifiability.

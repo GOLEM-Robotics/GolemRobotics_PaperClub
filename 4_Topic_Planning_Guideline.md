@@ -1,95 +1,129 @@
-# Research Club Topic Planning Guideline
+# Topic Timeline Construction Guideline
 
-Each general topic should be treated as a structured learning cycle made up of multiple individual study sessions.
+This guideline converts one topic from the curriculum map produced under `3_research_curriculum_construction_rules.md` into a complete, dependency-aware sequence of study sessions. It defines the topic timeline, not the detailed preparation or execution of individual sessions.
 
-### Step 1: Define the scope
+## 1. Use the curriculum map as the source
 
-State:
+Start from the topic's:
 
-- what the topic covers;
-- why it matters for physical AI;
-- what level of understanding the club aims to reach;
-- what is outside the scope.
+- scope and included concepts;
+- prerequisite and related topics;
+- paper inventory and paper order;
+- intellectual lineages;
+- role within the wider curriculum.
 
-The scope should be broad enough to build connected understanding but narrow enough to complete within a defined study cycle.
+Do not reopen the curriculum-wide division into topics unless timeline construction reveals a genuine gap, contradiction, or misplaced paper. Record any such issue for correction in the curriculum map.
 
-### Step 2: Identify required foundations
+## 2. Confirm the topic boundary and target depth
 
-List the concepts that members must understand before studying the main topic.
+Define:
 
-Include, where relevant:
+- what the topic covers and excludes;
+- the level of competence the completed timeline should produce;
+- its dependencies on shared foundations and other topics;
+- the advanced, expert, or frontier endpoint of the topic.
 
-- mathematics;
-- probability and statistics;
-- optimization;
-- machine-learning concepts;
-- robotics, control, or physical-system concepts;
-- software and experimental tools.
+Prioritize completeness and logical progression over a short timeline or a fixed number of sessions. Split a topic only when its parts form genuinely distinct and independently coherent learning tracks.
 
-Do not assume that familiarity with terminology means genuine understanding. Missing foundations should be studied first or introduced before they are needed.
+## 3. Resolve the required foundations
 
-### Step 3: Build a concept map
+Classify every prerequisite as:
 
-Divide the topic into:
+- already covered by the shared core;
+- supplied by another topic timeline;
+- a topic-local foundation that must be added before it is needed.
 
-1. foundational concepts;
-2. central methods and approaches;
-3. practical implementation issues;
-4. evaluation methods;
-5. limitations and open problems;
-6. connections to other areas of physical AI.
+Add topic-local foundation sessions where necessary. Cross-reference shared or external foundations instead of duplicating complete sequences across topics.
 
-Arrange these elements in dependency order so that later sessions build on earlier ones.
+Relevant foundations may include mathematics, probability, optimization, machine learning, robotics, control, physical systems, software, or experimental methodology.
 
-### Step 4: Define learning outcomes
+## 4. Build the topic dependency map
 
-For the topic, specify what members should eventually be able to:
+Arrange the topic's content into a dependency graph covering, where relevant:
 
-- explain;
-- derive or reconstruct;
-- implement or inspect;
-- evaluate;
-- compare;
-- apply;
-- question.
+- foundational concepts;
+- paper lineages and major methodological transitions;
+- central methods and competing approaches;
+- mathematical and architectural reconstruction;
+- implementation and systems considerations;
+- evaluation methods and evidence;
+- limitations, critical results, and open problems;
+- connections to other physical-AI areas;
+- modern synthesis and frontier directions.
 
-Learning outcomes should describe demonstrated competence rather than material that has merely been covered.
+The dependency map determines the timeline order. Publication chronology is secondary unless it is necessary to understand the development of the field.
 
-### Step 5: Plan the study sessions
+## 5. Convert the topic into a session timeline
 
-Divide the topic into individual sessions.
+Create an ordered sequence in which each session addresses one coherent question, mechanism, comparison, or stage of understanding.
 
-Each session should address one coherent question or mechanism. The sequence should normally progress from foundations to methods, then to implementation, evaluation, and synthesis.
+Sessions may:
 
-Implementation-focused sessions should be included when implementation is necessary for understanding and feasible with available resources.
+- combine several papers that serve one objective;
+- divide a dense or foundational paper across multiple sessions;
+- add non-paper sessions for foundations, reconstruction, evaluation, integration, or synthesis;
+- use a paper from another topic through a cross-reference rather than duplicate it in the curriculum inventory.
 
-### Step 6: Maintain a shared topic record
+For important topics, the complete timeline should collectively cover the applicable stages of the club's learning model:
 
-After every session, update one shared record containing:
+**foundations → paper lineage → mathematical and architectural reconstruction → implementation or reproduction where useful → controlled evaluation → system-level interpretation → synthesis, frontier questions, or original extension**
 
-- established concepts;
-- important definitions and assumptions;
-- mathematical or architectural relationships;
-- implementation findings;
-- unresolved questions;
-- connections between sessions.
+This is a topic-level progression, not a mandatory one-session-per-stage template. Practical work should be included when it materially improves understanding, not merely because an implementation exists.
 
-The record should represent the club’s current understanding of the topic, not a collection of disconnected summaries.
+For every planned session, specify only the information needed at timeline level:
 
-### Step 7: Conclude the topic
+- sequence number and title;
+- central question or objective;
+- stage or role within the topic;
+- prerequisite concepts or sessions;
+- concepts and papers covered;
+- expected capability or understanding after completion;
+- relationship to the preceding and following sessions;
+- any planned implementation, evaluation, or synthesis component.
 
-At the end of the cycle, review whether the learning outcomes were achieved.
+Detailed reading instructions, preparation, meeting structure, note-taking, and outcome verification belong to `Individual_Session_Guideline.md`.
 
-Members should:
+## 6. Validate completeness and progression
 
-- reconstruct the main ideas without relying on source wording;
-- explain how the concepts fit together;
-- identify important assumptions and limitations;
-- summarize implementation and evaluation lessons;
-- identify remaining knowledge gaps;
-- formulate possible research questions.
+Before finalizing the timeline, verify that:
 
-Unresolved gaps should be assigned to future study rather than hidden by a general summary.
+- every required concept and selected paper is assigned, cross-referenced, or explicitly marked optional or deferred;
+- no session depends on knowledge introduced later;
+- transitions from foundations to expert material are sufficiently gradual;
+- important competing, critical, and evaluation perspectives are represented;
+- implementation is not treated as mandatory when reconstruction or analysis is more appropriate;
+- the timeline reaches the target depth without artificial compression or filler sessions;
+- the final sessions integrate the topic and expose unresolved research questions rather than ending at the last selected paper.
 
----
+## 7. Design for interleaved execution
 
+Each topic timeline will later form one vertical progression in the global curriculum table:
+
+- columns represent topics;
+- rows represent successive depth levels or sessions within each topic;
+- the upper cells contain foundations and early-entry material;
+- lower cells progress toward advanced, expert, and frontier work.
+
+The global schedule proceeds across a row from left to right, changing topic each week, and then continues with the next row. This repeated rotation is intended to revisit each topic over the long term rather than complete one topic before starting another.
+
+Construct each topic timeline so that it remains coherent under this interleaving:
+
+- make dependencies explicit;
+- link every session to the previous session in the same topic;
+- include enough resumption context to continue after sessions from other topics;
+- preserve prerequisite constraints even when they require adjusting the otherwise regular rotation;
+- do not shorten, pad, or distort topic timelines merely to make all columns equal in length.
+
+## 8. Required output
+
+Produce one `topic_plan_and_session_timeline.md` containing:
+
+1. topic scope and target depth;
+2. dependencies and required foundations;
+3. topic concept and dependency map;
+4. ordered session timeline;
+5. cross-topic links;
+6. coverage and progression check;
+7. planned synthesis, frontier questions, and unresolved gaps.
+
+The file should define what the topic timeline contains and why each session occupies its position. It should not prescribe the detailed conduct of the meetings.
