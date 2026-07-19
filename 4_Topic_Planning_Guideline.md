@@ -1,6 +1,4 @@
-# Research Club Study Guideline
-
-## 1. General Topic
+# Research Club Topic Planning Guideline
 
 Each general topic should be treated as a structured learning cycle made up of multiple individual study sessions.
 
