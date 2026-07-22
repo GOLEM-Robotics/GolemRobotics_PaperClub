@@ -1,0 +1,57 @@
+# Supporting-materials Index
+
+| Field | Value |
+|---|---|
+| Verification date | 22 July 2026 |
+| Supporting-resource records | **41** |
+| Index rule | Non-primary materials remain separate from the primary-paper inventory and are referenced by stable resource IDs. |
+
+| ID | Resource | Type | Supports | Required use | Status | Confidence |
+|---|---|---|---|---|---|---|
+| R001 | [Reinforcement Learning: An Introduction, 2nd ed.](http://incompleteideas.net/book/the-book-2nd.html) — Richard S. Sutton and Andrew G. Barto | Textbook | L1–L5, L8 | Primary mathematical entry point; use selected chapters before original TD/Q/policy-gradient papers. | Current | High |
+| R002 | [Algorithms for Reinforcement Learning](https://sites.ualberta.ca/~szepesva/RLBook.html) — Csaba Szepesvári | Open monograph | L1–L4 | Concise mathematical treatment when Sutton–Barto is too broad. | Current | High |
+| R003 | [OpenAI Spinning Up in Deep RL](https://spinningup.openai.com/) — OpenAI | Course notes and reference implementations | L1–L2 | Practical derivations and baseline implementations for policy-gradient and actor–critic methods. | Current | High |
+| R004 | [CS285: Deep Reinforcement Learning](https://rail.eecs.berkeley.edu/deeprlcourse/) — UC Berkeley / Sergey Levine | Lecture notes and videos | L1–L8, P5 | Modern bridge from theory to model-free, model-based, imitation, and offline RL. | Current | High |
+| R005 | [Modern Robotics: Mechanics, Planning, and Control](https://modernrobotics.northwestern.edu/) — Kevin M. Lynch and Frank C. Park | Open textbook/course | F6–F7, S1 | Kinematics, dynamics, Jacobians, control, and planning prerequisites. | Current | High |
+| R006 | [Underactuated Robotics](https://underactuated.csail.mit.edu/) — Russ Tedrake | Open textbook/lecture notes | F6–F7, P5, S3, S7 | Nonlinear dynamics, optimal control, planning, and learning for physical systems. | Current | High |
+| R007 | [Planning Algorithms](https://lavalle.pl/planning/) — Steven M. LaValle | Open textbook | F7 | Primary conceptual support for PRM/RRT, kinodynamic planning, and planning under uncertainty. | Current | High |
+| R008 | [Probabilistic Robotics](https://mitpress.mit.edu/9780262201629/probabilistic-robotics/) — Sebastian Thrun, Wolfram Burgard, and Dieter Fox | Textbook | F8, S4 | Bayesian filtering, localization, mapping, and SLAM foundation. | Current | High |
+| R009 | [Factor Graphs for Robot Perception](https://www.cs.cmu.edu/~kaess/pub/Dellaert17fnt.pdf) — Frank Dellaert and Michael Kaess | Monograph | F8 | Best structured entry point to factor graphs, smoothing, and sparse inference. | Current | High |
+| R010 | [GTSAM Documentation and Tutorials](https://gtsam.org/) — Georgia Tech Borg Lab | Documentation/tutorials | F8 | Implementation support for factor graphs, preintegration, and SLAM reproductions. | Current | High |
+| R011 | [Deep Learning](https://www.deeplearningbook.org/) — Ian Goodfellow, Yoshua Bengio, and Aaron Courville | Open textbook | F2–F4 | Targeted chapters for optimization, regularization, sequence models, and generative modeling. | Current | High |
+| R012 | [Dive into Deep Learning](https://d2l.ai/) — Aston Zhang et al. | Interactive open textbook | F2–F5, P1 | Implementation-oriented prerequisite repair for uneven member backgrounds. | Current | High |
+| R013 | [Stanford CS231n](https://cs231n.github.io/) — Stanford Vision Lab | Lecture notes | F2–F4, P1–P2 | Targeted computer-vision and optimization foundation. | Current | High |
+| R014 | [Stanford CS224n](https://web.stanford.edu/class/cs224n/) — Stanford NLP Group | Lecture notes | F3, F5, E1–E3 | Transformer, language-model, and alignment prerequisites. | Current | High |
+| R015 | [Full Stack Deep Learning](https://fullstackdeeplearning.com/) — FSDL | Course | D3–D4 | Experiment management, deployment, testing, data, and production ML systems. | Current | High |
+| R016 | [Machine Learning Systems](https://mlsysbook.ai/) — Vijay Janapa Reddi et al. | Open textbook | D3–D4 | Hardware-aware training and inference support; use current online version. | Current | High |
+| R017 | [LeRobot Documentation](https://huggingface.co/docs/lerobot/) — Hugging Face | Documentation and open framework | D1–D4, L6, E2 | Dataset schema, teleoperation, policy training, evaluation, and low-cost hardware integration. | Current | High |
+| R018 | [robomimic Documentation](https://robomimic.github.io/) — ARISE Initiative | Documentation and benchmark recipes | L3–L4, D1–D2, S1 | Reference implementation for demonstration learning and benchmark audits. | Current | High |
+| R019 | [ManiSkill Documentation](https://maniskill.readthedocs.io/) — Haosulab | Simulation/benchmark documentation | D2, L2–L7, S1 | High-throughput manipulation experiments and standardized evaluation. | Current | High |
+| R020 | [MuJoCo Documentation](https://mujoco.readthedocs.io/) — Google DeepMind | Physics simulator documentation | F6–F7, L2, L7, S3 | Reliable dynamics/control simulation reference. | Current | High |
+| R021 | [Isaac Lab Documentation](https://isaac-sim.github.io/IsaacLab/) — NVIDIA | Simulation and robot-learning documentation | L2, L7, D3, S3 | GPU-parallel robot-learning workflows, domain randomization, and deployment interfaces. | Current | High |
+| R022 | [The Bitter Lesson](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) — Rich Sutton | Research essay | F5, D1, E2 | Short framing resource for scale-versus-hand-engineering debates; not a primary scientific result. | Current | High |
+| R023 | [A Survey of Vision-Language-Action Models for Robotics: Towards Real-World Applications](https://arxiv.org/abs/2510.07077) — Kento Kawaharazuka et al. | Survey | E2, D1–D4 | Current full-stack map of VLA architectures, data, hardware, and evaluation; use for navigation, not as a replacement for primary papers. | Current | High |
+| R024 | [Robot Learning from Randomized Simulations: A Review](https://arxiv.org/abs/2111.00956) — Fabio Muratore et al. | Survey | L7 | Structured overview of domain randomization assumptions, methods, and limitations. | Current | High |
+| R025 | [Offline Reinforcement Learning: Tutorial, Review, and Perspectives on Open Problems](https://arxiv.org/abs/2005.01643) — Sergey Levine et al. | Survey | L4 | Entry point before BCQ/CQL/IQL; clarifies distribution shift and evaluation. | Current | High |
+| R026 | [A Survey on Model-Based Reinforcement Learning](https://arxiv.org/abs/2006.16712) — Thomas M. Moerland et al. | Survey | P5 | Taxonomy of learned models, planning, uncertainty, and policy learning. | Current | High |
+| R027 | [Stanford CS336: Language Modeling from Scratch](https://cs336.stanford.edu/) | Supporting resource | F3, F5, D3, D4 | End-to-end reconstruction of tokenization, Transformer training, systems optimization, scaling, data preparation, evaluation, and post-training. | Current | High |
+| R028 | [MIT Robotic Manipulation: Perception, Planning, and Control](https://manipulation.mit.edu/) | Supporting resource | F6, F7, P3, E1, S1, S2 | Integrated manipulation stack connecting geometry, perception, planning, contact, control, and learning. | Current | High |
+| R029 | [CleanRL Documentation and Reference Implementations](https://docs.cleanrl.dev/) | Supporting resource | F1, L1, L2, D3 | Code-level reconstruction, implementation-difference audits, seeded baselines, and reproducibility checks. | Current | High |
+| R030 | [ROS 2 Real-Time Programming Documentation](https://docs.ros.org/en/kilted/Tutorials/Demos/Real-Time-Programming.html) | Supporting resource | F6, L7, D3, D4 | Deadline, jitter, memory-allocation, scheduling, and execution-path constraints for physical robot deployment. | Current | High |
+| R031 | [NVIDIA TensorRT Documentation](https://docs.nvidia.com/deeplearning/tensorrt/latest/) | Supporting resource | D4 | Profiling, graph optimization, precision selection, dynamic shapes, engine construction, and latency/accuracy validation. | Current | High |
+| R032 | [Habitat Lab Documentation](https://aihabitat.org/docs/habitat-lab/) | Supporting resource | D2, E3, S4 | Navigation/embodied-agent task definitions, vectorized environments, datasets, evaluation, and hierarchical-agent experiments. | Current | High |
+| R033 | [PyTorch Distributed and Distributed Checkpoint Documentation](https://docs.pytorch.org/tutorials/distributed.html) | Supporting resource | F5, D3, D4 | DDP/FSDP/tensor parallelism, distributed checkpointing, recovery, profiling, and topology-aware training experiments. | Current | High |
+| R034 | [Drake Documentation and Tutorials](https://drake.mit.edu/tutorials/) | Supporting resource | F6, F7, P5, S1, S3, S7 | Multibody dynamics, contact, mathematical programming, automatic differentiation, systems diagrams, and model-based verification. | Current | High |
+| R035 | [Human–Robot Interaction: An Introduction, 2nd ed.](https://www.human-robot-interaction.org/) | Supporting resource | S8 | HRI concepts, study design, human-centered evaluation, interaction modalities, and societal constraints. | Current | High |
+| R036 | [DiffTaichi Reproduction Examples](https://github.com/taichi-dev/difftaichi) | Supporting resource | S7 | Small differentiable simulators for gradient verification, inverse problems, controller optimization, and simulator-design tradeoffs. | Current | High |
+| R037 | [PettingZoo Documentation](https://pettingzoo.farama.org/) | Supporting resource | S6 | Correct multi-agent environment semantics, reproducible interfaces, and controlled CTDE/non-stationarity experiments. | Current | High |
+| R038 | [CORL: Clean Offline Reinforcement Learning](https://corl-team.github.io/CORL/) | Supporting resource | L4, D3 | Auditable CQL/IQL/Decision Transformer/offline-to-online baselines with published benchmark configurations and logs. | Current | High |
+| R039 | [NVIDIA Isaac Sim Documentation](https://docs.isaacsim.omniverse.nvidia.com/latest/index.html) | Official simulation documentation | P2, P3, L7, D2, D3, D5, S1, S3, S5 | Scene construction, physics and sensor simulation, ROS 2 integration, synthetic data generation, software-/hardware-in-the-loop evaluation, and simulator profiling. | Current | High |
+| R040 | [Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning](https://arxiv.org/abs/2511.04831) | Framework paper / technical reference | L2, L7, D2, D3, D5, S1, S2, S3, S4, S5 | Architecture and design reference for GPU-parallel physics, sensors, actuator models, domain randomization, demonstration collection, reinforcement learning, and imitation learning. | Current technical reference | High |
+| R041 | [Orbit: A Unified Simulation Framework for Interactive Robot Learning Environments](https://arxiv.org/abs/2301.04195) | Framework paper / implementation lineage | L7, D3, D5, S1, S5 | Predecessor lineage to Isaac Lab; modular Isaac Sim environments, manipulation tasks, sensor/action abstractions, demonstration generation, and GPU-parallel learning. | Current | High |
+
+## Verification notes
+
+- All resource titles, canonical links, and stated roles were checked or rechecked on 22 July 2026.
+- Documentation resources are version-sensitive; their stable project/documentation landing pages are used instead of release-specific deep links where possible.
+- R040 is a framework paper/technical reference and remains in this supporting index rather than the primary-paper inventory because it was introduced during topic planning as implementation lineage support.
