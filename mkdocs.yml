@@ -1,0 +1,154 @@
+site_name: Golem Robotics Research Curriculum
+site_description: >-
+  A paper-driven, experiment-centered curriculum for robot learning,
+  embodied intelligence, and physical AI.
+
+docs_dir: curriculum_and_progress
+site_dir: site
+use_directory_urls: true
+strict: true
+
+hooks:
+  - hooks/build_curriculum_graph.py
+
+theme:
+  name: material
+  language: en
+  logo: material/robot-industrial
+  icon:
+    admonition:
+      note: material/note-text
+  font: false
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.path
+    - navigation.top
+    - navigation.footer
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-\.]+'
+
+markdown_extensions:
+  - tables
+  - attr_list
+  - md_in_html
+  - def_list
+  - footnotes
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.snippets:
+      base_path:
+        - .
+      check_paths: true
+      restrict_base_path: true
+
+extra_css:
+  - stylesheets/extra.css
+  - assets/stylesheets/curriculum_explorer.css
+
+extra_javascript:
+  - assets/javascripts/curriculum_explorer.js
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+copyright: Golem Robotics Paper Club
+nav:
+  - Explorer: index.md
+  - Overview:
+      - Documentation overview: overview.md
+      - Operating principles: reference/operating_principles.md
+      - Curriculum goal: reference/research_curriculum_goal.md
+      - Curriculum construction rules: reference/research_curriculum_construction_rules.md
+      - Topic planning guideline: reference/topic_planning_guideline.md
+      - Repository structure: reference/repository_structure.md
+  - Curriculum:
+      - Curriculum map: curriculum_map.md
+      - Curriculum table: curriculum_table.md
+  - Topics:
+      - Shared foundations:
+          - "F1 — Research evidence, reproducibility, and empirical methodology": topics/f1_research_evidence_reproducibility_and_empirical_methodology/topic_plan_and_session_timeline.md
+          - "F2 — Optimization and deep-learning mechanics": topics/f2_optimization_and_deep_learning_mechanics/topic_plan_and_session_timeline.md
+          - "F3 — Neural architectures and sequence models": topics/f3_neural_architectures_and_sequence_models/topic_plan_and_session_timeline.md
+          - "F4 — Self-supervised and generative learning": topics/f4_self_supervised_and_generative_learning/topic_plan_and_session_timeline.md
+          - "F5 — Foundation-model training, post-training, and adaptation": topics/f5_foundation_model_training_post_training_and_adaptation/topic_plan_and_session_timeline.md
+          - "F6 — Robot mechanics, dynamics, and interaction control": topics/f6_robot_mechanics_dynamics_and_interaction_control/topic_plan_and_session_timeline.md
+          - "F7 — Motion planning, trajectory optimization, and optimal control": topics/f7_motion_planning_trajectory_optimization_and_optimal_control/topic_plan_and_session_timeline.md
+          - "F8 — State estimation, sensor fusion, and SLAM": topics/f8_state_estimation_sensor_fusion_and_slam/topic_plan_and_session_timeline.md
+      - Perception, spatial intelligence, and world models:
+          - "P1 — Visual and multimodal representation learning": topics/p1_visual_and_multimodal_representation_learning/topic_plan_and_session_timeline.md
+          - "P2 — Detection, segmentation, grounding, and tracking": topics/p2_detection_segmentation_grounding_and_tracking/topic_plan_and_session_timeline.md
+          - "P3 — 3D representation, reconstruction, and semantic mapping": topics/p3_3d_representation_reconstruction_and_semantic_mapping/topic_plan_and_session_timeline.md
+          - "P4 — Video representation and predictive learning": topics/p4_video_representation_and_predictive_learning/topic_plan_and_session_timeline.md
+          - "P5 — Learned dynamics, model-based RL, and world models": topics/p5_learned_dynamics_model_based_rl_and_world_models/topic_plan_and_session_timeline.md
+      - Learning to act:
+          - "L1 — Reinforcement-learning foundations": topics/l1_reinforcement_learning_foundations/topic_plan_and_session_timeline.md
+          - "L2 — Deep model-free continuous control": topics/l2_deep_model_free_continuous_control/topic_plan_and_session_timeline.md
+          - "L3 — Imitation learning and inverse reinforcement learning": topics/l3_imitation_learning_and_inverse_reinforcement_learning/topic_plan_and_session_timeline.md
+          - "L4 — Offline and offline-to-online reinforcement learning": topics/l4_offline_and_offline_to_online_reinforcement_learning/topic_plan_and_session_timeline.md
+          - "L5 — Goal-conditioned, hierarchical, meta-, and skill learning": topics/l5_goal_conditioned_hierarchical_meta_and_skill_learning/topic_plan_and_session_timeline.md
+          - "L6 — Generative action policies and action representations": topics/l6_generative_action_policies_and_action_representations/topic_plan_and_session_timeline.md
+          - "L7 — Sim-to-real transfer, system identification, and adaptation": topics/l7_sim_to_real_transfer_system_identification_and_adaptation/topic_plan_and_session_timeline.md
+          - "L8 — Safety, uncertainty, intervention, and constrained learning": topics/l8_safety_uncertainty_intervention_and_constrained_learning/topic_plan_and_session_timeline.md
+      - Data, evaluation, and research systems:
+          - "D1 — Robot-data collection, teleoperation, and dataset construction": topics/d1_robot_data_collection_teleoperation_and_dataset_construction/topic_plan_and_session_timeline.md
+          - "D2 — Robot-learning benchmarks, generalization, and failure analysis": topics/d2_robot_learning_benchmarks_generalization_and_failure_analysis/topic_plan_and_session_timeline.md
+          - "D3 — Research systems, experiment infrastructure, and reproducible training": topics/d3_research_systems_experiment_infrastructure_and_reproducible_training/topic_plan_and_session_timeline.md
+          - "D4 — Efficient deployment, latency, compression, and real-time policy execution": topics/d4_efficient_deployment_latency_compression_and_real_time_policy_execution/topic_plan_and_session_timeline.md
+          - "D5 — Synthetic data, learned simulators, and scalable data engines": topics/d5_synthetic_data_learned_simulators_and_scalable_data_engines/topic_plan_and_session_timeline.md
+      - Language, multimodality, and embodied reasoning:
+          - "E1 — Language-conditioned robotics, grounding, and task planning": topics/e1_language_conditioned_robotics_grounding_and_task_planning/topic_plan_and_session_timeline.md
+          - "E2 — Vision-language-action models and generalist robot policies": topics/e2_vision_language_action_models_and_generalist_robot_policies/topic_plan_and_session_timeline.md
+          - "E3 — Embodied memory, agentic control, self-improvement, and world-action models": topics/e3_embodied_memory_agentic_control_self_improvement_and_world_action_models/topic_plan_and_session_timeline.md
+      - Specialization branches:
+          - "S1 — Manipulation, grasping, contact, and bimanual control": topics/s1_manipulation_grasping_contact_and_bimanual_control/topic_plan_and_session_timeline.md
+          - "S2 — Tactile sensing and dexterous manipulation": topics/s2_tactile_sensing_and_dexterous_manipulation/topic_plan_and_session_timeline.md
+          - "S3 — Legged locomotion and whole-body control": topics/s3_legged_locomotion_and_whole_body_control/topic_plan_and_session_timeline.md
+          - "S4 — Navigation and embodied agents": topics/s4_navigation_and_embodied_agents/topic_plan_and_session_timeline.md
+          - "S5 — Deformable objects, learned physics, and graph models": topics/s5_deformable_objects_learned_physics_and_graph_models/topic_plan_and_session_timeline.md
+          - "S6 — Multi-agent reinforcement learning": topics/s6_multi_agent_reinforcement_learning/topic_plan_and_session_timeline.md
+          - "S7 — Differentiable physics, robot design, and co-optimization": topics/s7_differentiable_physics_robot_design_and_co_optimization/topic_plan_and_session_timeline.md
+          - "S8 — Human feedback, shared autonomy, and human–robot interaction": topics/s8_human_feedback_shared_autonomy_and_human_robot_interaction/topic_plan_and_session_timeline.md
+  - Papers: paper_index.md
+  - Resources: supporting_materials_index.md
+  - Frontier: frontier_watchlist.md

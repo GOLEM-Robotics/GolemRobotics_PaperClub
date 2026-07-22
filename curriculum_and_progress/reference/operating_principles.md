@@ -1,0 +1,1 @@
+--8<-- "1_operating_principles.md"

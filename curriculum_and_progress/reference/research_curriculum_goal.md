@@ -1,0 +1,1 @@
+--8<-- "2_research_curriculum_goal.md"
