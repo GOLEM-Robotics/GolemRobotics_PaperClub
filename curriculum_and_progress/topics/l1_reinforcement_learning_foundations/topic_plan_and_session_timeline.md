@@ -106,3 +106,20 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-7F10336A-06F6-53ED-9646-B366FF92F6FF` | `L1-S01` | 1 | Foundations — MDPs/POMDPs, returns, occupancy |
+| `SES-571B3DFB-9A79-59D0-B810-09A4BB71DD48` | `L1-S02` | 2 | P072 — Learning to Predict by the Methods of Temporal Differences |
+| `SES-C7A6E3E6-9F7E-5A19-8338-2DE800D9B8CD` | `L1-S03` | 3 | P073 — Q-Learning |
+| `SES-5549AC75-DEB3-55C9-99A8-EDFA88A2CBE4` | `L1-S04` | 4 | P074 — Simple Statistical Gradient-Following Algorithms for Connectionist Reinforcement Learning |
+| `SES-99CE4E1A-5F35-55DA-819A-46A4A642D78E` | `L1-S05` | 5 | P075 — Human-Level Control through Deep Reinforcement Learning |
+| `SES-799DB50D-078C-52B1-824E-2909E6F3D56B` | `L1-S06` | 6 | P076 — Asynchronous Methods for Deep Reinforcement Learning |
+| `SES-DD9A133B-7420-57CF-89D7-4586EE54B947` | `L1-S07` | 7 | Unified reconstruction and method comparison |
+| `SES-3D8876DD-54BA-52C1-A6D1-958805461EC9` | `L1-S08` | 8 | Controlled implementation and evaluation |
+| `SES-0E52FD25-8934-51FD-A59A-692159368D8C` | `L1-S09` | 9 | Evidence, limitations, and system interpretation |
+| `SES-72D4BC84-796C-57A5-9CA6-0967E771D725` | `L1-S10` | 10 | Synthesis and research directions |

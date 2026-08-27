@@ -39,7 +39,7 @@
 | R006 | [Underactuated Robotics](https://underactuated.csail.mit.edu/) | Open textbook/lecture notes | Nonlinear dynamics, optimal control, planning, and learning for physical systems. | S1, S2, S3, S4, S5, S6, S7, S8, S9, S10 |
 | R019 | [ManiSkill Documentation](https://maniskill.readthedocs.io/) | Simulation/benchmark documentation | High-throughput manipulation experiments and standardized evaluation. | S1, S2, S3, S4, S5, S6, S7, S8, S9, S10 |
 | R021 | [Isaac Lab Documentation](https://isaac-sim.github.io/IsaacLab/) | Simulation and robot-learning documentation | GPU-parallel robot-learning workflows, domain randomization, and deployment interfaces. | S1, S6, S7, S8, S9, S10 |
-| R026 | [A Survey on Model-Based Reinforcement Learning](https://arxiv.org/abs/2006.16712) | Survey | Taxonomy of learned models, planning, uncertainty, and policy learning. | S1, S6, S7, S8, S9, S10 |
+| R026 | [Model-based Reinforcement Learning: A Survey](https://arxiv.org/abs/2006.16712) | Survey | Taxonomy of learned models, planning, uncertainty, and policy learning. | S1, S6, S7, S8, S9, S10 |
 | R039 | [NVIDIA Isaac Sim Documentation](https://docs.isaacsim.omniverse.nvidia.com/latest/index.html) | Official simulation documentation | Scene construction, physics and sensor simulation, ROS 2 integration, synthetic data generation, software-/hardware-in-the-loop evaluation, and simulator profiling. | S1, S6, S9, S10 |
 | R040 | [Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning](https://arxiv.org/abs/2511.04831) | Framework paper / technical reference | Architecture and design reference for GPU-parallel physics, sensors, actuator models, domain randomization, demonstration collection, reinforcement learning, and imitation learning. | S1, S6, S9, S10 |
 | R041 | [Orbit: A Unified Simulation Framework for Interactive Robot Learning Environments](https://arxiv.org/abs/2301.04195) | Framework paper / implementation lineage | Predecessor lineage to Isaac Lab; modular Isaac Sim environments, manipulation tasks, sensor/action abstractions, demonstration generation, and GPU-parallel learning. | S1, S6, S9, S10 |
@@ -109,3 +109,20 @@
 | Supporting-resource additions | R039 — NVIDIA Isaac Sim Documentation; R040 — Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning; R041 — Orbit: A Unified Simulation Framework for Interactive Robot Learning Environments |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-249D1147-C059-528D-892C-B914E53241E0` | `S5-S01` | 1 | Foundations — Graphs and message passing, particle/mesh representations, material parameters |
+| `SES-6A22B7CD-81A3-5E9C-B131-95CB69AD380F` | `S5-S02` | 2 | P181 — Interaction Networks for Learning about Objects, Relations and Physics |
+| `SES-19B3115C-137C-50A8-88C8-8A5E97DF59FE` | `S5-S03` | 3 | P182 — Learning to Simulate Complex Physics with Graph Networks |
+| `SES-F5FA0C72-B0A8-5F72-9362-09CEE596E723` | `S5-S04` | 4 | P183 — SoftGym: Benchmarking Deep Reinforcement Learning for Deformable Object Manipulation |
+| `SES-F00A4672-3B21-55A8-817A-92EDE820799D` | `S5-S05` | 5 | P184 — DiffTaichi: Differentiable Programming for Physical Simulation |
+| `SES-55B9BCF7-AC2E-50A3-8214-5148D5B54261` | `S5-S06` | 6 | Unified reconstruction and method comparison |
+| `SES-38FC3A13-CF7C-5640-8B16-C788745CC41D` | `S5-S07` | 7 | Evidence, limitations, and system interpretation |
+| `SES-100A5FD3-8C74-5C75-A1C0-5883496010AB` | `S5-S08` | 8 | Synthesis and research directions |
+| `SES-0090ECAC-1014-56F2-B49A-B0A7E51C7AF1` | `S5-S09` | 9 | Controlled implementation and evaluation |
+| `SES-D942966B-77C4-548E-A578-CD2995294A64` | `S5-S10` | 10 | Optional branch synthesis and activation decision |

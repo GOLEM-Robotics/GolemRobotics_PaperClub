@@ -103,3 +103,19 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-1E8DEFC2-FCF8-57B3-BA60-073EDE45FB6C` | `F1-S01` | 1 | Foundations — Experimental units, stochasticity sources, estimands |
+| `SES-B7BB85F3-6BED-598C-BAF1-F34C520358A9` | `F1-S02` | 2 | P001 — Deep Reinforcement Learning That Matters |
+| `SES-1BC6A91B-B5F6-53BD-9182-A8B1294E1ED3` | `F1-S03` | 3 | P002 — Implementation Matters in Deep Policy Gradients: A Case Study on PPO and TRPO |
+| `SES-CBA3604B-0BEB-5634-AA85-6E280751C442` | `F1-S04` | 4 | P003 — Deep Reinforcement Learning at the Edge of the Statistical Precipice |
+| `SES-E6937127-D1B4-5BB6-B2D8-A675F38C6A87` | `F1-S05` | 5 | P004 — Improving Reproducibility in Machine Learning Research: A Report from the NeurIPS 2019 Reproducibility Program |
+| `SES-E71EA930-9856-5F24-9A59-41F44A3FF900` | `F1-S06` | 6 | Unified reconstruction and method comparison |
+| `SES-5FDDF56E-1C20-5341-BD9E-38020BE5C7FC` | `F1-S07` | 7 | Controlled implementation and evaluation |
+| `SES-61CA7A1D-75C3-51B5-8EAF-60AEDEEF31D1` | `F1-S08` | 8 | Evidence, limitations, and system interpretation |
+| `SES-AE64CD77-0C41-57CE-80FC-11BBC9F3CCB7` | `F1-S09` | 9 | Synthesis and research directions |

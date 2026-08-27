@@ -111,3 +111,19 @@
 | Supporting-resource additions | R039 — NVIDIA Isaac Sim Documentation; R040 — Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning; R041 — Orbit: A Unified Simulation Framework for Interactive Robot Learning Environments |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-20BC98B0-AA32-58D1-9BFC-02F7BBEF8908` | `D3-S01` | 1 | Foundations — Configuration immutability, provenance, environment capture |
+| `SES-EB7766BE-F7B0-5BE0-8A7C-19FF71995ECD` | `D3-S02` | 2 | P131 — Hidden Technical Debt in Machine Learning Systems |
+| `SES-CF744FDC-5250-5490-8358-83FC8A0194DB` | `D3-S03` | 3 | P132 — ZeRO: Memory Optimizations Toward Training Trillion Parameter Models |
+| `SES-8FC80E61-5DDF-5135-B0F9-98B11011BE47` | `D3-S04` | 4 | P133 — Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism |
+| `SES-D8392883-A688-57D7-A08A-2A83409CC898` | `D3-S05` | 5 | P134 — SERL: A Software Suite for Sample-Efficient Robotic Reinforcement Learning |
+| `SES-5E7D0D5F-03A2-50B3-A00A-1310CBA32130` | `D3-S06` | 6 | Unified reconstruction and method comparison |
+| `SES-1F43275D-F0D4-5CE6-AE01-089714795417` | `D3-S07` | 7 | Controlled implementation and evaluation |
+| `SES-D893D7CD-66A8-53F8-8E35-AA4FD00E6B7A` | `D3-S08` | 8 | Evidence, limitations, and system interpretation |
+| `SES-61FE706C-2BB1-545A-A332-8810830706B0` | `D3-S09` | 9 | Synthesis and research directions |

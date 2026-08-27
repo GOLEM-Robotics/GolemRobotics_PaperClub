@@ -38,8 +38,8 @@
 |---|---|---|---|---|
 | R014 | [Stanford CS224n](https://web.stanford.edu/class/cs224n/) | Lecture notes | Transformer, language-model, and alignment prerequisites. | S1, S2, S3, S4, S5, S6, S7, S8, S9, S10 |
 | R017 | [LeRobot Documentation](https://huggingface.co/docs/lerobot/) | Documentation and open framework | Dataset schema, teleoperation, policy training, evaluation, and low-cost hardware integration. | S1, S2, S3, S4, S5, S6, S7, S8, S9, S10 |
-| R023 | [A Survey of Vision-Language-Action Models for Robotics: Towards Real-World Applications](https://arxiv.org/abs/2510.07077) | Survey | Current full-stack map of VLA architectures, data, hardware, and evaluation; use for navigation, not as a replacement for primary papers. | S1, S7, S8, S9, S10 |
-| R026 | [A Survey on Model-Based Reinforcement Learning](https://arxiv.org/abs/2006.16712) | Survey | Taxonomy of learned models, planning, uncertainty, and policy learning. | S1, S7, S8, S9, S10 |
+| R023 | [Vision-Language-Action Models for Robotics: A Review Towards Real-World Applications](https://arxiv.org/abs/2510.07077) | Survey | Current full-stack map of VLA architectures, data, hardware, and evaluation; use for navigation, not as a replacement for primary papers. | S1, S7, S8, S9, S10 |
+| R026 | [Model-based Reinforcement Learning: A Survey](https://arxiv.org/abs/2006.16712) | Survey | Taxonomy of learned models, planning, uncertainty, and policy learning. | S1, S7, S8, S9, S10 |
 | R032 | [Habitat Lab Documentation](https://aihabitat.org/docs/habitat-lab/) | Supporting resource | Navigation/embodied-agent task definitions, vectorized environments, datasets, evaluation, and hierarchical-agent experiments. | S1, S7, S8, S9, S10 |
 
 ## 4. Topic concept and dependency map
@@ -107,3 +107,20 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-677E5792-9839-5397-9AC1-1DBD633EA060` | `E3-S01` | 1 | Foundations — Persistent and episodic memory, context scaling, test-time training |
+| `SES-0FAF619F-09E6-54A3-BF13-74E25EA7B53F` | `E3-S02` | 2 | P158 — MEM: Multi-Scale Embodied Memory for Vision Language Action Models |
+| `SES-6E862A01-6075-56B3-B121-95B6D0233310` | `E3-S03` | 3 | P159 — π0.7: a Steerable Generalist Robotic Foundation Model with Emergent Capabilities |
+| `SES-8683F4B2-9112-5CF6-B5CC-2FE9FA7BCD05` | `E3-S04` | 4 | P160 — Vesta: A Generalist Embodied Reasoning Model |
+| `SES-46F970ED-F1CE-591A-8EFA-1476154D5E45` | `E3-S05` | 5 | P161 — RoboTTT: Context Scaling for Robot Policies |
+| `SES-56234956-604F-534B-9458-7E97EE5B0114` | `E3-S06` | 6 | P162 — ENPIRE: Agentic Robot Policy Self-Improvement in the Real World |
+| `SES-3C653467-2A6E-51E5-9C8A-D2A456700B3D` | `E3-S07` | 7 | Unified reconstruction and method comparison |
+| `SES-E80FF1A2-5BA7-59C4-96C6-DFBAD4B3B1AA` | `E3-S08` | 8 | Controlled implementation and evaluation |
+| `SES-11CED0F4-C297-58A6-952D-4AE1BFE4FCEA` | `E3-S09` | 9 | Evidence, limitations, and system interpretation |
+| `SES-B57C37BE-D2B2-509F-AD1F-B0218CE29EB9` | `E3-S10` | 10 | Synthesis and research directions |

@@ -104,3 +104,20 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-FA4EF06E-FCFD-5807-8E36-F9587488BC86` | `F8-S01` | 1 | Foundations — Bayes rule, Gaussian propagation, linearization |
+| `SES-AEBC32A8-7F2D-5CA5-9623-F15C714B6434` | `F8-S02` | 2 | P038 — A New Approach to Linear Filtering and Prediction Problems |
+| `SES-A3FF9367-D097-58B9-A20C-4743C65F7C78` | `F8-S03` | 3 | P039 — iSAM2: Incremental Smoothing and Mapping Using the Bayes Tree |
+| `SES-73AE45BA-4A04-531A-8DA2-983428543387` | `F8-S04` | 4 | P040 — On-Manifold Preintegration for Real-Time Visual–Inertial Odometry |
+| `SES-849FF56B-9A2A-5738-B741-7B63B1AF0D78` | `F8-S05` | 5 | P041 — VINS-Mono: A Robust and Versatile Monocular Visual–Inertial State Estimator |
+| `SES-D2160177-3694-5B37-9B77-247525960C93` | `F8-S06` | 6 | P042 — ORB-SLAM3: An Accurate Open-Source Library for Visual, Visual–Inertial, and Multi-Map SLAM |
+| `SES-342A650F-0571-5449-881F-9A52002A6FFF` | `F8-S07` | 7 | Unified reconstruction and method comparison |
+| `SES-819E2D8C-5561-5F5F-B4F7-F8453274333A` | `F8-S08` | 8 | Controlled implementation and evaluation |
+| `SES-EA7E8903-2C49-5B71-92C8-5305DDD4C3E4` | `F8-S09` | 9 | Evidence, limitations, and system interpretation |
+| `SES-38EBAF8F-9296-5A60-A41D-7C685A060914` | `F8-S10` | 10 | Synthesis and research directions |

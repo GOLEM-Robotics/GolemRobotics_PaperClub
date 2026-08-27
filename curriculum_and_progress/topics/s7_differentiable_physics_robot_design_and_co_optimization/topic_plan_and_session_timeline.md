@@ -11,7 +11,7 @@
 | Execution status | **Deferred** |
 | Covers | Differentiable simulators, gradient-based system identification, morphology/control co-design, and design optimization. |
 | Excludes | It excludes generic numerical optimization and non-differentiable simulation unless needed as a comparison. |
-| Target competence | Differentiate through physical simulation and design variables, verify gradients, perform system identification, and understand morphology/control co-optimization limitations. |
+| Target competence | Explain differentiation through physical simulation and design variables, audit gradient-verification and system-identification evidence, design a bounded reproduction plan, and understand morphology/control co-optimization limitations. |
 | Curriculum role | Deferred pending project demand. Advanced research branch requiring dedicated mathematical and simulator work. |
 | Literature cutoff / resource verification | 22 July 2026 / 22 July 2026 |
 
@@ -52,7 +52,7 @@
 | D3 | Reconstruction | Common notation, mechanisms, objectives, architectures, competing assumptions | Implementation/evidence |
 | D4 | Evidence and system interpretation | Baselines, uncertainty, limitations, failure modes, compute/data/hardware dependencies, transfer validity | Required Core synthesis |
 | D5 | Required Core synthesis | When are simulator gradients trustworthy and useful for physical robot design or control? | F6–F7, P5, L7, robot design |
-| D6 | Optional branch | P189 | Activation decision |
+| D6 | Quarantine gate | P189 identity unresolved; no paper is assigned | Human identity-resolution or retirement decision |
 
 ## 5. Ordered session timeline
 
@@ -63,9 +63,9 @@
 | 3 | **Unified reconstruction and method comparison**<br>*Reconstruction and lineage integration* | Required Core | S1–S2 | **Papers:** P188<br>**Resources:** R006, R020, R021, R034, R036 | Compare DiffTaichi-style differentiable simulation with robot design/control co-optimization, including where gradients become biased or unstable. | Unified derivation, architecture/data-flow diagram, and method comparison table. | Compare the required methods in one notation and separate conceptual, implementation, data, and scale differences.<br>Artifact: comparison matrix; next S4. |
 | 4 | **Evidence, limitations, and system interpretation**<br>*Controlled evaluation and system interpretation* | Required Core | S3; F1 and D2 | **Papers:** —<br>**Resources:** R006, R020, R021, R034, R036 | Determine what the topic’s evidence establishes for intelligent physical systems and where conclusions fail under data, compute, hardware, latency, embodiment, or benchmark changes. | Baseline, uncertainty, distribution-shift, failure-mode, and system-validity audit. | State what the evidence supports, where it fails, and which system constraints control transfer.<br>Artifact: evidence statement; next S5. |
 | 5 | **Synthesis and research directions**<br>*Synthesis and research-direction formation* | Required Core | S4 | **Papers:** —<br>**Resources:** R006, R020, R021, R034, R036 | When are simulator gradients trustworthy and useful for physical robot design or control? | Dependency/evidence summary and 2–4 falsifiable research questions. | Formulate technically grounded research questions, specify falsifiable hypotheses and minimum evidence, and connect the topic to adjacent curriculum tracks.<br>Artifact: synthesis/decision record; Required Core complete; continuation S6. |
-| 6 | **P189 — Learning to Design and Construct Structures in Simulated Environments**<br>*Paper lineage — Optional* | Optional Specialization | S5 | **Papers:** [P189 — Learning to Design and Construct Structures in Simulated Environments](https://arxiv.org/abs/2007.06011)<br>**Resources:** R006, R020 | Jointly learns construction strategies and structural objectives in simulation. | Method/evidence reconstruction; limitation: Simulation/task-specific and not direct robot morphology optimization. | Explain the method, assumptions, evidence, limitations, and lineage position.<br>Artifact: paper reconstruction; next S7. |
-| 7 | **Controlled implementation and evaluation**<br>*Implementation / reproduction / controlled evaluation* | Optional Specialization | S6 | **Papers:** —<br>**Resources:** R006, R020, R021, R034, R036 | Reproduce a small differentiable simulator or inverse-design example; check gradients, optimize parameters/controller/design, and compare with derivative-free baselines. | Reproduce a small differentiable simulator or inverse-design example; check gradients, optimize parameters/controller/design, and compare with derivative-free baselines. | Run or audit the controlled comparison and separate method, implementation, data, optimization, and infrastructure effects.<br>Artifact: experiment record; next S8. |
-| 8 | **Optional branch synthesis and activation decision**<br>*Optional specialization synthesis* | Optional Specialization | S5; S6–S7 | **Papers:** P189<br>**Resources:** R006, R020, R021, R034, R036 | Determine what the optional methods add beyond the required core and when the branch should be activated for a concrete project. | Compare incremental capability, prerequisites, implementation cost, evaluation value, and overlap with adjacent topics. | Define the activation conditions, minimal experiment, and stopping criteria for the optional branch.<br>Artifact: synthesis/decision record; topic complete. |
+| 6 | **P189 identity quarantine and resolution gate**<br>*Record-integrity review; no paper assignment* | Quarantined | S5 | **Papers:** —<br>**Resources:** — | Resolve or retire the quarantined P189 slot; do not read, cite, or substitute a paper until an authoritative identity is confirmed. | Record the intended identity, authoritative URL, authors, year, venue, and reviewer decision; otherwise retire the slot. | No curriculum credit while unresolved.<br>Artifact: identity-resolution decision; optional continuation S7 remains available independently. |
+| 7 | **Controlled implementation and evaluation**<br>*Implementation / reproduction / controlled evaluation* | Optional Specialization | S5 | **Papers:** —<br>**Resources:** R006, R020, R021, R034, R036 | Reproduce a small differentiable simulator or inverse-design example; check gradients, optimize parameters/controller/design, and compare with derivative-free baselines. | Reproduce a small differentiable simulator or inverse-design example; check gradients, optimize parameters/controller/design, and compare with derivative-free baselines. | Run or audit the controlled comparison and separate method, implementation, data, optimization, and infrastructure effects.<br>Artifact: experiment record; next S8. |
+| 8 | **Optional branch synthesis and activation decision**<br>*Optional specialization synthesis* | Optional Specialization | S5; S7 | **Papers:** —<br>**Resources:** R006, R020, R021, R034, R036 | Determine what the optional methods add beyond the required core and when the branch should be activated for a concrete project. | Compare incremental capability, prerequisites, implementation cost, evaluation value, and overlap with adjacent topics. | Define the activation conditions, minimal experiment, and stopping criteria for the optional branch.<br>Artifact: synthesis/decision record; topic complete. |
 
 ## 6. Cross-topic links
 
@@ -80,7 +80,7 @@
 
 | Check | Coverage | Status |
 |---|---|---|
-| Durable primary papers | P188, P189 | Complete |
+| Durable primary papers | P188 active; P189 quarantined outside the active inventory | Needs identity resolution |
 | Supporting resources | R006, R020, R021, R034, R036 | Assigned to sessions |
 | Dependency order | Foundations → Required Core lineage → reconstruction → evidence → synthesis | Complete |
 | Completion boundary | Required Core ends at synthesis; continuation branches are independent | Complete |
@@ -99,9 +99,24 @@
 
 | Item | Decision |
 |---|---|
-| Durable primary-paper inventory | Unchanged: P188, P189. |
+| Durable primary-paper inventory | P188 remains active. P189 is quarantined outside the active inventory pending identity verification. |
 | Topic boundary | No split or merge. |
 | Session-status correction | Timeline classification finalized: Required Core ends at synthesis and continuation branches remain independent. |
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-BB62EE10-D342-5218-AC9E-4A89D0B6D5A0` | `S7-S01` | 1 | Foundations — Automatic differentiation through time, adjoints, implicit differentiation |
+| `SES-27310692-DAB6-5A48-9C1C-34EE33763FA9` | `S7-S02` | 2 | P188 — ChainQueen: A Real-Time Differentiable Physical Simulator for Soft Robotics |
+| `SES-FB761810-054C-5474-B95A-53E475DBB72C` | `S7-S03` | 3 | Unified reconstruction and method comparison |
+| `SES-BF274917-8C5D-5EFE-AE04-555268138A1D` | `S7-S04` | 4 | Evidence, limitations, and system interpretation |
+| `SES-100B4CA9-D79E-55BC-854E-3781FD96753D` | `S7-S05` | 5 | Synthesis and research directions |
+| `SES-754CB39B-1D46-544E-959D-89F4E1F5DAD3` | `S7-S06` | 6 | P189 identity quarantine and resolution gate |
+| `SES-5B7AACE8-A32B-5DB9-8198-9EF18020131A` | `S7-S07` | 7 | Controlled implementation and evaluation |
+| `SES-E0EA2A39-DF2D-591A-AD4E-29C92868B675` | `S7-S08` | 8 | Optional branch synthesis and activation decision |

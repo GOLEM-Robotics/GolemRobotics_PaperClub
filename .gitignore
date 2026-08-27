@@ -5,3 +5,7 @@ node_modules/
 __pycache__/
 *.py[cod]
 .DS_Store
+.maintenance-runtime/
+maintenance-report.json
+maintenance-report.md
+golem-workspace-*.json

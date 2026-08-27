@@ -109,3 +109,22 @@
 | Supporting-resource additions | R039 — NVIDIA Isaac Sim Documentation |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-4F563144-0A25-5ABD-A3C2-6B279908DE87` | `P3-S01` | 1 | Foundations — Coordinate frames, camera geometry, point sets |
+| `SES-F83669FC-60B4-582F-A9D5-79AC19DFBA84` | `P3-S02` | 2 | P054 — PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation |
+| `SES-3582E302-E23C-5A0A-B173-00AC98291AC2` | `P3-S03` | 3 | P055 — PointNet++: Deep Hierarchical Feature Learning on Point Sets in a Metric Space |
+| `SES-35AA73B0-6F08-58B2-B702-BE2B08F85DA1` | `P3-S04` | 4 | P056 — Point Transformer |
+| `SES-B0CB4A8C-99C9-52AD-A61B-4625E0B3586B` | `P3-S05` | 5 | P057 — Occupancy Networks: Learning 3D Reconstruction in Function Space |
+| `SES-A046A2FC-8A60-5282-87F2-232BAC5D0912` | `P3-S06` | 6 | P058 — NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis |
+| `SES-8D1D900D-A3C9-5DF2-AFB1-2D7EF3999D2A` | `P3-S07` | 7 | P059 — 3D Gaussian Splatting for Real-Time Radiance Field Rendering |
+| `SES-F9DA909B-2B5F-55E9-A81D-595281BA0BDB` | `P3-S08` | 8 | P060 — ConceptFusion: Open-set Multimodal 3D Mapping |
+| `SES-2E6097E7-5357-5FC4-BE81-CCE1F54CC83F` | `P3-S09` | 9 | Unified reconstruction and method comparison |
+| `SES-D7B914A4-7198-5860-97D4-00AF14AA4121` | `P3-S10` | 10 | Controlled implementation and evaluation |
+| `SES-90ABDF80-0E8F-5A26-8959-24FD3BEE4E55` | `P3-S11` | 11 | Evidence, limitations, and system interpretation |
+| `SES-278BEB03-AE6B-50CB-AEE5-0401C7D187A3` | `P3-S12` | 12 | Synthesis and research directions |

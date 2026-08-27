@@ -104,3 +104,21 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-A915F4FE-110A-54F8-B3F4-1DC2F5FE6A3C` | `D1-S01` | 1 | Foundations — Observation/action schemas, clocks and synchronization, calibration |
+| `SES-69D6A17E-21BF-5954-9B69-AACA86B1E03D` | `D1-S02` | 2 | P117 — RoboNet: Large-Scale Multi-Robot Learning |
+| `SES-125B9F2F-611D-5FF7-B9B5-98564F9A3888` | `D1-S03` | 3 | P118 — BridgeData V2: A Dataset for Robot Learning at Scale |
+| `SES-D9244FBA-934D-5E53-A066-F70E229FAD45` | `D1-S04` | 4 | P119 — Open X-Embodiment: Robotic Learning Datasets and RT-X Models |
+| `SES-9DF8E766-F84C-54F0-8DF1-3B1E9538713D` | `D1-S05` | 5 | P120 — DROID: A Large-Scale In-the-Wild Robot Manipulation Dataset |
+| `SES-63BBD18B-2F14-55C0-8DC2-8B2EA3FA1055` | `D1-S06` | 6 | P121 — Mobile ALOHA: Learning Bimanual Mobile Manipulation with Low-Cost Whole-Body Teleoperation |
+| `SES-2E844CA0-3298-5EAC-8469-2DDA7B3CEF99` | `D1-S07` | 7 | P122 — Data Scaling Laws in Imitation Learning for Robotic Manipulation |
+| `SES-C4D2D5C6-2610-5659-956E-DC22382B39BD` | `D1-S08` | 8 | Unified reconstruction and method comparison |
+| `SES-0851CB20-A53D-57C3-A707-79B50F4FB266` | `D1-S09` | 9 | Controlled implementation and evaluation |
+| `SES-5797E4DD-C92C-57E5-820C-FF3A8621EC5C` | `D1-S10` | 10 | Evidence, limitations, and system interpretation |
+| `SES-E9FD58EE-7DF5-5EB7-A817-9650ECAC7DF9` | `D1-S11` | 11 | Synthesis and research directions |

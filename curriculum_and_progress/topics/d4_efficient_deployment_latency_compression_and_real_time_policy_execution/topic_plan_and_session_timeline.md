@@ -40,7 +40,7 @@
 | R016 | [Machine Learning Systems](https://mlsysbook.ai/) | Open textbook | Hardware-aware training and inference support; use current online version. | S1, S2, S3, S4, S5, S6, S7, S8, S9, S10 |
 | R017 | [LeRobot Documentation](https://huggingface.co/docs/lerobot/) | Documentation and open framework | Dataset schema, teleoperation, policy training, evaluation, and low-cost hardware integration. | S1, S5, S6, S7, S8, S10 |
 | R027 | [Stanford CS336: Language Modeling from Scratch](https://cs336.stanford.edu/) | Supporting resource | End-to-end reconstruction of tokenization, Transformer training, systems optimization, scaling, data preparation, evaluation, and post-training. | S1, S5, S6, S7, S8, S10 |
-| R030 | [ROS 2 Real-Time Programming Documentation](https://docs.ros.org/en/kilted/Tutorials/Demos/Real-Time-Programming.html) | Supporting resource | Deadline, jitter, memory-allocation, scheduling, and execution-path constraints for physical robot deployment. | S1, S5, S6, S7, S8, S10 |
+| R030 | [ROS 2 Real-Time Programming Documentation](https://docs.ros.org/en/lyrical/Tutorials/Demos/Real-Time-Programming.html) | Supporting resource | Deadline, jitter, memory-allocation, scheduling, and execution-path constraints for physical robot deployment. | S1, S5, S6, S7, S8, S10 |
 | R031 | [NVIDIA TensorRT Documentation](https://docs.nvidia.com/deeplearning/tensorrt/latest/) | Supporting resource | Profiling, graph optimization, precision selection, dynamic shapes, engine construction, and latency/accuracy validation. | S1, S5, S6, S7, S8, S10 |
 | R033 | [PyTorch Distributed and Distributed Checkpoint Documentation](https://docs.pytorch.org/tutorials/distributed.html) | Supporting resource | DDP/FSDP/tensor parallelism, distributed checkpointing, recovery, profiling, and topology-aware training experiments. | S1, S5, S6, S7, S8, S10 |
 
@@ -109,3 +109,20 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-CEF723E2-B118-50F4-B007-00B9E3A28A1E` | `D4-S01` | 1 | Foundations — Latency decomposition, deadlines/jitter, asynchronous pipelines |
+| `SES-23B98D41-DACE-5C0D-BF00-B670B972C038` | `D4-S02` | 2 | P135 — Fine-Tuning Vision-Language-Action Models: Optimizing Speed and Success |
+| `SES-E69BC01A-2345-5712-97EB-9ACD178579E6` | `D4-S03` | 3 | P136 — Real-Time Action Chunking with Large Models |
+| `SES-F9DEBEFC-BFDB-5F30-A92B-16928B25E8F1` | `D4-S04` | 4 | P137 — SmolVLA: A Vision-Language-Action Model for Affordable and Efficient Robotics |
+| `SES-3539305F-6D12-5B08-8BE4-AE3CAC7ECB44` | `D4-S05` | 5 | Unified reconstruction and method comparison |
+| `SES-1DAD3C27-8AE5-56F9-A3D9-2C401E2FF0CF` | `D4-S06` | 6 | Controlled implementation and evaluation |
+| `SES-B708601F-17A0-5897-9E71-8E9D47A8B2F0` | `D4-S07` | 7 | Evidence, limitations, and system interpretation |
+| `SES-68FD206D-939A-5162-AC92-8B4356862FCD` | `D4-S08` | 8 | Synthesis and research directions |
+| `SES-55AD93A5-87B0-5128-A0FA-7F39B5A4817C` | `D4-S09` | 9 | P138 — Efficient Memory Management for Large Language Model Serving with PagedAttention |
+| `SES-A0C02B2C-0B6F-5FC2-AAE7-260AE6AC0DC4` | `D4-S10` | 10 | Optional branch synthesis and activation decision |

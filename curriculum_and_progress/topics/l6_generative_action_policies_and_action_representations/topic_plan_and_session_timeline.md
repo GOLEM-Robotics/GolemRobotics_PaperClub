@@ -104,3 +104,20 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-E039CC7A-8382-5E0A-976C-C058AD548A91` | `L6-S01` | 1 | Foundations — Conditional density modeling, multimodal actions, action chunks |
+| `SES-3A0BD5C4-8D8B-51D2-8ABB-F6783226941E` | `L6-S02` | 2 | P102 — Behavior Transformers: Cloning k Modes with One Stone |
+| `SES-892775D4-26C5-55B1-ABA0-4DE2F42718AB` | `L6-S03` | 3 | P103 — Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware |
+| `SES-1C366279-86DB-5D3D-A6BB-37440EB7C2D4` | `L6-S04` | 4 | P104 — Diffusion Policy: Visuomotor Policy Learning via Action Diffusion |
+| `SES-F6B418CC-0DB0-5B82-877A-F5FF6994015E` | `L6-S05` | 5 | P105 — RT-1: Robotics Transformer for Real-World Control at Scale |
+| `SES-9C628F46-4505-5CD6-9C3B-DC8D1DA5B10B` | `L6-S06` | 6 | P106 — FAST: Efficient Action Tokenization for Vision-Language-Action Models |
+| `SES-A6861571-8FAD-50BD-808B-2E751637F64D` | `L6-S07` | 7 | Unified reconstruction and method comparison |
+| `SES-8E632B9A-6D6F-5E11-AA39-2139A657B7DE` | `L6-S08` | 8 | Controlled implementation and evaluation |
+| `SES-1EFDC86B-4041-5BAF-BA88-EFBE920DC9D1` | `L6-S09` | 9 | Evidence, limitations, and system interpretation |
+| `SES-F509283C-3537-502A-B1AD-320D209F657D` | `L6-S10` | 10 | Synthesis and research directions |

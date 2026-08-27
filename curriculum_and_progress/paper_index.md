@@ -19,7 +19,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Peter Henderson et al. · 2018 · AAAI
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/Breakend/DeepReinforcementLearningThatMatters — author-maintained repository
 - **Role / level / preparation:** Entry Point; Critical · Intermediate · Medium; focus §§1–5 and recommendations
 - **Contribution:** Shows how implementation, hyperparameters, seeds, and reporting choices can reverse apparent deep-RL conclusions.
 - **Lineage and relationships:** Precedes Engstrom and Agarwal; applies to L2–L8.
@@ -93,7 +93,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Ilya Loshchilov and Frank Hutter · 2019 · ICLR
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/loshchil/AdamW-and-SGDW — author-maintained repository
 - **Role / level / preparation:** Modern Core · Intermediate · Low
 - **Contribution:** Separates weight decay from gradient-based L2 regularization in adaptive optimizers.
 - **Lineage and relationships:** Corrects a common Adam regularization mistake; relevant to F5/D3.
@@ -119,7 +119,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Kaiming He et al. · 2016 · CVPR
 - **Authoritative version used:** Version of record / official proceedings
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/KaimingHe/deep-residual-networks — author-maintained repository
 - **Role / level / preparation:** Foundation; Seminal · Intermediate · Medium; focus architecture and ablations
 - **Contribution:** Establishes residual connections as a practical mechanism for training deep networks.
 - **Lineage and relationships:** Architectural precursor to modern vision and multimodal backbones.
@@ -143,7 +143,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Alexey Dosovitskiy et al. · 2021 · ICLR
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/google-research/vision_transformer — official author-organization repository
 - **Role / level / preparation:** Bridge; Modern Core · Intermediate · Medium
 - **Contribution:** Shows patch-tokenized Transformers can become strong visual backbones under large-scale pretraining.
 - **Lineage and relationships:** Connects Transformer sequence modeling to P1 and E2.
@@ -205,7 +205,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Jonathan Ho, Ajay Jain, and Pieter Abbeel · 2020 · NeurIPS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/hojonathanho/diffusion — author-maintained repository
 - **Role / level / preparation:** Foundation; Seminal · Advanced · High; derive forward/reverse processes and objective
 - **Contribution:** Establishes a practical diffusion-model formulation based on iterative denoising.
 - **Lineage and relationships:** Direct precursor to Diffusion Policy and many continuous-action generators.
@@ -229,7 +229,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Yaron Lipman et al. · 2023 · ICLR
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/facebookresearch/flow_matching — official author-organization repository
 - **Role / level / preparation:** Modern Core · Advanced · High; focus conditional probability paths and vector fields
 - **Contribution:** Introduces simulation-free training of continuous normalizing flows through flow matching.
 - **Lineage and relationships:** Directly relevant to π-series action experts and modern VLA action heads.
@@ -241,7 +241,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Xingchao Liu, Chengyue Gong, and Qiang Liu · 2023 · ICLR
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/gnobitab/RectifiedFlow — author-maintained repository
 - **Role / level / preparation:** Optional Specialization · Advanced · High
 - **Contribution:** Learns straighter transport paths to reduce sampling steps.
 - **Lineage and relationships:** Related to flow matching and efficient action generation.
@@ -303,7 +303,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Tim Dettmers et al. · 2023 · NeurIPS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/artidoro/qlora — author-maintained repository
 - **Role / level / preparation:** Modern Core · Advanced · Medium
 - **Contribution:** Combines 4-bit quantization with LoRA to reduce fine-tuning memory.
 - **Lineage and relationships:** Connects PEFT to D4 deployment constraints.
@@ -375,7 +375,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 ##### P030. [Dynamic Movement Primitives: A Framework for Motor Control in Humans and Humanoid Robotics](https://doi.org/10.1007/4-431-31381-8_23)
 
-- **Authors / year / venue:** Auke Ijspeert, Jun Nakanishi, and Stefan Schaal · 2002 · Adaptive Motion of Animals and Machines
+- **Authors / year / venue:** Stefan Schaal · 2006 · Adaptive Motion of Animals and Machines, pp. 261–280
 - **Authoritative version used:** Version of record / official proceedings
 - **Official project/code:** Not identified or not publicly available at the cutoff.
 - **Role / level / preparation:** Bridge · Intermediate · Medium
@@ -435,11 +435,11 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** Influential trajectory-optimization lineage.
 - **Metadata and assessment confidence:** High
 
-##### P035. [Motion Planning with Sequential Convex Optimization and Convex Collision Checking](https://arxiv.org/abs/1311.5605)
+##### P035. [Motion Planning with Sequential Convex Optimization and Convex Collision Checking](https://doi.org/10.1177/0278364914528132)
 
 - **Authors / year / venue:** John Schulman et al. · 2014 · IJRR
 - **Authoritative version used:** Published version
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/joschu/trajopt — author-maintained repository
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Introduces TrajOpt using sequential convex optimization and continuous-time collision checking.
 - **Lineage and relationships:** Builds on trajectory optimization; used widely in manipulation.
@@ -463,7 +463,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Grady Williams et al. · 2018 · IEEE Transactions on Robotics
 - **Authoritative version used:** Published version
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/ACDSLab/MPPI-Generic — author-lab repository
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Derives sampling-based MPC updates from information-theoretic control.
 - **Lineage and relationships:** Links optimal control to GPU-parallel stochastic planning and learned models.
@@ -501,7 +501,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Christian Forster et al. · 2017 · IEEE Transactions on Robotics
 - **Authoritative version used:** Published version
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/borglab/gtsam — author-lab implementation ecosystem
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Develops IMU preintegration on manifolds for factor-graph estimation.
 - **Lineage and relationships:** Prerequisite for modern VIO and many state-estimation stacks.
@@ -577,7 +577,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Xiaohua Zhai et al. · 2023 · ICCV
 - **Authoritative version used:** Version of record / official proceedings
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/google-research/big_vision — official author-organization repository
 - **Role / level / preparation:** Modern Core · Advanced · Medium
 - **Contribution:** Replaces global softmax contrastive loss with pairwise sigmoid loss for scalable image–text pretraining.
 - **Lineage and relationships:** Alternative to CLIP used in several efficient VLM/VLA stacks.
@@ -585,16 +585,16 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** ICCV paper; SigLIP models widely reused in open VLMs.
 - **Metadata and assessment confidence:** High
 
-##### P047. [What Makes for Good Visual Representations for Robot Manipulation?](https://arxiv.org/abs/2107.12344)
+##### P047. [What Makes Pre-Trained Visual Representations Successful for Robust Manipulation?](https://proceedings.mlr.press/v270/burns25a.html)
 
-- **Authors / year / venue:** Suraj Nair et al. · 2022 · ICRA
-- **Authoritative version used:** Canonical public paper version linked
+- **Authors / year / venue:** Kaylee Burns et al. · 2025 · Proceedings of the 8th Conference on Robot Learning (PMLR 270; CoRL 2024)
+- **Authoritative version used:** Final PMLR version linked; accessible preprint at https://arxiv.org/abs/2312.12444
 - **Official project/code:** Not identified or not publicly available at the cutoff.
 - **Role / level / preparation:** Critical; Bridge · Intermediate · Medium
-- **Contribution:** Systematically compares visual pretraining choices for downstream manipulation.
+- **Contribution:** Compares 15 pretrained visual models across ten simulated manipulation tasks and one ALOHA offline setting, identifying emergent segmentation as a strong correlate of out-of-distribution robustness.
 - **Lineage and relationships:** Connects generic representation papers to closed-loop robot control.
-- **Major positioning limitation:** Results depend on task suite and policy architecture; predates newer foundation encoders.
-- **Quality/influence signals:** Direct robotics evidence and controlled comparisons.
+- **Major positioning limitation:** The segmentation relationship is correlational and suite-specific; evidence is mostly simulated with one offline real-robot setting.
+- **Quality/influence signals:** Final CoRL/PMLR paper with controlled multi-model comparisons and an accessible preprint.
 - **Metadata and assessment confidence:** High
 
 #### P2. Detection, segmentation, grounding, and tracking
@@ -795,10 +795,10 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** CVPR paper with official code/models.
 - **Metadata and assessment confidence:** High
 
-##### P064. [Revisiting Feature Prediction for Learning Visual Representations from Video](https://arxiv.org/abs/2404.08471)
+##### P064. [Revisiting Feature Prediction for Learning Visual Representations from Video](https://openreview.net/forum?id=QaCCuDfBk2)
 
-- **Authors / year / venue:** Adrien Bardes et al. · 2024 · arXiv preprint
-- **Authoritative version used:** Latest public technical report or arXiv version at cutoff
+- **Authors / year / venue:** Adrien Bardes et al. · 2024 · Transactions on Machine Learning Research (TMLR)
+- **Authoritative version used:** Accepted OpenReview record: https://openreview.net/forum?id=QaCCuDfBk2; linked arXiv preprint remains accessible
 - **Official project/code:** https://github.com/facebookresearch/jepa
 - **Role / level / preparation:** Modern Core · Advanced · Medium
 - **Contribution:** Introduces V-JEPA and shows feature prediction can learn strong frozen video representations without pixel reconstruction or text.
@@ -837,7 +837,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Kurtland Chua et al. · 2018 · NeurIPS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/kchua/handful-of-trials — author-maintained repository
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Introduces PETS: probabilistic ensembles plus trajectory sampling for uncertainty-aware planning.
 - **Lineage and relationships:** Scalable neural successor to PILCO; precursor to modern ensemble MBRL.
@@ -849,7 +849,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Danijar Hafner et al. · 2019 · ICML
 - **Authoritative version used:** Version of record / official proceedings
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/google-research/planet — official author-organization repository
 - **Role / level / preparation:** Bridge; Modern Core · Advanced · High
 - **Contribution:** Introduces PlaNet, a recurrent latent state-space model used for planning from images.
 - **Lineage and relationships:** Precursor to Dreamer and latent imagination methods.
@@ -869,11 +869,11 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** Landmark planning-with-learned-model result.
 - **Metadata and assessment confidence:** High
 
-##### P070. [Mastering Diverse Domains through World Models](https://arxiv.org/abs/2301.04104)
+##### P070. [Mastering Diverse Control Tasks through World Models](https://doi.org/10.1038/s41586-025-08744-2)
 
-- **Authors / year / venue:** Danijar Hafner et al. · 2023 · arXiv technical report (DreamerV3)
-- **Authoritative version used:** Latest public technical report or arXiv version at cutoff
-- **Official project/code:** https://github.com/danijar/dreamerv3
+- **Authors / year / venue:** Danijar Hafner et al. · 2025 · Nature 640, 647–653
+- **Authoritative version used:** Nature version of record linked; preprint at https://arxiv.org/abs/2301.04104
+- **Official project/code:** https://danijar.com/project/dreamerv3/ · author-maintained implementation: https://github.com/danijar/dreamerv3
 - **Role / level / preparation:** Modern Core · Expert · High
 - **Contribution:** Presents a robust latent world-model actor–critic recipe across diverse domains with one configuration.
 - **Lineage and relationships:** Extends PlaNet/Dreamer lineage; strong baseline for imagined rollouts.
@@ -937,7 +937,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Volodymyr Mnih et al. · 2015 · Nature
 - **Authoritative version used:** Published version
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/google-deepmind/dqn — official author-organization repository
 - **Role / level / preparation:** Bridge; Seminal · Intermediate · Medium
 - **Contribution:** Combines convolutional perception, replay buffers, and target networks in DQN.
 - **Lineage and relationships:** Bridge from tabular Q-learning to deep RL.
@@ -987,7 +987,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** John Schulman et al. · 2017 · arXiv preprint
 - **Authoritative version used:** Latest public technical report or arXiv version at cutoff
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/openai/baselines — official author-organization implementation
 - **Role / level / preparation:** Modern Core · Intermediate · Medium
 - **Contribution:** Introduces clipped and KL-penalized surrogate objectives for simpler stable on-policy updates.
 - **Lineage and relationships:** Practical successor to TRPO; common robotics baseline.
@@ -1011,7 +1011,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Scott Fujimoto, Herke van Hoof, and David Meger · 2018 · ICML
 - **Authoritative version used:** Version of record / official proceedings
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/sfujim/TD3 — author-maintained repository
 - **Role / level / preparation:** Modern Core · Intermediate · Medium
 - **Contribution:** Introduces TD3 with twin critics, delayed policy updates, and target smoothing.
 - **Lineage and relationships:** Direct correction of DDPG failure modes.
@@ -1023,7 +1023,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Tuomas Haarnoja et al. · 2018 · ICML
 - **Authoritative version used:** Version of record / official proceedings
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/haarnoja/sac — author-maintained repository
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Introduces maximum-entropy stochastic actor–critic learning for robust exploration and off-policy control.
 - **Lineage and relationships:** Alternative to TD3; widely used in robot learning.
@@ -1035,7 +1035,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Marcin Andrychowicz et al. · 2017 · NeurIPS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/openai/baselines/tree/master/baselines/her — official author-organization implementation
 - **Role / level / preparation:** Bridge · Intermediate · Medium
 - **Contribution:** Relabels failed trajectories with achieved goals to learn under sparse rewards.
 - **Lineage and relationships:** Bridge from goal-conditioned RL to data reuse.
@@ -1057,11 +1057,11 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** Canonical imitation-learning result with strong theory.
 - **Metadata and assessment confidence:** High
 
-##### P085. [Maximum Entropy Inverse Reinforcement Learning](https://www.aaai.org/Papers/AAAI/2008/AAAI08-227.pdf)
+##### P085. [Maximum Entropy Inverse Reinforcement Learning](https://aaai-24.aaai.org/Library/AAAI/2008/aaai08-227.php)
 
 - **Authors / year / venue:** Brian D. Ziebart et al. · 2008 · AAAI
-- **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Authoritative version used:** AAAI Library record linked; author-corrected version and published-algorithm erratum: https://www.cs.cmu.edu/~bziebart/publications/maximum-entropy-inverse-reinforcement-learning.html
+- **Official project/code:** Corrected paper and erratum are available from the author page; no official code identified.
 - **Role / level / preparation:** Foundation · Advanced · High
 - **Contribution:** Infers rewards by maximum-entropy trajectory modeling.
 - **Lineage and relationships:** Foundation for probabilistic IRL and GAIL/AIRL.
@@ -1073,7 +1073,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Jonathan Ho and Stefano Ermon · 2016 · NeurIPS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/openai/imitation — official author-organization repository
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Matches expert occupancy measures through adversarial learning.
 - **Lineage and relationships:** Connects IRL and policy optimization without explicit reward recovery.
@@ -1085,7 +1085,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Justin Fu, Katie Luo, and Sergey Levine · 2018 · ICLR
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/justinjfu/inverse_rl — author-maintained repository
 - **Role / level / preparation:** Bridge · Advanced · High
 - **Contribution:** Introduces AIRL to recover disentangled rewards under adversarial imitation.
 - **Lineage and relationships:** Develops GAIL toward transferable reward learning.
@@ -1097,7 +1097,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Aravind Rajeswaran et al. · 2018 · RSS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/aravindr93/hand_dapg — author-maintained repository
 - **Role / level / preparation:** Bridge; Modern Core · Advanced · High
 - **Contribution:** Introduces DAPG, combining demonstrations with policy-gradient fine-tuning for dexterous hands.
 - **Lineage and relationships:** Connects behavior cloning, RL, and sim-to-real dexterity.
@@ -1123,7 +1123,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Scott Fujimoto, David Meger, and Doina Precup · 2019 · ICML
 - **Authoritative version used:** Version of record / official proceedings
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/sfujim/BCQ — author-maintained repository
 - **Role / level / preparation:** Foundation · Advanced · Medium–High
 - **Contribution:** Introduces BCQ, constraining policy actions to remain near the offline dataset.
 - **Lineage and relationships:** Early deep offline-RL response to extrapolation error.
@@ -1135,7 +1135,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Aviral Kumar et al. · 2020 · NeurIPS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/aviralkumar2907/CQL — author-maintained repository
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Penalizes overestimated values for actions outside the dataset.
 - **Lineage and relationships:** Central conservative-value approach following BCQ.
@@ -1159,7 +1159,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Lili Chen et al. · 2021 · NeurIPS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/kzl/decision-transformer — author-maintained repository
 - **Role / level / preparation:** Bridge · Intermediate · Medium
 - **Contribution:** Frames offline RL as return-conditioned sequence modeling.
 - **Lineage and relationships:** Connects Transformers and trajectory modeling; precursor to token-based robot policies.
@@ -1171,7 +1171,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Philip J. Ball et al. · 2023 · ICML
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/ikostrikov/rlpd — author-maintained repository
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Introduces RLPD, mixing offline and online replay with ensemble critics for sample-efficient fine-tuning.
 - **Lineage and relationships:** Bridge from offline datasets to real-world online learning.
@@ -1183,7 +1183,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Nir Levine et al. · 2023 · NeurIPS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/nakamotoo/Cal-QL — author-maintained repository
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Calibrates conservative Q-values to improve transition from offline pretraining to online learning.
 - **Lineage and relationships:** Develops CQL toward practical offline-to-online adaptation.
@@ -1221,7 +1221,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Benjamin Eysenbach et al. · 2019 · ICLR
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://sites.google.com/view/diayn/ — authors’ official project page
 - **Role / level / preparation:** Modern Core · Advanced · Medium
 - **Contribution:** Introduces DIAYN, discovering diverse skills by maximizing mutual information.
 - **Lineage and relationships:** Key unsupervised skill-learning lineage.
@@ -1233,7 +1233,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Ofir Nachum et al. · 2018 · NeurIPS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/tensorflow/models/tree/master/research/efficient-hrl — official author-organization implementation
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Introduces HIRO with off-policy correction for hierarchical continuous control.
 - **Lineage and relationships:** Practical development of options-like temporal abstraction.
@@ -1245,7 +1245,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Chelsea Finn, Pieter Abbeel, and Sergey Levine · 2017 · ICML
 - **Authoritative version used:** Version of record / official proceedings
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/cbfinn/maml — first-author-maintained repository
 - **Role / level / preparation:** Bridge · Advanced · High
 - **Contribution:** Learns initial parameters optimized for rapid adaptation.
 - **Lineage and relationships:** Foundation for meta-RL and few-shot robot adaptation.
@@ -1257,7 +1257,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Kate Rakelly et al. · 2019 · ICML
 - **Authoritative version used:** Version of record / official proceedings
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/katerakelly/oyster — first-author-maintained PEARL/Oyster repository
 - **Role / level / preparation:** Modern Core · Expert · High
 - **Contribution:** Introduces PEARL, inferring latent task context from experience for off-policy meta-RL.
 - **Lineage and relationships:** Develops MAML-style adaptation into probabilistic task inference.
@@ -1269,9 +1269,9 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 ##### P102. [Behavior Transformers: Cloning k Modes with One Stone](https://arxiv.org/abs/2206.11251)
 
-- **Authors / year / venue:** Homer Rich Walke et al. · 2022 · NeurIPS
-- **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Authors / year / venue:** Nur Muhammad Mahi Shafiullah, Zichen Jeff Cui, Ariuntuya Altanzaya, and Lerrel Pinto · 2022 · NeurIPS
+- **Authoritative version used:** NeurIPS version of record: https://proceedings.neurips.cc/paper_files/paper/2022/hash/90d17e882adbdda42349db6f50123817-Abstract-Conference.html; arXiv preprint remains accessible
+- **Official project/code:** https://mahis.life/bet/ · code: https://github.com/notmahi/bet
 - **Role / level / preparation:** Bridge · Advanced · Medium
 - **Contribution:** Introduces BeT, combining discrete behavior modes with continuous residual actions.
 - **Lineage and relationships:** Alternative to direct regression and precursor to richer generative policies.
@@ -1307,7 +1307,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Anthony Brohan et al. · 2023 · Robotics: Science and Systems
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://robotics-transformer1.github.io/ · code: https://github.com/google-research/robotics_transformer
 - **Role / level / preparation:** Bridge · Advanced · High
 - **Contribution:** Uses tokenized actions and a Transformer policy trained on a large multi-task real-robot dataset.
 - **Lineage and relationships:** Bridge from specialist imitation policies to E2 generalist VLAs.
@@ -1319,7 +1319,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Karl Pertsch et al. · 2025 · Robotics: Science and Systems
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** https://github.com/Physical-Intelligence/openpi
+- **Official project/code:** https://pi.website/research/fast · code: https://github.com/Physical-Intelligence/openpi
 - **Role / level / preparation:** Modern Core · Advanced · Medium
 - **Contribution:** Compresses high-frequency action trajectories into efficient discrete tokens.
 - **Lineage and relationships:** Improves autoregressive VLA action efficiency and connects to D4.
@@ -1345,7 +1345,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Xue Bin Peng et al. · 2018 · ICRA
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://xbpeng.github.io/projects/SimToReal/ — first-author project page
 - **Role / level / preparation:** Seminal; Bridge · Advanced · Medium
 - **Contribution:** Randomizes physical parameters during training to transfer control policies.
 - **Lineage and relationships:** Extends domain randomization from vision to dynamics.
@@ -1353,11 +1353,11 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** Canonical dynamics-randomization paper.
 - **Metadata and assessment confidence:** High
 
-##### P109. [SimOpt: Learning to Adapt Simulators to Real-World Conditions](https://arxiv.org/abs/1810.05687)
+##### P109. [Closing the Sim-to-Real Loop: Adapting Simulation Randomization with Real World Experience](https://arxiv.org/abs/1810.05687)
 
-- **Authors / year / venue:** Fabio Ramos et al. · 2019 · ICRA
+- **Authors / year / venue:** Yevgen Chebotar, Ankur Handa, Viktor Makoviychuk, Miles Macklin, Jan Issac, Nathan Ratliff, and Dieter Fox · 2019 · ICRA
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://sites.google.com/view/simopt — authors’ project page
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Updates simulator-parameter distributions from real trajectories to improve transfer.
 - **Lineage and relationships:** System-identification complement to broad randomization.
@@ -1381,7 +1381,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Ashish Kumar et al. · 2021 · RSS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://ashish-kmr.github.io/rma-legged-robots/ · code: https://github.com/antonilo/rl_locomotion
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Uses privileged training and an online adaptation module to infer environmental dynamics.
 - **Lineage and relationships:** Moves from robust randomization toward rapid latent adaptation.
@@ -1395,7 +1395,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Joshua Achiam et al. · 2017 · ICML
 - **Authoritative version used:** Version of record / official proceedings
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/jachiam/cpo — first-author-maintained repository
 - **Role / level / preparation:** Foundation; Modern Core · Advanced · High
 - **Contribution:** Optimizes return under explicit expected-cost constraints using trust-region updates.
 - **Lineage and relationships:** Canonical constrained-MDP method building on TRPO.
@@ -1415,11 +1415,11 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** Long-standing, widely used uncertainty baseline with extensive downstream comparisons.
 - **Metadata and assessment confidence:** High
 
-##### P114. [Recovery RL: Safe Reinforcement Learning with Learned Recovery Zones](https://arxiv.org/abs/1807.09308)
+##### P114. [Recovery RL: Safe Reinforcement Learning with Learned Recovery Zones](https://arxiv.org/abs/2010.15920)
 
-- **Authors / year / venue:** Thanard Kurutach et al. · 2018 · arXiv preprint
-- **Authoritative version used:** Latest public technical report or arXiv version at cutoff
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Authors / year / venue:** Brijen Thananjeyan et al. · 2021 · IEEE Robotics and Automation Letters
+- **Authoritative version used:** Canonical public paper version linked
+- **Official project/code:** https://sites.google.com/berkeley.edu/recovery-rl/ · code: https://github.com/abalakrishna123/recovery-rl
 - **Role / level / preparation:** Bridge · Advanced · Medium
 - **Contribution:** Separates task policy and recovery policy using learned safety estimates.
 - **Lineage and relationships:** Connects constrained RL to intervention/recovery architectures.
@@ -1431,7 +1431,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Ryan Hoque et al. · 2021 · CoRL
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://sites.google.com/view/thrifty-dagger/home · code: https://github.com/ryanhoque/thriftydagger
 - **Role / level / preparation:** Modern Core · Advanced · Medium
 - **Contribution:** Queries human intervention selectively based on risk and novelty.
 - **Lineage and relationships:** Develops DAgger toward bounded human effort and safer collection.
@@ -1439,7 +1439,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** Direct real-robot intervention evidence and open implementation.
 - **Metadata and assessment confidence:** High
 
-##### P116. [HIL-SERL: Precise and Dexterous Robotic Manipulation via Human-in-the-Loop Reinforcement Learning](https://doi.org/10.1126/scirobotics.ads5033)
+##### P116. [Precise and Dexterous Robotic Manipulation via Human-in-the-Loop Reinforcement Learning](https://doi.org/10.1126/scirobotics.ads5033)
 
 - **Authors / year / venue:** Jianlan Luo, Charles Xu, Jeffrey Wu, and Sergey Levine · 2025 · Science Robotics
 - **Authoritative version used:** Version of record / official proceedings
@@ -1459,7 +1459,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Sudeep Dasari et al. · 2019 · CoRL
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/SudeepDasari/RoboNet — first-author dataset/code repository
 - **Role / level / preparation:** Foundation · Intermediate · Medium
 - **Contribution:** Introduces a multi-institution, multi-robot dataset and cross-platform predictive learning.
 - **Lineage and relationships:** Early open data-scaling and embodiment-diversity effort.
@@ -1471,7 +1471,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Homer Walke et al. · 2023 · CoRL
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** https://rail-berkeley.github.io/bridgedata/
+- **Official project/code:** https://rail-berkeley.github.io/bridgedata/ · code: https://github.com/rail-berkeley/BridgeData-V2
 - **Role / level / preparation:** Modern Core · Intermediate · Medium
 - **Contribution:** Provides a large, diverse, language-labeled manipulation dataset collected across environments.
 - **Lineage and relationships:** Major precursor and component of Open X-Embodiment.
@@ -1483,7 +1483,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Open X-Embodiment Collaboration · 2024 · ICRA
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** https://robotics-transformer-x.github.io/
+- **Official project/code:** https://robotics-transformer-x.github.io/ · dataset/code: https://github.com/google-deepmind/open_x_embodiment
 - **Role / level / preparation:** Seminal; Modern Core · Advanced · High
 - **Contribution:** Standardizes and mixes many robot datasets across embodiments and trains RT-X policies.
 - **Lineage and relationships:** Central data foundation for modern cross-embodiment policy research.
@@ -1493,9 +1493,9 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 ##### P120. [DROID: A Large-Scale In-the-Wild Robot Manipulation Dataset](https://arxiv.org/abs/2403.12945)
 
-- **Authors / year / venue:** Arjun Khazatsky et al. · 2024 · RSS
+- **Authors / year / venue:** Alexander Khazatsky et al. · 2024 · RSS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** https://droid-dataset.github.io/
+- **Official project/code:** https://droid-dataset.github.io/ · hardware/data code: https://github.com/droid-dataset/droid · policy-learning code: https://github.com/droid-dataset/droid_policy_learning
 - **Role / level / preparation:** Modern Core · Advanced · Medium
 - **Contribution:** Collects diverse real-world manipulation data across many institutions, scenes, operators, and tasks.
 - **Lineage and relationships:** Extends Bridge/OXE toward decentralized in-the-wild collection.
@@ -1507,7 +1507,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Zipeng Fu et al. · 2024 · CoRL
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** https://mobile-aloha.github.io/
+- **Official project/code:** https://mobile-aloha.github.io/ · code: https://github.com/MarkFzp/mobile-aloha
 - **Role / level / preparation:** Modern Core; Bridge · Intermediate · Medium
 - **Contribution:** Extends low-cost ALOHA teleoperation and ACT to mobile bimanual whole-body tasks.
 - **Lineage and relationships:** Connects hardware, data collection, and long-horizon imitation.
@@ -1519,7 +1519,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Fanqi Lin et al. · 2025 · ICLR
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://data-scaling-laws.github.io/ · code: https://github.com/Fanqi-Lin/Data-Scaling-Laws
 - **Role / level / preparation:** Modern Core; Critical · Advanced · High
 - **Contribution:** Measures how environments, objects, and demonstrations affect real-world generalization at substantial scale.
 - **Lineage and relationships:** Empirical bridge from language-model scaling ideas to robot data design.
@@ -1557,7 +1557,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Bo Liu et al. · 2023 · NeurIPS Datasets and Benchmarks
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** https://libero-project.github.io/
+- **Official project/code:** https://libero-project.github.io/ · code: https://github.com/lifelong-robot-learning/libero
 - **Role / level / preparation:** Modern Core · Intermediate · Medium
 - **Contribution:** Introduces suites for transfer, lifelong learning, and language-conditioned manipulation.
 - **Lineage and relationships:** Major current VLA/IL benchmark family.
@@ -1577,11 +1577,11 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** Open high-throughput benchmark and baselines.
 - **Metadata and assessment confidence:** High
 
-##### P127. [SimplerEnv: Simulated Manipulation Policy Evaluation Environments with Real-to-Sim Transfer](https://arxiv.org/abs/2405.05941)
+##### P127. [Evaluating Real-World Robot Manipulation Policies in Simulation](https://proceedings.mlr.press/v270/li25c.html)
 
-- **Authors / year / venue:** Siddharth Karamcheti et al. · 2024 · CoRL
-- **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** https://github.com/simpler-env/SimplerEnv
+- **Authors / year / venue:** Xuanlin Li et al. · 2024/2025 · CoRL 2024; PMLR 270 (2025)
+- **Authoritative version used:** Version of record / official proceedings
+- **Official project/code:** https://simpler-env.github.io/ · code: https://github.com/simpler-env/SimplerEnv
 - **Role / level / preparation:** Modern Core; Critical · Advanced · High
 - **Contribution:** Evaluates real-robot policies in simulation designed to preserve policy ranking and behavior.
 - **Lineage and relationships:** Addresses expensive VLA evaluation and sim/real correspondence.
@@ -1601,7 +1601,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** Peer-reviewed CoRL 2025 paper; distributed real-robot benchmark with public project infrastructure.
 - **Metadata and assessment confidence:** High
 
-##### P129. [LIBERO-Plus: A Progressive Robustness Benchmark for Vision-Language-Action Models](https://openaccess.thecvf.com/content/CVPR2026/html/Fei_LIBERO-Plus_A_Progressive_Robustness_Benchmark_for_Visual-Language-Action_Models_CVPR_2026_paper.html)
+##### P129. [LIBERO-Plus: A Progressive Robustness Benchmark for Visual-Language-Action Models](https://openaccess.thecvf.com/content/CVPR2026/html/Fei_LIBERO-Plus_A_Progressive_Robustness_Benchmark_for_Visual-Language-Action_Models_CVPR_2026_paper.html)
 
 - **Authors / year / venue:** Senyu Fei et al. · 2026 · CVPR
 - **Authoritative version used:** Version of record / official proceedings
@@ -1616,8 +1616,8 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 ##### P130. [RobotArena∞: Scalable Robot Benchmarking via Real-to-Sim Translation](https://robotarenainf.github.io/)
 
 - **Authors / year / venue:** Yash Jangir et al. · 2026 · ICLR
-- **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Authoritative version used:** ICLR 2026 version of record: https://proceedings.iclr.cc/paper_files/paper/2026/hash/2aa3da3c1463ee2cdaaee94be4f8ba3f-Abstract-Conference.html; arXiv: https://arxiv.org/abs/2510.23571
+- **Official project/code:** https://robotarenainf.github.io/ · code: https://github.com/offjangir/RobotArena
 - **Role / level / preparation:** Frontier; Critical · Expert · High
 - **Contribution:** Translates real demonstrations into scalable simulated evaluation and combines automated and human judgment.
 - **Lineage and relationships:** Extends real-to-sim evaluation beyond fixed hand-built environments.
@@ -1665,9 +1665,9 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 ##### P134. [SERL: A Software Suite for Sample-Efficient Robotic Reinforcement Learning](https://arxiv.org/abs/2401.16013)
 
-- **Authors / year / venue:** Zhiyuan Luo et al. · 2024 · ICRA
+- **Authors / year / venue:** Jianlan Luo et al. · 2024 · ICRA
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** https://github.com/rail-berkeley/serl
+- **Official project/code:** https://serl-robot.github.io/ · code: https://github.com/rail-berkeley/serl
 - **Role / level / preparation:** Modern Core · Intermediate · Medium
 - **Contribution:** Packages asynchronous data collection, replay, resets, demonstrations, and actor–learner infrastructure for real-robot RL.
 - **Lineage and relationships:** Connects RLPD-style algorithms to reliable physical experimentation.
@@ -1693,7 +1693,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Physical Intelligence · 2025 · Technical report
 - **Authoritative version used:** Latest public technical report or arXiv version at cutoff
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://www.pi.website/research/real_time_chunking — official project/report page
 - **Role / level / preparation:** Modern Core; Systems · Advanced · Medium
 - **Contribution:** Decouples slow model inference from fast control through asynchronous chunk prediction and execution.
 - **Lineage and relationships:** Extends ACT/action chunking to high-latency large VLAs.
@@ -1741,7 +1741,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 ##### P140. [RoboGen: Towards Unleashing Infinite Data for Automated Robot Learning via Generative Simulation](https://arxiv.org/abs/2311.01455)
 
-- **Authors / year / venue:** Yuanchen Wang et al. · 2024 · ICML
+- **Authors / year / venue:** Yufei Wang et al. · 2024 · ICML
 - **Authoritative version used:** Canonical public paper version linked
 - **Official project/code:** https://github.com/Genesis-Embodied-AI/RoboGen
 - **Role / level / preparation:** Bridge; Frontier · Expert · High
@@ -1753,7 +1753,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 ##### P141. [GenSim: Generating Robotic Simulation Tasks via Large Language Models](https://arxiv.org/abs/2310.01361)
 
-- **Authors / year / venue:** Yecheng Jason Ma et al. · 2024 · ICLR
+- **Authors / year / venue:** Lirui Wang et al. · 2024 · ICLR
 - **Authoritative version used:** Canonical public paper version linked
 - **Official project/code:** https://github.com/liruiw/GenSim
 - **Role / level / preparation:** Bridge · Advanced · Medium
@@ -1763,11 +1763,11 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** Open benchmark/code with systematic generated-task study.
 - **Metadata and assessment confidence:** High
 
-##### P142. [DreamGen: Unlocking Generalization in Robot Learning through Neural Trajectories](https://arxiv.org/abs/2505.12705)
+##### P142. [DreamGen: Unlocking Generalization in Robot Learning through Video World Models](https://arxiv.org/abs/2505.12705)
 
 - **Authors / year / venue:** Joel Jang et al. · 2025 · arXiv technical report
 - **Authoritative version used:** Latest public technical report or arXiv version at cutoff
-- **Official project/code:** https://research.nvidia.com/labs/gear/dreamgen/
+- **Official project/code:** https://research.nvidia.com/labs/gear/dreamgen/ · code: https://github.com/NVIDIA/GR00T-Dreams
 - **Role / level / preparation:** Frontier Bridge · Expert · High
 - **Contribution:** Uses video world models to generate diverse synthetic robot trajectories for policy training.
 - **Lineage and relationships:** Connects video generation, data augmentation, and generalist policies.
@@ -1775,11 +1775,11 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** High-profile open project with models/code.
 - **Metadata and assessment confidence:** Medium
 
-##### P143. [DreamDojo: A Generalist Robot World Model from Large-Scale Human Videos](https://dreamdojo-world.github.io/)
+##### P143. [DreamDojo: A Real-Time Robot World Model from Large-Scale Human Videos](https://dreamdojo-world.github.io/)
 
 - **Authors / year / venue:** Shenyuan Gao et al. · 2026 · ICML
-- **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Authoritative version used:** ICML 2026 conference record uses the final title; the linked project and arXiv:2602.06949 retain the earlier “Generalist” title
+- **Official project/code:** https://dreamdojo-world.github.io/ · paper: https://arxiv.org/abs/2602.06949 · code: https://github.com/NVIDIA/DreamDojo
 - **Role / level / preparation:** Frontier · Expert · High
 - **Contribution:** Trains a generalist robot world model from large-scale human video for prediction, evaluation, and planning.
 - **Lineage and relationships:** Extends video world models from synthetic data generation toward interactive robot-world simulation.
@@ -1795,7 +1795,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Michael Ahn et al. · 2022 · CoRL
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://say-can.github.io/ · code: https://github.com/google-research/google-research/tree/master/saycan
 - **Role / level / preparation:** Seminal; Bridge · Intermediate · Medium
 - **Contribution:** Introduces SayCan: combines language-model skill likelihood with learned affordance/value estimates.
 - **Lineage and relationships:** Canonical high-level semantic planner plus low-level skills architecture.
@@ -1815,11 +1815,11 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** Highly influential programmatic robotics approach; open examples.
 - **Metadata and assessment confidence:** High
 
-##### P146. [Inner Monologue: Embodied Reasoning through Planning with Language Models](https://arxiv.org/abs/2207.05608)
+##### P146. [Inner Monologue: Embodied Reasoning through Planning with Language Models](https://proceedings.mlr.press/v205/huang23c.html)
 
 - **Authors / year / venue:** Wenlong Huang et al. · 2022 · CoRL
-- **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Authoritative version used:** Version of record / official proceedings
+- **Official project/code:** https://innermonologue.github.io/ — authors’ project page
 - **Role / level / preparation:** Bridge · Intermediate · Medium
 - **Contribution:** Feeds success, scene, and human feedback back into language-model planning loops.
 - **Lineage and relationships:** Precursor to memory/tool-using embodied agents.
@@ -1831,7 +1831,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Danny Driess et al. · 2023 · ICML
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://palm-e.github.io/ — authors’ project page
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Injects continuous sensor and visual embeddings into a language model for embodied reasoning and transfer.
 - **Lineage and relationships:** Bridge from VLMs to multimodal embodied models; precedes Gemini Robotics.
@@ -1865,11 +1865,11 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 #### E2. Vision-language-action models and generalist robot policies
 
-##### P150. [RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control](https://arxiv.org/abs/2307.15818)
+##### P150. [RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control](https://proceedings.mlr.press/v229/zitkovich23a.html)
 
 - **Authors / year / venue:** Anthony Brohan et al. · 2023 · CoRL
-- **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Authoritative version used:** Version of record / official proceedings
+- **Official project/code:** https://rt2-anon.github.io/ — authors’ project page
 - **Role / level / preparation:** Seminal; Bridge · Advanced · High
 - **Contribution:** Co-trains web-scale vision-language tasks and robot actions represented as tokens.
 - **Lineage and relationships:** Establishes the modern VLA framing after RT-1.
@@ -1901,10 +1901,10 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** Open model/code; established baseline across VLA studies.
 - **Metadata and assessment confidence:** High
 
-##### P153. [π0: A Vision-Language-Action Flow Model for General Robot Control](https://www.pi.website/download/pi0.pdf)
+##### P153. [π0: A Vision-Language-Action Flow Model for General Robot Control](https://www.roboticsproceedings.org/rss21/p010.html)
 
-- **Authors / year / venue:** Physical Intelligence et al. · 2024 · arXiv technical report
-- **Authoritative version used:** Latest public technical report or arXiv version at cutoff
+- **Authors / year / venue:** Kevin Black et al. · 2025 · Robotics: Science and Systems
+- **Authoritative version used:** RSS 2025 version of record linked; arXiv preprint: https://arxiv.org/abs/2410.24164
 - **Official project/code:** https://github.com/Physical-Intelligence/openpi
 - **Role / level / preparation:** Modern Core; Frontier Bridge · Expert · High
 - **Contribution:** Adds a continuous flow-matching action expert to a pretrained VLM and trains across multiple embodiments and dexterous tasks.
@@ -1941,7 +1941,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Google DeepMind et al. · 2025 · Technical report
 - **Authoritative version used:** Latest public technical report or arXiv version at cutoff
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://deepmind.google/blog/gemini-robotics-brings-ai-into-the-physical-world/ — official Google DeepMind project/release page
 - **Role / level / preparation:** Frontier; Synthesis · Expert · High
 - **Contribution:** Presents a Gemini-derived VLA and separate embodied-reasoning model across multiple robot embodiments.
 - **Lineage and relationships:** Strong example of dual-model reasoning-plus-control architecture.
@@ -2031,7 +2031,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Jeff Mahler et al. · 2017 · RSS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://berkeleyautomation.github.io/dex-net/ · code: https://github.com/BerkeleyAutomation/dex-net
 - **Role / level / preparation:** Foundation; Modern Core · Advanced · High
 - **Contribution:** Combines analytic grasp metrics, synthetic depth data, and deep grasp scoring.
 - **Lineage and relationships:** Foundation for data-driven parallel-jaw grasp planning.
@@ -2079,7 +2079,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Yilin Wu, Wilson Yan, Thanard Kurutach, Lerrel Pinto, and Pieter Abbeel · 2020 · Robotics: Science and Systems
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://sites.google.com/view/alternating-pick-and-place · author-linked implementation: https://github.com/wilson1yan/rlpyt
 - **Role / level / preparation:** Optional Specialization; Critical · Advanced · High
 - **Contribution:** Uses a structured conditional pick–place action space and visual RL to learn cloth and rope manipulation without demonstrations, including sim-to-real transfer.
 - **Lineage and relationships:** Early demonstration-free deformable manipulation; bridge from S1 to S5.
@@ -2089,7 +2089,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 #### S2. Tactile sensing and dexterous manipulation
 
-##### P168. [GelSight: High-Resolution Robot Tactile Sensors for Estimating Geometry and Force](https://doi.org/10.3390/s17020276)
+##### P168. [GelSight: High-Resolution Robot Tactile Sensors for Estimating Geometry and Force](https://doi.org/10.3390/s17122762)
 
 - **Authors / year / venue:** Wenzhen Yuan, Siyuan Dong, and Edward H. Adelson · 2017 · Sensors
 - **Authoritative version used:** Version of record / official proceedings
@@ -2117,7 +2117,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** OpenAI et al. · 2018 · IJRR
 - **Authoritative version used:** Published version
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://openai.com/index/learning-dexterity/ — official OpenAI project page
 - **Role / level / preparation:** Seminal; Bridge · Expert · High
 - **Contribution:** Uses large-scale simulation, domain randomization, and recurrent policies for dexterous hand manipulation.
 - **Lineage and relationships:** Links L7 sim-to-real to dexterous control.
@@ -2129,7 +2129,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Dantong Niu et al. · 2026 · arXiv preprint
 - **Authoritative version used:** Latest public technical report or arXiv version at cutoff
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://tactile-reactive-dexterous.github.io/ · code: https://github.com/ZhuoyangLiu2005/T-Rex
 - **Role / level / preparation:** Frontier · Expert · High
 - **Contribution:** Uses tactile feedback for reactive dexterous manipulation under contact and perturbation.
 - **Lineage and relationships:** Modern frontier connecting optical tactile sensing to generalist dexterity.
@@ -2139,11 +2139,11 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 #### S3. Legged locomotion and whole-body control
 
-##### P172. [DeepMimic: Example-Guided Deep Reinforcement Learning of Physics-Based Character Skills](https://arxiv.org/abs/1804.02717)
+##### P172. [DeepMimic: Example-Guided Deep Reinforcement Learning of Physics-Based Character Skills](https://doi.org/10.1145/3197517.3201311)
 
 - **Authors / year / venue:** Xue Bin Peng et al. · 2018 · ACM Transactions on Graphics / SIGGRAPH
-- **Authoritative version used:** Published version
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Authoritative version used:** ACM Transactions on Graphics version of record linked; preprint: https://arxiv.org/abs/1804.02717
+- **Official project/code:** https://xbpeng.github.io/projects/DeepMimic/ · code: https://github.com/xbpeng/DeepMimic
 - **Role / level / preparation:** Foundation; Modern Core · Advanced · High
 - **Contribution:** Combines motion-imitation rewards and task objectives to learn robust physics-based skills.
 - **Lineage and relationships:** Foundation for motion-prior humanoid and quadruped control.
@@ -2155,7 +2155,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Joonho Lee et al. · 2020 · Science Robotics
 - **Authoritative version used:** Published version
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://leggedrobotics.github.io/rl-blindloco/ · supplementary/code: https://github.com/leggedrobotics/learning_quadrupedal_locomotion_over_challenging_terrain_supplementary
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Uses privileged learning and teacher–student training for robust rough-terrain locomotion.
 - **Lineage and relationships:** Develops sim-to-real locomotion beyond flat-ground randomization.
@@ -2163,11 +2163,11 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** Strong real-robot evidence and major influence.
 - **Metadata and assessment confidence:** High
 
-##### P174. [Adversarial Motion Priors Make Good Substitutes for Complex Reward Functions](https://arxiv.org/abs/2104.02180)
+##### P174. [AMP: Adversarial Motion Priors for Stylized Physics-Based Character Control](https://doi.org/10.1145/3450626.3459670)
 
 - **Authors / year / venue:** Xue Bin Peng et al. · 2021 · SIGGRAPH
-- **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Authoritative version used:** ACM Transactions on Graphics version of record linked; preprint: https://arxiv.org/abs/2104.02180
+- **Official project/code:** https://xbpeng.github.io/projects/AMP/ · code: https://github.com/xbpeng/MimicKit · legacy implementation: https://github.com/xbpeng/DeepMimic
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Learns motion style priors adversarially from reference data while optimizing task objectives.
 - **Lineage and relationships:** Successor to DeepMimic with less hand-designed imitation reward.
@@ -2229,7 +2229,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Peter Anderson et al. · 2018 · CVPR
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/peteanderson80/Matterport3DSimulator — first-author simulator/VLN repository
 - **Role / level / preparation:** Seminal · Intermediate · Medium
 - **Contribution:** Introduces the Room-to-Room benchmark for instruction-following navigation in scanned environments.
 - **Lineage and relationships:** Foundation for VLN and language-grounded embodied agents.
@@ -2237,11 +2237,11 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** Canonical VLN benchmark and task.
 - **Metadata and assessment confidence:** High
 
-##### P180. [Active Neural SLAM](https://arxiv.org/abs/2004.05155)
+##### P180. [Learning to Explore using Active Neural SLAM](https://arxiv.org/abs/2004.05155)
 
 - **Authors / year / venue:** Devendra Singh Chaplot et al. · 2020 · ICLR
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://www.cs.cmu.edu/afs/cs/user/dchaplot/www/projects/neural-slam.html · code: https://github.com/devendrachaplot/Neural-SLAM
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Combines learned perception/exploration with explicit mapping and planning for navigation.
 - **Lineage and relationships:** Hybrid classical-learned architecture relevant to embodied agents.
@@ -2255,7 +2255,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Peter Battaglia et al. · 2016 · NeurIPS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/deepmind/graph_nets — official DeepMind implementation ecosystem
 - **Role / level / preparation:** Foundation; Seminal · Advanced · High
 - **Contribution:** Introduces object–relation message passing for learned physical reasoning.
 - **Lineage and relationships:** Foundation for graph-network simulators and object-centric world models.
@@ -2267,7 +2267,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Alvaro Sanchez-Gonzalez et al. · 2020 · ICML
 - **Authoritative version used:** Version of record / official proceedings
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/google-deepmind/deepmind-research/tree/master/learning_to_simulate — official DeepMind implementation
 - **Role / level / preparation:** Modern Core · Expert · High
 - **Contribution:** Learns particle-based simulators with message-passing graph networks across complex materials.
 - **Lineage and relationships:** Develops Interaction Networks into scalable learned simulation.
@@ -2305,7 +2305,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Ryan Lowe et al. · 2017 · NeurIPS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/openai/maddpg — official historical implementation; archived by its owner
 - **Role / level / preparation:** Foundation · Advanced · Medium
 - **Contribution:** Introduces MADDPG with centralized critics and decentralized actors.
 - **Lineage and relationships:** Canonical centralized-training/decentralized-execution baseline.
@@ -2317,7 +2317,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Tabish Rashid et al. · 2018 · ICML
 - **Authoritative version used:** Version of record / official proceedings
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/oxwhirl/pymarl — authors’ PyMARL implementation framework
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Factorizes joint action values under a monotonicity constraint for cooperative agents.
 - **Lineage and relationships:** Major value-decomposition lineage after independent Q-learning.
@@ -2329,7 +2329,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Chao Yu et al. · 2022 · NeurIPS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/marlbenchmark/on-policy — authors’ official MAPPO/on-policy implementation
 - **Role / level / preparation:** Modern Core; Critical · Advanced · High
 - **Contribution:** Shows a carefully implemented multi-agent PPO baseline can outperform specialized methods.
 - **Lineage and relationships:** Corrective empirical study emphasizing implementation and evaluation.
@@ -2343,7 +2343,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Yuanming Hu et al. · 2019 · ICRA
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/yuanming-hu/ChainQueen — first-author-maintained repository
 - **Role / level / preparation:** Foundation; Bridge · Expert · High
 - **Contribution:** Introduces differentiable simulation for soft-robot control and design.
 - **Lineage and relationships:** Precursor to DiffTaichi and differentiable co-design.
@@ -2351,17 +2351,13 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 - **Quality/influence signals:** Influential differentiable-robotics simulator.
 - **Metadata and assessment confidence:** High
 
-##### P189. [Learning to Design and Construct Structures in Simulated Environments](https://arxiv.org/abs/2007.06011)
+##### Quarantined record P189 — Learning to Design and Construct Structures in Simulated Environments
 
-- **Authors / year / venue:** Allan Zhou et al. · 2020 · ICML
-- **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
-- **Role / level / preparation:** Optional · Expert · High
-- **Contribution:** Jointly learns construction strategies and structural objectives in simulation.
-- **Lineage and relationships:** Example of design/control coupling and long-horizon embodied construction.
-- **Major positioning limitation:** Simulation/task-specific and not direct robot morphology optimization.
-- **Quality/influence signals:** Research bridge to automated physical design.
-- **Metadata and assessment confidence:** High
+> **Status:** Quarantined on 27 August 2026. Do not schedule, assign, or cite this record.
+>
+> **Reason:** The former canonical URL, arXiv:2007.06011, resolves to “Explaining the data or explaining a model? Shapley values that uncover non-linear dependencies,” an unrelated paper. No authoritative ICML 2020 record matching the title and attribution “Allan Zhou et al.” was verified.
+>
+> **Resolution gate:** Restore P189 to the primary-paper inventory only after a human identifies and verifies the intended work. Do not substitute Chang and Cheng’s “Learning to Simulate and Design for Structural Engineering” without explicit confirmation.
 
 #### S8. Human feedback, shared autonomy, and human–robot interaction
 
@@ -2369,7 +2365,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Paul Christiano et al. · 2017 · NeurIPS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/nottombrown/rl-teacher — coauthor-maintained paper implementation
 - **Role / level / preparation:** Foundation · Advanced · High
 - **Contribution:** Learns reward models from pairwise human trajectory preferences and optimizes policies against them.
 - **Lineage and relationships:** Foundation for RLHF and embodied reward learning.
@@ -2381,7 +2377,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Kimin Lee, Laura Smith, and Pieter Abbeel · 2021 · ICML
 - **Authoritative version used:** Version of record / official proceedings
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://github.com/rll-research/BPref — authors’ later benchmark implementation containing PEBBLE
 - **Role / level / preparation:** Modern Core · Advanced · High
 - **Contribution:** Improves preference-based RL with unsupervised pretraining and relabeling.
 - **Lineage and relationships:** Develops human-preference RL toward greater feedback efficiency.
@@ -2393,7 +2389,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 - **Authors / year / venue:** Siddharth Reddy, Anca Dragan, and Sergey Levine · 2018 · RSS
 - **Authoritative version used:** Canonical public paper version linked
-- **Official project/code:** Not identified or not publicly available at the cutoff.
+- **Official project/code:** https://sites.google.com/view/deep-assist · code: https://github.com/rddy/deepassist
 - **Role / level / preparation:** Bridge · Advanced · Medium
 - **Contribution:** Learns assistance policies from user input while inferring intended goals.
 - **Lineage and relationships:** Connects HRI, intent inference, and policy learning.

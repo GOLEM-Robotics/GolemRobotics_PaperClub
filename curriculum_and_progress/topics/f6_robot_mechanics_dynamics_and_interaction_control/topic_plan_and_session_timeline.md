@@ -36,11 +36,11 @@
 
 | ID | Resource | Type | Topic role | Sessions |
 |---|---|---|---|---|
-| R005 | [Modern Robotics: Mechanics, Planning, and Control](https://modernrobotics.northwestern.edu/) | Open textbook/course | Kinematics, dynamics, Jacobians, control, and planning prerequisites. | S1, S2, S3, S4, S5, S6, S7, S8, S9 |
+| R005 | [Modern Robotics: Mechanics, Planning, and Control](https://modernrobotics.org) | Open textbook/course | Kinematics, dynamics, Jacobians, control, and planning prerequisites. | S1, S2, S3, S4, S5, S6, S7, S8, S9 |
 | R006 | [Underactuated Robotics](https://underactuated.csail.mit.edu/) | Open textbook/lecture notes | Nonlinear dynamics, optimal control, planning, and learning for physical systems. | S1, S2, S3, S4, S5, S6, S7, S8, S9 |
 | R020 | [MuJoCo Documentation](https://mujoco.readthedocs.io/) | Physics simulator documentation | Reliable dynamics/control simulation reference. | S1, S6, S7, S8, S9 |
 | R028 | [MIT Robotic Manipulation: Perception, Planning, and Control](https://manipulation.mit.edu/) | Supporting resource | Integrated manipulation stack connecting geometry, perception, planning, contact, control, and learning. | S1, S6, S7, S8, S9 |
-| R030 | [ROS 2 Real-Time Programming Documentation](https://docs.ros.org/en/kilted/Tutorials/Demos/Real-Time-Programming.html) | Supporting resource | Deadline, jitter, memory-allocation, scheduling, and execution-path constraints for physical robot deployment. | S1, S6, S7, S8, S9 |
+| R030 | [ROS 2 Real-Time Programming Documentation](https://docs.ros.org/en/lyrical/Tutorials/Demos/Real-Time-Programming.html) | Supporting resource | Deadline, jitter, memory-allocation, scheduling, and execution-path constraints for physical robot deployment. | S1, S6, S7, S8, S9 |
 | R034 | [Drake Documentation and Tutorials](https://drake.mit.edu/tutorials/) | Supporting resource | Multibody dynamics, contact, mathematical programming, automatic differentiation, systems diagrams, and model-based verification. | S1, S6, S7, S8, S9 |
 
 ## 4. Topic concept and dependency map
@@ -106,3 +106,19 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-5D4F7DCF-2B88-52BA-A966-7DBC3C9226C8` | `F6-S01` | 1 | Foundations — Frames, twists, Jacobians |
+| `SES-A8928F83-A9DA-53F7-9437-CF7E0BF1F73C` | `F6-S02` | 2 | P028 — Impedance Control: An Approach to Manipulation, Part I—Theory |
+| `SES-048B7686-0CA0-599E-B80B-B4D1ED7A1BDB` | `F6-S03` | 3 | P029 — A Unified Approach for Motion and Force Control of Robot Manipulators: The Operational Space Formulation |
+| `SES-AFB564E5-9384-56BD-BD0F-330F22671128` | `F6-S04` | 4 | P030 — Dynamic Movement Primitives: A Framework for Motor Control in Humans and Humanoid Robotics |
+| `SES-556717D9-0AB4-58E6-A109-77893E18DF41` | `F6-S05` | 5 | P031 — Control Barrier Function Based Quadratic Programs for Safety Critical Systems |
+| `SES-F1AB6DF7-1131-5041-BF68-364E2D2125BE` | `F6-S06` | 6 | Unified reconstruction and method comparison |
+| `SES-620BE85F-B05B-59CD-B8E7-BD7842DF4A32` | `F6-S07` | 7 | Controlled implementation and evaluation |
+| `SES-DFEB82CC-0673-5E53-B5D4-9EFCD6589CDB` | `F6-S08` | 8 | Evidence, limitations, and system interpretation |
+| `SES-C6AE4597-A70B-5320-902A-90D5637F3D25` | `F6-S09` | 9 | Synthesis and research directions |

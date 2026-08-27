@@ -36,7 +36,7 @@
 
 | ID | Resource | Type | Topic role | Sessions |
 |---|---|---|---|---|
-| R005 | [Modern Robotics: Mechanics, Planning, and Control](https://modernrobotics.northwestern.edu/) | Open textbook/course | Kinematics, dynamics, Jacobians, control, and planning prerequisites. | S1, S2, S3, S4, S5, S6, S7, S8, S9, S10 |
+| R005 | [Modern Robotics: Mechanics, Planning, and Control](https://modernrobotics.org) | Open textbook/course | Kinematics, dynamics, Jacobians, control, and planning prerequisites. | S1, S2, S3, S4, S5, S6, S7, S8, S9, S10 |
 | R018 | [robomimic Documentation](https://robomimic.github.io/) | Documentation and benchmark recipes | Reference implementation for demonstration learning and benchmark audits. | S1, S2, S3, S4, S5, S6, S7, S8, S9, S10 |
 | R019 | [ManiSkill Documentation](https://maniskill.readthedocs.io/) | Simulation/benchmark documentation | High-throughput manipulation experiments and standardized evaluation. | S1, S5, S6, S7, S8, S10 |
 | R028 | [MIT Robotic Manipulation: Perception, Planning, and Control](https://manipulation.mit.edu/) | Supporting resource | Integrated manipulation stack connecting geometry, perception, planning, contact, control, and learning. | S1, S5, S6, S7, S8, S10 |
@@ -59,8 +59,8 @@
 
 | # | Session / stage | Classification | Prerequisites | Papers and supporting resources | Objective / concepts | Planned component | Completion capability / continuity |
 |---:|---|---|---|---|---|---|---|
-| 1 | **Foundations — Optical tactile sensing, deformation/contact images, calibration**<br>*Foundations and boundary confirmation* | Required Core | S1, P1, F6. | **Papers:** —<br>**Resources:** R005, R018, R019, R028, R021, R040 | Optical tactile sensing, deformation/contact images, calibration, slip/contact states, visuotactile alignment, tactile latency, hand kinematics, and dexterity metrics. | Notation/dependency map and targeted use of the listed supporting resources. | Use the prerequisite concepts and notation consistently across the topic.<br>Artifact: foundation map; next S2. |
-| 2 | **P168 — GelSight: High-Resolution Robot Tactile Sensors for Estimating Geometry and Force**<br>*Paper lineage — Foundation* | Required Core | S1 | **Papers:** [P168 — GelSight: High-Resolution Robot Tactile Sensors for Estimating Geometry and Force](https://doi.org/10.3390/s17020276)<br>**Resources:** R005, R018 | Describes optical tactile sensing that captures detailed contact geometry and force cues. | Method/evidence reconstruction; limitation: Sensor fabrication, calibration, wear, and contact mechanics are significant. | Explain the method, assumptions, evidence, limitations, and lineage position.<br>Artifact: paper reconstruction; next S3. |
+| 1 | **Foundations — Optical tactile sensing, deformation/contact images, calibration**<br>*Foundations and boundary confirmation* | Required Core | Topic S1, P1, F6. | **Papers:** —<br>**Resources:** R005, R018, R019, R028, R021, R040 | Optical tactile sensing, deformation/contact images, calibration, slip/contact states, visuotactile alignment, tactile latency, hand kinematics, and dexterity metrics. | Notation/dependency map and targeted use of the listed supporting resources. | Use the prerequisite concepts and notation consistently across the topic.<br>Artifact: foundation map; next S2. |
+| 2 | **P168 — GelSight: High-Resolution Robot Tactile Sensors for Estimating Geometry and Force**<br>*Paper lineage — Foundation* | Required Core | S1 | **Papers:** [P168 — GelSight: High-Resolution Robot Tactile Sensors for Estimating Geometry and Force](https://doi.org/10.3390/s17122762)<br>**Resources:** R005, R018 | Describes optical tactile sensing that captures detailed contact geometry and force cues. | Method/evidence reconstruction; limitation: Sensor fabrication, calibration, wear, and contact mechanics are significant. | Explain the method, assumptions, evidence, limitations, and lineage position.<br>Artifact: paper reconstruction; next S3. |
 | 3 | **P169 — DIGIT: A Novel Design for a Low-Cost Compact High-Resolution Tactile Sensor with Application to In-Hand Manipulation**<br>*Paper lineage — Modern Core* | Required Core | S2 | **Papers:** [P169 — DIGIT: A Novel Design for a Low-Cost Compact High-Resolution Tactile Sensor with Application to In-Hand Manipulation](https://arxiv.org/abs/2005.14679)<br>**Resources:** R005, R018 | Presents a compact manufacturable optical tactile sensor and manipulation demonstrations. | Method/evidence reconstruction; limitation: Optical artifacts, durability, and sensor-to-sensor variation matter. | Explain the method, assumptions, evidence, limitations, and lineage position.<br>Artifact: paper reconstruction; next S4. |
 | 4 | **P170 — Learning Dexterous In-Hand Manipulation**<br>*Paper lineage — Seminal; Bridge* | Required Core | S3 | **Papers:** [P170 — Learning Dexterous In-Hand Manipulation](https://arxiv.org/abs/1808.00177)<br>**Resources:** R005, R018 | Uses large-scale simulation, domain randomization, and recurrent policies for dexterous hand manipulation. | Method/evidence reconstruction; limitation: Exceptional compute, custom hardware, and sparse reproducibility. | Explain the method, assumptions, evidence, limitations, and lineage position.<br>Artifact: paper reconstruction; next S5. |
 | 5 | **Unified reconstruction and method comparison**<br>*Reconstruction and lineage integration* | Required Core | S1–S4 | **Papers:** P168, P169, P170<br>**Resources:** R005, R018, R019, R028 | Trace GelSight/DIGIT sensor design into visuotactile learning and tactile-based dexterous control. | Unified derivation, architecture/data-flow diagram, and method comparison table. | Compare the required methods in one notation and separate conceptual, implementation, data, and scale differences.<br>Artifact: comparison matrix; next S6. |
@@ -108,3 +108,20 @@
 | Supporting-resource additions | R040 — Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-B84DF0E9-998B-53B0-A887-B81A3222947D` | `S2-S01` | 1 | Foundations — Optical tactile sensing, deformation/contact images, calibration |
+| `SES-4C7D7A72-477E-5F3A-9474-8822C9F8433D` | `S2-S02` | 2 | P168 — GelSight: High-Resolution Robot Tactile Sensors for Estimating Geometry and Force |
+| `SES-799D257A-020E-537C-9617-EA73DD02E454` | `S2-S03` | 3 | P169 — DIGIT: A Novel Design for a Low-Cost Compact High-Resolution Tactile Sensor with Application to In-Hand Manipulation |
+| `SES-584950E9-43AA-5BCB-91F0-C942E6D8851B` | `S2-S04` | 4 | P170 — Learning Dexterous In-Hand Manipulation |
+| `SES-E38F56F0-F1E1-5673-B803-176B3CE23868` | `S2-S05` | 5 | Unified reconstruction and method comparison |
+| `SES-4FAB5AE9-92AE-5890-AA16-085CEB8A7FD8` | `S2-S06` | 6 | Controlled implementation and evaluation |
+| `SES-1C04F0C5-F196-5BD3-B4AD-8D56029A8B89` | `S2-S07` | 7 | Evidence, limitations, and system interpretation |
+| `SES-78A0993B-71DA-51A1-B0F3-C67D46571974` | `S2-S08` | 8 | Synthesis and research directions |
+| `SES-39B1A39F-FFE6-5FCD-B5B8-2DAD0BAC1F9F` | `S2-S09` | 9 | P171 — T-Rex: Tactile-Reactive Dexterous Manipulation |
+| `SES-D115FF97-94A5-5EF3-B750-BF714B163C7F` | `S2-S10` | 10 | Frontier synthesis and promotion review |

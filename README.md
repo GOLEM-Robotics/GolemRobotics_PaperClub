@@ -2,29 +2,23 @@
 
 [![Validate and deploy](https://github.com/GOLEM-Robotics/GolemRobotics_PaperClub/actions/workflows/pages.yml/badge.svg)](https://github.com/GOLEM-Robotics/GolemRobotics_PaperClub/actions/workflows/pages.yml)
 
-A paper-driven, experiment-centered curriculum for robot learning, embodied intelligence, and physical AI.
+A source-grounded research curriculum for robot learning, embodied intelligence, and physical AI—paired with a browser-local, portable learning workspace.
 
-[Open the Curriculum Explorer](https://golem-robotics.github.io/GolemRobotics_PaperClub/) · [Browse the curriculum](curriculum_and_progress/curriculum_map.md) · [Contribute](CONTRIBUTING.md)
+[Open the Curriculum Explorer](https://golem-robotics.github.io/GolemRobotics_PaperClub/) · [Inspect the curriculum map](curriculum_and_progress/curriculum_map.md) · [Contribute](CONTRIBUTING.md)
 
-## What is in this repository?
+## What this repository provides
 
-The repository has three deliberately separate layers:
+- A reviewed club framework in the five numbered root documents.
+- An authoritative Markdown curriculum. The audited 27 August 2026 snapshot has 37 topics, 400 stable sessions, 192 active primary papers, 41 supporting resources, 12 frontier records, and 255 typed relationships.
+- A static learner application with target-based planning, source-aware sessions, private notes and attachments, progress tracking, personal path customization, and portable Workspace Bundles.
 
-| Layer | Location | Purpose |
-| --- | --- | --- |
-| Club framework | [`1_operating_principles.md`](1_operating_principles.md) through [`5_repo_structure.md`](5_repo_structure.md) | Human-validated goals, rules, and repository conventions. |
-| Curriculum dataset | [`curriculum_and_progress/`](curriculum_and_progress/) | Authoritative Markdown records for topics, sessions, papers, resources, dependencies, and frontier items. |
-| Curriculum viewer | [`viewer/`](viewer/) | Static interface generated from the Markdown dataset and deployed through GitHub Pages. |
+On first use, choose Guided, Accelerated, or AI Sprint; optionally choose a target capability; then open the recommended ready session. The route explains every hard gate and keeps Required Core separate from opt-in continuation work.
 
-The Markdown dataset is the source of truth. The viewer has no backend, database, accounts, or frontend build step. A Python tool validates the Markdown and generates the JSON projection used by the browser.
+The application has no accounts, sync backend, server database, analytics, or repository credentials. Personal data is stored in IndexedDB and leaves the browser only through an explicit plaintext export. Local and hosted URLs have separate workspaces. On the default GitHub Pages host, other `golem-robotics.github.io` project sites share the same browser-origin trust boundary; see [the security policy](SECURITY.md).
 
-## Curriculum Explorer
+## Run it locally
 
-The hosted explorer provides five complementary views: Overview, Map, Focus, Topic, and Table. Search covers topics, sessions, papers, authors, resources, and frontier items.
-
-Progress is stored privately in the current browser. It can also be exported to a JSON file and imported on another browser or machine. No progress information is sent to GitHub or any external service.
-
-## Run locally
+Python 3.12 or newer is recommended.
 
 ```bash
 python3 -m venv .venv
@@ -33,42 +27,56 @@ python -m pip install -r requirements.txt
 mkdocs serve
 ```
 
-Open <http://127.0.0.1:8000>. The local and GitHub-hosted applications have the same capabilities, including progress export and import.
+Open <http://127.0.0.1:8000>; do not open generated files through `file://`. The local build and GitHub Pages deployment provide the same learner features. Export a Workspace Bundle to move state between origins or devices.
 
-## Validate changes
+## Deploy a fork
+
+1. Fork or copy the repository and update `site_url`, repository links, and the README badge for the new owner and name.
+2. In **Settings → Pages**, choose **GitHub Actions** as the source and enable Actions.
+3. Push to `main` or run **Validate and deploy** manually.
+
+The expected project URL is `https://<owner>.github.io/<repository>/`. Pull requests validate without deploying; successful `main` builds deploy the static site. Hosting never synchronizes learner workspaces.
+
+## Repository structure
+
+```text
+.
+├── 1_operating_principles.md … 5_repo_structure.md   # protected club framework
+├── curriculum_and_progress/
+│   ├── topics/                                        # canonical topic and session plans
+│   ├── paper_index.md                                 # active primary-paper records
+│   ├── supporting_materials_index.md
+│   ├── frontier_watchlist.md
+│   ├── relationships.md                               # typed, scoped topic relationships
+│   ├── stable_session_ids.json
+│   ├── canonical_entity_ids.json
+│   └── maintenance/                                   # review state and proposal evidence
+├── viewer/                                            # static learner application
+├── tools/                                             # validation, projection, and maintenance
+├── hooks/                                             # MkDocs integration
+├── tests/                                             # semantic and browser journeys
+└── docs/                                              # product and architecture documentation
+```
+
+Markdown under `curriculum_and_progress/` is authoritative. `viewer/assets/data/curriculum_graph.json` is a deterministic browser projection and is regenerated during every strict build.
+
+## Validate a change
 
 ```bash
 python -m unittest discover -s tests -v
 mkdocs build --strict
 ```
 
-For viewer changes, also run the browser test:
+For application changes, run the browser journeys against the built site:
 
 ```bash
 npm ci
-mkdocs serve -a 127.0.0.1:8001
-BASE_URL=http://127.0.0.1:8001 npm run test:browser
+python -m http.server 8001 --directory site
+CHROME_PATH=/path/to/google-chrome BASE_URL=http://127.0.0.1:8001 npm run test:browser
 ```
 
-The current validated dataset contains 37 topics, 400 ordered sessions, 193 primary papers, 41 supporting resources, 17 frontier records, and 122 topic-dependency edges.
+See [the architecture](docs/architecture.md) for data contracts and privacy boundaries, and [the contribution guide](CONTRIBUTING.md) before changing curriculum identities or relationships.
 
-## Repository map
+Pushes to `main` are validated and deployed through GitHub Actions. Scheduled research maintenance records evidence and opens a review proposal only when attention is required; it never silently rewrites curriculum content.
 
-```text
-.
-├── 1_operating_principles.md ... 5_repo_structure.md
-├── curriculum_and_progress/   # authoritative curriculum dataset
-│   ├── curriculum_map.md
-│   ├── curriculum_table.md
-│   ├── paper_index.md
-│   ├── supporting_materials_index.md
-│   ├── frontier_watchlist.md
-│   └── topics/
-├── viewer/                    # static application source and generated JSON
-├── tools/                     # deterministic data builder
-├── hooks/                     # MkDocs integration
-├── tests/                     # data-contract and browser tests
-└── docs/                      # implementation documentation
-```
-
-Implementation details are documented in [`docs/architecture.md`](docs/architecture.md). Pushes to `main` are validated and deployed automatically by [GitHub Actions](.github/workflows/pages.yml).
+Security issues should be reported privately as described in [SECURITY.md](SECURITY.md). Third-party licenses are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The repository currently does not declare a project license; public visibility alone does not grant reuse rights.

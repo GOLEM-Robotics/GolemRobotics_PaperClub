@@ -104,3 +104,21 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-84EFBDFD-84FA-5DFE-8C4C-5A02602FEF70` | `L5-S01` | 1 | Foundations — Semi-MDPs, options, termination |
+| `SES-728CF49F-8F77-5C67-8276-A0541B6EB8DB` | `L5-S02` | 2 | P096 — Between MDPs and Semi-MDPs: A Framework for Temporal Abstraction in Reinforcement Learning |
+| `SES-4CDD1635-D2C6-5D81-802E-1C1E3F1D3178` | `L5-S03` | 3 | P097 — Universal Value Function Approximators |
+| `SES-5973FE57-5B96-55EE-9A5A-C89F094C32CA` | `L5-S04` | 4 | P098 — Diversity Is All You Need: Learning Skills without a Reward Function |
+| `SES-C8803B82-9DB2-5489-8E19-9F15A9A43214` | `L5-S05` | 5 | P099 — Data-Efficient Hierarchical Reinforcement Learning |
+| `SES-97D2A8CB-BB12-57CB-B67A-27709B34A89F` | `L5-S06` | 6 | P100 — Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks |
+| `SES-289B35FE-10F0-5A8C-B79F-285447D9D4F6` | `L5-S07` | 7 | P101 — Efficient Off-Policy Meta-Reinforcement Learning via Probabilistic Context Variables |
+| `SES-07686CB8-8045-5951-9AB6-236D82815AE8` | `L5-S08` | 8 | Unified reconstruction and method comparison |
+| `SES-7FB45FA2-8936-5E6E-AB66-7CC330DA3982` | `L5-S09` | 9 | Controlled implementation and evaluation |
+| `SES-26A690CF-A4D0-5F84-8EA4-39E291A539AC` | `L5-S10` | 10 | Evidence, limitations, and system interpretation |
+| `SES-DF980C3F-B122-5C2E-9A2D-43A54F6F9683` | `L5-S11` | 11 | Synthesis and research directions |

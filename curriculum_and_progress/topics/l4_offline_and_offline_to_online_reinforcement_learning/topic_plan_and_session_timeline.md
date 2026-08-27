@@ -108,3 +108,21 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-7E8AB998-07BD-5172-9CDD-284EBDF3DDDC` | `L4-S01` | 1 | Foundations — Dataset support, concentrability intuition, OOD actions |
+| `SES-75C00E3A-BCFB-57CB-A76B-0E89D96B8E88` | `L4-S02` | 2 | P090 — Off-Policy Deep Reinforcement Learning without Exploration |
+| `SES-7CC99C69-007C-5183-ABE3-6ADAA43E1D0D` | `L4-S03` | 3 | P091 — Conservative Q-Learning for Offline Reinforcement Learning |
+| `SES-9F04E9A7-CD91-567B-8CBD-008823AED60E` | `L4-S04` | 4 | P092 — Offline Reinforcement Learning with Implicit Q-Learning |
+| `SES-CABC33A8-B0EF-5883-8702-CED9C8A86B94` | `L4-S05` | 5 | P093 — Decision Transformer: Reinforcement Learning via Sequence Modeling |
+| `SES-4E37DA38-8929-5A3D-BE69-0C7E6062CBBF` | `L4-S06` | 6 | P094 — Efficient Online Reinforcement Learning with Offline Data |
+| `SES-FBC428B2-05A3-5652-851E-7A93199A0B65` | `L4-S07` | 7 | P095 — Cal-QL: Calibrated Offline RL Pre-Training for Efficient Online Fine-Tuning |
+| `SES-34F43108-871B-5A16-9A40-9088170342D3` | `L4-S08` | 8 | Unified reconstruction and method comparison |
+| `SES-669650B1-314E-558C-B6E8-E4B494FF985E` | `L4-S09` | 9 | Controlled implementation and evaluation |
+| `SES-2D69E846-D208-5C2C-A858-27BA49E09FE8` | `L4-S10` | 10 | Evidence, limitations, and system interpretation |
+| `SES-A4FA48B9-32E0-565B-8D9C-1DEF2F13121F` | `L4-S11` | 11 | Synthesis and research directions |

@@ -3,7 +3,7 @@
 **Curriculum:** Robot Learning, Embodied Intelligence, and Physical AI  
 **Literature-search cutoff:** 22 July 2026  
 **Artifact:** authoritative curriculum hierarchy, topic dependencies, execution status, and ordered topic paper sequences  
-**Inventory:** 37 topics · 193 primary papers · 41 supporting resources · 12 external frontier-watchlist items
+**Inventory:** 37 topics · 192 active primary papers · 1 quarantined identity · 41 supporting resources · 12 external frontier-watchlist items
 
 ## 1. Selection and metadata policy
 
@@ -145,7 +145,8 @@ D4 constrains deployable policy architecture
 D5 feeds P5/E2/E3 and synthetic-data specializations
 
 Synthesis
-P1–P4 + L3–L6 + D1–D4 + E1 ─► E2
+P1–P4 + L3–L6 + D1–D3 + E1 ─► E2
+D4 ── deployment feedback ─────► E2
 E2 + P5 + L4/L5 + D5 ─────────► E3
 ```
 
@@ -161,7 +162,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** Basic probability and scientific method.
 - **Cross-area relationships:** Feeds every empirical topic; especially D2 and D3.
 - **Place in curriculum:** First shared research-standard topic.
-- **Supporting materials:** R015, R016
+- **Selected supporting materials (non-exhaustive):** R015, R016
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -180,7 +181,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** Calculus, linear algebra, probability, basic neural networks.
 - **Cross-area relationships:** Prerequisite for F3–F5 and all learned-policy topics.
 - **Place in curriculum:** Targeted foundation, not a general ML survey.
-- **Supporting materials:** R011, R012, R013
+- **Selected supporting materials (non-exhaustive):** R011, R012, R013
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -199,7 +200,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F2.
 - **Cross-area relationships:** Supports P1–P4, E1–E3, L6, and E2.
 - **Place in curriculum:** Common architectural language.
-- **Supporting materials:** R011, R012, R014
+- **Selected supporting materials (non-exhaustive):** R011, R012, R014
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -219,7 +220,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F2–F3; probability.
 - **Cross-area relationships:** Supports P1, P4, P5, L6, D5, and E2.
 - **Place in curriculum:** Mathematical bridge from representation learning to generative action policies.
-- **Supporting materials:** R011, R012, R013
+- **Selected supporting materials (non-exhaustive):** R011, R012, R013
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -240,7 +241,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F2–F4.
 - **Cross-area relationships:** Direct prerequisite for E1–E3 and D4; useful for P1.
 - **Place in curriculum:** Complete model lifecycle at a level relevant to embodied systems.
-- **Supporting materials:** R012, R014, R015, R016, R022
+- **Selected supporting materials (non-exhaustive):** R012, R014, R015, R016, R022
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -263,7 +264,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** Linear algebra, differential equations, basic control.
 - **Cross-area relationships:** Constrains every physical-policy topic; links to S1–S3 and L7–L8.
 - **Place in curriculum:** Classical foundation needed to judge learned controllers.
-- **Supporting materials:** R005, R006, R020
+- **Selected supporting materials (non-exhaustive):** R005, R006, R020
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -282,14 +283,14 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F6; optimization.
 - **Cross-area relationships:** Links classical planning to P5, E1, L6, L8, and S1–S4.
 - **Place in curriculum:** Shared planning vocabulary before learned planning.
-- **Supporting materials:** R005, R006, R007, R020
+- **Selected supporting materials (non-exhaustive):** R005, R006, R007, R020
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
 | 1 | [P032 — Probabilistic Roadmaps for Path Planning in High-Dimensional Configuration Spaces](https://doi.org/10.1109/70.508439) | Seminal | Intermediate |
 | 2 | [P033 — Rapidly-Exploring Random Trees: A New Tool for Path Planning](https://msl.cs.illinois.edu/~lavalle/papers/Lav98c.pdf) | Seminal | Intermediate |
 | 3 | [P034 — CHOMP: Gradient Optimization Techniques for Efficient Motion Planning](https://doi.org/10.1109/ROBOT.2009.5152817) | Bridge | Advanced |
-| 4 | [P035 — Motion Planning with Sequential Convex Optimization and Convex Collision Checking](https://arxiv.org/abs/1311.5605) | Modern Core | Advanced |
+| 4 | [P035 — Motion Planning with Sequential Convex Optimization and Convex Collision Checking](https://doi.org/10.1177/0278364914528132) | Modern Core | Advanced |
 | 5 | [P036 — Hierarchical Task and Motion Planning in the Now](https://doi.org/10.1109/ICRA.2011.5980391) | Bridge | Advanced |
 | 6 | [P037 — Information-Theoretic Model Predictive Control: Theory and Applications to Autonomous Driving](https://arxiv.org/abs/1707.02342) | Modern Core | Advanced |
 
@@ -303,7 +304,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** Probability, linear algebra, F6.
 - **Cross-area relationships:** Supports P3–P5, S3–S4, and real-world evaluation.
 - **Place in curriculum:** Physical-state grounding and uncertainty foundation.
-- **Supporting materials:** R008, R009, R010
+- **Selected supporting materials (non-exhaustive):** R008, R009, R010
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -323,7 +324,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F3–F5.
 - **Cross-area relationships:** Prerequisite for P2–P4, E1–E2, and L6.
 - **Place in curriculum:** Durable visual foundation.
-- **Supporting materials:** R012, R013
+- **Selected supporting materials (non-exhaustive):** R012, R013
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -331,7 +332,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 | 2 | [P044 — Emerging Properties in Self-Supervised Vision Transformers](https://openaccess.thecvf.com/content/ICCV2021/html/Caron_Emerging_Properties_in_Self-Supervised_Vision_Transformers_ICCV_2021_paper.html) | Modern Core | Intermediate |
 | 3 | [P045 — DINOv2: Learning Robust Visual Features without Supervision](https://arxiv.org/abs/2304.07193) | Modern Core | Intermediate |
 | 4 | [P046 — Sigmoid Loss for Language Image Pre-Training](https://openaccess.thecvf.com/content/ICCV2023/html/Zhai_Sigmoid_Loss_for_Language_Image_Pre-Training_ICCV_2023_paper.html) | Modern Core | Advanced |
-| 5 | [P047 — What Makes for Good Visual Representations for Robot Manipulation?](https://arxiv.org/abs/2107.12344) | Critical; Bridge | Intermediate |
+| 5 | [P047 — What Makes Pre-Trained Visual Representations Successful for Robust Manipulation?](https://proceedings.mlr.press/v270/burns25a.html) | Critical; Bridge | Intermediate |
 
 ### P2. Detection, segmentation, grounding, and tracking
 
@@ -343,7 +344,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** P1.
 - **Cross-area relationships:** Supports automated labeling in D1, semantic planning in E1, and manipulation in S1.
 - **Place in curriculum:** Executable perception and data-processing track.
-- **Supporting materials:** R013, R017
+- **Selected supporting materials (non-exhaustive):** R013, R017
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -364,7 +365,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** P1, F8.
 - **Cross-area relationships:** Connects perception to planning, manipulation, simulation, and world models.
 - **Place in curriculum:** Spatial-intelligence track.
-- **Supporting materials:** R008, R013, R019, R021
+- **Selected supporting materials (non-exhaustive):** R008, R013, R019, R021
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -386,14 +387,14 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F3–F4, P1.
 - **Cross-area relationships:** Bridge from perception to P5, D5, and E3.
 - **Place in curriculum:** Core for physical prediction and learning from human video.
-- **Supporting materials:** R013, R023
+- **Selected supporting materials (non-exhaustive):** R013, R023
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
 | 1 | [P061 — Representation Learning with Contrastive Predictive Coding](https://arxiv.org/abs/1807.03748) | Foundation | Advanced |
 | 2 | [P062 — VideoMAE: Masked Autoencoders are Data-Efficient Learners for Self-Supervised Video Pre-Training](https://arxiv.org/abs/2203.12602) | Modern Core | Intermediate |
 | 3 | [P063 — Self-Supervised Learning from Images with a Joint-Embedding Predictive Architecture](https://openaccess.thecvf.com/content/CVPR2023/html/Assran_Self-Supervised_Learning_From_Images_With_a_Joint-Embedding_Predictive_Architecture_CVPR_2023_paper.html) | Bridge | Advanced |
-| 4 | [P064 — Revisiting Feature Prediction for Learning Visual Representations from Video](https://arxiv.org/abs/2404.08471) | Modern Core | Advanced |
+| 4 | [P064 — Revisiting Feature Prediction for Learning Visual Representations from Video](https://openreview.net/forum?id=QaCCuDfBk2) | Modern Core | Advanced |
 | 5 | [P065 — V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning](https://arxiv.org/abs/2506.09985) | Modern Core; Frontier Bridge | Expert |
 
 ### P5. Learned dynamics, model-based RL, and world models
@@ -406,7 +407,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F4, F7, L1–L2.
 - **Cross-area relationships:** Connects control, prediction, data engines, and frontier world-action models.
 - **Place in curriculum:** Primary world-model lineage.
-- **Supporting materials:** R004, R006, R026
+- **Selected supporting materials (non-exhaustive):** R004, R006, R026
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -414,7 +415,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 | 2 | [P067 — Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://arxiv.org/abs/1805.12114) | Modern Core | Advanced |
 | 3 | [P068 — Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) | Bridge; Modern Core | Advanced |
 | 4 | [P069 — Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model](https://www.nature.com/articles/s41586-020-03051-4) | Bridge | Expert |
-| 5 | [P070 — Mastering Diverse Domains through World Models](https://arxiv.org/abs/2301.04104) | Modern Core | Expert |
+| 5 | [P070 — Mastering Diverse Control Tasks through World Models](https://doi.org/10.1038/s41586-025-08744-2) | Modern Core | Expert |
 | 6 | [P071 — TD-MPC2: Scalable, Robust World Models for Continuous Control](https://arxiv.org/abs/2310.16828) | Modern Core | Expert |
 
 ### L1. Reinforcement-learning foundations
@@ -427,7 +428,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** Probability, optimization.
 - **Cross-area relationships:** Prerequisite for L2, L4–L5, L7–L8, and P5.
 - **Place in curriculum:** Mathematical RL foundation.
-- **Supporting materials:** R001, R002, R003, R004
+- **Selected supporting materials (non-exhaustive):** R001, R002, R003, R004
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -447,7 +448,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** L1, F2.
 - **Cross-area relationships:** Baseline family for physical control and comparison with imitation/VLA methods.
 - **Place in curriculum:** Durable algorithmic core.
-- **Supporting materials:** R001, R003, R004
+- **Selected supporting materials (non-exhaustive):** R001, R003, R004
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -469,12 +470,12 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** L1; supervised learning.
 - **Cross-area relationships:** Precedes L4, L6, D1, and most robot-policy work.
 - **Place in curriculum:** Central learning-from-demonstration lineage.
-- **Supporting materials:** R001, R004, R018
+- **Selected supporting materials (non-exhaustive):** R001, R004, R018
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
 | 1 | [P084 — A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning](https://proceedings.mlr.press/v15/ross11a.html) | Seminal | Advanced |
-| 2 | [P085 — Maximum Entropy Inverse Reinforcement Learning](https://www.aaai.org/Papers/AAAI/2008/AAAI08-227.pdf) | Foundation | Advanced |
+| 2 | [P085 — Maximum Entropy Inverse Reinforcement Learning](https://aaai-24.aaai.org/Library/AAAI/2008/aaai08-227.php) | Foundation | Advanced |
 | 3 | [P086 — Generative Adversarial Imitation Learning](https://arxiv.org/abs/1606.03476) | Modern Core | Advanced |
 | 4 | [P087 — Learning Robust Rewards with Adversarial Inverse Reinforcement Learning](https://arxiv.org/abs/1710.11248) | Bridge | Advanced |
 | 5 | [P088 — Learning Complex Dexterous Manipulation with Deep Reinforcement Learning and Demonstrations](https://arxiv.org/abs/1709.10087) | Bridge; Modern Core | Advanced |
@@ -490,7 +491,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** L1–L3.
 - **Cross-area relationships:** Links static robot datasets to real-world improvement and E3.
 - **Place in curriculum:** High-value active track for limited robot interaction.
-- **Supporting materials:** R001, R002, R004, R018, R025
+- **Selected supporting materials (non-exhaustive):** R001, R002, R004, R018, R025
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -511,7 +512,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** L1–L2.
 - **Cross-area relationships:** Supports long-horizon planning, transfer, and E3.
 - **Place in curriculum:** Specialized abstraction and transfer branch.
-- **Supporting materials:** R001, R004
+- **Selected supporting materials (non-exhaustive):** R001, R004
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -532,7 +533,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F3–F4, L3.
 - **Cross-area relationships:** Direct bridge to E2 and D4.
 - **Place in curriculum:** Modern core policy architecture track.
-- **Supporting materials:** R004, R017, R018
+- **Selected supporting materials (non-exhaustive):** R004, R017, R018
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -552,13 +553,13 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F6–F8, L1–L2.
 - **Cross-area relationships:** Connects simulation, physical deployment, locomotion, and manipulation.
 - **Place in curriculum:** Required for physical-system competence.
-- **Supporting materials:** R006, R019, R020, R021, R024
+- **Selected supporting materials (non-exhaustive):** R006, R019, R020, R021, R024
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
 | 1 | [P107 — Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World](https://arxiv.org/abs/1703.06907) | Seminal | Intermediate |
 | 2 | [P108 — Sim-to-Real Transfer of Robotic Control with Dynamics Randomization](https://arxiv.org/abs/1710.06537) | Seminal; Bridge | Advanced |
-| 3 | [P109 — SimOpt: Learning to Adapt Simulators to Real-World Conditions](https://arxiv.org/abs/1810.05687) | Modern Core | Advanced |
+| 3 | [P109 — Closing the Sim-to-Real Loop: Adapting Simulation Randomization with Real World Experience](https://arxiv.org/abs/1810.05687) | Modern Core | Advanced |
 | 4 | [P110 — Learning Agile and Dynamic Motor Skills for Legged Robots](https://www.science.org/doi/10.1126/scirobotics.aau5872) | Modern Core | Advanced |
 | 5 | [P111 — RMA: Rapid Motor Adaptation for Legged Robots](https://arxiv.org/abs/2107.04034) | Modern Core | Advanced |
 
@@ -572,15 +573,15 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F7, L1–L4.
 - **Cross-area relationships:** Cross-cuts all deployment topics and D2.
 - **Place in curriculum:** Safety and failure-management track.
-- **Supporting materials:** R001, R004, R018
+- **Selected supporting materials (non-exhaustive):** R001, R004, R018
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
 | 1 | [P112 — Constrained Policy Optimization](https://proceedings.mlr.press/v70/achiam17a.html) | Foundation; Modern Core | Advanced |
 | 2 | [P113 — Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles](https://arxiv.org/abs/1612.01474) | Foundation; Modern Core | Advanced |
-| 3 | [P114 — Recovery RL: Safe Reinforcement Learning with Learned Recovery Zones](https://arxiv.org/abs/1807.09308) | Bridge | Advanced |
+| 3 | [P114 — Recovery RL: Safe Reinforcement Learning with Learned Recovery Zones](https://arxiv.org/abs/2010.15920) | Bridge | Advanced |
 | 4 | [P115 — ThriftyDAgger: Budget-Aware Novelty and Risk Gating for Interactive Imitation Learning](https://arxiv.org/abs/2109.08273) | Modern Core | Advanced |
-| 5 | [P116 — HIL-SERL: Precise and Dexterous Robotic Manipulation via Human-in-the-Loop Reinforcement Learning](https://doi.org/10.1126/scirobotics.ads5033) | Modern Core | Advanced |
+| 5 | [P116 — Precise and Dexterous Robotic Manipulation via Human-in-the-Loop Reinforcement Learning](https://doi.org/10.1126/scirobotics.ads5033) | Modern Core | Advanced |
 
 ### D1. Robot-data collection, teleoperation, and dataset construction
 
@@ -592,7 +593,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** L3, F8.
 - **Cross-area relationships:** Feeds L4, L6, E2, S1–S3, and D5.
 - **Place in curriculum:** Data-engineering and collection track.
-- **Supporting materials:** R017, R018
+- **Selected supporting materials (non-exhaustive):** R017, R018
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -613,7 +614,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F1; basic competence in relevant policy topic.
 - **Cross-area relationships:** Defines evidence standards for every active track.
 - **Place in curriculum:** Shared evaluation core.
-- **Supporting materials:** R017, R018, R019
+- **Selected supporting materials (non-exhaustive):** R017, R018, R019
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -621,9 +622,9 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 | 2 | [P124 — CALVIN: A Benchmark for Language-Conditioned Policy Learning for Long-Horizon Robot Manipulation Tasks](https://arxiv.org/abs/2112.03227) | Modern Core | Intermediate |
 | 3 | [P125 — LIBERO: Benchmarking Knowledge Transfer for Lifelong Robot Learning](https://arxiv.org/abs/2306.03310) | Modern Core | Intermediate |
 | 4 | [P126 — ManiSkill2: A Unified Benchmark for Generalizable Manipulation Skills](https://arxiv.org/abs/2302.04659) | Modern Core | Advanced |
-| 5 | [P127 — SimplerEnv: Simulated Manipulation Policy Evaluation Environments with Real-to-Sim Transfer](https://arxiv.org/abs/2405.05941) | Modern Core; Critical | Advanced |
+| 5 | [P127 — Evaluating Real-World Robot Manipulation Policies in Simulation](https://proceedings.mlr.press/v270/li25c.html) | Modern Core; Critical | Advanced |
 | 6 | [P128 — RoboArena: Distributed Real-World Evaluation of Generalist Robot Policies](https://robo-arena.github.io/) | Frontier Bridge; Critical | Advanced |
-| 7 | [P129 — LIBERO-Plus: A Progressive Robustness Benchmark for Vision-Language-Action Models](https://openaccess.thecvf.com/content/CVPR2026/html/Fei_LIBERO-Plus_A_Progressive_Robustness_Benchmark_for_Visual-Language-Action_Models_CVPR_2026_paper.html) | Critical; Frontier | Advanced |
+| 7 | [P129 — LIBERO-Plus: A Progressive Robustness Benchmark for Visual-Language-Action Models](https://openaccess.thecvf.com/content/CVPR2026/html/Fei_LIBERO-Plus_A_Progressive_Robustness_Benchmark_for_Visual-Language-Action_Models_CVPR_2026_paper.html) | Critical; Frontier | Advanced |
 | 8 | [P130 — RobotArena∞: Scalable Robot Benchmarking via Real-to-Sim Translation](https://robotarenainf.github.io/) | Frontier; Critical | Expert |
 
 ### D3. Research systems, experiment infrastructure, and reproducible training
@@ -636,7 +637,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F1–F5.
 - **Cross-area relationships:** Supports all implementation and reproduction work.
 - **Place in curriculum:** Systems competence track.
-- **Supporting materials:** R015, R016, R017, R021
+- **Selected supporting materials (non-exhaustive):** R015, R016, R017, R021
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -655,7 +656,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F5, L6, E2.
 - **Cross-area relationships:** Links model design to physical control constraints.
 - **Place in curriculum:** Deployment track.
-- **Supporting materials:** R015, R016, R017
+- **Selected supporting materials (non-exhaustive):** R015, R016, R017
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -674,15 +675,15 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** P3–P5, L7, D1.
 - **Cross-area relationships:** Feeds E2 and specialization tracks.
 - **Place in curriculum:** Specialized scaling and data-generation branch.
-- **Supporting materials:** R019, R021, R024, R026
+- **Selected supporting materials (non-exhaustive):** R019, R021, R024, R026
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
 | 1 | [P139 — MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations](https://arxiv.org/abs/2310.17596) | Modern Core | Advanced |
-| 2 | [P140 — RoboGen: Towards Unleashing Infinite Data for Automated Robot Learning via Generative Simulation](https://arxiv.org/abs/2311.01455) | Bridge; Frontier | Expert |
-| 3 | [P141 — GenSim: Generating Robotic Simulation Tasks via Large Language Models](https://arxiv.org/abs/2310.01361) | Bridge | Advanced |
-| 4 | [P142 — DreamGen: Unlocking Generalization in Robot Learning through Neural Trajectories](https://arxiv.org/abs/2505.12705) | Frontier Bridge | Expert |
-| 5 | [P143 — DreamDojo: A Generalist Robot World Model from Large-Scale Human Videos](https://dreamdojo-world.github.io/) | Frontier | Expert |
+| 2 | [P141 — GenSim: Generating Robotic Simulation Tasks via Large Language Models](https://arxiv.org/abs/2310.01361) | Bridge | Advanced |
+| 3 | [P140 — RoboGen: Towards Unleashing Infinite Data for Automated Robot Learning via Generative Simulation](https://arxiv.org/abs/2311.01455) | Bridge; Frontier | Expert |
+| 4 | [P142 — DreamGen: Unlocking Generalization in Robot Learning through Video World Models](https://arxiv.org/abs/2505.12705) | Frontier Bridge | Expert |
+| 5 | [P143 — DreamDojo: A Real-Time Robot World Model from Large-Scale Human Videos](https://dreamdojo-world.github.io/) | Frontier | Expert |
 
 ### E1. Language-conditioned robotics, grounding, and task planning
 
@@ -694,13 +695,13 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F3–F5, P1–P3, F7.
 - **Cross-area relationships:** Bridge from semantic models to E2 and E3.
 - **Place in curriculum:** Embodied reasoning lineage before end-to-end VLAs.
-- **Supporting materials:** R014, R023
+- **Selected supporting materials (non-exhaustive):** R014, R023
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
 | 1 | [P144 — Do As I Can, Not As I Say: Grounding Language in Robotic Affordances](https://arxiv.org/abs/2204.01691) | Seminal; Bridge | Intermediate |
 | 2 | [P145 — Code as Policies: Language Model Programs for Embodied Control](https://arxiv.org/abs/2209.07753) | Bridge | Intermediate |
-| 3 | [P146 — Inner Monologue: Embodied Reasoning through Planning with Language Models](https://arxiv.org/abs/2207.05608) | Bridge | Intermediate |
+| 3 | [P146 — Inner Monologue: Embodied Reasoning through Planning with Language Models](https://proceedings.mlr.press/v205/huang23c.html) | Bridge | Intermediate |
 | 4 | [P147 — PaLM-E: An Embodied Multimodal Language Model](https://arxiv.org/abs/2303.03378) | Modern Core | Advanced |
 | 5 | [P148 — VoxPoser: Composable 3D Value Maps for Robotic Manipulation with Language Models](https://arxiv.org/abs/2307.05973) | Modern Core | Advanced |
 | 6 | [P149 — VIMA: General Robot Manipulation with Multimodal Prompts](https://arxiv.org/abs/2210.03094) | Modern Core | Advanced |
@@ -712,21 +713,21 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Area:** E. Language, multimodality, and embodied reasoning
 - **Execution status:** Active Research Track
 - **Scope:** Cross-embodiment pretraining, VLM-to-action adaptation, discrete versus continuous actions, action experts, heterogeneous co-training, and policy adaptation.
-- **Prerequisites:** P1–P4, L3–L6, D1–D4, E1.
+- **Prerequisites:** P1–P4, L3–L6, D1–D3, E1; D4 supplies deployment feedback after entry rather than acting as an entry gate.
 - **Cross-area relationships:** Major synthesis point, not the sole curriculum organizer.
 - **Place in curriculum:** Primary generalist-policy track.
-- **Supporting materials:** R014, R017, R022, R023
+- **Selected supporting materials (non-exhaustive):** R014, R017, R022, R023
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
-| 1 | [P150 — RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control](https://arxiv.org/abs/2307.15818) | Seminal; Bridge | Advanced |
+| 1 | [P150 — RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control](https://proceedings.mlr.press/v229/zitkovich23a.html) | Seminal; Bridge | Advanced |
 | 2 | [P151 — Octo: An Open-Source Generalist Robot Policy](https://arxiv.org/abs/2405.12213) | Modern Core | Advanced |
 | 3 | [P152 — OpenVLA: An Open-Source Vision-Language-Action Model](https://proceedings.mlr.press/v270/kim25c.html) | Modern Core | Advanced |
-| 4 | [P153 — π0: A Vision-Language-Action Flow Model for General Robot Control](https://www.pi.website/download/pi0.pdf) | Modern Core; Frontier Bridge | Expert |
-| 5 | [P154 — π0.5: A Vision-Language-Action Model with Open-World Generalization](https://proceedings.mlr.press/v305/black25a.html) | Modern Core; Frontier | Expert |
-| 6 | [P155 — GR00T N1: An Open Foundation Model for Generalist Humanoid Robots](https://arxiv.org/abs/2503.14734) | Modern Core; Frontier | Expert |
-| 7 | [P156 — Gemini Robotics: Bringing AI into the Physical World](https://arxiv.org/abs/2503.20020) | Frontier; Synthesis | Expert |
-| 8 | [P157 — What Matters in Building Vision–Language–Action Models for Generalist Robots](https://www.nature.com/articles/s42256-025-01168-7) | Critical; Modern Core | Expert |
+| 4 | [P157 — What Matters in Building Vision–Language–Action Models for Generalist Robots](https://www.nature.com/articles/s42256-025-01168-7) | Critical; Modern Core | Expert |
+| 5 | [P153 — π0: A Vision-Language-Action Flow Model for General Robot Control](https://www.roboticsproceedings.org/rss21/p010.html) | Modern Core; Frontier Bridge | Expert |
+| 6 | [P154 — π0.5: A Vision-Language-Action Model with Open-World Generalization](https://proceedings.mlr.press/v305/black25a.html) | Modern Core; Frontier | Expert |
+| 7 | [P155 — GR00T N1: An Open Foundation Model for Generalist Humanoid Robots](https://arxiv.org/abs/2503.14734) | Modern Core; Frontier | Expert |
+| 8 | [P156 — Gemini Robotics: Bringing AI into the Physical World](https://arxiv.org/abs/2503.20020) | Frontier; Synthesis | Expert |
 
 ### E3. Embodied memory, agentic control, self-improvement, and world-action models
 
@@ -738,7 +739,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** E1–E2, P4–P5, L4–L5, D5.
 - **Cross-area relationships:** Monitored frontier; promote only after independent evidence and reproducibility mature.
 - **Place in curriculum:** Fast-moving integration frontier.
-- **Supporting materials:** R014, R017, R023, R026
+- **Selected supporting materials (non-exhaustive):** R014, R017, R023, R026
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -758,7 +759,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F6–F8, P2–P3, L3, L6.
 - **Cross-area relationships:** Primary manipulation specialization.
 - **Place in curriculum:** Executable when tied to a robot platform.
-- **Supporting materials:** R005, R018, R019, R020
+- **Selected supporting materials (non-exhaustive):** R005, R018, R019, R020
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -778,11 +779,11 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** S1, P1, F6.
 - **Cross-area relationships:** Crosses perception, contact control, and imitation/RL.
 - **Place in curriculum:** Hardware-dependent specialization.
-- **Supporting materials:** R005, R018, R019
+- **Selected supporting materials (non-exhaustive):** R005, R018, R019
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
-| 1 | [P168 — GelSight: High-Resolution Robot Tactile Sensors for Estimating Geometry and Force](https://doi.org/10.3390/s17020276) | Foundation | Intermediate |
+| 1 | [P168 — GelSight: High-Resolution Robot Tactile Sensors for Estimating Geometry and Force](https://doi.org/10.3390/s17122762) | Foundation | Intermediate |
 | 2 | [P169 — DIGIT: A Novel Design for a Low-Cost Compact High-Resolution Tactile Sensor with Application to In-Hand Manipulation](https://arxiv.org/abs/2005.14679) | Modern Core | Intermediate |
 | 3 | [P170 — Learning Dexterous In-Hand Manipulation](https://arxiv.org/abs/1808.00177) | Seminal; Bridge | Expert |
 | 4 | [P171 — T-Rex: Tactile-Reactive Dexterous Manipulation](https://arxiv.org/abs/2606.17055) | Frontier | Expert |
@@ -797,13 +798,13 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F6–F8, L2, L7.
 - **Cross-area relationships:** Whole-body and humanoid specialization.
 - **Place in curriculum:** Executable with simulation-first infrastructure.
-- **Supporting materials:** R006, R020, R021
+- **Selected supporting materials (non-exhaustive):** R006, R020, R021
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
-| 1 | [P172 — DeepMimic: Example-Guided Deep Reinforcement Learning of Physics-Based Character Skills](https://arxiv.org/abs/1804.02717) | Foundation; Modern Core | Advanced |
+| 1 | [P172 — DeepMimic: Example-Guided Deep Reinforcement Learning of Physics-Based Character Skills](https://doi.org/10.1145/3197517.3201311) | Foundation; Modern Core | Advanced |
 | 2 | [P173 — Learning Quadrupedal Locomotion over Challenging Terrain](https://www.science.org/doi/10.1126/scirobotics.abc5986) | Modern Core | Advanced |
-| 3 | [P174 — Adversarial Motion Priors Make Good Substitutes for Complex Reward Functions](https://arxiv.org/abs/2104.02180) | Modern Core | Advanced |
+| 3 | [P174 — AMP: Adversarial Motion Priors for Stylized Physics-Based Character Control](https://doi.org/10.1145/3450626.3459670) | Modern Core | Advanced |
 | 4 | [P175 — Walk These Ways: Tuning Robot Control for Generalization with Multiplicity of Behavior](https://arxiv.org/abs/2212.03238) | Modern Core | Advanced |
 | 5 | [P176 — SONIC: Supersizing Motion Tracking for Natural Humanoid Whole-Body Control](https://arxiv.org/abs/2511.07820) | Frontier | Expert |
 
@@ -817,14 +818,14 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F8, P1–P4, E1.
 - **Cross-area relationships:** Complements manipulation-centric work.
 - **Place in curriculum:** Optional unless mobile embodied agents become active.
-- **Supporting materials:** R008, R019
+- **Selected supporting materials (non-exhaustive):** R008, R019
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
 | 1 | [P177 — Cognitive Mapping and Planning for Visual Navigation](https://arxiv.org/abs/1702.03920) | Foundation; Bridge | Advanced |
 | 2 | [P178 — Habitat: A Platform for Embodied AI Research](https://arxiv.org/abs/1904.01201) | Foundation | Intermediate |
 | 3 | [P179 — Vision-and-Language Navigation: Interpreting Visually-Grounded Navigation Instructions in Real Environments](https://arxiv.org/abs/1711.07280) | Seminal | Intermediate |
-| 4 | [P180 — Active Neural SLAM](https://arxiv.org/abs/2004.05155) | Modern Core | Advanced |
+| 4 | [P180 — Learning to Explore using Active Neural SLAM](https://arxiv.org/abs/2004.05155) | Modern Core | Advanced |
 
 ### S5. Deformable objects, learned physics, and graph models
 
@@ -836,7 +837,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F3–F4, F6, P3–P5.
 - **Cross-area relationships:** Links learned physics to difficult manipulation.
 - **Place in curriculum:** Optional advanced branch.
-- **Supporting materials:** R006, R019, R021, R026
+- **Selected supporting materials (non-exhaustive):** R006, R019, R021, R026
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -855,7 +856,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** L1–L2.
 - **Cross-area relationships:** Independent branch with limited immediate overlap.
 - **Place in curriculum:** Deferred until a concrete multi-robot problem exists.
-- **Supporting materials:** R001, R004
+- **Selected supporting materials (non-exhaustive):** R001, R004
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -873,12 +874,12 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** F2, F6–F7, P5.
 - **Cross-area relationships:** Advanced research branch requiring dedicated mathematical and simulator work.
 - **Place in curriculum:** Deferred pending project demand.
-- **Supporting materials:** R006, R020, R021
+- **Selected supporting materials (non-exhaustive):** R006, R020, R021
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
 | 1 | [P188 — ChainQueen: A Real-Time Differentiable Physical Simulator for Soft Robotics](https://arxiv.org/abs/1810.01054) | Foundation; Bridge | Expert |
-| 2 | [P189 — Learning to Design and Construct Structures in Simulated Environments](https://arxiv.org/abs/2007.06011) | Optional | Expert |
+> **Quarantine:** P189 is excluded from the active S7 paper sequence pending identity verification; the former arXiv link was removed because it points to an unrelated paper.
 
 ### S8. Human feedback, shared autonomy, and human–robot interaction
 
@@ -890,7 +891,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 - **Prerequisites:** L3–L4, L8, E1.
 - **Cross-area relationships:** Supports safe deployment and data collection.
 - **Place in curriculum:** Optional cross-cutting branch.
-- **Supporting materials:** R001, R004, R018
+- **Selected supporting materials (non-exhaustive):** R001, R004, R018
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
@@ -906,7 +907,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 | 2026-07-22 | P128 | Updated to the CoRL 2025 version of record: *RoboArena: Distributed Real-World Evaluation of Generalist Robot Policies*, Pranav Atreya et al., PMLR 305. |
 | 2026-07-22 | P135 | Updated to the RSS 2025 version-of-record title: *Fine-Tuning Vision-Language-Action Models: Optimizing Speed and Success*. |
 | 2026-07-22 | P137 | Corrected the first author of SmolVLA to Mustafa Shukor. |
-| 2026-07-22 | P142 | Corrected the title to *DreamGen: Unlocking Generalization in Robot Learning through Neural Trajectories* and the first author to Joel Jang. |
+| 2026-07-22 | P142 | Corrected the title to *DreamGen: Unlocking Generalization in Robot Learning through Video World Models* and the first author to Joel Jang. |
 | 2026-07-22 | P158 | Updated MEM to its full arXiv title, canonical paper record, and official project page. |
 | 2026-07-22 | P159 | Updated π0.7 to its full arXiv title, author attribution, canonical paper record, and official project page. |
 | 2026-07-22 | P160–P162 | Updated Vesta, RoboTTT, and ENPIRE to authoritative paper records and official project pages where available. |

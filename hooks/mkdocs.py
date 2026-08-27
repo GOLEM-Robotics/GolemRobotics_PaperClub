@@ -23,6 +23,7 @@ GOVERNANCE_FILES = (
     "4_topic_planning_guideline.md",
     "5_repo_structure.md",
 )
+PROJECT_FILES = ("CONTRIBUTING.md", "SECURITY.md", "THIRD_PARTY_NOTICES.md")
 
 
 def on_pre_build(config: Any, **_: Any) -> None:
@@ -42,5 +43,9 @@ def on_files(files: Files, config: Any, **_: Any) -> Files:
     for filename in GOVERNANCE_FILES:
         files.append(File(filename, str(REPO_ROOT), site_dir, directory_urls))
 
+    for filename in PROJECT_FILES:
+        files.append(File(filename, str(REPO_ROOT), site_dir, directory_urls))
+
     files.append(File("architecture.md", str(ARCHITECTURE_DIR), site_dir, directory_urls))
+    files.append(File("product_contract.md", str(ARCHITECTURE_DIR), site_dir, directory_urls))
     return files

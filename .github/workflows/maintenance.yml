@@ -1,0 +1,115 @@
+name: Research maintenance
+
+on:
+  schedule:
+    - cron: "17 4 */2 * *"
+  workflow_dispatch:
+    inputs:
+      batch_size:
+        description: Canonical records to rotate through
+        required: false
+        default: "18"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: research-maintenance
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install project dependencies
+        run: python -m pip install --requirement requirements.txt
+
+      - name: Restore private scheduler state
+        id: restore-state
+        uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: .maintenance-runtime/state.json
+          key: maintenance-state-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            maintenance-state-
+
+      - name: Prepare runtime state
+        run: |
+          mkdir -p .maintenance-runtime
+          if [ ! -f .maintenance-runtime/state.json ]; then
+            cp curriculum_and_progress/maintenance/state.json .maintenance-runtime/state.json
+          fi
+
+      - name: Run evidence scan
+        id: scan
+        env:
+          BATCH_SIZE: ${{ inputs.batch_size || '18' }}
+        run: |
+          python -m tools.maintenance \
+            --state-file .maintenance-runtime/state.json \
+            --report-json .maintenance-runtime/report.json \
+            --report-markdown .maintenance-runtime/report.md \
+            --batch-size "$BATCH_SIZE"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          report = json.loads(Path(".maintenance-runtime/report.json").read_text())
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a") as output:
+              output.write(f"proposal_required={str(report['proposal_required']).lower()}\n")
+          PY
+          cat .maintenance-runtime/report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Save private scheduler state
+        if: always() && steps.scan.outcome == 'success'
+        uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: .maintenance-runtime/state.json
+          key: maintenance-state-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Upload complete audit evidence
+        if: always() && steps.scan.outcome == 'success'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: research-maintenance-${{ github.run_id }}
+          path: |
+            .maintenance-runtime/report.json
+            .maintenance-runtime/report.md
+          retention-days: 90
+
+      - name: Create review branch and pull request
+        if: steps.scan.outputs.proposal_required == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          scan_date=$(date -u +%F)
+          branch="maintenance/${scan_date}-${RUN_ID}"
+          report_path="curriculum_and_progress/maintenance/reports/${scan_date}-${RUN_ID}.md"
+          mkdir -p "$(dirname "$report_path")"
+          cp .maintenance-runtime/state.json curriculum_and_progress/maintenance/state.json
+          cp .maintenance-runtime/report.md "$report_path"
+          python -m tools.build_curriculum_data
+          git config user.name "Golem Robotics Maintenance"
+          git config user.email "maintenance@golemrobotics.org"
+          git switch -c "$branch"
+          git add curriculum_and_progress/maintenance viewer/assets/data/curriculum_graph.json
+          git commit -m "Record research maintenance review ${scan_date}"
+          git push --set-upstream origin "$branch"
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "Research maintenance review — ${scan_date}" \
+            --body-file .maintenance-runtime/report.md

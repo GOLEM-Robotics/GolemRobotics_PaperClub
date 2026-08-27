@@ -107,3 +107,22 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-68C4C018-6EC2-5BC1-BF8C-12675B1410DF` | `F4-S01` | 1 | Foundations — Likelihood, latent-variable intuition, contrastive estimation |
+| `SES-CFC0E590-2C1C-5B40-9D73-9B6D83E95357` | `F4-S02` | 2 | P014 — A Simple Framework for Contrastive Learning of Visual Representations |
+| `SES-4F726A3F-EEC0-542E-A58C-EE829DDC5B5A` | `F4-S03` | 3 | P015 — Masked Autoencoders Are Scalable Vision Learners |
+| `SES-D56809BB-8336-5D14-8317-B79176DD1C79` | `F4-S04` | 4 | P016 — Denoising Diffusion Probabilistic Models |
+| `SES-7A4D1930-BDD5-54C0-A0B7-B9E6D273355C` | `F4-S05` | 5 | P017 — Score-Based Generative Modeling through Stochastic Differential Equations |
+| `SES-E7A23FAB-6D49-5EFC-8087-46CBC1FDB979` | `F4-S06` | 6 | P018 — Flow Matching for Generative Modeling |
+| `SES-C78C6CF3-5D1B-59EB-8030-3B4A115AF833` | `F4-S07` | 7 | Unified reconstruction and method comparison |
+| `SES-3AF68F05-072C-5A02-A3C3-9762C415C3ED` | `F4-S08` | 8 | Controlled implementation and evaluation |
+| `SES-003D06CB-BD54-5A68-B45B-9867B9F10592` | `F4-S09` | 9 | Evidence, limitations, and system interpretation |
+| `SES-0BF811FC-9C7B-5059-A7B3-D8D6AEAE2B4B` | `F4-S10` | 10 | Synthesis and research directions |
+| `SES-331A3315-4AF1-5113-9A7A-1297CA4E9E76` | `F4-S11` | 11 | P019 — Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow |
+| `SES-0312B1BA-68B1-587F-AD7C-125D48648CB1` | `F4-S12` | 12 | Optional branch synthesis and activation decision |

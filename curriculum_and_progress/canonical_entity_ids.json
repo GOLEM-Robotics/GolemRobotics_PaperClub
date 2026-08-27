@@ -1,0 +1,3118 @@
+{
+  "schema_version": 1,
+  "topics": [
+    {
+      "id": "F1",
+      "title": "Research evidence, reproducibility, and empirical methodology"
+    },
+    {
+      "id": "F2",
+      "title": "Optimization and deep-learning mechanics"
+    },
+    {
+      "id": "F3",
+      "title": "Neural architectures and sequence models"
+    },
+    {
+      "id": "F4",
+      "title": "Self-supervised and generative learning"
+    },
+    {
+      "id": "F5",
+      "title": "Foundation-model training, post-training, and adaptation"
+    },
+    {
+      "id": "F6",
+      "title": "Robot mechanics, dynamics, and interaction control"
+    },
+    {
+      "id": "F7",
+      "title": "Motion planning, trajectory optimization, and optimal control"
+    },
+    {
+      "id": "F8",
+      "title": "State estimation, sensor fusion, and SLAM"
+    },
+    {
+      "id": "P1",
+      "title": "Visual and multimodal representation learning"
+    },
+    {
+      "id": "P2",
+      "title": "Detection, segmentation, grounding, and tracking"
+    },
+    {
+      "id": "P3",
+      "title": "3D representation, reconstruction, and semantic mapping"
+    },
+    {
+      "id": "P4",
+      "title": "Video representation and predictive learning"
+    },
+    {
+      "id": "P5",
+      "title": "Learned dynamics, model-based RL, and world models"
+    },
+    {
+      "id": "L1",
+      "title": "Reinforcement-learning foundations"
+    },
+    {
+      "id": "L2",
+      "title": "Deep model-free continuous control"
+    },
+    {
+      "id": "L3",
+      "title": "Imitation learning and inverse reinforcement learning"
+    },
+    {
+      "id": "L4",
+      "title": "Offline and offline-to-online reinforcement learning"
+    },
+    {
+      "id": "L5",
+      "title": "Goal-conditioned, hierarchical, meta-, and skill learning"
+    },
+    {
+      "id": "L6",
+      "title": "Generative action policies and action representations"
+    },
+    {
+      "id": "L7",
+      "title": "Sim-to-real transfer, system identification, and adaptation"
+    },
+    {
+      "id": "L8",
+      "title": "Safety, uncertainty, intervention, and constrained learning"
+    },
+    {
+      "id": "D1",
+      "title": "Robot-data collection, teleoperation, and dataset construction"
+    },
+    {
+      "id": "D2",
+      "title": "Robot-learning benchmarks, generalization, and failure analysis"
+    },
+    {
+      "id": "D3",
+      "title": "Research systems, experiment infrastructure, and reproducible training"
+    },
+    {
+      "id": "D4",
+      "title": "Efficient deployment, latency, compression, and real-time policy execution"
+    },
+    {
+      "id": "D5",
+      "title": "Synthetic data, learned simulators, and scalable data engines"
+    },
+    {
+      "id": "E1",
+      "title": "Language-conditioned robotics, grounding, and task planning"
+    },
+    {
+      "id": "E2",
+      "title": "Vision-language-action models and generalist robot policies"
+    },
+    {
+      "id": "E3",
+      "title": "Embodied memory, agentic control, self-improvement, and world-action models"
+    },
+    {
+      "id": "S1",
+      "title": "Manipulation, grasping, contact, and bimanual control"
+    },
+    {
+      "id": "S2",
+      "title": "Tactile sensing and dexterous manipulation"
+    },
+    {
+      "id": "S3",
+      "title": "Legged locomotion and whole-body control"
+    },
+    {
+      "id": "S4",
+      "title": "Navigation and embodied agents"
+    },
+    {
+      "id": "S5",
+      "title": "Deformable objects, learned physics, and graph models"
+    },
+    {
+      "id": "S6",
+      "title": "Multi-agent reinforcement learning"
+    },
+    {
+      "id": "S7",
+      "title": "Differentiable physics, robot design, and co-optimization"
+    },
+    {
+      "id": "S8",
+      "title": "Human feedback, shared autonomy, and human–robot interaction"
+    }
+  ],
+  "papers": [
+    {
+      "id": "P001",
+      "title": "Deep Reinforcement Learning That Matters",
+      "topic_id": "F1"
+    },
+    {
+      "id": "P002",
+      "title": "Implementation Matters in Deep Policy Gradients: A Case Study on PPO and TRPO",
+      "topic_id": "F1"
+    },
+    {
+      "id": "P003",
+      "title": "Deep Reinforcement Learning at the Edge of the Statistical Precipice",
+      "topic_id": "F1"
+    },
+    {
+      "id": "P004",
+      "title": "Improving Reproducibility in Machine Learning Research: A Report from the NeurIPS 2019 Reproducibility Program",
+      "topic_id": "F1"
+    },
+    {
+      "id": "P005",
+      "title": "A Stochastic Approximation Method",
+      "topic_id": "F2"
+    },
+    {
+      "id": "P006",
+      "title": "Adam: A Method for Stochastic Optimization",
+      "topic_id": "F2"
+    },
+    {
+      "id": "P007",
+      "title": "Decoupled Weight Decay Regularization",
+      "topic_id": "F2"
+    },
+    {
+      "id": "P008",
+      "title": "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift",
+      "topic_id": "F2"
+    },
+    {
+      "id": "P009",
+      "title": "Deep Residual Learning for Image Recognition",
+      "topic_id": "F3"
+    },
+    {
+      "id": "P010",
+      "title": "Attention Is All You Need",
+      "topic_id": "F3"
+    },
+    {
+      "id": "P011",
+      "title": "An Image Is Worth 16×16 Words: Transformers for Image Recognition at Scale",
+      "topic_id": "F3"
+    },
+    {
+      "id": "P012",
+      "title": "Efficiently Modeling Long Sequences with Structured State Spaces",
+      "topic_id": "F3"
+    },
+    {
+      "id": "P013",
+      "title": "Mamba: Linear-Time Sequence Modeling with Selective State Spaces",
+      "topic_id": "F3"
+    },
+    {
+      "id": "P014",
+      "title": "A Simple Framework for Contrastive Learning of Visual Representations",
+      "topic_id": "F4"
+    },
+    {
+      "id": "P015",
+      "title": "Masked Autoencoders Are Scalable Vision Learners",
+      "topic_id": "F4"
+    },
+    {
+      "id": "P016",
+      "title": "Denoising Diffusion Probabilistic Models",
+      "topic_id": "F4"
+    },
+    {
+      "id": "P017",
+      "title": "Score-Based Generative Modeling through Stochastic Differential Equations",
+      "topic_id": "F4"
+    },
+    {
+      "id": "P018",
+      "title": "Flow Matching for Generative Modeling",
+      "topic_id": "F4"
+    },
+    {
+      "id": "P019",
+      "title": "Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow",
+      "topic_id": "F4"
+    },
+    {
+      "id": "P020",
+      "title": "Scaling Laws for Neural Language Models",
+      "topic_id": "F5"
+    },
+    {
+      "id": "P021",
+      "title": "Training Compute-Optimal Large Language Models",
+      "topic_id": "F5"
+    },
+    {
+      "id": "P022",
+      "title": "Training Language Models to Follow Instructions with Human Feedback",
+      "topic_id": "F5"
+    },
+    {
+      "id": "P023",
+      "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+      "topic_id": "F5"
+    },
+    {
+      "id": "P024",
+      "title": "QLoRA: Efficient Finetuning of Quantized LLMs",
+      "topic_id": "F5"
+    },
+    {
+      "id": "P025",
+      "title": "Direct Preference Optimization: Your Language Model is Secretly a Reward Model",
+      "topic_id": "F5"
+    },
+    {
+      "id": "P026",
+      "title": "Flamingo: a Visual Language Model for Few-Shot Learning",
+      "topic_id": "F5"
+    },
+    {
+      "id": "P027",
+      "title": "BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models",
+      "topic_id": "F5"
+    },
+    {
+      "id": "P028",
+      "title": "Impedance Control: An Approach to Manipulation, Part I—Theory",
+      "topic_id": "F6"
+    },
+    {
+      "id": "P029",
+      "title": "A Unified Approach for Motion and Force Control of Robot Manipulators: The Operational Space Formulation",
+      "topic_id": "F6"
+    },
+    {
+      "id": "P030",
+      "title": "Dynamic Movement Primitives: A Framework for Motor Control in Humans and Humanoid Robotics",
+      "topic_id": "F6"
+    },
+    {
+      "id": "P031",
+      "title": "Control Barrier Function Based Quadratic Programs for Safety Critical Systems",
+      "topic_id": "F6"
+    },
+    {
+      "id": "P032",
+      "title": "Probabilistic Roadmaps for Path Planning in High-Dimensional Configuration Spaces",
+      "topic_id": "F7"
+    },
+    {
+      "id": "P033",
+      "title": "Rapidly-Exploring Random Trees: A New Tool for Path Planning",
+      "topic_id": "F7"
+    },
+    {
+      "id": "P034",
+      "title": "CHOMP: Gradient Optimization Techniques for Efficient Motion Planning",
+      "topic_id": "F7"
+    },
+    {
+      "id": "P035",
+      "title": "Motion Planning with Sequential Convex Optimization and Convex Collision Checking",
+      "topic_id": "F7"
+    },
+    {
+      "id": "P036",
+      "title": "Hierarchical Task and Motion Planning in the Now",
+      "topic_id": "F7"
+    },
+    {
+      "id": "P037",
+      "title": "Information-Theoretic Model Predictive Control: Theory and Applications to Autonomous Driving",
+      "topic_id": "F7"
+    },
+    {
+      "id": "P038",
+      "title": "A New Approach to Linear Filtering and Prediction Problems",
+      "topic_id": "F8"
+    },
+    {
+      "id": "P039",
+      "title": "iSAM2: Incremental Smoothing and Mapping Using the Bayes Tree",
+      "topic_id": "F8"
+    },
+    {
+      "id": "P040",
+      "title": "On-Manifold Preintegration for Real-Time Visual–Inertial Odometry",
+      "topic_id": "F8"
+    },
+    {
+      "id": "P041",
+      "title": "VINS-Mono: A Robust and Versatile Monocular Visual–Inertial State Estimator",
+      "topic_id": "F8"
+    },
+    {
+      "id": "P042",
+      "title": "ORB-SLAM3: An Accurate Open-Source Library for Visual, Visual–Inertial, and Multi-Map SLAM",
+      "topic_id": "F8"
+    },
+    {
+      "id": "P043",
+      "title": "Learning Transferable Visual Models From Natural Language Supervision",
+      "topic_id": "P1"
+    },
+    {
+      "id": "P044",
+      "title": "Emerging Properties in Self-Supervised Vision Transformers",
+      "topic_id": "P1"
+    },
+    {
+      "id": "P045",
+      "title": "DINOv2: Learning Robust Visual Features without Supervision",
+      "topic_id": "P1"
+    },
+    {
+      "id": "P046",
+      "title": "Sigmoid Loss for Language Image Pre-Training",
+      "topic_id": "P1"
+    },
+    {
+      "id": "P047",
+      "title": "What Makes Pre-Trained Visual Representations Successful for Robust Manipulation?",
+      "topic_id": "P1"
+    },
+    {
+      "id": "P048",
+      "title": "Mask R-CNN",
+      "topic_id": "P2"
+    },
+    {
+      "id": "P049",
+      "title": "End-to-End Object Detection with Transformers",
+      "topic_id": "P2"
+    },
+    {
+      "id": "P050",
+      "title": "Grounding DINO: Marrying DINO with Grounded Pre-Training for Open-Set Object Detection",
+      "topic_id": "P2"
+    },
+    {
+      "id": "P051",
+      "title": "Segment Anything",
+      "topic_id": "P2"
+    },
+    {
+      "id": "P052",
+      "title": "SAM 2: Segment Anything in Images and Videos",
+      "topic_id": "P2"
+    },
+    {
+      "id": "P053",
+      "title": "XMem: Long-Term Video Object Segmentation with an Atkinson–Shiffrin Memory Model",
+      "topic_id": "P2"
+    },
+    {
+      "id": "P054",
+      "title": "PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation",
+      "topic_id": "P3"
+    },
+    {
+      "id": "P055",
+      "title": "PointNet++: Deep Hierarchical Feature Learning on Point Sets in a Metric Space",
+      "topic_id": "P3"
+    },
+    {
+      "id": "P056",
+      "title": "Point Transformer",
+      "topic_id": "P3"
+    },
+    {
+      "id": "P057",
+      "title": "Occupancy Networks: Learning 3D Reconstruction in Function Space",
+      "topic_id": "P3"
+    },
+    {
+      "id": "P058",
+      "title": "NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis",
+      "topic_id": "P3"
+    },
+    {
+      "id": "P059",
+      "title": "3D Gaussian Splatting for Real-Time Radiance Field Rendering",
+      "topic_id": "P3"
+    },
+    {
+      "id": "P060",
+      "title": "ConceptFusion: Open-set Multimodal 3D Mapping",
+      "topic_id": "P3"
+    },
+    {
+      "id": "P061",
+      "title": "Representation Learning with Contrastive Predictive Coding",
+      "topic_id": "P4"
+    },
+    {
+      "id": "P062",
+      "title": "VideoMAE: Masked Autoencoders are Data-Efficient Learners for Self-Supervised Video Pre-Training",
+      "topic_id": "P4"
+    },
+    {
+      "id": "P063",
+      "title": "Self-Supervised Learning from Images with a Joint-Embedding Predictive Architecture",
+      "topic_id": "P4"
+    },
+    {
+      "id": "P064",
+      "title": "Revisiting Feature Prediction for Learning Visual Representations from Video",
+      "topic_id": "P4"
+    },
+    {
+      "id": "P065",
+      "title": "V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning",
+      "topic_id": "P4"
+    },
+    {
+      "id": "P066",
+      "title": "PILCO: A Model-Based and Data-Efficient Approach to Policy Search",
+      "topic_id": "P5"
+    },
+    {
+      "id": "P067",
+      "title": "Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models",
+      "topic_id": "P5"
+    },
+    {
+      "id": "P068",
+      "title": "Learning Latent Dynamics for Planning from Pixels",
+      "topic_id": "P5"
+    },
+    {
+      "id": "P069",
+      "title": "Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model",
+      "topic_id": "P5"
+    },
+    {
+      "id": "P070",
+      "title": "Mastering Diverse Control Tasks through World Models",
+      "topic_id": "P5"
+    },
+    {
+      "id": "P071",
+      "title": "TD-MPC2: Scalable, Robust World Models for Continuous Control",
+      "topic_id": "P5"
+    },
+    {
+      "id": "P072",
+      "title": "Learning to Predict by the Methods of Temporal Differences",
+      "topic_id": "L1"
+    },
+    {
+      "id": "P073",
+      "title": "Q-Learning",
+      "topic_id": "L1"
+    },
+    {
+      "id": "P074",
+      "title": "Simple Statistical Gradient-Following Algorithms for Connectionist Reinforcement Learning",
+      "topic_id": "L1"
+    },
+    {
+      "id": "P075",
+      "title": "Human-Level Control through Deep Reinforcement Learning",
+      "topic_id": "L1"
+    },
+    {
+      "id": "P076",
+      "title": "Asynchronous Methods for Deep Reinforcement Learning",
+      "topic_id": "L1"
+    },
+    {
+      "id": "P077",
+      "title": "Trust Region Policy Optimization",
+      "topic_id": "L2"
+    },
+    {
+      "id": "P078",
+      "title": "High-Dimensional Continuous Control Using Generalized Advantage Estimation",
+      "topic_id": "L2"
+    },
+    {
+      "id": "P079",
+      "title": "Proximal Policy Optimization Algorithms",
+      "topic_id": "L2"
+    },
+    {
+      "id": "P080",
+      "title": "Continuous Control with Deep Reinforcement Learning",
+      "topic_id": "L2"
+    },
+    {
+      "id": "P081",
+      "title": "Addressing Function Approximation Error in Actor-Critic Methods",
+      "topic_id": "L2"
+    },
+    {
+      "id": "P082",
+      "title": "Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor",
+      "topic_id": "L2"
+    },
+    {
+      "id": "P083",
+      "title": "Hindsight Experience Replay",
+      "topic_id": "L2"
+    },
+    {
+      "id": "P084",
+      "title": "A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning",
+      "topic_id": "L3"
+    },
+    {
+      "id": "P085",
+      "title": "Maximum Entropy Inverse Reinforcement Learning",
+      "topic_id": "L3"
+    },
+    {
+      "id": "P086",
+      "title": "Generative Adversarial Imitation Learning",
+      "topic_id": "L3"
+    },
+    {
+      "id": "P087",
+      "title": "Learning Robust Rewards with Adversarial Inverse Reinforcement Learning",
+      "topic_id": "L3"
+    },
+    {
+      "id": "P088",
+      "title": "Learning Complex Dexterous Manipulation with Deep Reinforcement Learning and Demonstrations",
+      "topic_id": "L3"
+    },
+    {
+      "id": "P089",
+      "title": "What Matters in Learning from Offline Human Demonstrations for Robot Manipulation",
+      "topic_id": "L3"
+    },
+    {
+      "id": "P090",
+      "title": "Off-Policy Deep Reinforcement Learning without Exploration",
+      "topic_id": "L4"
+    },
+    {
+      "id": "P091",
+      "title": "Conservative Q-Learning for Offline Reinforcement Learning",
+      "topic_id": "L4"
+    },
+    {
+      "id": "P092",
+      "title": "Offline Reinforcement Learning with Implicit Q-Learning",
+      "topic_id": "L4"
+    },
+    {
+      "id": "P093",
+      "title": "Decision Transformer: Reinforcement Learning via Sequence Modeling",
+      "topic_id": "L4"
+    },
+    {
+      "id": "P094",
+      "title": "Efficient Online Reinforcement Learning with Offline Data",
+      "topic_id": "L4"
+    },
+    {
+      "id": "P095",
+      "title": "Cal-QL: Calibrated Offline RL Pre-Training for Efficient Online Fine-Tuning",
+      "topic_id": "L4"
+    },
+    {
+      "id": "P096",
+      "title": "Between MDPs and Semi-MDPs: A Framework for Temporal Abstraction in Reinforcement Learning",
+      "topic_id": "L5"
+    },
+    {
+      "id": "P097",
+      "title": "Universal Value Function Approximators",
+      "topic_id": "L5"
+    },
+    {
+      "id": "P098",
+      "title": "Diversity Is All You Need: Learning Skills without a Reward Function",
+      "topic_id": "L5"
+    },
+    {
+      "id": "P099",
+      "title": "Data-Efficient Hierarchical Reinforcement Learning",
+      "topic_id": "L5"
+    },
+    {
+      "id": "P100",
+      "title": "Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks",
+      "topic_id": "L5"
+    },
+    {
+      "id": "P101",
+      "title": "Efficient Off-Policy Meta-Reinforcement Learning via Probabilistic Context Variables",
+      "topic_id": "L5"
+    },
+    {
+      "id": "P102",
+      "title": "Behavior Transformers: Cloning k Modes with One Stone",
+      "topic_id": "L6"
+    },
+    {
+      "id": "P103",
+      "title": "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware",
+      "topic_id": "L6"
+    },
+    {
+      "id": "P104",
+      "title": "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion",
+      "topic_id": "L6"
+    },
+    {
+      "id": "P105",
+      "title": "RT-1: Robotics Transformer for Real-World Control at Scale",
+      "topic_id": "L6"
+    },
+    {
+      "id": "P106",
+      "title": "FAST: Efficient Action Tokenization for Vision-Language-Action Models",
+      "topic_id": "L6"
+    },
+    {
+      "id": "P107",
+      "title": "Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World",
+      "topic_id": "L7"
+    },
+    {
+      "id": "P108",
+      "title": "Sim-to-Real Transfer of Robotic Control with Dynamics Randomization",
+      "topic_id": "L7"
+    },
+    {
+      "id": "P109",
+      "title": "Closing the Sim-to-Real Loop: Adapting Simulation Randomization with Real World Experience",
+      "topic_id": "L7"
+    },
+    {
+      "id": "P110",
+      "title": "Learning Agile and Dynamic Motor Skills for Legged Robots",
+      "topic_id": "L7"
+    },
+    {
+      "id": "P111",
+      "title": "RMA: Rapid Motor Adaptation for Legged Robots",
+      "topic_id": "L7"
+    },
+    {
+      "id": "P112",
+      "title": "Constrained Policy Optimization",
+      "topic_id": "L8"
+    },
+    {
+      "id": "P113",
+      "title": "Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles",
+      "topic_id": "L8"
+    },
+    {
+      "id": "P114",
+      "title": "Recovery RL: Safe Reinforcement Learning with Learned Recovery Zones",
+      "topic_id": "L8"
+    },
+    {
+      "id": "P115",
+      "title": "ThriftyDAgger: Budget-Aware Novelty and Risk Gating for Interactive Imitation Learning",
+      "topic_id": "L8"
+    },
+    {
+      "id": "P116",
+      "title": "Precise and Dexterous Robotic Manipulation via Human-in-the-Loop Reinforcement Learning",
+      "topic_id": "L8"
+    },
+    {
+      "id": "P117",
+      "title": "RoboNet: Large-Scale Multi-Robot Learning",
+      "topic_id": "D1"
+    },
+    {
+      "id": "P118",
+      "title": "BridgeData V2: A Dataset for Robot Learning at Scale",
+      "topic_id": "D1"
+    },
+    {
+      "id": "P119",
+      "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
+      "topic_id": "D1"
+    },
+    {
+      "id": "P120",
+      "title": "DROID: A Large-Scale In-the-Wild Robot Manipulation Dataset",
+      "topic_id": "D1"
+    },
+    {
+      "id": "P121",
+      "title": "Mobile ALOHA: Learning Bimanual Mobile Manipulation with Low-Cost Whole-Body Teleoperation",
+      "topic_id": "D1"
+    },
+    {
+      "id": "P122",
+      "title": "Data Scaling Laws in Imitation Learning for Robotic Manipulation",
+      "topic_id": "D1"
+    },
+    {
+      "id": "P123",
+      "title": "RLBench: The Robot Learning Benchmark & Learning Environment",
+      "topic_id": "D2"
+    },
+    {
+      "id": "P124",
+      "title": "CALVIN: A Benchmark for Language-Conditioned Policy Learning for Long-Horizon Robot Manipulation Tasks",
+      "topic_id": "D2"
+    },
+    {
+      "id": "P125",
+      "title": "LIBERO: Benchmarking Knowledge Transfer for Lifelong Robot Learning",
+      "topic_id": "D2"
+    },
+    {
+      "id": "P126",
+      "title": "ManiSkill2: A Unified Benchmark for Generalizable Manipulation Skills",
+      "topic_id": "D2"
+    },
+    {
+      "id": "P127",
+      "title": "Evaluating Real-World Robot Manipulation Policies in Simulation",
+      "topic_id": "D2"
+    },
+    {
+      "id": "P128",
+      "title": "RoboArena: Distributed Real-World Evaluation of Generalist Robot Policies",
+      "topic_id": "D2"
+    },
+    {
+      "id": "P129",
+      "title": "LIBERO-Plus: A Progressive Robustness Benchmark for Visual-Language-Action Models",
+      "topic_id": "D2"
+    },
+    {
+      "id": "P130",
+      "title": "RobotArena∞: Scalable Robot Benchmarking via Real-to-Sim Translation",
+      "topic_id": "D2"
+    },
+    {
+      "id": "P131",
+      "title": "Hidden Technical Debt in Machine Learning Systems",
+      "topic_id": "D3"
+    },
+    {
+      "id": "P132",
+      "title": "ZeRO: Memory Optimizations Toward Training Trillion Parameter Models",
+      "topic_id": "D3"
+    },
+    {
+      "id": "P133",
+      "title": "Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism",
+      "topic_id": "D3"
+    },
+    {
+      "id": "P134",
+      "title": "SERL: A Software Suite for Sample-Efficient Robotic Reinforcement Learning",
+      "topic_id": "D3"
+    },
+    {
+      "id": "P135",
+      "title": "Fine-Tuning Vision-Language-Action Models: Optimizing Speed and Success",
+      "topic_id": "D4"
+    },
+    {
+      "id": "P136",
+      "title": "Real-Time Action Chunking with Large Models",
+      "topic_id": "D4"
+    },
+    {
+      "id": "P137",
+      "title": "SmolVLA: A Vision-Language-Action Model for Affordable and Efficient Robotics",
+      "topic_id": "D4"
+    },
+    {
+      "id": "P138",
+      "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+      "topic_id": "D4"
+    },
+    {
+      "id": "P139",
+      "title": "MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations",
+      "topic_id": "D5"
+    },
+    {
+      "id": "P140",
+      "title": "RoboGen: Towards Unleashing Infinite Data for Automated Robot Learning via Generative Simulation",
+      "topic_id": "D5"
+    },
+    {
+      "id": "P141",
+      "title": "GenSim: Generating Robotic Simulation Tasks via Large Language Models",
+      "topic_id": "D5"
+    },
+    {
+      "id": "P142",
+      "title": "DreamGen: Unlocking Generalization in Robot Learning through Video World Models",
+      "topic_id": "D5"
+    },
+    {
+      "id": "P143",
+      "title": "DreamDojo: A Real-Time Robot World Model from Large-Scale Human Videos",
+      "topic_id": "D5"
+    },
+    {
+      "id": "P144",
+      "title": "Do As I Can, Not As I Say: Grounding Language in Robotic Affordances",
+      "topic_id": "E1"
+    },
+    {
+      "id": "P145",
+      "title": "Code as Policies: Language Model Programs for Embodied Control",
+      "topic_id": "E1"
+    },
+    {
+      "id": "P146",
+      "title": "Inner Monologue: Embodied Reasoning through Planning with Language Models",
+      "topic_id": "E1"
+    },
+    {
+      "id": "P147",
+      "title": "PaLM-E: An Embodied Multimodal Language Model",
+      "topic_id": "E1"
+    },
+    {
+      "id": "P148",
+      "title": "VoxPoser: Composable 3D Value Maps for Robotic Manipulation with Language Models",
+      "topic_id": "E1"
+    },
+    {
+      "id": "P149",
+      "title": "VIMA: General Robot Manipulation with Multimodal Prompts",
+      "topic_id": "E1"
+    },
+    {
+      "id": "P150",
+      "title": "RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control",
+      "topic_id": "E2"
+    },
+    {
+      "id": "P151",
+      "title": "Octo: An Open-Source Generalist Robot Policy",
+      "topic_id": "E2"
+    },
+    {
+      "id": "P152",
+      "title": "OpenVLA: An Open-Source Vision-Language-Action Model",
+      "topic_id": "E2"
+    },
+    {
+      "id": "P153",
+      "title": "π0: A Vision-Language-Action Flow Model for General Robot Control",
+      "topic_id": "E2"
+    },
+    {
+      "id": "P154",
+      "title": "π0.5: A Vision-Language-Action Model with Open-World Generalization",
+      "topic_id": "E2"
+    },
+    {
+      "id": "P155",
+      "title": "GR00T N1: An Open Foundation Model for Generalist Humanoid Robots",
+      "topic_id": "E2"
+    },
+    {
+      "id": "P156",
+      "title": "Gemini Robotics: Bringing AI into the Physical World",
+      "topic_id": "E2"
+    },
+    {
+      "id": "P157",
+      "title": "What Matters in Building Vision–Language–Action Models for Generalist Robots",
+      "topic_id": "E2"
+    },
+    {
+      "id": "P158",
+      "title": "MEM: Multi-Scale Embodied Memory for Vision Language Action Models",
+      "topic_id": "E3"
+    },
+    {
+      "id": "P159",
+      "title": "π0.7: a Steerable Generalist Robotic Foundation Model with Emergent Capabilities",
+      "topic_id": "E3"
+    },
+    {
+      "id": "P160",
+      "title": "Vesta: A Generalist Embodied Reasoning Model",
+      "topic_id": "E3"
+    },
+    {
+      "id": "P161",
+      "title": "RoboTTT: Context Scaling for Robot Policies",
+      "topic_id": "E3"
+    },
+    {
+      "id": "P162",
+      "title": "ENPIRE: Agentic Robot Policy Self-Improvement in the Real World",
+      "topic_id": "E3"
+    },
+    {
+      "id": "P163",
+      "title": "Dex-Net 2.0: Deep Learning to Plan Robust Grasps with Synthetic Point Clouds and Analytic Grasp Metrics",
+      "topic_id": "S1"
+    },
+    {
+      "id": "P164",
+      "title": "Transporter Networks: Rearranging the Visual World for Robotic Manipulation",
+      "topic_id": "S1"
+    },
+    {
+      "id": "P165",
+      "title": "CLIPort: What and Where Pathways for Robotic Manipulation",
+      "topic_id": "S1"
+    },
+    {
+      "id": "P166",
+      "title": "Perceiver-Actor: A Multi-Task Transformer for Robotic Manipulation",
+      "topic_id": "S1"
+    },
+    {
+      "id": "P167",
+      "title": "Learning to Manipulate Deformable Objects without Demonstrations",
+      "topic_id": "S1"
+    },
+    {
+      "id": "P168",
+      "title": "GelSight: High-Resolution Robot Tactile Sensors for Estimating Geometry and Force",
+      "topic_id": "S2"
+    },
+    {
+      "id": "P169",
+      "title": "DIGIT: A Novel Design for a Low-Cost Compact High-Resolution Tactile Sensor with Application to In-Hand Manipulation",
+      "topic_id": "S2"
+    },
+    {
+      "id": "P170",
+      "title": "Learning Dexterous In-Hand Manipulation",
+      "topic_id": "S2"
+    },
+    {
+      "id": "P171",
+      "title": "T-Rex: Tactile-Reactive Dexterous Manipulation",
+      "topic_id": "S2"
+    },
+    {
+      "id": "P172",
+      "title": "DeepMimic: Example-Guided Deep Reinforcement Learning of Physics-Based Character Skills",
+      "topic_id": "S3"
+    },
+    {
+      "id": "P173",
+      "title": "Learning Quadrupedal Locomotion over Challenging Terrain",
+      "topic_id": "S3"
+    },
+    {
+      "id": "P174",
+      "title": "AMP: Adversarial Motion Priors for Stylized Physics-Based Character Control",
+      "topic_id": "S3"
+    },
+    {
+      "id": "P175",
+      "title": "Walk These Ways: Tuning Robot Control for Generalization with Multiplicity of Behavior",
+      "topic_id": "S3"
+    },
+    {
+      "id": "P176",
+      "title": "SONIC: Supersizing Motion Tracking for Natural Humanoid Whole-Body Control",
+      "topic_id": "S3"
+    },
+    {
+      "id": "P177",
+      "title": "Cognitive Mapping and Planning for Visual Navigation",
+      "topic_id": "S4"
+    },
+    {
+      "id": "P178",
+      "title": "Habitat: A Platform for Embodied AI Research",
+      "topic_id": "S4"
+    },
+    {
+      "id": "P179",
+      "title": "Vision-and-Language Navigation: Interpreting Visually-Grounded Navigation Instructions in Real Environments",
+      "topic_id": "S4"
+    },
+    {
+      "id": "P180",
+      "title": "Learning to Explore using Active Neural SLAM",
+      "topic_id": "S4"
+    },
+    {
+      "id": "P181",
+      "title": "Interaction Networks for Learning about Objects, Relations and Physics",
+      "topic_id": "S5"
+    },
+    {
+      "id": "P182",
+      "title": "Learning to Simulate Complex Physics with Graph Networks",
+      "topic_id": "S5"
+    },
+    {
+      "id": "P183",
+      "title": "SoftGym: Benchmarking Deep Reinforcement Learning for Deformable Object Manipulation",
+      "topic_id": "S5"
+    },
+    {
+      "id": "P184",
+      "title": "DiffTaichi: Differentiable Programming for Physical Simulation",
+      "topic_id": "S5"
+    },
+    {
+      "id": "P185",
+      "title": "Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments",
+      "topic_id": "S6"
+    },
+    {
+      "id": "P186",
+      "title": "QMIX: Monotonic Value Function Factorisation for Deep Multi-Agent Reinforcement Learning",
+      "topic_id": "S6"
+    },
+    {
+      "id": "P187",
+      "title": "The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games",
+      "topic_id": "S6"
+    },
+    {
+      "id": "P188",
+      "title": "ChainQueen: A Real-Time Differentiable Physical Simulator for Soft Robotics",
+      "topic_id": "S7"
+    },
+    {
+      "id": "P190",
+      "title": "Deep Reinforcement Learning from Human Preferences",
+      "topic_id": "S8"
+    },
+    {
+      "id": "P191",
+      "title": "PEBBLE: Feedback-Efficient Interactive Reinforcement Learning via Relabeling Experience and Unsupervised Pre-Training",
+      "topic_id": "S8"
+    },
+    {
+      "id": "P192",
+      "title": "Shared Autonomy via Deep Reinforcement Learning",
+      "topic_id": "S8"
+    },
+    {
+      "id": "P193",
+      "title": "Learning from Interventions Using Hierarchical Policies for Safe Learning",
+      "topic_id": "S8"
+    }
+  ],
+  "resources": [
+    {
+      "id": "R001",
+      "title": "Reinforcement Learning: An Introduction, 2nd ed."
+    },
+    {
+      "id": "R002",
+      "title": "Algorithms for Reinforcement Learning"
+    },
+    {
+      "id": "R003",
+      "title": "OpenAI Spinning Up in Deep RL"
+    },
+    {
+      "id": "R004",
+      "title": "CS285: Deep Reinforcement Learning"
+    },
+    {
+      "id": "R005",
+      "title": "Modern Robotics: Mechanics, Planning, and Control"
+    },
+    {
+      "id": "R006",
+      "title": "Underactuated Robotics"
+    },
+    {
+      "id": "R007",
+      "title": "Planning Algorithms"
+    },
+    {
+      "id": "R008",
+      "title": "Probabilistic Robotics"
+    },
+    {
+      "id": "R009",
+      "title": "Factor Graphs for Robot Perception"
+    },
+    {
+      "id": "R010",
+      "title": "GTSAM Documentation and Tutorials"
+    },
+    {
+      "id": "R011",
+      "title": "Deep Learning"
+    },
+    {
+      "id": "R012",
+      "title": "Dive into Deep Learning"
+    },
+    {
+      "id": "R013",
+      "title": "Stanford CS231n"
+    },
+    {
+      "id": "R014",
+      "title": "Stanford CS224n"
+    },
+    {
+      "id": "R015",
+      "title": "Full Stack Deep Learning"
+    },
+    {
+      "id": "R016",
+      "title": "Machine Learning Systems"
+    },
+    {
+      "id": "R017",
+      "title": "LeRobot Documentation"
+    },
+    {
+      "id": "R018",
+      "title": "robomimic Documentation"
+    },
+    {
+      "id": "R019",
+      "title": "ManiSkill Documentation"
+    },
+    {
+      "id": "R020",
+      "title": "MuJoCo Documentation"
+    },
+    {
+      "id": "R021",
+      "title": "Isaac Lab Documentation"
+    },
+    {
+      "id": "R022",
+      "title": "The Bitter Lesson"
+    },
+    {
+      "id": "R023",
+      "title": "Vision-Language-Action Models for Robotics: A Review Towards Real-World Applications"
+    },
+    {
+      "id": "R024",
+      "title": "Robot Learning from Randomized Simulations: A Review"
+    },
+    {
+      "id": "R025",
+      "title": "Offline Reinforcement Learning: Tutorial, Review, and Perspectives on Open Problems"
+    },
+    {
+      "id": "R026",
+      "title": "Model-based Reinforcement Learning: A Survey"
+    },
+    {
+      "id": "R027",
+      "title": "Stanford CS336: Language Modeling from Scratch"
+    },
+    {
+      "id": "R028",
+      "title": "MIT Robotic Manipulation: Perception, Planning, and Control"
+    },
+    {
+      "id": "R029",
+      "title": "CleanRL Documentation and Reference Implementations"
+    },
+    {
+      "id": "R030",
+      "title": "ROS 2 Real-Time Programming Documentation"
+    },
+    {
+      "id": "R031",
+      "title": "NVIDIA TensorRT Documentation"
+    },
+    {
+      "id": "R032",
+      "title": "Habitat Lab Documentation"
+    },
+    {
+      "id": "R033",
+      "title": "PyTorch Distributed and Distributed Checkpoint Documentation"
+    },
+    {
+      "id": "R034",
+      "title": "Drake Documentation and Tutorials"
+    },
+    {
+      "id": "R035",
+      "title": "Human–Robot Interaction: An Introduction, 2nd ed."
+    },
+    {
+      "id": "R036",
+      "title": "DiffTaichi Reproduction Examples"
+    },
+    {
+      "id": "R037",
+      "title": "PettingZoo Documentation"
+    },
+    {
+      "id": "R038",
+      "title": "CORL: Clean Offline Reinforcement Learning"
+    },
+    {
+      "id": "R039",
+      "title": "NVIDIA Isaac Sim Documentation"
+    },
+    {
+      "id": "R040",
+      "title": "Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning"
+    },
+    {
+      "id": "R041",
+      "title": "Orbit: A Unified Simulation Framework for Interactive Robot Learning Environments"
+    }
+  ],
+  "frontier_items": [
+    {
+      "id": "W001",
+      "title": "V-JEPA 2.1: Unlocking Dense Features in Video Self-Supervised Learning"
+    },
+    {
+      "id": "W002",
+      "title": "World Action Models are Zero-shot Policies"
+    },
+    {
+      "id": "W003",
+      "title": "EgoScale: Scaling Dexterous Manipulation with Diverse Egocentric Human Data"
+    },
+    {
+      "id": "W004",
+      "title": "SimFoundry: Modular and Automated Scene Generation for Policy Learning and Evaluation"
+    },
+    {
+      "id": "W005",
+      "title": "ASPIRE: Agentic /Skills Discovery for Robotics"
+    },
+    {
+      "id": "W006",
+      "title": "Gemini Robotics-ER 1.6"
+    },
+    {
+      "id": "W007",
+      "title": "GR00T N1.7 and LeRobot 0.6 integration"
+    },
+    {
+      "id": "W008",
+      "title": "VLA-JEPA, FastWAM, and LingBot-VA in LeRobot 0.6"
+    },
+    {
+      "id": "W009",
+      "title": "Robometer and TOPReward"
+    },
+    {
+      "id": "W010",
+      "title": "One Demonstration Is Enough for Real-World Robotic Reinforcement Learning (AutoSERL)"
+    },
+    {
+      "id": "W011",
+      "title": "GPUSimBench: Towards Scalable and Reliable GPU-Accelerated Simulators in Embodied AI"
+    },
+    {
+      "id": "W012",
+      "title": "NavIsaacLab: Generating Realistic Crowd via Parallel Robot Learning for Benchmarking Human-aware Navigation"
+    }
+  ],
+  "relationships": [
+    {
+      "id": "REL-D1-D5-HARD-PREREQUISITE",
+      "source": "D1",
+      "target": "D5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D1-E2-HARD-PREREQUISITE",
+      "source": "D1",
+      "target": "E2",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-D1-L4-RELATED",
+      "source": "D1",
+      "target": "L4",
+      "type": "related",
+      "scope": "data_interface"
+    },
+    {
+      "id": "REL-D1-L6-RELATED",
+      "source": "D1",
+      "target": "L6",
+      "type": "related",
+      "scope": "data_interface"
+    },
+    {
+      "id": "REL-D2-D1-SESSION-GATE",
+      "source": "D2",
+      "target": "D1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-D3-SESSION-GATE",
+      "source": "D2",
+      "target": "D3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-D4-SESSION-GATE",
+      "source": "D2",
+      "target": "D4",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-D5-SESSION-GATE",
+      "source": "D2",
+      "target": "D5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-E1-SESSION-GATE",
+      "source": "D2",
+      "target": "E1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-E2-RECOMMENDED-BACKGROUND",
+      "source": "D2",
+      "target": "E2",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-D2-E2-SESSION-GATE",
+      "source": "D2",
+      "target": "E2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-F2-SESSION-GATE",
+      "source": "D2",
+      "target": "F2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-F3-SESSION-GATE",
+      "source": "D2",
+      "target": "F3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-F4-SESSION-GATE",
+      "source": "D2",
+      "target": "F4",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-F5-SESSION-GATE",
+      "source": "D2",
+      "target": "F5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-F6-SESSION-GATE",
+      "source": "D2",
+      "target": "F6",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-F7-SESSION-GATE",
+      "source": "D2",
+      "target": "F7",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-F8-SESSION-GATE",
+      "source": "D2",
+      "target": "F8",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-L1-SESSION-GATE",
+      "source": "D2",
+      "target": "L1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-L2-SESSION-GATE",
+      "source": "D2",
+      "target": "L2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-L3-SESSION-GATE",
+      "source": "D2",
+      "target": "L3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-L4-SESSION-GATE",
+      "source": "D2",
+      "target": "L4",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-L5-SESSION-GATE",
+      "source": "D2",
+      "target": "L5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-L6-SESSION-GATE",
+      "source": "D2",
+      "target": "L6",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-L7-SESSION-GATE",
+      "source": "D2",
+      "target": "L7",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-L8-SESSION-GATE",
+      "source": "D2",
+      "target": "L8",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-P1-SESSION-GATE",
+      "source": "D2",
+      "target": "P1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-P2-SESSION-GATE",
+      "source": "D2",
+      "target": "P2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-P3-SESSION-GATE",
+      "source": "D2",
+      "target": "P3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-P4-SESSION-GATE",
+      "source": "D2",
+      "target": "P4",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-P5-SESSION-GATE",
+      "source": "D2",
+      "target": "P5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-S1-SESSION-GATE",
+      "source": "D2",
+      "target": "S1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-S2-SESSION-GATE",
+      "source": "D2",
+      "target": "S2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-S3-SESSION-GATE",
+      "source": "D2",
+      "target": "S3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-S4-SESSION-GATE",
+      "source": "D2",
+      "target": "S4",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-S5-SESSION-GATE",
+      "source": "D2",
+      "target": "S5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-S6-SESSION-GATE",
+      "source": "D2",
+      "target": "S6",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-S7-SESSION-GATE",
+      "source": "D2",
+      "target": "S7",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D2-S8-SESSION-GATE",
+      "source": "D2",
+      "target": "S8",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D3-E2-RECOMMENDED-BACKGROUND",
+      "source": "D3",
+      "target": "E2",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-D3-E2-SESSION-GATE",
+      "source": "D3",
+      "target": "E2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-D4-E2-FEEDBACK",
+      "source": "D4",
+      "target": "E2",
+      "type": "feedback",
+      "scope": "co_development"
+    },
+    {
+      "id": "REL-D5-E3-RECOMMENDED-BACKGROUND",
+      "source": "D5",
+      "target": "E3",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-D5-E3-SESSION-GATE",
+      "source": "D5",
+      "target": "E3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-E1-E2-HARD-PREREQUISITE",
+      "source": "E1",
+      "target": "E2",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-E1-E3-RECOMMENDED-BACKGROUND",
+      "source": "E1",
+      "target": "E3",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-E1-E3-SESSION-GATE",
+      "source": "E1",
+      "target": "E3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-E1-S4-HARD-PREREQUISITE",
+      "source": "E1",
+      "target": "S4",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-E1-S8-HARD-PREREQUISITE",
+      "source": "E1",
+      "target": "S8",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-E2-D4-HARD-PREREQUISITE",
+      "source": "E2",
+      "target": "D4",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-E2-E3-HARD-PREREQUISITE",
+      "source": "E2",
+      "target": "E3",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-E3-E2-FEEDBACK",
+      "source": "E3",
+      "target": "E2",
+      "type": "feedback",
+      "scope": "frontier_revision"
+    },
+    {
+      "id": "REL-F1-D1-SESSION-GATE",
+      "source": "F1",
+      "target": "D1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-D2-HARD-PREREQUISITE",
+      "source": "F1",
+      "target": "D2",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F1-D3-HARD-PREREQUISITE",
+      "source": "F1",
+      "target": "D3",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F1-D4-SESSION-GATE",
+      "source": "F1",
+      "target": "D4",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-D5-SESSION-GATE",
+      "source": "F1",
+      "target": "D5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-E1-SESSION-GATE",
+      "source": "F1",
+      "target": "E1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-E2-SESSION-GATE",
+      "source": "F1",
+      "target": "E2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-F2-SESSION-GATE",
+      "source": "F1",
+      "target": "F2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-F3-SESSION-GATE",
+      "source": "F1",
+      "target": "F3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-F4-SESSION-GATE",
+      "source": "F1",
+      "target": "F4",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-F5-SESSION-GATE",
+      "source": "F1",
+      "target": "F5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-F6-SESSION-GATE",
+      "source": "F1",
+      "target": "F6",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-F7-SESSION-GATE",
+      "source": "F1",
+      "target": "F7",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-F8-SESSION-GATE",
+      "source": "F1",
+      "target": "F8",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-L1-SESSION-GATE",
+      "source": "F1",
+      "target": "L1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-L2-SESSION-GATE",
+      "source": "F1",
+      "target": "L2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-L3-SESSION-GATE",
+      "source": "F1",
+      "target": "L3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-L4-SESSION-GATE",
+      "source": "F1",
+      "target": "L4",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-L5-SESSION-GATE",
+      "source": "F1",
+      "target": "L5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-L6-SESSION-GATE",
+      "source": "F1",
+      "target": "L6",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-L7-SESSION-GATE",
+      "source": "F1",
+      "target": "L7",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-L8-SESSION-GATE",
+      "source": "F1",
+      "target": "L8",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-P1-SESSION-GATE",
+      "source": "F1",
+      "target": "P1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-P2-SESSION-GATE",
+      "source": "F1",
+      "target": "P2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-P3-SESSION-GATE",
+      "source": "F1",
+      "target": "P3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-P4-SESSION-GATE",
+      "source": "F1",
+      "target": "P4",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-P5-SESSION-GATE",
+      "source": "F1",
+      "target": "P5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-S1-SESSION-GATE",
+      "source": "F1",
+      "target": "S1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-S2-SESSION-GATE",
+      "source": "F1",
+      "target": "S2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-S3-SESSION-GATE",
+      "source": "F1",
+      "target": "S3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-S4-SESSION-GATE",
+      "source": "F1",
+      "target": "S4",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-S5-SESSION-GATE",
+      "source": "F1",
+      "target": "S5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-S6-SESSION-GATE",
+      "source": "F1",
+      "target": "S6",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-S7-SESSION-GATE",
+      "source": "F1",
+      "target": "S7",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F1-S8-SESSION-GATE",
+      "source": "F1",
+      "target": "S8",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F2-D3-RECOMMENDED-BACKGROUND",
+      "source": "F2",
+      "target": "D3",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F2-D3-SESSION-GATE",
+      "source": "F2",
+      "target": "D3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F2-F3-HARD-PREREQUISITE",
+      "source": "F2",
+      "target": "F3",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F2-F4-HARD-PREREQUISITE",
+      "source": "F2",
+      "target": "F4",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F2-F5-HARD-PREREQUISITE",
+      "source": "F2",
+      "target": "F5",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F2-L2-HARD-PREREQUISITE",
+      "source": "F2",
+      "target": "L2",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F2-S7-HARD-PREREQUISITE",
+      "source": "F2",
+      "target": "S7",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F3-D3-RECOMMENDED-BACKGROUND",
+      "source": "F3",
+      "target": "D3",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F3-D3-SESSION-GATE",
+      "source": "F3",
+      "target": "D3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F3-E1-HARD-PREREQUISITE",
+      "source": "F3",
+      "target": "E1",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F3-F4-HARD-PREREQUISITE",
+      "source": "F3",
+      "target": "F4",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F3-F5-HARD-PREREQUISITE",
+      "source": "F3",
+      "target": "F5",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F3-L6-HARD-PREREQUISITE",
+      "source": "F3",
+      "target": "L6",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F3-P1-HARD-PREREQUISITE",
+      "source": "F3",
+      "target": "P1",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F3-P4-HARD-PREREQUISITE",
+      "source": "F3",
+      "target": "P4",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F3-S5-HARD-PREREQUISITE",
+      "source": "F3",
+      "target": "S5",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F4-D3-RECOMMENDED-BACKGROUND",
+      "source": "F4",
+      "target": "D3",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F4-D3-SESSION-GATE",
+      "source": "F4",
+      "target": "D3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F4-E1-RECOMMENDED-BACKGROUND",
+      "source": "F4",
+      "target": "E1",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F4-E1-SESSION-GATE",
+      "source": "F4",
+      "target": "E1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F4-F5-RECOMMENDED-BACKGROUND",
+      "source": "F4",
+      "target": "F5",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F4-F5-SESSION-GATE",
+      "source": "F4",
+      "target": "F5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F4-L6-HARD-PREREQUISITE",
+      "source": "F4",
+      "target": "L6",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F4-P1-HARD-PREREQUISITE",
+      "source": "F4",
+      "target": "P1",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F4-P4-HARD-PREREQUISITE",
+      "source": "F4",
+      "target": "P4",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F4-P5-RECOMMENDED-BACKGROUND",
+      "source": "F4",
+      "target": "P5",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F4-P5-SESSION-GATE",
+      "source": "F4",
+      "target": "P5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F4-S5-RECOMMENDED-BACKGROUND",
+      "source": "F4",
+      "target": "S5",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F4-S5-SESSION-GATE",
+      "source": "F4",
+      "target": "S5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F5-D3-RECOMMENDED-BACKGROUND",
+      "source": "F5",
+      "target": "D3",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F5-D3-SESSION-GATE",
+      "source": "F5",
+      "target": "D3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F5-D4-HARD-PREREQUISITE",
+      "source": "F5",
+      "target": "D4",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F5-E1-HARD-PREREQUISITE",
+      "source": "F5",
+      "target": "E1",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F5-P1-RECOMMENDED-BACKGROUND",
+      "source": "F5",
+      "target": "P1",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F5-P1-SESSION-GATE",
+      "source": "F5",
+      "target": "P1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F6-F7-HARD-PREREQUISITE",
+      "source": "F6",
+      "target": "F7",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F6-F8-RECOMMENDED-BACKGROUND",
+      "source": "F6",
+      "target": "F8",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F6-F8-SESSION-GATE",
+      "source": "F6",
+      "target": "F8",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F6-L7-HARD-PREREQUISITE",
+      "source": "F6",
+      "target": "L7",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F6-S1-HARD-PREREQUISITE",
+      "source": "F6",
+      "target": "S1",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F6-S2-HARD-PREREQUISITE",
+      "source": "F6",
+      "target": "S2",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F6-S3-HARD-PREREQUISITE",
+      "source": "F6",
+      "target": "S3",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F6-S5-HARD-PREREQUISITE",
+      "source": "F6",
+      "target": "S5",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F6-S7-HARD-PREREQUISITE",
+      "source": "F6",
+      "target": "S7",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F7-E1-RECOMMENDED-BACKGROUND",
+      "source": "F7",
+      "target": "E1",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F7-E1-SESSION-GATE",
+      "source": "F7",
+      "target": "E1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F7-L6-RELATED",
+      "source": "F7",
+      "target": "L6",
+      "type": "related",
+      "scope": "control_interface"
+    },
+    {
+      "id": "REL-F7-L7-RECOMMENDED-BACKGROUND",
+      "source": "F7",
+      "target": "L7",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F7-L7-SESSION-GATE",
+      "source": "F7",
+      "target": "L7",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F7-L8-RECOMMENDED-BACKGROUND",
+      "source": "F7",
+      "target": "L8",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F7-L8-SESSION-GATE",
+      "source": "F7",
+      "target": "L8",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F7-P5-RECOMMENDED-BACKGROUND",
+      "source": "F7",
+      "target": "P5",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F7-P5-SESSION-GATE",
+      "source": "F7",
+      "target": "P5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F7-S1-HARD-PREREQUISITE",
+      "source": "F7",
+      "target": "S1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F7-S3-RECOMMENDED-BACKGROUND",
+      "source": "F7",
+      "target": "S3",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F7-S3-SESSION-GATE",
+      "source": "F7",
+      "target": "S3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F7-S7-HARD-PREREQUISITE",
+      "source": "F7",
+      "target": "S7",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-F8-D1-RECOMMENDED-BACKGROUND",
+      "source": "F8",
+      "target": "D1",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F8-D1-SESSION-GATE",
+      "source": "F8",
+      "target": "D1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F8-L7-RECOMMENDED-BACKGROUND",
+      "source": "F8",
+      "target": "L7",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F8-L7-SESSION-GATE",
+      "source": "F8",
+      "target": "L7",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F8-P3-RECOMMENDED-BACKGROUND",
+      "source": "F8",
+      "target": "P3",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F8-P3-SESSION-GATE",
+      "source": "F8",
+      "target": "P3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F8-P5-RELATED",
+      "source": "F8",
+      "target": "P5",
+      "type": "related",
+      "scope": "state_model_interface"
+    },
+    {
+      "id": "REL-F8-S1-HARD-PREREQUISITE",
+      "source": "F8",
+      "target": "S1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F8-S3-RECOMMENDED-BACKGROUND",
+      "source": "F8",
+      "target": "S3",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-F8-S3-SESSION-GATE",
+      "source": "F8",
+      "target": "S3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-F8-S4-HARD-PREREQUISITE",
+      "source": "F8",
+      "target": "S4",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L1-L2-HARD-PREREQUISITE",
+      "source": "L1",
+      "target": "L2",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L1-L3-HARD-PREREQUISITE",
+      "source": "L1",
+      "target": "L3",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L1-L4-HARD-PREREQUISITE",
+      "source": "L1",
+      "target": "L4",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L1-L5-HARD-PREREQUISITE",
+      "source": "L1",
+      "target": "L5",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L1-L7-HARD-PREREQUISITE",
+      "source": "L1",
+      "target": "L7",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L1-L8-HARD-PREREQUISITE",
+      "source": "L1",
+      "target": "L8",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L1-P5-HARD-PREREQUISITE",
+      "source": "L1",
+      "target": "P5",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L1-S6-HARD-PREREQUISITE",
+      "source": "L1",
+      "target": "S6",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L2-L4-HARD-PREREQUISITE",
+      "source": "L2",
+      "target": "L4",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L2-L5-HARD-PREREQUISITE",
+      "source": "L2",
+      "target": "L5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L2-L7-HARD-PREREQUISITE",
+      "source": "L2",
+      "target": "L7",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L2-L8-HARD-PREREQUISITE",
+      "source": "L2",
+      "target": "L8",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L2-P5-RECOMMENDED-BACKGROUND",
+      "source": "L2",
+      "target": "P5",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-L2-P5-SESSION-GATE",
+      "source": "L2",
+      "target": "P5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L2-S3-HARD-PREREQUISITE",
+      "source": "L2",
+      "target": "S3",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L2-S6-HARD-PREREQUISITE",
+      "source": "L2",
+      "target": "S6",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L3-D1-RECOMMENDED-BACKGROUND",
+      "source": "L3",
+      "target": "D1",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-L3-D1-SESSION-GATE",
+      "source": "L3",
+      "target": "D1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L3-E2-HARD-PREREQUISITE",
+      "source": "L3",
+      "target": "E2",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L3-L4-HARD-PREREQUISITE",
+      "source": "L3",
+      "target": "L4",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L3-L6-HARD-PREREQUISITE",
+      "source": "L3",
+      "target": "L6",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L3-L8-RECOMMENDED-BACKGROUND",
+      "source": "L3",
+      "target": "L8",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-L3-L8-SESSION-GATE",
+      "source": "L3",
+      "target": "L8",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L3-S1-HARD-PREREQUISITE",
+      "source": "L3",
+      "target": "S1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L3-S8-HARD-PREREQUISITE",
+      "source": "L3",
+      "target": "S8",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L4-E2-RECOMMENDED-BACKGROUND",
+      "source": "L4",
+      "target": "E2",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-L4-E2-SESSION-GATE",
+      "source": "L4",
+      "target": "E2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L4-E3-RECOMMENDED-BACKGROUND",
+      "source": "L4",
+      "target": "E3",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-L4-E3-SESSION-GATE",
+      "source": "L4",
+      "target": "E3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L4-L8-RECOMMENDED-BACKGROUND",
+      "source": "L4",
+      "target": "L8",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-L4-L8-SESSION-GATE",
+      "source": "L4",
+      "target": "L8",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L4-S8-RECOMMENDED-BACKGROUND",
+      "source": "L4",
+      "target": "S8",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-L4-S8-SESSION-GATE",
+      "source": "L4",
+      "target": "S8",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L5-E2-RECOMMENDED-BACKGROUND",
+      "source": "L5",
+      "target": "E2",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-L5-E2-SESSION-GATE",
+      "source": "L5",
+      "target": "E2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L5-E3-RECOMMENDED-BACKGROUND",
+      "source": "L5",
+      "target": "E3",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-L5-E3-SESSION-GATE",
+      "source": "L5",
+      "target": "E3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L6-D4-HARD-PREREQUISITE",
+      "source": "L6",
+      "target": "D4",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L6-E2-HARD-PREREQUISITE",
+      "source": "L6",
+      "target": "E2",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L6-S1-HARD-PREREQUISITE",
+      "source": "L6",
+      "target": "S1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L7-D5-RECOMMENDED-BACKGROUND",
+      "source": "L7",
+      "target": "D5",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-L7-D5-SESSION-GATE",
+      "source": "L7",
+      "target": "D5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-L7-S3-HARD-PREREQUISITE",
+      "source": "L7",
+      "target": "S3",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-L8-D2-RELATED",
+      "source": "L8",
+      "target": "D2",
+      "type": "related",
+      "scope": "evaluation_interface"
+    },
+    {
+      "id": "REL-L8-D4-RELATED",
+      "source": "L8",
+      "target": "D4",
+      "type": "related",
+      "scope": "deployment_interface"
+    },
+    {
+      "id": "REL-L8-S8-HARD-PREREQUISITE",
+      "source": "L8",
+      "target": "S8",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-P1-E1-HARD-PREREQUISITE",
+      "source": "P1",
+      "target": "E1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P1-E2-HARD-PREREQUISITE",
+      "source": "P1",
+      "target": "E2",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-P1-L6-RELATED",
+      "source": "P1",
+      "target": "L6",
+      "type": "related",
+      "scope": "representation_interface"
+    },
+    {
+      "id": "REL-P1-P2-HARD-PREREQUISITE",
+      "source": "P1",
+      "target": "P2",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-P1-P3-HARD-PREREQUISITE",
+      "source": "P1",
+      "target": "P3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P1-P4-HARD-PREREQUISITE",
+      "source": "P1",
+      "target": "P4",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-P1-S2-RECOMMENDED-BACKGROUND",
+      "source": "P1",
+      "target": "S2",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P1-S2-SESSION-GATE",
+      "source": "P1",
+      "target": "S2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P1-S4-HARD-PREREQUISITE",
+      "source": "P1",
+      "target": "S4",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-P2-D1-RELATED",
+      "source": "P2",
+      "target": "D1",
+      "type": "related",
+      "scope": "data_interface"
+    },
+    {
+      "id": "REL-P2-E1-RECOMMENDED-BACKGROUND",
+      "source": "P2",
+      "target": "E1",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P2-E1-SESSION-GATE",
+      "source": "P2",
+      "target": "E1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P2-E2-RECOMMENDED-BACKGROUND",
+      "source": "P2",
+      "target": "E2",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P2-E2-SESSION-GATE",
+      "source": "P2",
+      "target": "E2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P2-S1-HARD-PREREQUISITE",
+      "source": "P2",
+      "target": "S1",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-P2-S4-RECOMMENDED-BACKGROUND",
+      "source": "P2",
+      "target": "S4",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P2-S4-SESSION-GATE",
+      "source": "P2",
+      "target": "S4",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P3-D5-RECOMMENDED-BACKGROUND",
+      "source": "P3",
+      "target": "D5",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P3-D5-SESSION-GATE",
+      "source": "P3",
+      "target": "D5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P3-E1-RECOMMENDED-BACKGROUND",
+      "source": "P3",
+      "target": "E1",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P3-E1-SESSION-GATE",
+      "source": "P3",
+      "target": "E1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P3-E2-RECOMMENDED-BACKGROUND",
+      "source": "P3",
+      "target": "E2",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P3-E2-SESSION-GATE",
+      "source": "P3",
+      "target": "E2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P3-P5-RELATED",
+      "source": "P3",
+      "target": "P5",
+      "type": "related",
+      "scope": "world_representation_interface"
+    },
+    {
+      "id": "REL-P3-S1-HARD-PREREQUISITE",
+      "source": "P3",
+      "target": "S1",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P3-S4-RECOMMENDED-BACKGROUND",
+      "source": "P3",
+      "target": "S4",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P3-S4-SESSION-GATE",
+      "source": "P3",
+      "target": "S4",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P3-S5-HARD-PREREQUISITE",
+      "source": "P3",
+      "target": "S5",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-P4-D5-RECOMMENDED-BACKGROUND",
+      "source": "P4",
+      "target": "D5",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P4-D5-SESSION-GATE",
+      "source": "P4",
+      "target": "D5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P4-E2-RECOMMENDED-BACKGROUND",
+      "source": "P4",
+      "target": "E2",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P4-E2-SESSION-GATE",
+      "source": "P4",
+      "target": "E2",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P4-E3-RECOMMENDED-BACKGROUND",
+      "source": "P4",
+      "target": "E3",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P4-E3-SESSION-GATE",
+      "source": "P4",
+      "target": "E3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P4-P5-RELATED",
+      "source": "P4",
+      "target": "P5",
+      "type": "related",
+      "scope": "conceptual"
+    },
+    {
+      "id": "REL-P4-S4-RECOMMENDED-BACKGROUND",
+      "source": "P4",
+      "target": "S4",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P4-S4-SESSION-GATE",
+      "source": "P4",
+      "target": "S4",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P4-S5-RECOMMENDED-BACKGROUND",
+      "source": "P4",
+      "target": "S5",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P4-S5-SESSION-GATE",
+      "source": "P4",
+      "target": "S5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P5-D5-RECOMMENDED-BACKGROUND",
+      "source": "P5",
+      "target": "D5",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P5-D5-SESSION-GATE",
+      "source": "P5",
+      "target": "D5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P5-E3-RECOMMENDED-BACKGROUND",
+      "source": "P5",
+      "target": "E3",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P5-E3-SESSION-GATE",
+      "source": "P5",
+      "target": "E3",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P5-S5-RECOMMENDED-BACKGROUND",
+      "source": "P5",
+      "target": "S5",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P5-S5-SESSION-GATE",
+      "source": "P5",
+      "target": "S5",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-P5-S7-RECOMMENDED-BACKGROUND",
+      "source": "P5",
+      "target": "S7",
+      "type": "recommended_background",
+      "scope": "just_in_time"
+    },
+    {
+      "id": "REL-P5-S7-SESSION-GATE",
+      "source": "P5",
+      "target": "S7",
+      "type": "hard_prerequisite",
+      "scope": "target_sessions"
+    },
+    {
+      "id": "REL-S1-S2-HARD-PREREQUISITE",
+      "source": "S1",
+      "target": "S2",
+      "type": "hard_prerequisite",
+      "scope": "topic_entry"
+    },
+    {
+      "id": "REL-S2-E2-RELATED",
+      "source": "S2",
+      "target": "E2",
+      "type": "related",
+      "scope": "tactile_action_interface"
+    },
+    {
+      "id": "REL-S3-E2-RELATED",
+      "source": "S3",
+      "target": "E2",
+      "type": "related",
+      "scope": "whole_body_interface"
+    },
+    {
+      "id": "REL-S4-E2-RELATED",
+      "source": "S4",
+      "target": "E2",
+      "type": "related",
+      "scope": "embodied_navigation_interface"
+    },
+    {
+      "id": "REL-S5-D5-RELATED",
+      "source": "S5",
+      "target": "D5",
+      "type": "related",
+      "scope": "learned_physics_interface"
+    },
+    {
+      "id": "REL-S7-L7-RELATED",
+      "source": "S7",
+      "target": "L7",
+      "type": "related",
+      "scope": "system_identification_interface"
+    },
+    {
+      "id": "REL-S8-D1-RELATED",
+      "source": "S8",
+      "target": "D1",
+      "type": "related",
+      "scope": "human_data_interface"
+    }
+  ]
+}

@@ -11,7 +11,7 @@
 | Execution status | **Optional** |
 | Covers | Preference learning, corrections, interventions, shared autonomy, intent inference, and human-centered evaluation. |
 | Excludes | It excludes broad social-robotics theory unrelated to learning, feedback, shared control, or evaluation of physical systems. |
-| Target competence | Design human-feedback, correction, intervention, and shared-autonomy systems; model intent and authority; conduct valid human-centered evaluations. |
+| Target competence | Design human-feedback, correction, intervention, and shared-autonomy systems; model intent and authority; design and critique valid human-centered evaluations. |
 | Curriculum role | Optional cross-cutting branch. Supports safe deployment and data collection. |
 | Literature cutoff / resource verification | 22 July 2026 / 22 July 2026 |
 
@@ -106,3 +106,20 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-1479E661-4589-5864-B3C5-8BBD84C29B7D` | `S8-S01` | 1 | Foundations — Preference elicitation, corrections, interventions |
+| `SES-3EBC0910-1FB2-5666-B186-3D0D83154189` | `S8-S02` | 2 | P190 — Deep Reinforcement Learning from Human Preferences |
+| `SES-5959DAE6-F577-515D-977C-4ACA6B0D6D0D` | `S8-S03` | 3 | P191 — PEBBLE: Feedback-Efficient Interactive Reinforcement Learning via Relabeling Experience and Unsupervised Pre-Training |
+| `SES-C5F3D6E1-B7C8-5AC5-AFD8-0AAA6E08E3CB` | `S8-S04` | 4 | P192 — Shared Autonomy via Deep Reinforcement Learning |
+| `SES-6D3F0D2B-0BD2-5435-A36F-9BCFB3BF0354` | `S8-S05` | 5 | P193 — Learning from Interventions Using Hierarchical Policies for Safe Learning |
+| `SES-7AA5731F-558F-523E-AECA-43C432B170AE` | `S8-S06` | 6 | Unified reconstruction and method comparison |
+| `SES-535403D6-BFFF-559F-A840-D202E2D386D6` | `S8-S07` | 7 | Evidence, limitations, and system interpretation |
+| `SES-85B83B7F-81E3-52E8-A6F1-34ECA32B1260` | `S8-S08` | 8 | Synthesis and research directions |
+| `SES-476C4BAA-E607-5D3A-87C5-D88913D05C19` | `S8-S09` | 9 | Controlled implementation and evaluation |
+| `SES-334BB3BD-82DD-5052-968E-1E7139600378` | `S8-S10` | 10 | Optional branch synthesis and activation decision |

@@ -36,8 +36,6 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   features:
-    - navigation.instant
-    - navigation.instant.progress
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.sections
@@ -89,9 +87,10 @@ extra_css:
   - assets/stylesheets/curriculum_explorer.css
 
 extra_javascript:
+  - assets/javascripts/workspace_store.js
   - assets/javascripts/curriculum_explorer.js
   - assets/javascripts/mathjax.js
-  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - assets/vendor/mathjax-3.2.2-tex-svg.min.js
 
 extra:
   social:
@@ -111,6 +110,7 @@ nav:
   - Curriculum:
       - Curriculum map: curriculum_map.md
       - Curriculum table: curriculum_table.md
+      - Typed relationships: relationships.md
   - Topics:
       - Shared foundations:
           - "F1 — Research evidence, reproducibility, and empirical methodology": topics/f1_research_evidence_reproducibility_and_empirical_methodology/topic_plan_and_session_timeline.md
@@ -158,4 +158,10 @@ nav:
   - Papers: paper_index.md
   - Resources: supporting_materials_index.md
   - Frontier: frontier_watchlist.md
+  - Audit:
+      - Exhaustive curriculum audit: audits/2026-08-27-exhaustive-curriculum-audit.md
   - Architecture: architecture.md
+  - Product contract: product_contract.md
+  - Contributing: CONTRIBUTING.md
+  - Security: SECURITY.md
+  - Third-party notices: THIRD_PARTY_NOTICES.md

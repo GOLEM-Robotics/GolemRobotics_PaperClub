@@ -107,3 +107,22 @@
 | Supporting-resource additions | R039 — NVIDIA Isaac Sim Documentation |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-A8C1DE85-4C9E-5E44-AD06-650710DCFBB6` | `P2-S01` | 1 | Foundations — Boxes, masks, set prediction |
+| `SES-2AC32A28-E85B-592C-8378-28E538518758` | `P2-S02` | 2 | P048 — Mask R-CNN |
+| `SES-65BC8B0B-22F0-53C1-9FA1-9DF40919C7BB` | `P2-S03` | 3 | P049 — End-to-End Object Detection with Transformers |
+| `SES-D27323BA-A8FF-5367-812F-3C7D3E40AEA9` | `P2-S04` | 4 | P050 — Grounding DINO: Marrying DINO with Grounded Pre-Training for Open-Set Object Detection |
+| `SES-93391542-9DF7-5A76-A930-FC70A9C169CE` | `P2-S05` | 5 | P051 — Segment Anything |
+| `SES-BC4A7216-075E-533B-A6BA-A739DCB27246` | `P2-S06` | 6 | P052 — SAM 2: Segment Anything in Images and Videos |
+| `SES-C54522E8-6BFD-5DB9-936F-288135C78863` | `P2-S07` | 7 | Unified reconstruction and method comparison |
+| `SES-E91478AA-ACF9-54DE-A097-9FA6072D5ECE` | `P2-S08` | 8 | Controlled implementation and evaluation |
+| `SES-0B16CCA6-58F9-5EAA-8ECA-6AF65D01B297` | `P2-S09` | 9 | Evidence, limitations, and system interpretation |
+| `SES-8FA2361F-90DC-59BB-BF26-D2BB571A73F7` | `P2-S10` | 10 | Synthesis and research directions |
+| `SES-D0CBD985-1F61-54CC-9C8B-1E8B8B273208` | `P2-S11` | 11 | P053 — XMem: Long-Term Video Object Segmentation with an Atkinson–Shiffrin Memory Model |
+| `SES-D96C6F30-232E-508C-991A-99654B9B0179` | `P2-S12` | 12 | Optional branch synthesis and activation decision |

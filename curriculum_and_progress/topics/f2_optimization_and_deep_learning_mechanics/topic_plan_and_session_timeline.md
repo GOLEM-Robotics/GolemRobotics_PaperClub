@@ -103,3 +103,19 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-EB562832-C118-5F54-BF57-59052D403DBC` | `F2-S01` | 1 | Foundations — Gradients, stochastic estimators, conditioning |
+| `SES-A559A646-0BF7-5CB2-BBD2-AD4ED429722D` | `F2-S02` | 2 | P005 — A Stochastic Approximation Method |
+| `SES-AAFAAA95-DF1B-5FFA-8851-4CF3D15F3BEB` | `F2-S03` | 3 | P006 — Adam: A Method for Stochastic Optimization |
+| `SES-090E8597-2382-5435-B33C-E1300B38A210` | `F2-S04` | 4 | P007 — Decoupled Weight Decay Regularization |
+| `SES-BA89DDCE-D859-5B99-810C-9DDF1F1F3FF0` | `F2-S05` | 5 | P008 — Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift |
+| `SES-348734BD-B5A1-5B02-8494-AFD02AE1124B` | `F2-S06` | 6 | Unified reconstruction and method comparison |
+| `SES-56B68DC8-E61D-5FAB-A395-0C19C3A45743` | `F2-S07` | 7 | Controlled implementation and evaluation |
+| `SES-909AB026-8C5A-5F75-BD64-247EC476C17C` | `F2-S08` | 8 | Evidence, limitations, and system interpretation |
+| `SES-3E719B44-87F2-56CE-A7F0-FDE444BE2A85` | `F2-S09` | 9 | Synthesis and research directions |

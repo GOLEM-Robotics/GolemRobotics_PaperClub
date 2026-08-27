@@ -104,3 +104,19 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-3739D1A5-FD09-5C85-810E-750D9B287992` | `S6-S01` | 1 | Foundations — Markov games, joint policies, decentralized observations |
+| `SES-34B78DE7-1ABC-5C0F-B4E9-1F7EF6F031FD` | `S6-S02` | 2 | P185 — Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments |
+| `SES-3240EBEA-10B6-5655-975D-9E5436A42948` | `S6-S03` | 3 | P186 — QMIX: Monotonic Value Function Factorisation for Deep Multi-Agent Reinforcement Learning |
+| `SES-61EE5A02-5CBE-5DCF-B464-DB68686F518F` | `S6-S04` | 4 | P187 — The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games |
+| `SES-306E05F4-138D-5D73-8A45-C35DDF53997E` | `S6-S05` | 5 | Unified reconstruction and method comparison |
+| `SES-DD579E93-663A-562D-815D-EE73F0D16074` | `S6-S06` | 6 | Evidence, limitations, and system interpretation |
+| `SES-B19CF97A-EB8C-52C1-8FFB-388FA700E1D5` | `S6-S07` | 7 | Synthesis and research directions |
+| `SES-D8B1A81F-7F76-5767-B0FA-B8F97C830B8A` | `S6-S08` | 8 | Controlled implementation and evaluation |
+| `SES-A4A481DD-5466-5D28-B2FB-FC51CA5586A5` | `S6-S09` | 9 | Optional branch synthesis and activation decision |

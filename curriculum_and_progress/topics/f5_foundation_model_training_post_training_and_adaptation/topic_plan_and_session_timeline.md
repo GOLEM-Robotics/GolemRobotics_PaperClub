@@ -111,3 +111,23 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-AB4806DF-8CDB-57B2-8ED5-1822E1FB4A87` | `F5-S01` | 1 | Foundations — Tokenization, data mixtures, compute accounting |
+| `SES-C7B4A0D2-F3E1-55B1-B740-B41CA31A6E68` | `F5-S02` | 2 | P020 — Scaling Laws for Neural Language Models |
+| `SES-04EA3F98-C135-5A4E-96DA-FDA510DA75C6` | `F5-S03` | 3 | P021 — Training Compute-Optimal Large Language Models |
+| `SES-B91605E1-BD43-5F23-A716-798A6ACE3730` | `F5-S04` | 4 | P022 — Training Language Models to Follow Instructions with Human Feedback |
+| `SES-4EE1340D-66FB-5943-BF3D-F83DC6D0D299` | `F5-S05` | 5 | P023 — LoRA: Low-Rank Adaptation of Large Language Models |
+| `SES-D5B33105-490E-528C-A84C-B364352A5296` | `F5-S06` | 6 | P024 — QLoRA: Efficient Finetuning of Quantized LLMs |
+| `SES-3E4FC1B1-C351-563F-A948-6558DDAD3B17` | `F5-S07` | 7 | P025 — Direct Preference Optimization: Your Language Model is Secretly a Reward Model |
+| `SES-5C653D26-90D2-5D6C-8AF7-6EEC295DB166` | `F5-S08` | 8 | P026 — Flamingo: a Visual Language Model for Few-Shot Learning |
+| `SES-BE542DFE-480D-5081-9E43-C35CD9317EFC` | `F5-S09` | 9 | P027 — BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models |
+| `SES-B6C0FF75-5D93-567E-8208-BD4BA218B43A` | `F5-S10` | 10 | Unified reconstruction and method comparison |
+| `SES-08BCBA21-14EA-59E5-B009-A4580CCE8C68` | `F5-S11` | 11 | Controlled implementation and evaluation |
+| `SES-A4A9ECC7-FCBD-5B85-A90A-C9BBFE9587FF` | `F5-S12` | 12 | Evidence, limitations, and system interpretation |
+| `SES-07CFA7D4-0C04-5208-AB9A-BCC8187805D6` | `F5-S13` | 13 | Synthesis and research directions |

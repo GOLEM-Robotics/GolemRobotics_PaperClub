@@ -1,192 +1,232 @@
 ---
-title: Curriculum Explorer
-description: Navigate the Golem Robotics research curriculum, dependencies, sessions, and reading material.
+title: Golem Robotics Research Curriculum
+description: A source-grounded learning workspace for robot learning, embodied intelligence, and physical AI.
 hide:
   - toc
 ---
 
-# Curriculum Explorer {: #explorer-title }
+# Golem Robotics Research Curriculum {: #explorer-title }
 
 <p class="explorer-intro">
-Find a starting point, understand topic prerequisites, and open the authoritative curriculum material. Progress stays private in your browser and can be backed up as a JSON file.
+A rigorous, paper-driven learning workspace for building research competence in robot learning and embodied intelligence.
 </p>
 
 <div id="curriculum-explorer" data-graph-url="assets/data/curriculum_graph.json">
-  <header class="explorer-appbar">
-    <div class="explorer-brand" aria-label="Curriculum Explorer">
-      <strong>Curriculum Explorer</strong>
-      <span data-current-context>Research learning workspace</span>
-    </div>
+  <header class="app-header">
+    <a class="app-brand" href="?view=home" data-route-view="home" aria-label="Golem Curriculum home">
+      <span class="app-mark" aria-hidden="true">G</span>
+      <span><strong>Golem Curriculum</strong><small>Research learning workspace</small></span>
+    </a>
 
-    <nav class="explorer-primary-nav" aria-label="Explorer views">
-      <button type="button" data-view="overview" aria-pressed="true">Overview</button>
-      <button type="button" data-view="map" aria-pressed="false">Map</button>
-      <button type="button" data-view="focus" aria-pressed="false" disabled title="Select a topic first">Focus</button>
-      <button type="button" data-view="topic" aria-pressed="false" disabled title="Select a topic first">Topic</button>
-      <button type="button" data-view="table" aria-pressed="false">Table</button>
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <button type="button" data-view="home" aria-pressed="true">Home</button>
+      <button type="button" data-view="curriculum" aria-pressed="false">Curriculum</button>
+      <button type="button" data-view="library" aria-pressed="false">Library</button>
+      <button type="button" data-view="workspace" aria-pressed="false">Workspace</button>
+      <button type="button" data-view="reference" aria-pressed="false">Reference</button>
     </nav>
 
-    <div class="explorer-search">
+    <div class="global-search">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
-      <input type="search" autocomplete="off" placeholder="Search the curriculum…" aria-label="Search topics, sessions, papers, and resources" aria-expanded="false" data-explorer-search>
-      <div class="explorer-search-results" role="listbox" data-search-results hidden></div>
+      <input type="search" autocomplete="off" placeholder="Search topics, sessions, papers…" aria-label="Search the curriculum" aria-expanded="false" data-global-search>
+      <div class="search-results" role="listbox" data-search-results hidden></div>
     </div>
 
-    <div class="explorer-app-actions">
-      <a href="curriculum_map/" class="explorer-docs-link">Docs</a>
-      <button type="button" class="explorer-filter-button" aria-expanded="false" aria-controls="explorer-filters" data-filter-toggle>Filters</button>
-      <button type="button" class="explorer-icon-button" title="Reset explorer" aria-label="Reset explorer" data-reset>↺</button>
-      <button type="button" class="explorer-icon-button" title="Open fullscreen" aria-label="Open fullscreen" data-fullscreen><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M8 21H3v-5m13 5h5v-5"/></svg></button>
-    </div>
+    <button type="button" class="mobile-nav-toggle" aria-expanded="false" aria-label="Open navigation" data-mobile-nav>Menu</button>
   </header>
 
-  <div class="explorer-shell">
-    <aside class="explorer-sidebar" id="explorer-filters" aria-label="Curriculum filters and legend">
-      <div class="explorer-sidebar-heading">
-        <h2>Explore</h2>
-        <button type="button" data-clear-filters>Clear</button>
-      </div>
+  <div class="app-status" role="status" aria-live="polite" data-app-status>Loading the curriculum…</div>
 
-      <fieldset>
-        <legend>Curriculum areas</legend>
-        <div class="explorer-filter-list" data-area-filters></div>
-      </fieldset>
-
-      <fieldset>
-        <legend>Execution status</legend>
-        <div class="explorer-filter-list" data-status-filters></div>
-      </fieldset>
-
-      <fieldset>
-        <legend>Planning</legend>
-        <label class="explorer-option-row">
-          <input type="checkbox" data-ready-only>
-          <span>Show ready topics only</span>
-        </label>
-      </fieldset>
-
-      <div class="explorer-legend" aria-label="Map legend">
-        <h3>Map legend</h3>
-        <span><i class="explorer-legend-line"></i> Prerequisite → dependent</span>
-        <span><i class="explorer-legend-line is-feedback"></i> Mutual dependency</span>
-        <span><i class="explorer-legend-status is-core"></i> Shared core</span>
-        <span><i class="explorer-legend-status is-track"></i> Active track</span>
-        <span><i class="explorer-legend-status is-specialization"></i> Specialization / optional</span>
-      </div>
-    </aside>
-
-    <main class="explorer-workspace">
-      <section class="explorer-view" data-view-panel="overview" aria-labelledby="overview-heading">
-        <div class="explorer-section-heading">
-          <div>
-            <p class="explorer-eyebrow">Orientation</p>
-            <h2 id="overview-heading">Build research capability, one connected topic at a time</h2>
-            <p>Start from shared foundations, follow conceptual prerequisites, and use each topic timeline to turn reading into evidence and working skill.</p>
-          </div>
-          <button type="button" class="md-button md-button--primary" data-overview-map>Explore the map</button>
-        </div>
-        <div class="explorer-stat-grid" data-explorer-stats></div>
-        <div class="explorer-overview-grid">
-          <section class="explorer-card explorer-next-card" aria-labelledby="next-heading">
-            <div class="explorer-card-heading">
-              <div><p class="explorer-eyebrow">Recommended path</p><h3 id="next-heading">What to study next</h3></div>
-              <span data-progress-summary></span>
-            </div>
-            <div data-next-steps></div>
-          </section>
-          <section class="explorer-card" aria-labelledby="areas-heading">
-            <div class="explorer-card-heading"><div><p class="explorer-eyebrow">Curriculum shape</p><h3 id="areas-heading">Six connected areas</h3></div></div>
-            <div class="explorer-area-cards" data-area-cards></div>
-          </section>
-        </div>
-        <section class="explorer-card explorer-progress-tools" aria-labelledby="progress-tools-heading">
-          <div>
-            <p class="explorer-eyebrow">Private and portable</p>
-            <h3 id="progress-tools-heading">Your progress</h3>
-            <p>Completion data stays in this browser. Export a backup to continue on another browser or machine.</p>
-          </div>
-          <div class="explorer-progress-actions">
-            <button type="button" data-export-progress>Export progress</button>
-            <button type="button" data-import-progress>Import progress</button>
-            <input type="file" accept="application/json,.json" data-progress-file-input hidden>
-            <span role="status" aria-live="polite" data-progress-file-status></span>
-          </div>
-        </section>
-        <section class="explorer-card explorer-quick-links" aria-labelledby="quick-heading">
-          <div><p class="explorer-eyebrow">Authoritative material</p><h3 id="quick-heading">Browse the source curriculum</h3></div>
-          <div>
-            <a href="curriculum_map/">Curriculum map</a>
-            <a href="curriculum_table/">Curriculum table</a>
-            <a href="paper_index/">Paper index</a>
-            <a href="supporting_materials_index/">Supporting resources</a>
-            <a href="frontier_watchlist/">Frontier watchlist</a>
-          </div>
-        </section>
-      </section>
-
-      <section class="explorer-view explorer-graph-view" data-view-panel="map" aria-label="Curriculum dependency map" hidden>
-        <div class="explorer-graph-toolbar">
-          <div>
-            <strong>Topic dependency map</strong>
-            <span>Arrows point from prerequisite to dependent.</span>
-          </div>
-          <div class="explorer-graph-actions">
-            <button type="button" aria-label="Zoom out" title="Zoom out" data-zoom-out>−</button>
-            <button type="button" aria-label="Zoom in" title="Zoom in" data-zoom-in>+</button>
-            <button type="button" data-fit>Fit map</button>
+  <div class="app-main">
+    <section class="app-view home-view" data-view-panel="home" aria-labelledby="home-title">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Research apprenticeship</p>
+          <h2 id="home-title">Know what to learn next—and why.</h2>
+          <p class="hero-lead">Build a defensible path through 37 connected topics. Every recommendation traces back to prerequisites, primary sources, and an explicit competence boundary.</p>
+          <div class="hero-actions">
+            <button type="button" class="button primary" data-start-learning>Start learning</button>
+            <button type="button" class="button secondary" data-plan-target>Plan toward a target</button>
           </div>
         </div>
-        <div class="explorer-graph-wrap">
-          <div class="explorer-graph" data-explorer-graph></div>
-          <div class="explorer-loading" role="status" data-explorer-loading>Loading curriculum…</div>
-        </div>
-        <footer class="explorer-graph-footer">
-          <label>Keyboard alternative
-            <select data-map-topic-select aria-label="Select a visible topic from the map"><option value="">Choose a topic…</option></select>
+        <aside class="orientation-card" aria-label="Workspace orientation">
+          <p class="eyebrow">Your setup</p>
+          <label>Learning profile
+            <select data-profile-select>
+              <option value="guided">Guided</option>
+              <option value="accelerated">Accelerated</option>
+              <option value="ai_sprint">AI Sprint</option>
+            </select>
           </label>
-          <span data-graph-status></span>
-        </footer>
+          <label>Target capability
+            <select data-target-select><option value="">Explore without a target</option></select>
+          </label>
+          <p class="muted" data-profile-description></p>
+        </aside>
+      </div>
+
+      <section class="dashboard-grid">
+        <article class="panel next-action-panel">
+          <header><div><p class="eyebrow">Next meaningful action</p><h3 data-next-title>Choose a starting point</h3></div><span class="status-pill" data-next-status>Ready</span></header>
+          <div data-next-action></div>
+        </article>
+        <article class="panel resume-panel">
+          <header><div><p class="eyebrow">Continuity</p><h3>Resume your work</h3></div></header>
+          <div data-resume-card></div>
+        </article>
       </section>
 
-      <section class="explorer-view explorer-graph-view" data-view-panel="focus" aria-label="Selected topic dependency focus" hidden>
-        <div class="explorer-graph-toolbar">
-          <div><strong data-focus-title>Topic focus</strong><span>Trace the dependencies that explain this topic.</span></div>
-          <div class="explorer-focus-controls" role="group" aria-label="Focus controls">
-            <button type="button" data-focus-direction="prerequisites" aria-pressed="false">Prerequisites</button>
-            <button type="button" data-focus-direction="both" aria-pressed="true">Both</button>
-            <button type="button" data-focus-direction="dependents" aria-pressed="false">Dependents</button>
-            <label><input type="checkbox" checked data-transitive-focus> Include transitive paths</label>
-            <button type="button" data-fit>Fit focus</button>
-          </div>
+      <section class="stat-strip" data-stat-strip aria-label="Curriculum inventory"></section>
+
+      <section class="panel pathway-preview">
+        <header><div><p class="eyebrow">Explainable route</p><h3 data-path-heading>Your curriculum journey</h3></div><button type="button" class="text-button" data-open-curriculum>Open curriculum →</button></header>
+        <div data-path-preview></div>
+      </section>
+
+      <section class="panel provenance-strip" data-provenance-strip></section>
+    </section>
+
+    <section class="app-view curriculum-view" data-view-panel="curriculum" aria-labelledby="curriculum-title" hidden>
+      <header class="page-heading">
+        <div><p class="eyebrow">Canonical learning graph</p><h2 id="curriculum-title">Curriculum</h2><p>Plan from a capability target, then study prerequisites in a defensible order. The graph is available as context—not as the starting point.</p></div>
+        <div class="segmented" role="group" aria-label="Curriculum presentation">
+          <button type="button" data-curriculum-mode="path" aria-pressed="true">Learning path</button>
+          <button type="button" data-curriculum-mode="catalog" aria-pressed="false">Topic catalog</button>
+          <button type="button" data-curriculum-mode="map" aria-pressed="false">Relationship map</button>
         </div>
-        <div class="explorer-graph-wrap"><div class="explorer-graph-mirror" data-focus-graph></div></div>
-        <footer class="explorer-graph-footer"><span data-focus-status></span></footer>
-      </section>
+      </header>
 
-      <section class="explorer-view explorer-topic-view" data-view-panel="topic" aria-labelledby="topic-workspace-title" hidden>
-        <header class="explorer-topic-header" data-topic-header></header>
-        <nav class="explorer-topic-tabs" aria-label="Topic detail sections" data-topic-tabs>
-          <button type="button" data-topic-tab="summary" aria-pressed="true">Summary</button>
-          <button type="button" data-topic-tab="sessions" aria-pressed="false">Sessions</button>
-          <button type="button" data-topic-tab="papers" aria-pressed="false">Papers</button>
-          <button type="button" data-topic-tab="resources" aria-pressed="false">Resources</button>
-          <button type="button" data-topic-tab="related" aria-pressed="false">Related topics</button>
-        </nav>
-        <div class="explorer-topic-content" data-topic-content></div>
-      </section>
+      <div class="curriculum-toolbar">
+        <label>Target
+          <select data-target-select><option value="">Complete curriculum journey</option></select>
+        </label>
+        <label>Profile
+          <select data-profile-select>
+            <option value="guided">Guided</option>
+            <option value="accelerated">Accelerated</option>
+            <option value="ai_sprint">AI Sprint</option>
+          </select>
+        </label>
+        <label>Area
+          <select data-area-filter><option value="">All areas</option></select>
+        </label>
+        <label class="check-label"><input type="checkbox" data-ready-filter> Ready now</label>
+      </div>
 
-      <section class="explorer-view explorer-table-view" data-view-panel="table" aria-labelledby="table-heading" hidden>
-        <div class="explorer-section-heading explorer-table-heading">
-          <div><p class="explorer-eyebrow">Dense planning view</p><h2 id="table-heading">Complete curriculum table</h2><p>Sort, filter, and open any topic without relying on the graph.</p></div>
+      <div data-curriculum-panel="path">
+        <section class="completion-key" data-completion-key></section>
+        <div class="learning-path" data-learning-path></div>
+      </div>
+      <div data-curriculum-panel="catalog" hidden>
+        <div class="topic-catalog" data-topic-catalog></div>
+      </div>
+      <div data-curriculum-panel="map" hidden>
+        <div class="map-toolbar"><p><strong>Relationship map</strong><br><span>Solid arrows block; dashed arrows are recommended; feedback never blocks. <span data-map-count></span></span></p><label>Detail<select data-map-scope><option value="overview">Overview</option><option value="hard">All hard gates</option><option value="all">All relationships</option></select></label><div><button type="button" aria-label="Zoom out" data-map-zoom="out">−</button><button type="button" aria-label="Zoom in" data-map-zoom="in">+</button><button type="button" data-map-fit>Fit</button></div></div>
+        <div class="curriculum-map" data-curriculum-map></div>
+        <label class="map-alternative">Keyboard alternative: <select data-map-topic-select><option value="">Choose a topic…</option></select></label>
+      </div>
+    </section>
+
+    <section class="app-view library-view" data-view-panel="library" aria-labelledby="library-title" hidden>
+      <header class="page-heading">
+        <div><p class="eyebrow">Source-grounded library</p><h2 id="library-title">Library</h2><p>Browse primary papers, supporting resources, and frontier records without losing their curriculum context.</p></div>
+      </header>
+      <div class="library-toolbar">
+        <div class="segmented" role="group" aria-label="Library collection">
+          <button type="button" data-library-kind="papers" aria-pressed="true">Papers <span data-paper-count></span></button>
+          <button type="button" data-library-kind="resources" aria-pressed="false">Resources <span data-resource-count></span></button>
+          <button type="button" data-library-kind="frontier" aria-pressed="false">Frontier <span data-frontier-count></span></button>
         </div>
-        <div class="explorer-table-wrap" data-table-content></div>
-      </section>
-    </main>
+        <input type="search" placeholder="Filter this collection…" aria-label="Filter library" data-library-search>
+        <select aria-label="Filter library by topic" data-library-topic><option value="">All topics</option></select>
+      </div>
+      <div class="library-grid" data-library-content></div>
+    </section>
 
-    <aside class="explorer-inspector" aria-live="polite" aria-label="Selected topic" data-explorer-details></aside>
+    <section class="app-view workspace-view" data-view-panel="workspace" aria-labelledby="workspace-title" hidden>
+      <header class="page-heading">
+        <div><p class="eyebrow">Private, durable, portable</p><h2 id="workspace-title">Workspace</h2><p>Your personal overlay is stored in IndexedDB. It never rewrites canonical curriculum data.</p></div>
+        <span class="storage-badge" data-storage-badge>Checking storage…</span>
+      </header>
+
+      <div class="workspace-grid">
+        <section class="panel workspace-progress"><header><div><p class="eyebrow">Learning state</p><h3>Progress and competence</h3></div></header><div data-workspace-progress></div></section>
+        <section class="panel workspace-route"><header><div><p class="eyebrow">Personal route</p><h3>Ordering and exclusions</h3></div></header><div data-custom-route></div></section>
+      </div>
+
+      <section class="panel personal-additions">
+        <header><div><p class="eyebrow">Clearly personal</p><h3>Custom sessions and materials</h3></div><span class="origin-badge personal">Personal overlay</span></header>
+        <form class="addition-form" data-addition-form>
+          <input type="hidden" name="itemId">
+          <label>Type<select name="kind"><option value="session">Custom session</option><option value="material">Added material</option></select></label>
+          <label>Title<input name="title" required maxlength="180"></label>
+          <label>Topic<select name="topicId" required></select></label>
+          <label class="wide">Purpose or objective<textarea name="objective" rows="2" required maxlength="4000"></textarea></label>
+          <label class="wide">Source URL or expected artifact<input name="source" maxlength="2048" placeholder="https://… or a concrete artifact"></label>
+          <div class="form-actions wide"><button type="submit" class="button primary">Save personal item</button><button type="button" class="button secondary" data-cancel-edit hidden>Cancel edit</button></div>
+        </form>
+        <div data-personal-items></div>
+      </section>
+
+      <section class="panel bundle-panel">
+        <header><div><p class="eyebrow">Recovery and portability</p><h3>Workspace Bundle</h3></div><span data-bundle-status role="status" aria-live="polite"></span></header>
+        <p>Export progress, notes, custom paths, additions, disabled items, source revision, and optionally private attachments. Unknown IDs are archived during import instead of discarded. Bundles are plaintext private files; import only bundles you created or trust.</p>
+        <p class="muted">Browser storage is origin-scoped. On the default GitHub Pages host, other GOLEM-Robotics project sites share the <code>golem-robotics.github.io</code> origin and must be treated as part of the same trust boundary.</p>
+        <div class="bundle-actions">
+          <label class="check-label"><input type="checkbox" data-include-attachments> Include attachments</label>
+          <button type="button" class="button primary" data-export-bundle>Export bundle</button>
+          <button type="button" class="button secondary" data-import-bundle>Import bundle</button>
+          <input type="file" accept="application/json,.json" data-bundle-input hidden>
+          <button type="button" class="text-button danger" data-reset-workspace>Reset personal workspace</button>
+        </div>
+        <div data-orphan-archive></div>
+      </section>
+
+      <section class="panel proposal-panel">
+        <header><div><p class="eyebrow">Safe publication fallback</p><h3>Prepare a curriculum proposal</h3></div><span class="origin-badge canonical">No repository credentials</span></header>
+        <p>Package selected personal additions as a reviewable Markdown proposal. Publishing remains a deliberate pull-request workflow.</p>
+        <label>Proposal context<textarea rows="3" data-proposal-context placeholder="Why should this become part of the canonical curriculum?"></textarea></label>
+        <button type="button" class="button secondary" data-export-proposal>Download proposal bundle</button>
+      </section>
+    </section>
+
+    <section class="app-view reference-view" data-view-panel="reference" aria-labelledby="reference-title" hidden>
+      <header class="page-heading"><div><p class="eyebrow">Source and governance</p><h2 id="reference-title">Reference</h2><p>Inspect the exact methodology, canonical records, provenance, and maintenance boundaries behind the product.</p></div></header>
+      <div class="reference-grid">
+        <section class="panel"><h3>Club methodology</h3><p>The five reviewed framework documents remain the highest-level authority.</p><ol class="reference-links"><li><a href="1_operating_principles/">Operating principles</a></li><li><a href="2_research_curriculum_goal/">Curriculum goal</a></li><li><a href="3_research_curriculum_construction_rules/">Construction rules</a></li><li><a href="4_topic_planning_guideline/">Topic planning guideline</a></li><li><a href="5_repo_structure/">Repository structure</a></li></ol></section>
+        <section class="panel"><h3>Canonical curriculum</h3><ul class="reference-links"><li><a href="curriculum_map/">Curriculum map</a></li><li><a href="curriculum_table/">Curriculum table</a></li><li><a href="relationships/">Typed relationships</a></li><li><a href="paper_index/">Paper index</a></li><li><a href="supporting_materials_index/">Supporting resources</a></li><li><a href="frontier_watchlist/">Frontier watchlist</a></li></ul></section>
+        <section class="panel"><h3>Provenance</h3><dl class="metadata-list" data-provenance-detail></dl></section>
+        <section class="panel"><h3>Maintenance</h3><div data-maintenance-detail></div><p><a href="audits/2026-08-27-exhaustive-curriculum-audit/">Read the exhaustive audit →</a></p><p><a href="architecture/">System architecture and data contract →</a></p></section>
+      </div>
+    </section>
+
+    <section class="app-view topic-view" data-view-panel="topic" aria-labelledby="topic-title" hidden>
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><button type="button" data-view="curriculum">Curriculum</button><span>›</span><span data-topic-crumb></span></nav>
+      <header class="topic-header" data-topic-header></header>
+      <nav class="topic-tabs" aria-label="Topic sections">
+        <button type="button" data-topic-tab="summary" aria-pressed="true">Summary</button>
+        <button type="button" data-topic-tab="path" aria-pressed="false">Learning path</button>
+        <button type="button" data-topic-tab="sessions" aria-pressed="false">Sessions</button>
+        <button type="button" data-topic-tab="papers" aria-pressed="false">Papers</button>
+        <button type="button" data-topic-tab="resources" aria-pressed="false">Resources</button>
+        <button type="button" data-topic-tab="connections" aria-pressed="false">Connections</button>
+        <button type="button" data-topic-tab="notes" aria-pressed="false">Notes</button>
+        <button type="button" data-topic-tab="history" aria-pressed="false">Revision history</button>
+      </nav>
+      <div class="topic-content" data-topic-content></div>
+    </section>
+
+    <section class="app-view session-view" data-view-panel="session" aria-labelledby="session-title" hidden>
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><button type="button" data-view="curriculum">Curriculum</button><span>›</span><button type="button" data-session-topic-link></button><span>›</span><span data-session-crumb></span></nav>
+      <header class="session-header" data-session-header></header>
+      <div class="session-layout">
+        <article class="session-main" data-session-content></article>
+        <aside class="session-side" data-session-side></aside>
+      </div>
+    </section>
   </div>
 </div>
 
 <noscript>
-The interactive explorer requires JavaScript. Use the [curriculum map](curriculum_map.md), [curriculum table](curriculum_table.md), or [topic timelines](topics/f1_research_evidence_reproducibility_and_empirical_methodology/topic_plan_and_session_timeline.md) instead.
+The learning workspace requires JavaScript. The complete canonical curriculum remains available through the [curriculum map](curriculum_map.md), [curriculum table](curriculum_table.md), and [paper index](paper_index.md).
 </noscript>

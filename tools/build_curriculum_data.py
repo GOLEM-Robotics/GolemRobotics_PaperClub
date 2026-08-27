@@ -22,6 +22,17 @@ RANGE_RE = re.compile(r"\b([FPLDES])(\d+)\s*[–—-]\s*([FPLDES])?(\d+)\b")
 PAPER_ID_RE = re.compile(r"\bP\d{3}\b")
 RESOURCE_ID_RE = re.compile(r"\bR\d{3}\b")
 FRONTIER_ID_RE = re.compile(r"\bW\d{3}\b")
+SESSION_ID_RE = re.compile(r"^SES-[0-9A-F]{8}(?:-[0-9A-F]{4}){3}-[0-9A-F]{12}$")
+RELATIONSHIP_TYPES = {"hard_prerequisite", "recommended_background", "related", "feedback"}
+TOPIC_STATUSES = {
+    "Shared Core",
+    "Active Research Track",
+    "Specialization",
+    "Optional",
+    "Frontier Watchlist",
+    "Deferred",
+}
+SESSION_CLASSIFICATIONS = {"Required Core", "Frontier Continuation", "Optional Specialization", "Quarantined"}
 
 AREA_DEFINITIONS = {
     "F": {
@@ -194,6 +205,62 @@ def parse_markdown_link(value: str) -> tuple[str, str | None]:
     return clean_inline(value), None
 
 
+def parse_session_registry(text: str, path: Path) -> dict[int, dict[str, Any]]:
+    """Parse the durable ID registry appended to a canonical topic plan."""
+    tables = parse_tables(get_section(text, "10. Stable session identity registry"))
+    if not tables:
+        raise ValueError(f"Missing stable session identity registry: {path}")
+    registry: dict[int, dict[str, Any]] = {}
+    for row in tables[0]:
+        session_id = clean_inline(row.get("Stable ID", "")).upper()
+        sequence_raw = clean_inline(row.get("Current sequence", ""))
+        aliases = re.findall(r"[FPLDES]\d+-S\d{2}", row.get("Legacy aliases", ""))
+        if not SESSION_ID_RE.fullmatch(session_id):
+            raise ValueError(f"Invalid stable session ID {session_id!r}: {path}")
+        if not sequence_raw.isdigit():
+            raise ValueError(f"Invalid session registry sequence {sequence_raw!r}: {path}")
+        sequence = int(sequence_raw)
+        if sequence in registry:
+            raise ValueError(f"Duplicate session registry sequence {sequence}: {path}")
+        registry[sequence] = {
+            "id": session_id,
+            "legacy_aliases": aliases,
+            "registered_title": clean_inline(row.get("Session", "")),
+        }
+    return registry
+
+
+def parse_relationship_registry(path: Path) -> list[dict[str, Any]]:
+    text = path.read_text(encoding="utf-8")
+    tables = parse_tables(text)
+    table = next(
+        (
+            rows
+            for rows in tables
+            if rows and {"Relationship ID", "Source", "Target", "Type", "Scope", "Rationale"} <= set(rows[0])
+        ),
+        [],
+    )
+    if not table:
+        raise ValueError(f"No canonical relationship table found: {path}")
+    records: list[dict[str, Any]] = []
+    for row in table:
+        records.append(
+            {
+                "id": clean_inline(row["Relationship ID"]),
+                "source": clean_inline(row["Source"]),
+                "target": clean_inline(row["Target"]),
+                "type": clean_inline(row["Type"]),
+                "scope": clean_inline(row["Scope"]),
+                "target_session_ids": re.findall(SESSION_ID_RE.pattern[1:-1], clean_inline(row.get("Target session IDs", ""))),
+                "confidence": clean_inline(row.get("Confidence", "")),
+                "rationale": clean_inline(row["Rationale"]),
+                "evidence": clean_inline(row.get("Evidence", "")),
+            }
+        )
+    return records
+
+
 def parse_topic_file(path: Path, docs_dir: Path) -> dict[str, Any]:
     text = path.read_text(encoding="utf-8")
     title_match = re.search(r"^#\s+([FPLDES]\d+)\s+—\s+(.+?):\s+Topic Plan and Session Timeline\s*$", text, re.MULTILINE)
@@ -231,8 +298,10 @@ def parse_topic_file(path: Path, docs_dir: Path) -> dict[str, Any]:
     if not timeline_tables:
         raise ValueError(f"No session table found: {path}")
     session_rows = timeline_tables[0]
+    session_registry = parse_session_registry(text, path)
     sessions: list[dict[str, Any]] = []
-    paper_ids: set[str] = set()
+    paper_ids: list[str] = []
+    seen_paper_ids: set[str] = set()
     session_resource_ids: set[str] = set()
 
     for row in session_rows:
@@ -240,6 +309,9 @@ def parse_topic_file(path: Path, docs_dir: Path) -> dict[str, Any]:
         if not sequence_raw.isdigit():
             continue
         sequence = int(sequence_raw)
+        identity = session_registry.get(sequence)
+        if not identity:
+            raise ValueError(f"Session {topic_id} S{sequence} is missing a stable identity: {path}")
         session_cell = row.get("Session / stage", "")
         title_parts = re.split(r"<br\s*/?>", session_cell, maxsplit=1)
         session_title = clean_inline(title_parts[0])
@@ -248,15 +320,25 @@ def parse_topic_file(path: Path, docs_dir: Path) -> dict[str, Any]:
         row_papers = sorted(set(PAPER_ID_RE.findall(materials)))
         row_resources = sorted(set(RESOURCE_ID_RE.findall(materials)))
         row_frontier = sorted(set(FRONTIER_ID_RE.findall(materials)))
-        paper_ids.update(row_papers)
+        for paper_id in row_papers:
+            if paper_id not in seen_paper_ids:
+                paper_ids.append(paper_id)
+                seen_paper_ids.add(paper_id)
         session_resource_ids.update(row_resources)
 
         completion = clean_inline(row.get("Completion capability / continuity", ""))
         artifact_match = re.search(r"Artifact:\s*([^;]+)", completion, re.IGNORECASE)
-        next_match = re.search(r"next\s+(S\d+)", completion, re.IGNORECASE)
+        next_match = re.search(r"(?:next|continuation)\s+(S\d+)", completion, re.IGNORECASE)
+        next_alias = None
+        if next_match:
+            next_alias = f"{topic_id}-S{int(next_match.group(1)[1:]):02d}"
         sessions.append(
             {
-                "id": f"{topic_id}-S{sequence:02d}",
+                "id": identity["id"],
+                "stable_id": identity["id"],
+                "legacy_aliases": identity["legacy_aliases"],
+                "display_id": f"{topic_id}-S{sequence:02d}",
+                "registered_title": identity["registered_title"],
                 "topic_id": topic_id,
                 "sequence": sequence,
                 "title": session_title,
@@ -271,9 +353,48 @@ def parse_topic_file(path: Path, docs_dir: Path) -> dict[str, Any]:
                 "planned_component": clean_inline(row.get("Planned component", "")),
                 "completion": completion,
                 "artifact": artifact_match.group(1).strip() if artifact_match else None,
-                "next_session": next_match.group(1).upper() if next_match else None,
+                "next_session_alias": next_alias,
+                "next_session_id": None,
+                "profile_modes": ["guided", "accelerated", "ai_sprint"],
+                "competence_evidence": artifact_match.group(1).strip() if artifact_match else completion,
             }
         )
+
+    if set(session_registry) != {session["sequence"] for session in sessions}:
+        raise ValueError(f"Stable identity registry does not match the timeline: {path}")
+    sessions_by_alias = {
+        alias: session["id"]
+        for session in sessions
+        for alias in session["legacy_aliases"]
+    }
+    for session in sessions:
+        session["next_session_id"] = sessions_by_alias.get(session["next_session_alias"])
+        local_sequences: set[int] = set()
+        raw_prerequisites = session["prerequisites"]
+        for match in re.finditer(r"\bS(\d+)\s*[–—-]\s*S?(\d+)\b", raw_prerequisites):
+            start, end = int(match.group(1)), int(match.group(2))
+            local_sequences.update(range(min(start, end), max(start, end) + 1))
+        for number in re.findall(r"\bS(\d+)\b", raw_prerequisites):
+            local_sequences.add(int(number))
+        local_sequences = {number for number in local_sequences if number < session["sequence"]}
+        cross_topic_ids = expand_topic_ids(raw_prerequisites)
+        cross_topic_ids = [
+            candidate
+            for candidate in cross_topic_ids
+            if candidate != topic_id
+            and (
+                not candidate.startswith("S")
+                or re.search(rf"\bTopic\s+{re.escape(candidate)}\b", raw_prerequisites, re.IGNORECASE)
+            )
+        ]
+        session["readiness"] = {
+            "raw": raw_prerequisites,
+            "prior_session_ids": [session_registry[number]["id"] for number in sorted(local_sequences)],
+            "cross_topic_ids": cross_topic_ids,
+            "requires_execution_resources": bool(
+                re.search(r"required\s+compute/data/simulator/hardware", raw_prerequisites, re.IGNORECASE)
+            ),
+        }
 
     supporting_resources = sorted(set(supporting_resources) | session_resource_ids)
 
@@ -287,6 +408,15 @@ def parse_topic_file(path: Path, docs_dir: Path) -> dict[str, Any]:
 
     classification_counts = Counter(session["classification"] for session in sessions)
     planned_sessions = int(re.sub(r"\D", "", clean_inline(execution.get("Planned sessions", "0"))) or len(sessions))
+    core_sessions = [session for session in sessions if session["classification"] == "Required Core"]
+    continuation_sessions = [session for session in sessions if session["classification"] == "Frontier Continuation"]
+    optional_sessions = [session for session in sessions if session["classification"] == "Optional Specialization"]
+    quarantined_sessions = [session for session in sessions if session["classification"] == "Quarantined"]
+    endpoint_match = re.fullmatch(r"S(\d+)", clean_inline(execution.get("Required Core endpoint", "")))
+    endpoint_id = session_registry[int(endpoint_match.group(1))]["id"] if endpoint_match else None
+    revision_history = first_table_map(
+        get_section(text, "9. Revision notes for the master curriculum"), key="Item", value="Decision"
+    )
 
     return {
         "id": topic_id,
@@ -306,15 +436,25 @@ def parse_topic_file(path: Path, docs_dir: Path) -> dict[str, Any]:
         "planned_sessions": planned_sessions,
         "classification_counts": dict(sorted(classification_counts.items())),
         "required_core_endpoint": clean_inline(execution.get("Required Core endpoint", "")),
+        "required_core_endpoint_id": endpoint_id,
         "completion_boundary": clean_inline(execution.get("Completion boundary", "")),
+        "completion_model": {
+            "required_core_session_ids": [session["id"] for session in core_sessions],
+            "continuation_session_ids": [session["id"] for session in continuation_sessions],
+            "optional_session_ids": [session["id"] for session in optional_sessions],
+            "quarantined_session_ids": [session["id"] for session in quarantined_sessions],
+            "validated_competence_evidence": [session["competence_evidence"] for session in core_sessions],
+        },
+        "revision_history": {key: clean_inline(value) for key, value in revision_history.items()},
         "dependencies": explicit_dependencies,
+        "declared_dependency_topics": explicit_dependencies,
         "foundations": {
             "other_topics": clean_inline(foundation_map.get("Other topic timelines", "")),
             "topic_local": clean_inline(foundation_map.get("Topic-local foundation", "")),
             "individual_gap": clean_inline(foundation_map.get("Individual preparation gap", "")),
         },
         "cross_topic_links": {key: clean_inline(value) for key, value in cross.items()},
-        "papers": sorted(paper_ids),
+        "papers": paper_ids,
         "resources": supporting_resources,
         "sessions": sessions,
         "url": url,
@@ -360,10 +500,14 @@ def parse_paper_index(path: Path) -> list[dict[str, Any]]:
                     "authors": parts[0] if parts else "",
                     "year": parts[1] if len(parts) > 1 else "",
                     "venue": parts[2] if len(parts) > 2 else "",
+                    "authoritative_version": fields.get("Authoritative version used", ""),
+                    "official_project_or_code": fields.get("Official project/code", ""),
                     "role_level_preparation": fields.get("Role / level / preparation", ""),
                     "contribution": fields.get("Contribution", ""),
                     "lineage": fields.get("Lineage and relationships", ""),
                     "limitation": fields.get("Major positioning limitation", ""),
+                    "quality_influence_signals": fields.get("Quality/influence signals", ""),
+                    "metadata_confidence": fields.get("Metadata and assessment confidence", ""),
                 }
             )
             i = j
@@ -391,7 +535,7 @@ def parse_resource_index(path: Path) -> list[dict[str, Any]]:
                 "type": clean_inline(row.get("Type", "")),
                 "topics_raw": topics_raw,
                 "topic_ids": expand_topic_ids(topics_raw),
-                "role": clean_inline(row.get("Curriculum role", "")),
+                "required_use": clean_inline(row.get("Required use", row.get("Curriculum role", ""))),
                 "status": clean_inline(row.get("Status", "")),
                 "confidence": clean_inline(row.get("Confidence", "")),
             }
@@ -419,8 +563,12 @@ def parse_frontier_index(path: Path) -> list[dict[str, Any]]:
                 "url": url,
                 "topic_ids": expand_topic_ids(related_raw),
                 "related_topics_raw": related_raw,
+                "date_added": clean_inline(row.get("Date added", "")),
                 "reason": clean_inline(row.get("Reason it may matter", row.get("Why it matters", ""))),
                 "maturity": clean_inline(row.get("Maturity / evidence status", row.get("Maturity", ""))),
+                "latest_evidence": clean_inline(row.get("Latest evidence", "")),
+                "last_checked": clean_inline(row.get("Last checked", "")),
+                "review_date": clean_inline(row.get("Review date", "")),
                 "decision": clean_inline(row.get("Decision", "")),
             }
         )
@@ -428,7 +576,7 @@ def parse_frontier_index(path: Path) -> list[dict[str, Any]]:
 
 
 def compute_topic_ranks(nodes: Iterable[str], dependencies: list[dict[str, str]], sort_key=topic_sort_key) -> tuple[dict[str, int], set[tuple[str, str]]]:
-    """Return deterministic ranks while preserving cycles as same-rank SCCs."""
+    """Return deterministic ranks and identify any blocking cycles."""
     nodes = sorted(set(nodes), key=sort_key)
     outgoing: dict[str, set[str]] = {node: set() for node in nodes}
     for edge in dependencies:
@@ -533,22 +681,38 @@ def build_dataset(repo_root: Path) -> dict[str, Any]:
     topics.sort(key=lambda item: topic_sort_key(item["id"]))
 
     known_topic_ids = {topic["id"] for topic in topics}
-    dependencies: list[dict[str, str]] = []
-    for topic in topics:
-        for source in topic["dependencies"]:
-            if source in known_topic_ids:
-                dependencies.append({"source": source, "target": topic["id"], "type": "prerequisite"})
-            else:
-                log.warning("Ignoring unknown topic dependency %s -> %s", source, topic["id"])
-    dependencies = sorted(
-        {(edge["source"], edge["target"], edge["type"]) for edge in dependencies},
-        key=lambda edge: (topic_sort_key(edge[1]), topic_sort_key(edge[0])),
+    relationship_records = parse_relationship_registry(docs_dir / "relationships.md")
+    relationship_records.sort(
+        key=lambda edge: (topic_sort_key(edge["target"]), topic_sort_key(edge["source"]), edge["type"])
     )
-    dependency_records = [{"source": source, "target": target, "type": edge_type} for source, target, edge_type in dependencies]
+    hard_relationships = [edge for edge in relationship_records if edge["type"] == "hard_prerequisite"]
+    cycle_edges = assign_positions(topics, hard_relationships)
+    for edge in relationship_records:
+        edge["blocking"] = edge["type"] == "hard_prerequisite"
+        edge["cycle"] = edge["blocking"] and (edge["source"], edge["target"]) in cycle_edges
 
-    cycle_edges = assign_positions(topics, dependency_records)
-    for edge in dependency_records:
-        edge["cycle"] = (edge["source"], edge["target"]) in cycle_edges
+    for topic in topics:
+        incoming = [edge for edge in relationship_records if edge["target"] == topic["id"]]
+        outgoing = [edge for edge in relationship_records if edge["source"] == topic["id"]]
+        topic["relationships"] = {
+            "incoming": [edge["id"] for edge in incoming],
+            "outgoing": [edge["id"] for edge in outgoing],
+        }
+        topic["hard_prerequisites"] = [
+            edge["source"]
+            for edge in incoming
+            if edge["type"] == "hard_prerequisite" and edge["scope"] == "topic_entry"
+        ]
+        topic["session_gate_relationships"] = [
+            edge["id"]
+            for edge in incoming
+            if edge["type"] == "hard_prerequisite" and edge["scope"] != "topic_entry"
+        ]
+        topic["recommended_background"] = [
+            edge["source"] for edge in incoming if edge["type"] == "recommended_background"
+        ]
+        # Backward-compatible name, now strictly limited to blocking relationships.
+        topic["dependencies"] = list(topic["hard_prerequisites"])
 
     papers = parse_paper_index(docs_dir / "paper_index.md")
     resources = parse_resource_index(docs_dir / "supporting_materials_index.md")
@@ -561,6 +725,15 @@ def build_dataset(repo_root: Path) -> dict[str, Any]:
     sessions: list[dict[str, Any]] = []
     for topic in topics:
         sessions.extend(topic.pop("sessions"))
+        all_topic_papers = topic["papers"]
+        topic["primary_papers"] = [
+            paper_id for paper_id in all_topic_papers if paper_by_id.get(paper_id, {}).get("topic_id") == topic["id"]
+        ]
+        topic["cross_referenced_papers"] = [
+            paper_id for paper_id in all_topic_papers if paper_by_id.get(paper_id, {}).get("topic_id") != topic["id"]
+        ]
+        # Backward-compatible name means primary ownership/order, not every session cross-reference.
+        topic["papers"] = list(topic["primary_papers"])
         for paper_id in topic["papers"]:
             if paper_id not in paper_by_id:
                 log.warning("Topic %s references missing paper %s", topic["id"], paper_id)
@@ -568,9 +741,23 @@ def build_dataset(repo_root: Path) -> dict[str, Any]:
             if resource_id not in resource_by_id:
                 log.warning("Topic %s references missing resource %s", topic["id"], resource_id)
 
+    for session in sessions:
+        targeted = [
+            edge for edge in relationship_records if session["id"] in edge.get("target_session_ids", [])
+        ]
+        session["relationship_gates"] = [
+            edge["id"] for edge in targeted if edge["type"] == "hard_prerequisite"
+        ]
+        session["recommended_relationships"] = [
+            edge["id"] for edge in targeted if edge["type"] == "recommended_background"
+        ]
+
     source_files = topic_paths + [
         docs_dir / "curriculum_map.md",
         docs_dir / "curriculum_table.md",
+        docs_dir / "relationships.md",
+        docs_dir / "canonical_entity_ids.json",
+        docs_dir / "stable_session_ids.json",
         docs_dir / "paper_index.md",
         docs_dir / "supporting_materials_index.md",
         docs_dir / "frontier_watchlist.md",
@@ -604,26 +791,85 @@ def build_dataset(repo_root: Path) -> dict[str, Any]:
         for status, count in sorted(status_counts.items(), key=lambda item: STATUS_ORDER.get(item[0], 99))
     ]
 
+    paper_metadata = first_table_map((docs_dir / "paper_index.md").read_text(encoding="utf-8"), value="Value")
+    resource_metadata = first_table_map((docs_dir / "supporting_materials_index.md").read_text(encoding="utf-8"), value="Value")
+    frontier_metadata = first_table_map((docs_dir / "frontier_watchlist.md").read_text(encoding="utf-8"), value="Value")
+    maintenance_path = docs_dir / "maintenance" / "state.json"
+    maintenance_state = json.loads(maintenance_path.read_text(encoding="utf-8")) if maintenance_path.exists() else {}
+
     return {
-        "schema_version": 1,
+        "schema_version": 2,
+        "curriculum_version": "2026.07.22",
         "source_revision": source_digest.hexdigest(),
         "source_of_truth": "Markdown files under curriculum_and_progress/",
+        "provenance": {
+            "literature_cutoff": clean_inline(paper_metadata.get("Literature-search cutoff", "")),
+            "paper_verification": clean_inline(paper_metadata.get("Verification date", "")),
+            "resource_verification": clean_inline(resource_metadata.get("Verification date", "")),
+            "frontier_verification": clean_inline(frontier_metadata.get("Verification date", "")),
+            "next_frontier_review": clean_inline(frontier_metadata.get("Default next review", "")),
+            "maintenance_state": "curriculum_and_progress/maintenance/state.json",
+            "last_maintenance_scan": maintenance_state.get("last_run"),
+            "last_exhaustive_audit": maintenance_state.get("last_exhaustive_audit"),
+            "last_deep_review": maintenance_state.get("last_deep_review"),
+        },
         "statistics": {
             "topics": len(topics),
             "sessions": len(sessions),
             "papers": len(papers),
             "resources": len(resources),
             "frontier_items": len(frontier),
-            "dependencies": len(dependency_records),
+            "dependencies": len(relationship_records),
+            "hard_prerequisites": len(hard_relationships),
+            "relationship_types": dict(sorted(Counter(edge["type"] for edge in relationship_records).items())),
         },
         "areas": area_records,
         "statuses": statuses,
         "topics": topics,
-        "dependencies": dependency_records,
+        "relationships": relationship_records,
+        "dependencies": relationship_records,
         "sessions": sessions,
         "papers": papers,
         "resources": resources,
         "frontier_items": frontier,
+    }
+
+
+def canonical_identity_snapshot(dataset: dict[str, Any]) -> dict[str, Any]:
+    """Return the reviewable identity lock for already published entities.
+
+    Titles are retained as human-readable identity anchors. A justified metadata
+    correction can update the lock in the same reviewed change, while an
+    accidental rename, deletion, reassignment, or relationship-ID reuse fails CI.
+    """
+    return {
+        "schema_version": 1,
+        "topics": [
+            {"id": item["id"], "title": item["title"]}
+            for item in sorted(dataset["topics"], key=lambda item: topic_sort_key(item["id"]))
+        ],
+        "papers": [
+            {"id": item["id"], "title": item["title"], "topic_id": item["topic_id"]}
+            for item in sorted(dataset["papers"], key=lambda item: item["id"])
+        ],
+        "resources": [
+            {"id": item["id"], "title": item["title"]}
+            for item in sorted(dataset["resources"], key=lambda item: item["id"])
+        ],
+        "frontier_items": [
+            {"id": item["id"], "title": item["title"]}
+            for item in sorted(dataset["frontier_items"], key=lambda item: item["id"])
+        ],
+        "relationships": [
+            {
+                "id": item["id"],
+                "source": item["source"],
+                "target": item["target"],
+                "type": item["type"],
+                "scope": item["scope"],
+            }
+            for item in sorted(dataset["relationships"], key=lambda item: item["id"])
+        ],
     }
 
 
@@ -641,14 +887,73 @@ def validate_dataset(dataset: dict[str, Any], repo_root: Path) -> None:
     topic_ids = unique_ids(dataset["topics"], "topic")
     session_ids = unique_ids(dataset["sessions"], "session")
     paper_ids = unique_ids(dataset["papers"], "paper")
+    paper_titles = {paper["id"]: paper["title"] for paper in dataset["papers"]}
     resource_ids = unique_ids(dataset["resources"], "resource")
-    unique_ids(dataset["frontier_items"], "frontier")
+    frontier_ids = unique_ids(dataset["frontier_items"], "frontier")
+    relationship_ids = unique_ids(dataset["relationships"], "relationship")
 
-    for edge in dataset["dependencies"]:
+    entity_kinds = {
+        "topic": topic_ids,
+        "session": session_ids,
+        "paper": paper_ids,
+        "resource": resource_ids,
+        "frontier": frontier_ids,
+        "relationship": relationship_ids,
+    }
+    global_owners: dict[str, list[str]] = defaultdict(list)
+    for kind, identifiers in entity_kinds.items():
+        for identifier in identifiers:
+            global_owners[identifier].append(kind)
+    cross_kind_duplicates = {
+        identifier: kinds for identifier, kinds in global_owners.items() if len(kinds) > 1
+    }
+    if cross_kind_duplicates:
+        rendered = ", ".join(
+            f"{identifier} ({'/'.join(kinds)})"
+            for identifier, kinds in sorted(cross_kind_duplicates.items())
+        )
+        errors.append(f"Entity IDs are not globally unique: {rendered}")
+
+    relationship_pairs: set[tuple[str, str, str]] = set()
+    for edge in dataset["relationships"]:
         if edge["source"] not in topic_ids or edge["target"] not in topic_ids:
             errors.append(f"Invalid dependency endpoint: {edge['source']} -> {edge['target']}")
+        if edge["source"] == edge["target"]:
+            errors.append(f"Self-referential relationship: {edge['id']}")
+        if edge["type"] not in RELATIONSHIP_TYPES:
+            errors.append(f"Invalid relationship type for {edge['id']}: {edge['type']}")
+        if not edge.get("scope") or not edge.get("rationale"):
+            errors.append(f"Relationship {edge['id']} lacks scope or rationale")
+        if edge.get("confidence") not in {"high", "manual_review"}:
+            errors.append(f"Relationship {edge['id']} has invalid confidence {edge.get('confidence')}")
+        if edge["rationale"].startswith("Required before topic entry") or edge["rationale"].startswith("Useful background at"):
+            errors.append(f"Relationship {edge['id']} retains a generic rationale")
+        if edge.get("blocking") != (edge["type"] == "hard_prerequisite"):
+            errors.append(f"Relationship {edge['id']} has inconsistent blocking semantics")
+        pair_with_type = (edge["source"], edge["target"], edge["type"])
+        if pair_with_type in relationship_pairs:
+            errors.append(f"Duplicate relationship semantics: {edge['source']} -> {edge['target']} ({edge['type']})")
+        relationship_pairs.add(pair_with_type)
+    hard_edges = [edge for edge in dataset["relationships"] if edge["type"] == "hard_prerequisite"]
+    _, hard_cycle_edges = compute_topic_ranks(topic_ids, hard_edges)
+    if hard_cycle_edges:
+        rendered = ", ".join(f"{source}->{target}" for source, target in sorted(hard_cycle_edges))
+        errors.append(f"Hard-prerequisite cycle detected: {rendered}")
+
+    session_topic_by_id = {session["id"]: session["topic_id"] for session in dataset["sessions"]}
+    for edge in dataset["relationships"]:
+        target_sessions = edge.get("target_session_ids", [])
+        if edge["scope"] == "target_sessions" and not target_sessions:
+            errors.append(f"Session-scoped relationship {edge['id']} has no target sessions")
+        for session_id in target_sessions:
+            if session_id not in session_topic_by_id:
+                errors.append(f"Relationship {edge['id']} references unknown target session {session_id}")
+            elif session_topic_by_id[session_id] != edge["target"]:
+                errors.append(f"Relationship {edge['id']} targets a session outside {edge['target']}")
 
     sessions_by_topic = Counter(session["topic_id"] for session in dataset["sessions"])
+    sessions_grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    aliases_seen: dict[str, str] = {}
     used_papers: set[str] = set()
     used_resources: set[str] = set()
     for topic in dataset["topics"]:
@@ -660,9 +965,14 @@ def validate_dataset(dataset: dict[str, Any], repo_root: Path) -> None:
             errors.append(
                 f"Session count mismatch for {topic_id}: metadata={topic['planned_sessions']} parsed={sessions_by_topic[topic_id]}"
             )
-        unknown_dependencies = sorted(set(topic["dependencies"]) - topic_ids)
+        if topic["status"] not in TOPIC_STATUSES:
+            errors.append(f"Invalid topic status for {topic_id}: {topic['status']}")
+        unknown_dependencies = sorted(set(topic["hard_prerequisites"]) - topic_ids)
         if unknown_dependencies:
             errors.append(f"Unknown dependencies in {topic_id}: {', '.join(unknown_dependencies)}")
+        for source in topic["declared_dependency_topics"]:
+            if not any(edge["source"] == source and edge["target"] == topic_id for edge in dataset["relationships"]):
+                errors.append(f"Declared dependency lacks typed relationship: {source} -> {topic_id}")
         unknown_papers = sorted(set(topic["papers"]) - paper_ids)
         if unknown_papers:
             errors.append(f"Unknown papers in {topic_id}: {', '.join(unknown_papers)}")
@@ -674,21 +984,114 @@ def validate_dataset(dataset: dict[str, Any], repo_root: Path) -> None:
         if not topic.get("positions", {}).get("map"):
             errors.append(f"Missing global-map position for {topic_id}")
 
+        topic_sessions = sorted(
+            (session for session in dataset["sessions"] if session["topic_id"] == topic_id),
+            key=lambda session: session["sequence"],
+        )
+        core_sessions = [session for session in topic_sessions if session["classification"] == "Required Core"]
+        if core_sessions:
+            expected_prefix = list(range(1, len(core_sessions) + 1))
+            actual_prefix = [session["sequence"] for session in core_sessions]
+            if actual_prefix != expected_prefix:
+                errors.append(f"Required Core is not an exact prefix for {topic_id}: {actual_prefix}")
+            if topic["required_core_endpoint_id"] != core_sessions[-1]["id"]:
+                errors.append(f"Required Core endpoint does not resolve to final core session for {topic_id}")
+        elif topic["required_core_endpoint"] != "N/A":
+            errors.append(f"Topic {topic_id} has no Required Core but endpoint is {topic['required_core_endpoint']}")
+
     for session in dataset["sessions"]:
+        sessions_grouped[session["topic_id"]].append(session)
         if session["topic_id"] not in topic_ids:
             errors.append(f"Session {session['id']} references unknown topic {session['topic_id']}")
-        if not session["id"].startswith(f"{session['topic_id']}-S"):
-            errors.append(f"Session ID does not match topic: {session['id']}")
+        if not SESSION_ID_RE.fullmatch(session["id"]):
+            errors.append(f"Invalid stable session ID: {session['id']}")
+        if session["classification"] not in SESSION_CLASSIFICATIONS:
+            errors.append(f"Invalid session classification for {session['display_id']}: {session['classification']}")
+        if session["display_id"] not in session["legacy_aliases"]:
+            errors.append(f"Current display ID is not a legacy alias: {session['display_id']}")
+        if session["registered_title"] != session["title"]:
+            errors.append(f"Stable registry title drift for {session['display_id']}")
+        for alias in session["legacy_aliases"]:
+            if alias in aliases_seen:
+                errors.append(f"Legacy alias {alias} maps to both {aliases_seen[alias]} and {session['id']}")
+            aliases_seen[alias] = session["id"]
+        if session["next_session_alias"] and not session["next_session_id"]:
+            errors.append(
+                f"Session {session['display_id']} declares unresolved transition {session['next_session_alias']}"
+            )
+        for prerequisite_id in session["readiness"]["prior_session_ids"]:
+            prerequisite = next((candidate for candidate in dataset["sessions"] if candidate["id"] == prerequisite_id), None)
+            if prerequisite is None:
+                errors.append(f"Session {session['display_id']} has unknown prerequisite {prerequisite_id}")
+            elif prerequisite["topic_id"] != session["topic_id"] or prerequisite["sequence"] >= session["sequence"]:
+                errors.append(f"Session {session['display_id']} has an accidental forward prerequisite")
         for paper_id in session["papers"]:
             if paper_id not in paper_ids:
                 errors.append(f"Session {session['id']} references unknown paper {paper_id}")
+        if len(session["papers"]) == 1:
+            paper_id = session["papers"][0]
+            title_prefix = f"{paper_id} — "
+            if session["title"].startswith(title_prefix) and paper_id in paper_titles:
+                observed_title = session["title"][len(title_prefix):]
+                if observed_title != paper_titles[paper_id]:
+                    errors.append(
+                        f"Session {session['display_id']} uses stale title for {paper_id}: "
+                        f"{observed_title!r} != {paper_titles[paper_id]!r}"
+                    )
         for resource_id in session["resources"]:
             if resource_id not in resource_ids:
                 errors.append(f"Session {session['id']} references unknown resource {resource_id}")
+        unknown_cross_topics = sorted(set(session["readiness"]["cross_topic_ids"]) - topic_ids)
+        if unknown_cross_topics:
+            errors.append(f"Session {session['display_id']} has unknown cross-topic readiness: {', '.join(unknown_cross_topics)}")
+        for source_topic in session["readiness"]["cross_topic_ids"]:
+            matching_hard_edges = [
+                edge
+                for edge in dataset["relationships"]
+                if edge["source"] == source_topic
+                and edge["target"] == session["topic_id"]
+                and edge["type"] == "hard_prerequisite"
+                and (
+                    edge["scope"] == "topic_entry"
+                    or session["id"] in edge.get("target_session_ids", [])
+                )
+            ]
+            if not matching_hard_edges:
+                errors.append(
+                    f"Session {session['display_id']} names {source_topic} as a prerequisite "
+                    "without an effective typed hard gate"
+                )
+            elif not any(edge["id"] in session["relationship_gates"] for edge in matching_hard_edges if edge["scope"] != "topic_entry"):
+                if not any(edge["scope"] == "topic_entry" for edge in matching_hard_edges):
+                    errors.append(f"Session {session['display_id']} did not receive its scoped relationship gate")
+
+    for topic_id, topic_sessions in sessions_grouped.items():
+        ordered = sorted(topic_sessions, key=lambda session: session["sequence"])
+        for session in ordered[:-1]:
+            if not session["next_session_id"]:
+                errors.append(f"Nonterminal session {session['display_id']} lacks a resolved transition")
+        if ordered and ordered[-1]["next_session_id"]:
+            errors.append(f"Terminal session {ordered[-1]['display_id']} unexpectedly has a transition")
 
     for paper in dataset["papers"]:
         if paper.get("topic_id") not in topic_ids:
             errors.append(f"Paper {paper['id']} has unknown primary topic {paper.get('topic_id')}")
+        for field in (
+            "title",
+            "authors",
+            "year",
+            "venue",
+            "authoritative_version",
+            "official_project_or_code",
+            "role_level_preparation",
+            "contribution",
+            "lineage",
+            "limitation",
+            "quality_influence_signals",
+            "metadata_confidence",
+        ):
+            if not paper.get(field):
+                errors.append(f"Paper {paper['id']} lost canonical metadata field {field}")
     unused_papers = sorted(paper_ids - used_papers)
     if unused_papers:
         errors.append(f"Primary papers not assigned to any topic timeline: {', '.join(unused_papers)}")
@@ -702,14 +1105,51 @@ def validate_dataset(dataset: dict[str, Any], repo_root: Path) -> None:
             errors.append(f"Resource {resource['id']} references unknown topics: {', '.join(unknown_topics)}")
         if not resource["topic_ids"]:
             errors.append(f"Resource {resource['id']} is not mapped to any topic")
+        actual_topic_uses = {
+            topic["id"] for topic in dataset["topics"] if resource["id"] in topic["resources"]
+        }
+        if set(resource["topic_ids"]) != actual_topic_uses:
+            errors.append(
+                f"Resource {resource['id']} assignment drift: index={sorted(resource['topic_ids'])} "
+                f"topic_plans={sorted(actual_topic_uses)}"
+            )
+        if not resource.get("required_use") or not resource.get("status") or not resource.get("confidence"):
+            errors.append(f"Resource {resource['id']} lost lifecycle or placement metadata")
 
     for item in dataset["frontier_items"]:
         unknown_topics = sorted(set(item["topic_ids"]) - topic_ids)
         if unknown_topics:
             errors.append(f"Frontier item {item['id']} references unknown topics: {', '.join(unknown_topics)}")
+        for field in (
+            "date_added",
+            "reason",
+            "maturity",
+            "latest_evidence",
+            "last_checked",
+            "review_date",
+            "decision",
+        ):
+            if not item.get(field):
+                errors.append(f"Frontier item {item['id']} lost lifecycle field {field}")
 
     if not session_ids:
         errors.append("No sessions were parsed")
+    if not relationship_ids:
+        errors.append("No typed relationships were parsed")
+    lock_path = repo_root / "curriculum_and_progress" / "stable_session_ids.json"
+    if not lock_path.exists():
+        errors.append("Published stable-session ID lock is missing")
+    else:
+        locked_aliases = json.loads(lock_path.read_text(encoding="utf-8")).get("aliases", {})
+        if locked_aliases != dict(sorted(aliases_seen.items())):
+            errors.append("Stable session IDs or published aliases drifted from stable_session_ids.json")
+    identity_lock_path = repo_root / "curriculum_and_progress" / "canonical_entity_ids.json"
+    if not identity_lock_path.exists():
+        errors.append("Published canonical-entity identity lock is missing")
+    else:
+        identity_lock = json.loads(identity_lock_path.read_text(encoding="utf-8"))
+        if identity_lock != canonical_identity_snapshot(dataset):
+            errors.append("Published canonical entity identities drifted from canonical_entity_ids.json")
     if errors:
         raise ValueError("Curriculum explorer dataset validation failed:\n- " + "\n- ".join(errors))
 

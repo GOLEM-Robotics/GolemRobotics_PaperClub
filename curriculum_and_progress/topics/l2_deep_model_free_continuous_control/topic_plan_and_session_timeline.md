@@ -107,3 +107,22 @@
 | Supporting-resource additions | No new resource beyond the accepted R027–R038 additions. |
 | Frontier additions | No new frontier reference. |
 | Revision date | 22 July 2026 |
+
+## 10. Stable session identity registry
+
+Stable IDs identify sessions independently of display order. Legacy aliases remain valid for imported progress and historical links.
+
+| Stable ID | Legacy aliases | Current sequence | Session |
+|---|---|---:|---|
+| `SES-A486A96D-F6F2-55CF-842B-41088F62D048` | `L2-S01` | 1 | Foundations — Actor–critic decomposition, likelihood ratios, advantage estimation |
+| `SES-878B4097-216E-5C7D-B549-4B80449492D7` | `L2-S02` | 2 | P077 — Trust Region Policy Optimization |
+| `SES-68981555-384A-5163-8B01-8B35CFD3C53B` | `L2-S03` | 3 | P078 — High-Dimensional Continuous Control Using Generalized Advantage Estimation |
+| `SES-3BDE006E-232B-54CE-8A1D-F7C4D4FBC9ED` | `L2-S04` | 4 | P079 — Proximal Policy Optimization Algorithms |
+| `SES-A40D6489-E8B7-5E7E-B1C5-4A1BAC9093CF` | `L2-S05` | 5 | P080 — Continuous Control with Deep Reinforcement Learning |
+| `SES-5BB030AE-6E71-5574-A956-AB3330E9720D` | `L2-S06` | 6 | P081 — Addressing Function Approximation Error in Actor-Critic Methods |
+| `SES-47D3C7C8-F23A-5B17-9B48-E0648A03C0B1` | `L2-S07` | 7 | P082 — Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor |
+| `SES-8646E82C-B7D5-51A7-BCB6-BFA96931D04B` | `L2-S08` | 8 | P083 — Hindsight Experience Replay |
+| `SES-9DCD4A90-A48D-5A48-AA05-9221F86E9EFC` | `L2-S09` | 9 | Unified reconstruction and method comparison |
+| `SES-FCD8E4CF-DA62-53CB-8905-429E4029DE17` | `L2-S10` | 10 | Controlled implementation and evaluation |
+| `SES-D4C64410-7BCA-5159-B017-5583EB41334B` | `L2-S11` | 11 | Evidence, limitations, and system interpretation |
+| `SES-B3ABC0D6-E405-5172-9B26-9CE8268B45E2` | `L2-S12` | 12 | Synthesis and research directions |
