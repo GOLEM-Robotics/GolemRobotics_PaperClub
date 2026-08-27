@@ -723,6 +723,53 @@
   justify-content: space-between;
 }
 
+.explorer-progress-tools {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.explorer-progress-tools > div:first-child {
+  max-width: 38rem;
+}
+
+.explorer-progress-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+  align-items: center;
+  justify-content: end;
+}
+
+.explorer-progress-actions button {
+  padding: 0.38rem 0.58rem;
+  color: inherit;
+  background: var(--explorer-subtle);
+  border: 1px solid var(--explorer-border);
+  border-radius: 0.38rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.explorer-progress-actions button:hover {
+  background: var(--explorer-hover);
+  border-color: var(--explorer-border-strong);
+}
+
+.explorer-progress-actions [role="status"] {
+  flex-basis: 100%;
+  min-height: 1rem;
+  color: var(--md-default-fg-color--light);
+  text-align: right;
+}
+
+.explorer-progress-actions [role="status"].is-error {
+  color: var(--md-typeset-color);
+  font-weight: 700;
+}
+
 .explorer-quick-links > div:last-child {
   display: flex;
   flex-wrap: wrap;
@@ -1522,6 +1569,7 @@
 
   .explorer-section-heading,
   .explorer-topic-header,
+  .explorer-progress-tools,
   .explorer-quick-links {
     align-items: stretch;
     flex-direction: column;
@@ -1551,6 +1599,14 @@
 
   .explorer-quick-links > div:last-child {
     justify-content: start;
+  }
+
+  .explorer-progress-actions {
+    justify-content: start;
+  }
+
+  .explorer-progress-actions [role="status"] {
+    text-align: left;
   }
 
   .explorer-graph-toolbar {

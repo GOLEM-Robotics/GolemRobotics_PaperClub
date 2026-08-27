@@ -1,9 +1,10 @@
-name: Deploy curriculum viewer
+name: Validate and deploy
 
 on:
   push:
     branches:
       - main
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -37,15 +38,34 @@ jobs:
       - name: Build viewer
         run: mkdocs build --strict
 
+      - name: Install browser-test dependencies
+        run: npm ci
+
+      - name: Test the built viewer
+        run: |
+          python -m http.server 8001 --directory site &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          for attempt in {1..20}; do
+            curl --fail --silent http://127.0.0.1:8001/ >/dev/null && break
+            sleep 0.25
+          done
+          BASE_URL=http://127.0.0.1:8001 npm run test:browser
+
       - name: Configure GitHub Pages
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v4
         with:
           path: site
 
   deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

@@ -1,1 +1,0 @@
---8<-- "4_topic_planning_guideline.md"

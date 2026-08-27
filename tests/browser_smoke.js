@@ -17,6 +17,9 @@ async function run() {
     if (message.type() === "error") errors.push(`console: ${message.text()}`);
   });
   page.on("requestfailed", (request) => errors.push(`request: ${request.url()} — ${request.failure()?.errorText}`));
+  page.on("response", (response) => {
+    if (response.status() >= 400) errors.push(`response: ${response.status()} ${response.url()}`);
+  });
 
   await page.goto(baseURL, { waitUntil: "networkidle" });
   await page.waitForFunction(() => window.__curriculumExplorer?.data?.topics?.length === 37);
@@ -63,6 +66,27 @@ async function run() {
     await page.evaluate(() => JSON.parse(localStorage.getItem("golem-curriculum-progress-v1")).completedSessions.includes("F1-S01")),
     true
   );
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.locator('[data-view="overview"]').click();
+  await page.locator("[data-export-progress]").click();
+  const download = await downloadPromise;
+  assert.match(download.suggestedFilename(), /^golem-paper-club-progress-\d{4}-\d{2}-\d{2}\.json$/);
+  assert.match(await page.locator("[data-progress-file-status]").innerText(), /Exported 1 completed session/);
+
+  await page.locator('.explorer-primary-nav [data-view="topic"]').click();
+  await firstSession.uncheck();
+
+  await page.locator('[data-view="overview"]').click();
+  await page.locator("[data-progress-file-input]").setInputFiles({
+    name: "progress.json",
+    mimeType: "application/json",
+    buffer: Buffer.from(JSON.stringify({ schema_version: 1, completed_sessions: ["F1-S01", "UNKNOWN-S01"] })),
+  });
+  await page.waitForFunction(() => document.querySelector("[data-progress-file-status]")?.textContent.includes("Imported"));
+  assert.match(await page.locator("[data-progress-file-status]").innerText(), /Imported 1 completed session; ignored 1 unknown entry/);
+  await page.locator('.explorer-primary-nav [data-view="topic"]').click();
+  assert.equal(await firstSession.isChecked(), true);
   await firstSession.uncheck();
 
   await page.locator("[data-explorer-search]").fill("P010");

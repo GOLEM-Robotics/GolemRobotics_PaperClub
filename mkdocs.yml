@@ -2,6 +2,7 @@ site_name: Golem Robotics Research Curriculum
 site_description: >-
   A paper-driven, experiment-centered curriculum for robot learning,
   embodied intelligence, and physical AI.
+site_url: https://golem-robotics.github.io/GolemRobotics_PaperClub/
 
 docs_dir: curriculum_and_progress
 site_dir: site
@@ -9,7 +10,7 @@ use_directory_urls: true
 strict: true
 
 hooks:
-  - hooks/build_curriculum_graph.py
+  - hooks/mkdocs.py
 
 theme:
   name: material
@@ -84,24 +85,29 @@ markdown_extensions:
       restrict_base_path: true
 
 extra_css:
-  - stylesheets/extra.css
+  - assets/stylesheets/documentation.css
   - assets/stylesheets/curriculum_explorer.css
 
 extra_javascript:
   - assets/javascripts/curriculum_explorer.js
-  - javascripts/mathjax.js
+  - assets/javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/GOLEM-Robotics/GolemRobotics_PaperClub
+      name: Golem Robotics Paper Club on GitHub
 
 copyright: Golem Robotics Paper Club
 nav:
   - Explorer: index.md
-  - Overview:
-      - Documentation overview: overview.md
-      - Operating principles: reference/operating_principles.md
-      - Curriculum goal: reference/research_curriculum_goal.md
-      - Curriculum construction rules: reference/research_curriculum_construction_rules.md
-      - Topic planning guideline: reference/topic_planning_guideline.md
-      - Repository structure: reference/repository_structure.md
+  - Club framework:
+      - Operating principles: 1_operating_principles.md
+      - Curriculum goal: 2_research_curriculum_goal.md
+      - Curriculum construction rules: 3_research_curriculum_construction_rules.md
+      - Topic planning guideline: 4_topic_planning_guideline.md
+      - Repository structure: 5_repo_structure.md
   - Curriculum:
       - Curriculum map: curriculum_map.md
       - Curriculum table: curriculum_table.md
@@ -152,3 +158,4 @@ nav:
   - Papers: paper_index.md
   - Resources: supporting_materials_index.md
   - Frontier: frontier_watchlist.md
+  - Architecture: architecture.md

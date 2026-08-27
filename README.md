@@ -1,90 +1,74 @@
-# Golem Robotics Paper Club Curriculum
+# Golem Robotics Paper Club
 
-A paper-driven, experiment-centered learning resource for robot learning, embodied intelligence, and physical AI.
+[![Validate and deploy](https://github.com/GOLEM-Robotics/GolemRobotics_PaperClub/actions/workflows/pages.yml/badge.svg)](https://github.com/GOLEM-Robotics/GolemRobotics_PaperClub/actions/workflows/pages.yml)
 
-The repository has two complementary interfaces:
+A paper-driven, experiment-centered curriculum for robot learning, embodied intelligence, and physical AI.
 
-- Markdown documents are the authoritative curriculum, paper, resource, and topic records.
-- The static Curriculum Explorer makes that material easier to orient within, search, sequence, and track.
+[Open the Curriculum Explorer](https://golem-robotics.github.io/GolemRobotics_PaperClub/) · [Browse the curriculum](curriculum_and_progress/curriculum_map.md) · [Contribute](CONTRIBUTING.md)
 
-There is no backend, database, account system, runtime API, React application, or frontend build step. A standard-library Python hook validates the Markdown and generates one normalized JSON file during every MkDocs build. The browser renders that file with a locally vendored Cytoscape.js module.
+## What is in this repository?
 
-## Use the curriculum
+The repository has three deliberately separate layers:
 
-The explorer provides five deliberate views:
+| Layer | Location | Purpose |
+| --- | --- | --- |
+| Club framework | [`1_operating_principles.md`](1_operating_principles.md) through [`5_repo_structure.md`](5_repo_structure.md) | Human-validated goals, rules, and repository conventions. |
+| Curriculum dataset | [`curriculum_and_progress/`](curriculum_and_progress/) | Authoritative Markdown records for topics, sessions, papers, resources, dependencies, and frontier items. |
+| Curriculum viewer | [`viewer/`](viewer/) | Static interface generated from the Markdown dataset and deployed through GitHub Pages. |
 
-- **Overview** — inventory, six curriculum areas, progress, and recommended next topics.
-- **Map** — a stable, topic-only dependency map.
-- **Focus** — direct or transitive prerequisites and dependents for one selected topic.
-- **Topic** — summary, ordered sessions, primary papers, resources, and related topics.
-- **Table** — a dense, keyboard-accessible alternative to the graph.
+The Markdown dataset is the source of truth. The viewer has no backend, database, accounts, or frontend build step. A Python tool validates the Markdown and generates the JSON projection used by the browser.
 
-Search covers topics, sessions, papers, authors, resources, and frontier items. Every result opens the relevant topic tab. Progress is optional, stored only in the current browser, and used to calculate readiness and continuation suggestions. Selected topics, tabs, and Focus options are encoded in the URL for sharing and browser navigation.
+## Curriculum Explorer
 
-The graph is never the only route to curriculum information. The conventional documentation navigation, topic workspaces, table, and Markdown source links remain available without graph interaction.
+The hosted explorer provides five complementary views: Overview, Map, Focus, Topic, and Table. Search covers topics, sessions, papers, authors, resources, and frontier items.
 
-## Local preview
+Progress is stored privately in the current browser. It can also be exported to a JSON file and imported on another browser or machine. No progress information is sent to GitHub or any external service.
 
-    python3 -m venv .venv
-    source .venv/bin/activate
-    python -m pip install -r requirements.txt
-    mkdocs serve
+## Run locally
 
-Open <http://127.0.0.1:8000>. If that port is occupied:
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+mkdocs serve
+```
 
-    mkdocs serve -a 127.0.0.1:8001
+Open <http://127.0.0.1:8000>. The local and GitHub-hosted applications have the same capabilities, including progress export and import.
 
-## Validate
+## Validate changes
 
-Run the content and data-contract tests, then perform a strict site build:
+```bash
+python -m unittest discover -s tests -v
+mkdocs build --strict
+```
 
-    python -m unittest discover -s tests -v
-    mkdocs build --strict
+For viewer changes, also run the browser test:
 
-The browser smoke test is optional for curriculum-only edits and required for explorer changes:
+```bash
+npm ci
+mkdocs serve -a 127.0.0.1:8001
+BASE_URL=http://127.0.0.1:8001 npm run test:browser
+```
 
-    npm install
-    mkdocs serve -a 127.0.0.1:8001
-    npm run test:browser
+The current validated dataset contains 37 topics, 400 ordered sessions, 193 primary papers, 41 supporting resources, 17 frontier records, and 122 topic-dependency edges.
 
-The smoke test uses the installed Chrome binary by default. Override either dependency when needed:
+## Repository map
 
-    CHROME_PATH=/path/to/chrome BASE_URL=http://127.0.0.1:8001 npm run test:browser
+```text
+.
+├── 1_operating_principles.md ... 5_repo_structure.md
+├── curriculum_and_progress/   # authoritative curriculum dataset
+│   ├── curriculum_map.md
+│   ├── curriculum_table.md
+│   ├── paper_index.md
+│   ├── supporting_materials_index.md
+│   ├── frontier_watchlist.md
+│   └── topics/
+├── viewer/                    # static application source and generated JSON
+├── tools/                     # deterministic data builder
+├── hooks/                     # MkDocs integration
+├── tests/                     # data-contract and browser tests
+└── docs/                      # implementation documentation
+```
 
-The current validated inventory is:
-
-- 37 topics;
-- 400 ordered sessions;
-- 193 primary papers;
-- 41 supporting resources;
-- 17 frontier-watchlist records;
-- 122 topic dependency edges.
-
-## Authoritative content
-
-- **curriculum_and_progress/curriculum_map.md** — topic scope, relationships, and paper sequences.
-- **curriculum_and_progress/curriculum_table.md** — curriculum-wide topic and session matrix.
-- **curriculum_and_progress/paper_index.md** — verified primary-paper records.
-- **curriculum_and_progress/supporting_materials_index.md** — non-primary prerequisite and implementation resources.
-- **curriculum_and_progress/frontier_watchlist.md** — explicitly provisional candidates.
-- **curriculum_and_progress/topics/** — 37 detailed topic plans and ordered session timelines.
-- **1_…5_*.md** — governing goals, construction rules, planning process, and repository conventions.
-
-## Viewer implementation
-
-- **hooks/build_curriculum_graph.py** — parses, normalizes, validates, and hashes authoritative Markdown.
-- **curriculum_and_progress/assets/data/curriculum_graph.json** — generated, disposable browser data.
-- **curriculum_and_progress/index.md** — semantic application shell and no-JavaScript alternatives.
-- **curriculum_and_progress/assets/javascripts/curriculum_explorer.js** — routing, search, graph, progress, and workspace behavior.
-- **curriculum_and_progress/assets/stylesheets/curriculum_explorer.css** — responsive visual system.
-- **curriculum_and_progress/assets/vendor/** — pinned local Cytoscape.js distribution and license.
-- **tests/test_curriculum_graph.py** — content and generated-data regression suite.
-- **test_browser.js** — desktop/mobile browser smoke suite.
-- **EXPLORER_DESIGN.md** — current implementation contract.
-- **CURRICULUM_EXPLORER_TARGET_DESIGN.md** — original product and interaction specification.
-
-## Deployment
-
-**.github/workflows/deploy_pages.yml** validates the curriculum, builds with strict warnings, and deploys **site/** on pushes to **main**. GitHub Pages must use **GitHub Actions** as its build source.
-
-Generated **site/**, local environments, editor databases, and Node dependencies are ignored. Historical bundles and transitional copies are intentionally not kept in the live tree; Git history provides provenance without allowing obsolete copies to compete with the authoritative curriculum.
+Implementation details are documented in [`docs/architecture.md`](docs/architecture.md). Pushes to `main` are validated and deployed automatically by [GitHub Actions](.github/workflows/pages.yml).

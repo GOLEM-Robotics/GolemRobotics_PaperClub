@@ -1,1 +1,0 @@
---8<-- "3_research_curriculum_construction_rules.md"

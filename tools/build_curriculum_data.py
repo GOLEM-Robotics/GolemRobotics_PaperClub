@@ -1,8 +1,7 @@
-"""Generate the static dataset used by the curriculum explorer.
+"""Build the deterministic JSON projection used by the curriculum viewer.
 
-The Markdown curriculum remains authoritative. This hook reads the existing
-curriculum and topic files and emits one deterministic JSON file for the
-browser-side Cytoscape.js explorer. It uses only the Python standard library.
+Markdown under ``curriculum_and_progress`` remains authoritative. The JSON is
+only a generated, browser-readable projection of that dataset.
 """
 
 from __future__ import annotations
@@ -15,7 +14,7 @@ from collections import Counter, defaultdict, deque
 from pathlib import Path
 from typing import Any, Iterable
 
-log = logging.getLogger("mkdocs.curriculum_graph")
+log = logging.getLogger("golem.curriculum_data")
 
 TOPIC_FILE = "topic_plan_and_session_timeline.md"
 TOPIC_ID_RE = re.compile(r"\b([FPLDES])(\d+)\b")
@@ -715,7 +714,7 @@ def validate_dataset(dataset: dict[str, Any], repo_root: Path) -> None:
         raise ValueError("Curriculum explorer dataset validation failed:\n- " + "\n- ".join(errors))
 
 def write_dataset(repo_root: Path) -> Path:
-    output_path = repo_root / "curriculum_and_progress" / "assets" / "data" / "curriculum_graph.json"
+    output_path = repo_root / "viewer" / "assets" / "data" / "curriculum_graph.json"
     output_path.parent.mkdir(parents=True, exist_ok=True)
     dataset = build_dataset(repo_root)
     validate_dataset(dataset, repo_root)
@@ -731,14 +730,6 @@ def write_dataset(repo_root: Path) -> Path:
             dataset["statistics"]["resources"],
         )
     return output_path
-
-
-def on_pre_build(config: Any, **kwargs: Any) -> None:
-    config_path = getattr(config, "config_file_path", None)
-    if not config_path and hasattr(config, "get"):
-        config_path = config.get("config_file_path")
-    repo_root = Path(config_path).resolve().parent if config_path else Path.cwd()
-    write_dataset(repo_root)
 
 
 def main() -> None:

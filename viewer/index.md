@@ -8,7 +8,7 @@ hide:
 # Curriculum Explorer {: #explorer-title }
 
 <p class="explorer-intro">
-Find a starting point, understand topic prerequisites, and open the authoritative curriculum material. Progress is saved only in this browser.
+Find a starting point, understand topic prerequisites, and open the authoritative curriculum material. Progress stays private in your browser and can be backed up as a JSON file.
 </p>
 
 <div id="curriculum-explorer" data-graph-url="assets/data/curriculum_graph.json">
@@ -99,6 +99,19 @@ Find a starting point, understand topic prerequisites, and open the authoritativ
             <div class="explorer-area-cards" data-area-cards></div>
           </section>
         </div>
+        <section class="explorer-card explorer-progress-tools" aria-labelledby="progress-tools-heading">
+          <div>
+            <p class="explorer-eyebrow">Private and portable</p>
+            <h3 id="progress-tools-heading">Your progress</h3>
+            <p>Completion data stays in this browser. Export a backup to continue on another browser or machine.</p>
+          </div>
+          <div class="explorer-progress-actions">
+            <button type="button" data-export-progress>Export progress</button>
+            <button type="button" data-import-progress>Import progress</button>
+            <input type="file" accept="application/json,.json" data-progress-file-input hidden>
+            <span role="status" aria-live="polite" data-progress-file-status></span>
+          </div>
+        </section>
         <section class="explorer-card explorer-quick-links" aria-labelledby="quick-heading">
           <div><p class="explorer-eyebrow">Authoritative material</p><h3 id="quick-heading">Browse the source curriculum</h3></div>
           <div>

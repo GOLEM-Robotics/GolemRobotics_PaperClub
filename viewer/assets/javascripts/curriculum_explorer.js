@@ -120,6 +120,8 @@
       this.topicContent = this.root.querySelector("[data-topic-content]");
       this.tableContent = this.root.querySelector("[data-table-content]");
       this.context = this.root.querySelector("[data-current-context]");
+      this.progressFileInput = this.root.querySelector("[data-progress-file-input]");
+      this.progressFileStatus = this.root.querySelector("[data-progress-file-status]");
     }
 
     setLoading(message) {
@@ -226,18 +228,67 @@
       );
     }
 
-    setSessionComplete(sessionId, complete) {
-      if (!this.sessionById.has(sessionId)) return;
-      const completed = this.getProgress();
-      if (complete) completed.add(sessionId);
-      else completed.delete(sessionId);
-      this.saveProgress(completed);
+    refreshProgressViews() {
       this.updateCompletionStyles();
       this.renderOverview();
       this.renderTable();
       this.renderInspector();
       if (this.currentView === "topic") this.renderTopicWorkspace();
       this.applyFilters(false);
+    }
+
+    setProgressFileStatus(message, isError = false) {
+      this.progressFileStatus.textContent = message;
+      this.progressFileStatus.classList.toggle("is-error", isError);
+    }
+
+    exportProgress() {
+      const completedSessions = [...this.getProgress()].sort();
+      const payload = {
+        schema_version: 1,
+        application: "golem-robotics-paper-club",
+        exported_at: new Date().toISOString(),
+        completed_sessions: completedSessions,
+      };
+      const blob = new Blob([`${JSON.stringify(payload, null, 2)}\n`], { type: "application/json" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `golem-paper-club-progress-${payload.exported_at.slice(0, 10)}.json`;
+      document.body.append(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(link.href);
+      this.setProgressFileStatus(`Exported ${completedSessions.length} completed session${completedSessions.length === 1 ? "" : "s"}.`);
+    }
+
+    async importProgress(file) {
+      if (!file) return;
+      try {
+        const payload = JSON.parse(await file.text());
+        if (payload?.schema_version !== 1 || !Array.isArray(payload.completed_sessions)) {
+          throw new Error("This is not a supported progress file.");
+        }
+        const completed = new Set(payload.completed_sessions.filter((id) => this.sessionById.has(id)));
+        const ignored = payload.completed_sessions.length - completed.size;
+        this.saveProgress(completed);
+        this.refreshProgressViews();
+        this.setProgressFileStatus(
+          `Imported ${completed.size} completed session${completed.size === 1 ? "" : "s"}${ignored ? `; ignored ${ignored} unknown entr${ignored === 1 ? "y" : "ies"}` : ""}.`
+        );
+      } catch (error) {
+        this.setProgressFileStatus(error instanceof Error ? error.message : "Could not import this progress file.", true);
+      } finally {
+        this.progressFileInput.value = "";
+      }
+    }
+
+    setSessionComplete(sessionId, complete) {
+      if (!this.sessionById.has(sessionId)) return;
+      const completed = this.getProgress();
+      if (complete) completed.add(sessionId);
+      else completed.delete(sessionId);
+      this.saveProgress(completed);
+      this.refreshProgressViews();
     }
 
     topicProgress(topicId) {
@@ -535,6 +586,8 @@
         if (event.target.closest("[data-filter-toggle]")) this.toggleMobileFilters();
         if (event.target.closest("[data-clear-filters]")) this.clearFilters();
         if (event.target.closest("[data-reset]")) this.reset();
+        if (event.target.closest("[data-export-progress]")) this.exportProgress();
+        if (event.target.closest("[data-import-progress]")) this.progressFileInput.click();
         if (event.target.closest("[data-fullscreen]")) this.toggleFullscreen();
         const fitButton = event.target.closest("[data-fit]");
         if (fitButton) this.fitCurrentGraph();
@@ -558,6 +611,8 @@
           this.updateURL("replace");
         } else if (event.target === this.mapTopicSelect && event.target.value) {
           this.selectTopic(event.target.value, { history: true });
+        } else if (event.target === this.progressFileInput) {
+          this.importProgress(event.target.files?.[0]);
         }
       });
 

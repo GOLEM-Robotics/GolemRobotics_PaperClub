@@ -1,18 +1,24 @@
-"""Regression tests for the Markdown-to-explorer data contract."""
+"""Regression tests for the Markdown-to-viewer data contract."""
 
 from __future__ import annotations
 
 import json
 import re
-import sys
 import unittest
 from collections import Counter, defaultdict
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO_ROOT / "hooks"))
+from tools import build_curriculum_data as graph
 
-import build_curriculum_graph as graph  # noqa: E402
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+GOVERNANCE_SHA256 = {
+    "1_operating_principles.md": "3ef3f1c652e4eea89c20fb5d76f47637fc9803438b21ec16d385a6e233f726ce",
+    "2_research_curriculum_goal.md": "39debe4cfae74b25e7ffd4e6feeb09eb6f8fd951ff7817bf45c77abc85fc082d",
+    "3_research_curriculum_construction_rules.md": "1b1bcc318d01fe5c9e54aba6616750fd6d3b64cfac880ed2a7260fd6b17584f4",
+    "4_topic_planning_guideline.md": "7e953cc430d21b41ac1420c26ad97a3a11dce7cde7216bbe742ccccc888b6c2e",
+    "5_repo_structure.md": "f50842a6744faeb8d21a8ac2a499e3953ef6161a43d1bb60d2fc9a12cb36e274",
+}
 
 
 class CurriculumGraphTests(unittest.TestCase):
@@ -26,6 +32,15 @@ class CurriculumGraphTests(unittest.TestCase):
 
     def test_dataset_passes_authoritative_validator(self) -> None:
         graph.validate_dataset(self.dataset, REPO_ROOT)
+
+    def test_validated_governance_files_are_unchanged(self) -> None:
+        import hashlib
+
+        actual = {
+            filename: hashlib.sha256((REPO_ROOT / filename).read_bytes()).hexdigest()
+            for filename in GOVERNANCE_SHA256
+        }
+        self.assertEqual(actual, GOVERNANCE_SHA256)
 
     def test_expected_curriculum_inventory(self) -> None:
         self.assertEqual(
@@ -43,7 +58,7 @@ class CurriculumGraphTests(unittest.TestCase):
         self.assertEqual(sum(status["count"] for status in self.dataset["statuses"]), 37)
 
     def test_generated_file_is_current_and_reproducible(self) -> None:
-        generated_path = REPO_ROOT / "curriculum_and_progress/assets/data/curriculum_graph.json"
+        generated_path = REPO_ROOT / "viewer/assets/data/curriculum_graph.json"
         committed = json.loads(generated_path.read_text(encoding="utf-8"))
         self.assertEqual(committed, self.dataset)
         self.assertRegex(self.dataset["source_revision"], r"^[0-9a-f]{64}$")
