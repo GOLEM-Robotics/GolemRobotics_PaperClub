@@ -844,7 +844,7 @@ No meaningful change:
 
 Metadata/link correction:
 
-> automated PR proposal.
+> automated review-branch proposal; pull request when organization policy permits, linked maintainer issue otherwise.
 
 New frontier candidate:
 

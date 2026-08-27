@@ -132,7 +132,7 @@ Publishing is intentionally explicit. The current supported path exports a repos
 
 `tools/maintenance.py` validates the current dataset and maintenance state, rotates through canonical links, probes destination identity, scans arXiv for candidates, and detects due frontier reviews. HTTP status is evidence rather than identity proof: a successful response can still be the wrong source, while an anti-bot response is not automatically a broken link.
 
-The scheduled workflow runs approximately every two days. It keeps runtime cursor state in the workflow cache, uploads complete evidence, and opens a review branch only when findings require attention. It never edits canonical curriculum content during a scan. The checked-in seed records the most recent exhaustive audit and lets a new scheduler start from reviewed evidence. The site displays the latest merged/published maintenance record; no-change cache-only scans are intentionally not presented as repository provenance.
+The scheduled workflow runs approximately every two days. It keeps runtime cursor state in the workflow cache, uploads complete evidence, and opens a review branch only when findings require attention. It opens a pull request when organization policy permits bot-created pull requests; otherwise it creates a linked maintainer issue for that branch. It never edits canonical curriculum content during a scan. The checked-in seed records the most recent exhaustive audit and lets a new scheduler start from reviewed evidence. The site displays the latest merged/published maintenance record; no-change cache-only scans are intentionally not presented as repository provenance.
 
 ## Validation and deployment
 

@@ -22,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write
       pull-requests: write
     steps:
       - name: Check out repository
@@ -89,7 +90,7 @@ jobs:
             .maintenance-runtime/report.md
           retention-days: 90
 
-      - name: Create review branch and pull request
+      - name: Create review branch and proposal
         if: steps.scan.outputs.proposal_required == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -108,8 +109,13 @@ jobs:
           git add curriculum_and_progress/maintenance viewer/assets/data/curriculum_graph.json
           git commit -m "Record research maintenance review ${scan_date}"
           git push --set-upstream origin "$branch"
-          gh pr create \
-            --base main \
-            --head "$branch" \
-            --title "Research maintenance review — ${scan_date}" \
-            --body-file .maintenance-runtime/report.md
+          if gh pr create \
+              --base main \
+              --head "$branch" \
+              --title "Research maintenance review — ${scan_date}" \
+              --body-file .maintenance-runtime/report.md; then
+            exit 0
+          fi
+          gh issue create \
+            --title "Open maintenance review ${scan_date}" \
+            --body "Automated evidence is available on branch \`$branch\` and in the workflow artifact for run \`$RUN_ID\`. Organization policy prevents GitHub Actions from opening the pull request. A maintainer should review the evidence, then open a pull request from \`$branch\` to \`main\`."
