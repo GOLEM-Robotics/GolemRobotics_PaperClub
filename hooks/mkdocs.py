@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 import sys
 from typing import Any
+from urllib.parse import quote
 
 from mkdocs.structure.files import File, Files
 
@@ -24,6 +25,8 @@ GOVERNANCE_FILES = (
     "5_repo_structure.md",
 )
 PROJECT_FILES = ("CONTRIBUTING.md", "SECURITY.md", "THIRD_PARTY_NOTICES.md")
+PRODUCT_CONTRACT = "Golem Robotics Research Curriculum — Product Contract.md"
+REPOSITORY_URL = "https://github.com/GOLEM-Robotics/GolemRobotics_PaperClub"
 
 
 def on_pre_build(config: Any, **_: Any) -> None:
@@ -47,5 +50,22 @@ def on_files(files: Files, config: Any, **_: Any) -> Files:
         files.append(File(filename, str(REPO_ROOT), site_dir, directory_urls))
 
     files.append(File("architecture.md", str(ARCHITECTURE_DIR), site_dir, directory_urls))
-    files.append(File("product_contract.md", str(ARCHITECTURE_DIR), site_dir, directory_urls))
+    files.append(File.generated(
+        config,
+        "product_contract.md",
+        abs_src_path=str(REPO_ROOT / PRODUCT_CONTRACT),
+    ))
     return files
+
+
+def on_page_markdown(markdown: str, page: Any, **_: Any) -> str:
+    """Add a precise source link without changing any canonical Markdown file."""
+    source_path = Path(page.file.abs_src_path).resolve()
+    if source_path == VIEWER_DIR / "index.md":
+        return markdown
+    try:
+        relative = source_path.relative_to(REPO_ROOT).as_posix()
+    except ValueError:
+        return markdown
+    source_url = f"{REPOSITORY_URL}/blob/main/{quote(relative, safe='/')}"
+    return f'<p class="document-source"><a href="{source_url}">View this document on GitHub ↗</a></p>\n\n{markdown}'

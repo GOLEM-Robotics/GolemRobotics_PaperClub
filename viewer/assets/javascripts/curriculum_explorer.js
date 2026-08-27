@@ -15,16 +15,28 @@
       label: "Guided",
       description: "Follow every Required Core session with full source reading, reconstruction, practice, and explicit evidence.",
       verb: "Work through the source and build the planned artifact",
+      minutes: [75, 120],
+      assistance: "Use AI for prerequisite repair, Socratic questioning, and feedback after attempting the source yourself.",
+      validation: "Complete the full planned evidence and review it against the canonical competence boundary.",
+      compression: "No planned core compression; optional material remains opt-in.",
     },
     accelerated: {
       label: "Accelerated",
       description: "Keep every competence boundary while compressing orientation, using targeted source sections, and avoiding duplicate setup work.",
       verb: "Read the decisive sections, test the central claim, and preserve the required artifact",
+      minutes: [35, 60],
+      assistance: "Use AI to diagnose gaps, explain only missing prerequisites, and challenge your reconstruction.",
+      validation: "Preserve the required artifact and essential evidence gate even when preparation is compressed.",
+      compression: "Broad orientation, repeated setup, and non-decisive sections may be compressed; evidence gates may not.",
     },
     ai_sprint: {
       label: "AI Sprint",
       description: "Use generated AI prompts for speed, then verify claims against authoritative sources and produce the same competence evidence.",
       verb: "Interrogate the method with AI, verify against the source, and produce auditable evidence",
+      minutes: [15, 30],
+      assistance: "Use the generated prompt set as the primary walkthrough, then inspect the named source sections yourself.",
+      validation: "Record Sprint coverage after an active check; full Required Core still requires its canonical work.",
+      compression: "Broad reading and already-known prerequisites may be compressed; source verification and an active check remain required.",
     },
   };
   const AREA_COLORS = {
@@ -45,6 +57,11 @@
     return text.length <= length ? text : `${text.slice(0, length - 1).trimEnd()}…`;
   };
   const plural = (count, singular, suffix = "s") => `${count} ${singular}${count === 1 ? "" : suffix}`;
+  const slugify = (value) => normalize(value).replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 64) || "proposed_session";
+  const firstPublicURL = (value) => {
+    const match = String(value ?? "").match(/https?:\/\/[^\s—,)]+/i);
+    return match ? match[0] : null;
+  };
   const PERSONAL_ID_RE = /^PERSONAL-[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   const MAX_BUNDLE_BYTES = 40 * 1024 * 1024;
   const MAX_CUSTOM_ITEMS = 200;
@@ -86,7 +103,7 @@
     return new Blob([bytes], { type: mimeType });
   };
 
-  const validateCustomItems = (value, topicById) => {
+  const validateCustomItems = (value, topicById, sessionById) => {
     if (!Array.isArray(value)) throw new Error("Workspace customItems must be an array.");
     if (value.length > MAX_CUSTOM_ITEMS) throw new Error(`A bundle may contain at most ${MAX_CUSTOM_ITEMS} personal items.`);
     const seen = new Set();
@@ -95,6 +112,11 @@
       if (typeof item.id !== "string" || !PERSONAL_ID_RE.test(item.id) || seen.has(item.id)) throw new Error(`Personal item ${index + 1} has an invalid or duplicate ID.`);
       if (!["session", "material"].includes(item.kind)) throw new Error(`Personal item ${index + 1} has an invalid type.`);
       if (typeof item.topicId !== "string" || !topicById.has(item.topicId)) throw new Error(`Personal item ${index + 1} references an unknown topic.`);
+      if (item.sessionId !== undefined && item.sessionId !== null
+          && (typeof item.sessionId !== "string" || !sessionById.has(item.sessionId)
+            || sessionById.get(item.sessionId).topic_id !== item.topicId)) {
+        throw new Error(`Personal item ${index + 1} has an invalid session reference.`);
+      }
       if (typeof item.title !== "string" || !item.title.trim() || item.title.length > 180) throw new Error(`Personal item ${index + 1} has an invalid title.`);
       if (typeof item.objective !== "string" || !item.objective.trim() || item.objective.length > 4000) throw new Error(`Personal item ${index + 1} has an invalid objective.`);
       if (typeof item.source !== "string" || item.source.length > 2048) throw new Error(`Personal item ${index + 1} has an invalid source.`);
@@ -104,6 +126,7 @@
         kind: item.kind,
         title: item.title.trim(),
         topicId: item.topicId,
+        sessionId: item.sessionId || null,
         objective: item.objective.trim(),
         source: item.source.trim(),
         disabled: item.disabled === true,
@@ -118,6 +141,21 @@
       throw new Error(`${label} is malformed or exceeds its import limit.`);
     }
     return value;
+  };
+
+  const validateRecentActivity = (value) => {
+    if (value === undefined) return [];
+    if (!Array.isArray(value) || value.length > 100) throw new Error("Workspace recentActivity is malformed or exceeds its import limit.");
+    return value.map((item, index) => {
+      if (!item || typeof item !== "object" || Array.isArray(item)
+          || typeof item.kind !== "string" || item.kind.length > 40
+          || typeof item.entityId !== "string" || item.entityId.length > 160
+          || typeof item.label !== "string" || item.label.length > 240
+          || typeof item.at !== "string" || item.at.length > 64) {
+        throw new Error(`Workspace activity ${index + 1} is malformed.`);
+      }
+      return { kind: item.kind, entityId: item.entityId, label: item.label, at: item.at };
+    });
   };
 
   let cytoscapePromise;
@@ -147,6 +185,9 @@
       this.mapScope = "overview";
       this.cy = null;
       this.saveTimer = null;
+      this.saveVersion = 0;
+      this.revisionNotice = null;
+      this.workspaceFocusId = null;
     }
 
     async init() {
@@ -161,6 +202,14 @@
       this.state = await this.store.load();
       const migration = await this.store.migrateLegacy(this.aliasToStable, this.knownEntityIds, this.state);
       this.state = migration.state;
+      const previousRevision = this.state.curriculumRevision;
+      if (previousRevision && previousRevision !== this.data.source_revision) {
+        this.revisionNotice = { previous: previousRevision, current: this.data.source_revision };
+      }
+      if (previousRevision !== this.data.source_revision) {
+        this.state.curriculumRevision = this.data.source_revision;
+        this.state = await this.store.save(this.state);
+      }
       let upgradedValidatedState = false;
       const legacyValidatedByTopic = new Map();
       for (const [sessionId, status] of Object.entries(this.state.entityStatus)) {
@@ -274,6 +323,8 @@
       for (const select of this.root.querySelectorAll("[data-library-topic], [data-map-topic-select]")) select.insertAdjacentHTML("beforeend", topicOptions);
       const formTopic = this.root.querySelector('[data-addition-form] select[name="topicId"]');
       formTopic.innerHTML = topicOptions;
+      const formSession = this.root.querySelector('[data-addition-form] select[name="sessionId"]');
+      formSession.insertAdjacentHTML("beforeend", this.data.sessions.map((session) => `<option value="${session.id}">${escapeHTML(session.display_id)} — ${escapeHTML(session.title)}</option>`).join(""));
       const areaSelect = this.root.querySelector("[data-area-filter]");
       areaSelect.insertAdjacentHTML("beforeend", this.data.areas.map((area) => `<option value="${area.id}">${escapeHTML(area.label)}</option>`).join(""));
       this.root.querySelector("[data-paper-count]").textContent = this.data.papers.length;
@@ -311,12 +362,13 @@
         activatedOptional: activatedOptional.length,
         sprintDone: core.filter((id) => this.state.sprintCovered.includes(id)).length,
         validated: this.state.competenceValidated.includes(topicId),
-        coreComplete: this.state.competenceValidated.includes(topicId) || (core.length > 0 && core.every((id) => this.isDone(id))),
+        coreComplete: core.length > 0 && core.every((id) => this.isDone(id)),
+        readinessSatisfied: this.state.competenceValidated.includes(topicId) || (core.length > 0 && core.every((id) => this.isDone(id))),
       };
     }
 
     isTopicReady(topicId) {
-      return this.hardIncoming.get(topicId).every((dependency) => this.topicMetrics(dependency).coreComplete);
+      return this.hardIncoming.get(topicId).every((dependency) => this.topicMetrics(dependency).readinessSatisfied);
     }
 
     isSessionReady(session) {
@@ -325,7 +377,7 @@
       const localReady = session.readiness.prior_session_ids.every((id) => this.isDone(id));
       const gatesReady = session.relationship_gates.every((id) => {
         const edge = this.relationshipById.get(id);
-        return edge && this.topicMetrics(edge.source).coreComplete;
+        return edge && this.topicMetrics(edge.source).readinessSatisfied;
       });
       return localReady && gatesReady;
     }
@@ -357,29 +409,71 @@
         && position.get(edge.source) > position.get(edge.target));
     }
 
-    nextSession() {
+    sessionRecommendations(limit = 3) {
+      const recommendations = [];
       const inProgress = this.data.sessions.find((session) => this.statusOf(session.id) === "in_progress");
-      if (inProgress) return { session: inProgress, reason: "You already started this session. Resume it before opening another thread." };
+      if (inProgress && !this.state.disabledIds.includes(inProgress.id)) {
+        recommendations.push({ session: inProgress, reason: "You already started this session. Resume it before opening another thread." });
+      }
       const route = this.state.targetTopicId
         ? this.routeTo()
         : this.data.topics.filter((topic) => ["F1", "F2", "F6", "L1"].includes(topic.id));
       for (const topic of route) {
+        if (recommendations.length >= limit) break;
         if (this.state.disabledIds.includes(topic.id) || !this.isTopicReady(topic.id)) continue;
+        if (this.topicMetrics(topic.id).validated) continue;
         const session = topic.completion_model.required_core_session_ids
           .map((id) => this.sessionById.get(id)).find((item) => !this.state.disabledIds.includes(item.id) && !this.isDone(item.id) && this.statusOf(item.id) !== "skipped" && this.isSessionReady(item));
-        if (session) {
+        if (session && !recommendations.some((item) => item.session.id === session.id)) {
           const dependencyText = topic.hard_prerequisites.length
             ? `Its ${plural(topic.hard_prerequisites.length, "blocking prerequisite")} are complete.`
             : "It has no blocking topic prerequisite.";
-          return { session, reason: `${dependencyText} ${PROFILE[this.state.profile].verb}.` };
+          recommendations.push({ session, reason: `${dependencyText} ${PROFILE[this.state.profile].verb}.` });
         }
       }
-      return null;
+      return recommendations;
+    }
+
+    nextSession() {
+      return this.sessionRecommendations(1)[0] || null;
+    }
+
+    recordActivity(kind, entityId, label) {
+      this.state.recentActivity = [
+        { kind, entityId, label, at: new Date().toISOString() },
+        ...this.state.recentActivity.filter((item) => !(item.kind === kind && item.entityId === entityId)),
+      ].slice(0, 20);
+    }
+
+    entityDescriptor(id) {
+      if (this.topicById.has(id)) return { id, kind: "Topic", label: `${id} — ${this.topicById.get(id).title}`, open: `data-open-topic="${id}"` };
+      if (this.sessionById.has(id)) {
+        const session = this.sessionById.get(id);
+        return { id, kind: "Session", label: `${session.display_id} — ${session.title}`, open: `data-open-session="${id}"` };
+      }
+      if (this.paperById.has(id)) return { id, kind: "Paper", label: `${id} — ${this.paperById.get(id).title}`, open: `data-open-library-entity="${id}" data-library-kind-target="papers"` };
+      if (this.resourceById.has(id)) return { id, kind: "Resource", label: `${id} — ${this.resourceById.get(id).title}`, open: `data-open-library-entity="${id}" data-library-kind-target="resources"` };
+      if (this.frontierById.has(id)) return { id, kind: "Frontier", label: `${id} — ${this.frontierById.get(id).title}`, open: `data-open-library-entity="${id}" data-library-kind-target="frontier"` };
+      const personal = this.state.customItems.find((item) => item.id === id);
+      if (personal) return { id, kind: `Personal ${personal.kind}`, label: personal.title, open: "data-view=\"workspace\"" };
+      return { id, kind: "Archived", label: id, open: "" };
+    }
+
+    effortEstimate(sessionCount = 1) {
+      const [minimum, maximum] = PROFILE[this.state.profile].minutes;
+      if (!sessionCount) return "No unfinished Required Core session";
+      const format = (minutes) => minutes < 120 ? `${minutes} min` : `${(minutes / 60).toFixed(minutes % 60 ? 1 : 0)} h`;
+      return `${format(minimum * sessionCount)}–${format(maximum * sessionCount)}`;
     }
 
     async saveState() {
-      this.state = await this.store.save(this.state);
-      this.syncControls();
+      const version = ++this.saveVersion;
+      const saved = await this.store.save(this.state);
+      if (version === this.saveVersion) {
+        this.state = saved;
+        this.syncControls();
+      }
+      return saved;
     }
 
     scheduleSave() {
@@ -457,12 +551,15 @@
     }
 
     renderHome() {
+      this.renderRevisionNotices();
       const stats = this.data.statistics;
       this.root.querySelector("[data-stat-strip]").innerHTML = [
         [stats.topics, "connected topics"], [stats.sessions, "learning sessions"],
         [stats.papers, "primary papers"], [stats.resources + stats.frontier_items, "resources + frontier"],
       ].map(([number, label]) => `<article><strong>${number}</strong><span>${label}</span></article>`).join("");
-      const next = this.nextSession();
+      const recommendations = this.sessionRecommendations(3);
+      const next = recommendations[0] || null;
+      const route = this.routeTo();
       const action = this.root.querySelector("[data-next-action]");
       if (next) {
         const topic = this.topicById.get(next.session.topic_id);
@@ -470,19 +567,25 @@
         this.root.querySelector("[data-next-status]").textContent = this.statusOf(next.session.id) === "in_progress" ? "Resume" : "Ready";
         action.innerHTML = `<p>${escapeHTML(next.reason)}</p><div class="next-meta"><span>${escapeHTML(topic.area_short_label)}</span><span>${escapeHTML(next.session.classification)}</span><span>${escapeHTML(PROFILE[this.state.profile].label)}</span></div><button type="button" class="button primary" data-open-session="${next.session.id}">${this.statusOf(next.session.id) === "in_progress" ? "Resume session" : "Open session"}</button>`;
       } else {
-        this.root.querySelector("[data-next-title]").textContent = "Required Core complete";
+        const routeCore = route.flatMap((topic) => topic.completion_model.required_core_session_ids);
+        const requiredCoreComplete = routeCore.length > 0 && routeCore.every((id) => this.isDone(id));
+        this.root.querySelector("[data-next-title]").textContent = requiredCoreComplete ? "Required Core complete" : "No ready Required Core recommendation";
         this.root.querySelector("[data-next-status]").textContent = "Review";
-        action.innerHTML = `<p>Your active route has no unfinished ready Required Core session. Validate competence, activate continuation work, or choose another target.</p><button type="button" class="button secondary" data-view="workspace">Review workspace</button>`;
+        action.innerHTML = `<p>${requiredCoreComplete ? "Your active route has no unfinished Required Core session." : "Remaining Required Core work is blocked, skipped, disabled, or bypassed by a separate competence record."} Review evidence, repair prerequisites, activate continuation work, or choose another target.</p><button type="button" class="button secondary" data-view="workspace">Review workspace</button>`;
       }
 
+      const recent = this.state.recentActivity.slice(0, 3);
       const activeSession = this.data.sessions.find((session) => this.statusOf(session.id) === "in_progress");
-      const completed = this.data.sessions.filter((session) => this.isDone(session.id));
-      const latest = activeSession || completed.at(-1);
-      this.root.querySelector("[data-resume-card]").innerHTML = latest
-        ? `<p><strong>${escapeHTML(latest.display_id)}</strong> ${escapeHTML(latest.title)}</p><p class="muted">${activeSession ? "In progress" : "Most recently completed in curriculum order"}</p><button type="button" class="text-button" data-open-session="${latest.id}">Open session →</button>`
-        : `<p>No progress recorded yet. Your first action will be saved automatically in this browser.</p>`;
+      if (!recent.length && activeSession) recent.push({ kind: "status", entityId: activeSession.id, label: "Marked in progress", at: this.state.updatedAt });
+      this.root.querySelector("[data-resume-card]").innerHTML = recent.length
+        ? `<ul class="compact-action-list">${recent.map((item) => { const entity = this.entityDescriptor(item.entityId); return `<li><button type="button" class="text-button" ${entity.open}>${escapeHTML(entity.label)}</button><small>${escapeHTML(item.label)} · ${escapeHTML(new Date(item.at).toLocaleDateString())}</small></li>`; }).join("")}</ul>`
+        : `<p>No progress recorded yet. Your first meaningful action will be saved automatically in this browser.</p>`;
 
-      const route = this.routeTo();
+      const alternatives = recommendations.slice(1, 3);
+      this.root.querySelector("[data-alternative-actions]").innerHTML = alternatives.length
+        ? `<ol class="compact-action-list">${alternatives.map((item) => `<li><button type="button" class="text-button" data-open-session="${item.session.id}">${escapeHTML(item.session.display_id)} — ${escapeHTML(item.session.title)}</button><small>${escapeHTML(compact(item.reason, 150))}</small></li>`).join("")}</ol>`
+        : `<p class="muted">No other ready Required Core session is available. Review blockers or activate continuation work.</p>`;
+
       const preview = route.slice(0, this.state.targetTopicId ? 12 : 8);
       this.root.querySelector("[data-path-heading]").textContent = this.state.targetTopicId
         ? `Shortest sensible route to ${this.state.targetTopicId}` : "Your curriculum journey";
@@ -491,7 +594,30 @@
         const stateClass = metrics.coreComplete ? "done" : this.isTopicReady(topic.id) ? "ready" : "locked";
         return `<button type="button" class="path-node ${stateClass}" data-open-topic="${topic.id}"><span>${index + 1}</span><strong>${topic.id}</strong><small>${metrics.coreDone}/${metrics.coreTotal} core</small></button>`;
       }).join("<i aria-hidden=\"true\">→</i>")}</div>${route.length > preview.length ? `<p class="muted">+ ${route.length - preview.length} later topics</p>` : ""}`;
+
+      const blocked = route.filter((topic) => !this.topicMetrics(topic.id).readinessSatisfied && !this.isTopicReady(topic.id)).slice(0, 3);
+      this.root.querySelector("[data-home-blockers]").innerHTML = blocked.length
+        ? `<ul class="compact-action-list">${blocked.map((topic) => { const missing = this.hardIncoming.get(topic.id).filter((id) => !this.topicMetrics(id).readinessSatisfied); return `<li><button type="button" class="text-button" data-open-topic="${topic.id}">${topic.id} — ${escapeHTML(topic.short_title)}</button><small>Needs ${escapeHTML(missing.join(", ") || "a session-specific prerequisite")}</small></li>`; }).join("")}</ul>`
+        : `<p class="success-note">No unresolved topic-entry blocker on your active route.</p>`;
+      const activeCoreIds = route.flatMap((topic) => topic.completion_model.required_core_session_ids);
+      const coreDone = activeCoreIds.filter((id) => this.isDone(id)).length;
+      const competenceCount = route.filter((topic) => this.topicMetrics(topic.id).validated).length;
+      this.root.querySelector("[data-home-core-progress]").innerHTML = `<div class="core-progress-summary"><strong>${coreDone}/${activeCoreIds.length}</strong><span>Required Core sessions completed</span><progress max="${activeCoreIds.length || 1}" value="${coreDone}"></progress><small>${plural(competenceCount, "topic")} separately competence-validated · ${escapeHTML(PROFILE[this.state.profile].label)} profile</small></div>`;
+      const relevantFrontier = this.data.frontier_items
+        .filter((item) => !this.state.targetTopicId || item.topic_ids.includes(this.state.targetTopicId))
+        .sort((a, b) => a.review_date.localeCompare(b.review_date)).slice(0, 2);
+      this.root.querySelector("[data-home-frontier]").innerHTML = relevantFrontier.length
+        ? `<ul class="compact-action-list">${relevantFrontier.map((item) => `<li><button type="button" class="text-button" data-open-library-entity="${item.id}" data-library-kind-target="frontier">${escapeHTML(item.title)}</button><small>${escapeHTML(item.decision)} · review ${escapeHTML(item.review_date)}</small></li>`).join("")}</ul>`
+        : `<p class="muted">No frontier record is currently attached to this target. The next general review is ${escapeHTML(this.data.provenance.next_frontier_review)}.</p>`;
       this.root.querySelector("[data-provenance-strip]").innerHTML = `<div><p class="eyebrow">Transparent provenance</p><strong>Curriculum ${escapeHTML(this.data.curriculum_version)}</strong></div><span>Literature cutoff ${escapeHTML(this.data.provenance.literature_cutoff)}</span><span>Source revision <code>${this.data.source_revision.slice(0, 12)}</code></span><button type="button" class="text-button" data-view="reference">Inspect sources →</button>`;
+    }
+
+    renderRevisionNotices() {
+      for (const container of this.root.querySelectorAll("[data-revision-notice]")) {
+        if (!this.revisionNotice) { container.hidden = true; container.innerHTML = ""; continue; }
+        container.hidden = false;
+        container.innerHTML = `<div><strong>Curriculum updated since your last visit.</strong><p>The source revision changed from <code>${escapeHTML(this.revisionNotice.previous.slice(0, 12))}</code> to <code>${escapeHTML(this.revisionNotice.current.slice(0, 12))}</code>. Your progress, notes, custom path, and artifacts were preserved. Review your active route and archived references for relevant changes.</p></div><button type="button" class="text-button" data-dismiss-revision>Dismiss</button>`;
+      }
     }
 
     renderCurriculum() {
@@ -584,10 +710,10 @@
 
     libraryCard(record) {
       const disabled = this.state.disabledIds.includes(record.id);
-      const toggle = `<button type="button" class="text-button" data-toggle-disabled="${record.id}">${disabled ? "Re-enable in my workspace" : "Disable in my workspace"}</button>`;
-      if (this.libraryKind === "papers") return `<article class="library-card ${disabled ? "disabled" : ""}" data-entity-id="${record.id}"><div class="card-kicker"><span>${record.id}</span><span>${record.topic_id}</span><span>${escapeHTML(record.metadata_confidence)}</span>${disabled ? '<span class="origin-badge personal">Disabled personally</span>' : ""}</div><h3><a href="${escapeHTML(record.url)}" target="_blank" rel="noopener">${escapeHTML(record.title)}</a></h3><p class="citation">${escapeHTML([record.authors, record.year, record.venue].filter(Boolean).join(" · "))}</p><p>${escapeHTML(record.contribution)}</p><details><summary>Positioning and evidence</summary><dl><dt>Role / preparation</dt><dd>${escapeHTML(record.role_level_preparation)}</dd><dt>Lineage</dt><dd>${escapeHTML(record.lineage)}</dd><dt>Limitation</dt><dd>${escapeHTML(record.limitation)}</dd><dt>Quality signals</dt><dd>${escapeHTML(record.quality_influence_signals)}</dd><dt>Authoritative version</dt><dd>${escapeHTML(record.authoritative_version)}</dd><dt>Project / code</dt><dd>${escapeHTML(record.official_project_or_code)}</dd></dl></details><div class="library-actions"><button type="button" class="text-button" data-open-topic="${record.topic_id}" data-topic-tab-target="papers">See in topic →</button>${toggle}</div></article>`;
-      if (this.libraryKind === "resources") return `<article class="library-card ${disabled ? "disabled" : ""}" data-entity-id="${record.id}"><div class="card-kicker"><span>${record.id}</span><span>${escapeHTML(record.type)}</span><span>${escapeHTML(record.confidence)}</span>${disabled ? '<span class="origin-badge personal">Disabled personally</span>' : ""}</div><h3><a href="${escapeHTML(record.url)}" target="_blank" rel="noopener">${escapeHTML(record.title)}</a></h3><p>${escapeHTML(record.required_use)}</p><p class="muted">Supports ${escapeHTML(record.topic_ids.join(", "))} · ${escapeHTML(record.status)}</p>${toggle}</article>`;
-      return `<article class="library-card frontier-card ${disabled ? "disabled" : ""}" data-entity-id="${record.id}"><div class="card-kicker"><span>${record.id}</span><span>${escapeHTML(record.decision)}</span><span>Review ${escapeHTML(record.review_date)}</span>${disabled ? '<span class="origin-badge personal">Disabled personally</span>' : ""}</div><h3><a href="${escapeHTML(record.url)}" target="_blank" rel="noopener">${escapeHTML(record.title)}</a></h3><p>${escapeHTML(record.reason)}</p><details><summary>Maturity and lifecycle</summary><p>${escapeHTML(record.maturity)}</p><p><strong>Latest checked evidence:</strong> ${escapeHTML(record.latest_evidence)}</p><p class="muted">Added ${escapeHTML(record.date_added)} · checked ${escapeHTML(record.last_checked)} · topics ${escapeHTML(record.topic_ids.join(", "))}</p></details>${toggle}</article>`;
+      const actions = `<button type="button" class="text-button" data-open-workspace-note="${record.id}">Add note</button><button type="button" class="text-button" data-toggle-disabled="${record.id}">${disabled ? "Re-enable in my workspace" : "Disable in my workspace"}</button><button type="button" class="text-button" data-suggest-entity="${record.id}">Suggest change</button>`;
+      if (this.libraryKind === "papers") return `<article class="library-card ${disabled ? "disabled" : ""}" data-entity-id="${record.id}"><div class="card-kicker"><span>${record.id}</span><span>${record.topic_id}</span><span>${escapeHTML(record.metadata_confidence)}</span>${disabled ? '<span class="origin-badge personal">Disabled personally</span>' : ""}</div><h3><a href="${escapeHTML(record.url)}" target="_blank" rel="noopener">${escapeHTML(record.title)}</a></h3><p class="citation">${escapeHTML([record.authors, record.year, record.venue].filter(Boolean).join(" · "))}</p><p>${escapeHTML(record.contribution)}</p><details><summary>Positioning and evidence</summary><dl><dt>Role / preparation</dt><dd>${escapeHTML(record.role_level_preparation)}</dd><dt>Lineage</dt><dd>${escapeHTML(record.lineage)}</dd><dt>Limitation</dt><dd>${escapeHTML(record.limitation)}</dd><dt>Quality signals</dt><dd>${escapeHTML(record.quality_influence_signals)}</dd><dt>Authoritative version</dt><dd>${escapeHTML(record.authoritative_version)}</dd><dt>Project / code</dt><dd>${escapeHTML(record.official_project_or_code)}</dd></dl></details><div class="library-actions"><button type="button" class="text-button" data-open-topic="${record.topic_id}" data-topic-tab-target="papers">See in topic →</button>${actions}</div></article>`;
+      if (this.libraryKind === "resources") return `<article class="library-card ${disabled ? "disabled" : ""}" data-entity-id="${record.id}"><div class="card-kicker"><span>${record.id}</span><span>${escapeHTML(record.type)}</span><span>${escapeHTML(record.confidence)}</span>${disabled ? '<span class="origin-badge personal">Disabled personally</span>' : ""}</div><h3><a href="${escapeHTML(record.url)}" target="_blank" rel="noopener">${escapeHTML(record.title)}</a></h3><p>${escapeHTML(record.required_use)}</p><p class="muted">Supports ${escapeHTML(record.topic_ids.join(", "))} · ${escapeHTML(record.status)}</p><div class="library-actions">${actions}</div></article>`;
+      return `<article class="library-card frontier-card ${disabled ? "disabled" : ""}" data-entity-id="${record.id}"><div class="card-kicker"><span>${record.id}</span><span>${escapeHTML(record.decision)}</span><span>Review ${escapeHTML(record.review_date)}</span>${disabled ? '<span class="origin-badge personal">Disabled personally</span>' : ""}</div><h3><a href="${escapeHTML(record.url)}" target="_blank" rel="noopener">${escapeHTML(record.title)}</a></h3><p>${escapeHTML(record.reason)}</p><details><summary>Maturity and lifecycle</summary><p>${escapeHTML(record.maturity)}</p><p><strong>Latest checked evidence:</strong> ${escapeHTML(record.latest_evidence)}</p><p class="muted">Added ${escapeHTML(record.date_added)} · checked ${escapeHTML(record.last_checked)} · topics ${escapeHTML(record.topic_ids.join(", "))}</p></details><div class="library-actions">${actions}</div></article>`;
     }
 
     openTopic(topicId, tab = "summary") {
@@ -609,8 +735,11 @@
       const topic = this.topicById.get(this.currentTopicId);
       if (!topic) return;
       const metrics = this.topicMetrics(topic.id);
+      const nextCoreId = topic.completion_model.required_core_session_ids.find((id) => !this.isDone(id) && !this.state.disabledIds.includes(id));
+      const remainingCore = topic.completion_model.required_core_session_ids.filter((id) => !this.isDone(id)).length;
+      const downstream = this.hardOutgoing.get(topic.id) || [];
       this.root.querySelector("[data-topic-crumb]").textContent = topic.id;
-      this.topicHeader.innerHTML = `<div><div class="card-kicker"><span>${topic.id}</span><span>${escapeHTML(topic.area_short_label)}</span><span>${escapeHTML(topic.status)}</span><span class="origin-badge canonical">Canonical</span></div><h2 id="topic-title">${escapeHTML(topic.title)}</h2><p>${escapeHTML(topic.curriculum_role)}</p></div><div class="topic-progress"><strong>${metrics.coreDone}/${metrics.coreTotal}</strong><span>Required Core</span><progress max="${metrics.coreTotal || 1}" value="${metrics.coreDone}"></progress><button type="button" class="button secondary" data-toggle-disabled="${topic.id}">${this.state.disabledIds.includes(topic.id) ? "Re-enable in route" : "Disable from personal route"}</button></div>`;
+      this.topicHeader.innerHTML = `<div class="topic-header-copy"><div class="card-kicker"><span>${topic.id}</span><span>${escapeHTML(topic.area_short_label)}</span><span>${escapeHTML(topic.status)}</span><span class="origin-badge canonical">Canonical</span></div><h2 id="topic-title">${escapeHTML(topic.title)}</h2><p>${escapeHTML(topic.curriculum_role)}</p><dl class="topic-context"><div><dt>Profile</dt><dd>${escapeHTML(PROFILE[this.state.profile].label)}</dd></div><div><dt>Estimated remaining effort</dt><dd>${escapeHTML(this.effortEstimate(remainingCore))}<small>Planning range for unfinished core</small></dd></div><div><dt>Prerequisites</dt><dd>${escapeHTML(topic.hard_prerequisites.join(", ") || "None")}</dd></div><div><dt>Downstream</dt><dd>${escapeHTML(downstream.join(", ") || "No hard-gated topic")}</dd></div></dl></div><div class="topic-progress"><div class="topic-progress-grid"><div><strong>${metrics.coreDone}/${metrics.coreTotal}</strong><span>Required Core</span></div><div><strong>${metrics.continuationDone}/${metrics.continuationTotal}</strong><span>Continuation</span></div><div><strong>${metrics.validated ? "Validated" : metrics.coreDone ? "In progress" : "—"}</strong><span>My competence</span></div></div><progress max="${metrics.coreTotal || 1}" value="${metrics.coreDone}" aria-label="Required Core progress"></progress><div class="topic-header-actions">${nextCoreId ? `<button type="button" class="button primary" data-open-session="${nextCoreId}">Continue</button>` : `<button type="button" class="button primary" data-topic-tab-jump="sessions">Review sessions</button>`}<button type="button" class="button secondary" data-plan-fastest="${topic.id}">Plan fastest route here</button><a class="text-button" href="${escapeHTML(topic.url)}">Canonical source</a><button type="button" class="text-button" data-open-workspace-note="${topic.id}">Add note</button><button type="button" class="text-button" data-suggest-entity="${topic.id}">Suggest change</button><button type="button" class="text-button" data-toggle-disabled="${topic.id}">${this.state.disabledIds.includes(topic.id) ? "Re-enable in route" : "Disable from personal route"}</button></div></div>`;
       for (const button of this.root.querySelectorAll("[data-topic-tab]")) button.setAttribute("aria-pressed", String(button.dataset.topicTab === this.currentTab));
       this.topicContent.innerHTML = this.renderTopicTab(topic, metrics);
       if (this.currentTab === "notes") this.bindAutosaveTextareas();
@@ -636,11 +765,14 @@
       }
       if (this.currentTab === "papers") return `<div class="library-grid">${topic.papers.map((id) => {
         const paper = this.paperById.get(id);
-        return `<article class="library-card" data-entity-id="${id}"><div class="card-kicker"><span>${id}</span><span>${escapeHTML(paper.year)}</span><span>${escapeHTML(paper.metadata_confidence)}</span></div><h3><a href="${escapeHTML(paper.url)}" target="_blank" rel="noopener">${escapeHTML(paper.title)}</a></h3><p>${escapeHTML(paper.contribution)}</p><details><summary>Evidence, lineage, and limitation</summary><p><strong>Lineage:</strong> ${escapeHTML(paper.lineage)}</p><p><strong>Limitation:</strong> ${escapeHTML(paper.limitation)}</p><p><strong>Source:</strong> ${escapeHTML(paper.authoritative_version)}</p></details></article>`;
+        const disabled = this.state.disabledIds.includes(id);
+        return `<article class="library-card ${disabled ? "disabled" : ""}" data-entity-id="${id}"><div class="card-kicker"><span>${id}</span><span>${escapeHTML(paper.year)}</span><span>${escapeHTML(paper.metadata_confidence)}</span></div><h3><a href="${escapeHTML(paper.url)}" target="_blank" rel="noopener">${escapeHTML(paper.title)}</a></h3><p>${escapeHTML(paper.contribution)}</p><details><summary>Evidence, lineage, and limitation</summary><p><strong>Lineage:</strong> ${escapeHTML(paper.lineage)}</p><p><strong>Limitation:</strong> ${escapeHTML(paper.limitation)}</p><p><strong>Source:</strong> ${escapeHTML(paper.authoritative_version)}</p></details><div class="library-actions"><button type="button" class="text-button" data-open-workspace-note="${id}">Add note</button><button type="button" class="text-button" data-toggle-disabled="${id}">${disabled ? "Re-enable" : "Disable in my path"}</button><button type="button" class="text-button" data-suggest-entity="${id}">Suggest change</button></div></article>`;
       }).join("")}</div>`;
       if (this.currentTab === "resources") return `<div class="library-grid">${topic.resources.map((id) => {
         const resource = this.resourceById.get(id);
-        return resource ? `<article class="library-card" data-entity-id="${id}"><div class="card-kicker"><span>${id}</span><span>${escapeHTML(resource.type)}</span><span>${escapeHTML(resource.confidence)}</span></div><h3><a href="${escapeHTML(resource.url)}" target="_blank" rel="noopener">${escapeHTML(resource.title)}</a></h3><p>${escapeHTML(resource.required_use)}</p></article>` : "";
+        if (!resource) return "";
+        const disabled = this.state.disabledIds.includes(id);
+        return `<article class="library-card ${disabled ? "disabled" : ""}" data-entity-id="${id}"><div class="card-kicker"><span>${id}</span><span>${escapeHTML(resource.type)}</span><span>${escapeHTML(resource.confidence)}</span></div><h3><a href="${escapeHTML(resource.url)}" target="_blank" rel="noopener">${escapeHTML(resource.title)}</a></h3><p>${escapeHTML(resource.required_use)}</p><div class="library-actions"><button type="button" class="text-button" data-open-workspace-note="${id}">Add note</button><button type="button" class="text-button" data-toggle-disabled="${id}">${disabled ? "Re-enable" : "Disable in my path"}</button><button type="button" class="text-button" data-suggest-entity="${id}">Suggest change</button></div></article>`;
       }).join("")}</div>`;
       if (this.currentTab === "connections") {
         const incoming = topic.relationships.incoming.map((id) => this.relationshipById.get(id));
@@ -695,12 +827,18 @@
       const frontier = session.frontier_items.map((id) => this.frontierById.get(id)).filter(Boolean);
       const localPrerequisites = session.readiness.prior_session_ids.map((id) => {
         const prior = this.sessionById.get(id);
-        const status = this.isDone(id) ? "completed" : this.state.sprintCovered.includes(id) ? "Sprint-covered only" : STATUS_LABELS[this.statusOf(id)];
+        const status = this.isDone(id)
+          ? "completed"
+          : this.state.competenceValidated.includes(session.topic_id)
+            ? "assumed by topic competence validation"
+            : this.state.sprintCovered.includes(id)
+              ? "Sprint-covered only"
+              : STATUS_LABELS[this.statusOf(id)];
         return `<li><button type="button" class="text-button" data-open-session="${id}">${prior.display_id} — ${escapeHTML(prior.title)}</button> · <strong>${escapeHTML(status)}</strong></li>`;
       });
       const relationshipGates = session.relationship_gates.map((id) => {
         const edge = this.relationshipById.get(id);
-        const complete = edge && this.topicMetrics(edge.source).coreComplete;
+        const complete = edge && this.topicMetrics(edge.source).readinessSatisfied;
         return edge ? `<li><button type="button" class="text-button" data-open-topic="${edge.source}">${edge.source} — ${escapeHTML(this.topicById.get(edge.source).short_title)}</button> · <strong>${complete ? "core completed or competence validated" : "missing"}</strong><p>${escapeHTML(edge.rationale)}</p></li>` : "";
       });
       const recommended = session.recommended_relationships.map((id) => {
@@ -719,26 +857,44 @@
         <section class="session-section"><p class="eyebrow">Authoritative sources</p><h3>Read and inspect</h3>${this.sourceCards(papers, resources, frontier)}</section>
         <section class="session-section"><p class="eyebrow">${escapeHTML(PROFILE[this.state.profile].label)} profile</p><h3>How to work this session</h3>${this.profileInstructions(session, papers)}</section>
         <section class="session-section"><p class="eyebrow">Planned work</p><h3>Produce evidence, not only familiarity</h3><p>${escapeHTML(session.planned_component)}</p><div class="evidence-box"><strong>Expected competence / artifact</strong><p>${escapeHTML(session.completion)}</p></div></section>
-        <section class="session-section"><p class="eyebrow">AI prompt set</p><h3>Use AI without surrendering source judgment</h3><p>These prompts are generated from this session’s objective, sources, and evidence boundary. Verify every substantive claim against the linked source.</p><div class="prompt-grid">${this.aiPrompts(session, papers).map((item, index) => `<article><strong>${escapeHTML(item.label)}</strong><p>${escapeHTML(item.prompt)}</p><button type="button" class="text-button" data-copy-prompt="${index}">Copy prompt</button></article>`).join("")}</div></section>
+        <section class="session-section"><p class="eyebrow">AI prompt set</p><h3>Use AI without surrendering source judgment</h3><p>These prompts are generated from this session’s identity, objective, readiness state, sources, profile, time budget, artifact, and evidence boundary. Verify every substantive claim against the linked source.</p><div class="prompt-grid">${this.aiPrompts(session, papers, resources, frontier).map((item, index) => `<article><strong>${escapeHTML(item.label)}</strong><p>${escapeHTML(compact(item.prompt, 280))}</p><details><summary>Inspect full prompt</summary><p>${escapeHTML(item.prompt)}</p></details><button type="button" class="text-button" data-copy-prompt="${index}">Copy prompt</button></article>`).join("")}</div></section>
         <section class="session-section notes-panel"><div class="origin-banner"><span class="origin-badge personal">Personal note</span><span>Private workspace overlay</span></div><label for="session-note">Session notes</label><textarea id="session-note" rows="12" data-note-id="${session.id}" placeholder="Reconstruction, open questions, evidence, failure modes…">${escapeHTML(this.state.notes[session.id] || "")}</textarea><small>Saved automatically in IndexedDB.</small></section>`;
-      this.currentPrompts = this.aiPrompts(session, papers);
+      this.currentPrompts = this.aiPrompts(session, papers, resources, frontier);
       let nextSessionId = session.next_session_id;
       if (!quarantined && this.sessionById.get(nextSessionId)?.classification === "Quarantined") nextSessionId = this.sessionById.get(nextSessionId)?.next_session_id;
       const pathHeading = quarantined ? "Quarantined identity" : disabled ? "Disabled personally" : activationAvailable ? activated ? "Activated" : "Available, not activated" : "Canonical core";
       const pathExplanation = quarantined ? "This stable placeholder is excluded from Required Core, continuations, activated paths, and Sprint credit until its source identity is resolved." : disabled ? "The canonical session remains accessible and your existing state is preserved." : activationAvailable ? activated ? "This continuation counts toward Full activated path." : "Optional and frontier work does not count until you activate it." : "Required Core is always part of the canonical completion boundary.";
-      this.sessionSide.innerHTML = `<section class="panel"><p class="eyebrow">Session identity</p><dl class="metadata-list"><dt>Stable ID</dt><dd><code>${session.id}</code></dd><dt>Legacy alias</dt><dd>${escapeHTML(session.legacy_aliases.join(", "))}</dd><dt>Profile</dt><dd>${escapeHTML(PROFILE[this.state.profile].label)}</dd><dt>Source revision</dt><dd><code>${this.data.source_revision.slice(0, 12)}</code></dd></dl></section><section class="panel"><p class="eyebrow">Personal path</p><h3>${pathHeading}</h3><p>${pathExplanation}</p><div class="panel-actions"><button type="button" class="button secondary" data-toggle-disabled="${session.id}">${disabled ? "Re-enable in my path" : "Disable in my path"}</button>${activationAvailable ? `<button type="button" class="text-button" data-toggle-activation="${session.id}">${activated ? "Remove from activated path" : "Activate in my path"}</button>` : ""}</div></section><section class="panel"><p class="eyebrow">Orthogonal evidence</p>${quarantined ? '<p class="muted">Sprint and competence credit are unavailable for a quarantined identity.</p>' : `<label class="check-label"><input type="checkbox" data-sprint-covered="${session.id}" ${this.state.sprintCovered.includes(session.id) ? "checked" : ""}> AI Sprint covered</label><p class="muted">Sprint coverage does not complete Required Core. Topic competence is validated separately against evidence.</p><button type="button" class="button secondary" data-validate-topic="${topic.id}">${this.state.competenceValidated.includes(topic.id) ? "Review competence record" : "Record competence validation"}</button>`}</section><section class="panel"><p class="eyebrow">Private artifacts</p><p>Files stay in IndexedDB and are included in a Workspace Bundle only when you choose.</p><label class="button secondary attachment-button">Attach file<input type="file" data-attachment-input="${session.id}" hidden></label><div data-attachment-list>Loading…</div></section><section class="panel session-navigation"><p class="eyebrow">Continue</p>${nextSessionId ? `<button type="button" class="button secondary" data-open-session="${nextSessionId}">Next session →</button>` : `<button type="button" class="button secondary" data-open-topic="${topic.id}" data-topic-tab-target="sessions">Back to topic sessions</button>`}</section>`;
+      this.sessionSide.innerHTML = `<section class="panel"><p class="eyebrow">Session identity</p><dl class="metadata-list"><dt>Stable ID</dt><dd><code>${session.id}</code></dd><dt>Legacy alias</dt><dd>${escapeHTML(session.legacy_aliases.join(", "))}</dd><dt>Profile</dt><dd>${escapeHTML(PROFILE[this.state.profile].label)}</dd><dt>Planning range</dt><dd>${escapeHTML(this.effortEstimate())}</dd><dt>Source revision</dt><dd><code>${this.data.source_revision.slice(0, 12)}</code></dd></dl></section><section class="panel"><p class="eyebrow">Personal path</p><h3>${pathHeading}</h3><p>${pathExplanation}</p><div class="panel-actions"><button type="button" class="button secondary" data-toggle-disabled="${session.id}">${disabled ? "Re-enable in my path" : "Disable in my path"}</button>${activationAvailable ? `<button type="button" class="text-button" data-toggle-activation="${session.id}">${activated ? "Remove from activated path" : "Activate in my path"}</button>` : ""}<button type="button" class="text-button" data-open-workspace-note="${session.id}">Add note</button><button type="button" class="text-button" data-add-reference="${session.id}">Add alternative reference</button><button type="button" class="text-button" data-suggest-entity="${session.id}">Suggest change</button></div></section><section class="panel"><p class="eyebrow">Orthogonal evidence</p>${quarantined ? '<p class="muted">Sprint and competence credit are unavailable for a quarantined identity.</p>' : `<label class="check-label"><input type="checkbox" data-sprint-covered="${session.id}" ${this.state.sprintCovered.includes(session.id) ? "checked" : ""}> AI Sprint covered</label><p class="muted">Sprint coverage does not complete Required Core. Topic competence is validated separately against evidence.</p><button type="button" class="button secondary" data-validate-topic="${topic.id}">${this.state.competenceValidated.includes(topic.id) ? "Review competence record" : "Record competence validation"}</button>`}</section><section class="panel"><p class="eyebrow">Private artifacts</p><p>Files stay in IndexedDB and are included in a Workspace Bundle only when you choose.</p><label class="button secondary attachment-button">Attach file<input type="file" data-attachment-input="${session.id}" hidden></label><div data-attachment-list>Loading…</div></section><section class="panel session-navigation"><p class="eyebrow">Continue</p>${nextSessionId ? `<button type="button" class="button secondary" data-open-session="${nextSessionId}">Next session →</button>` : `<button type="button" class="button secondary" data-open-topic="${topic.id}" data-topic-tab-target="sessions">Back to topic sessions</button>`}</section>`;
       this.bindAutosaveTextareas();
       this.renderAttachments(session.id);
     }
 
     sourceCards(papers, resources, frontier) {
       const records = [
-        ...papers.map((item) => ({ ...item, kind: "Paper", detail: item.contribution })),
-        ...resources.map((item) => ({ ...item, kind: "Resource", detail: item.required_use })),
-        ...frontier.map((item) => ({ ...item, kind: "Frontier", detail: item.reason })),
+        ...papers.map((item) => ({
+          ...item, kind: "Paper", why: item.contribution,
+          role: item.role_level_preparation,
+          preparation: item.role_level_preparation,
+          project: item.official_project_or_code,
+        })),
+        ...resources.map((item) => ({
+          ...item, kind: "Resource", why: item.required_use,
+          role: `${item.type}; supporting source`,
+          preparation: "Use the assigned material selectively; no section-level burden is encoded in the canonical record.",
+          project: null,
+        })),
+        ...frontier.map((item) => ({
+          ...item, kind: "Frontier", why: item.reason,
+          role: `Frontier context; ${item.decision}`,
+          preparation: item.maturity,
+          project: null,
+        })),
       ];
       if (!records.length) return `<p>This is a synthesis or activity session. Reuse the sources from prior sessions and the topic resource set.</p>`;
-      return `<div class="source-list">${records.map((item) => `<article><span>${item.kind} · ${item.id}</span><h4><a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.title)}</a></h4><p>${escapeHTML(compact(item.detail, 220))}</p></article>`).join("")}</div>`;
+      return `<div class="source-list">${records.map((item) => {
+        const projectURL = firstPublicURL(item.project);
+        return `<article><span>${escapeHTML(item.kind)} · ${escapeHTML(item.id)}</span><h4><a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(item.title)}</a></h4><dl class="source-metadata"><dt>Why assigned</dt><dd>${escapeHTML(item.why)}</dd><dt>Role</dt><dd>${escapeHTML(item.role)}</dd><dt>Sections / preparation</dt><dd>${escapeHTML(item.preparation)}</dd><dt>Authoritative source</dt><dd><a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">Open source ↗</a></dd>${item.project ? `<dt>Project / code</dt><dd>${projectURL ? `<a href="${escapeHTML(projectURL)}" target="_blank" rel="noopener">${escapeHTML(item.project)}</a>` : escapeHTML(item.project)}</dd>` : ""}</dl><div class="library-actions"><button type="button" class="text-button" data-open-workspace-note="${item.id}">Add note</button><button type="button" class="text-button" data-suggest-entity="${item.id}">Suggest change</button></div></article>`;
+      }).join("")}</div>`;
     }
 
     profileInstructions(session, papers) {
@@ -763,24 +919,40 @@
           `Produce ${session.artifact || "the planned evidence artifact"}; record uncertainty and any source disagreement.`,
         ],
       };
-      return `<ol class="instruction-list">${instructions[this.state.profile].map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ol>`;
+      const profile = PROFILE[this.state.profile];
+      return `<dl class="profile-contract"><div><dt>Expected duration</dt><dd>${escapeHTML(this.effortEstimate())}<small>Planning range, not a source-derived promise</small></dd></div><div><dt>AI assistance</dt><dd>${escapeHTML(profile.assistance)}</dd></div><div><dt>Validation</dt><dd>${escapeHTML(profile.validation)}</dd></div><div><dt>Skipped / compressed</dt><dd>${escapeHTML(profile.compression)}</dd></div></dl><ol class="instruction-list">${instructions[this.state.profile].map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ol>`;
     }
 
-    aiPrompts(session, papers) {
-      const sources = papers.length ? papers.map((paper) => `${paper.id}: ${paper.title}`).join("; ") : "the authoritative sources from preceding sessions";
+    aiPrompts(session, papers, resources, frontier) {
+      const sourceRecords = [...papers, ...resources, ...frontier];
+      const sources = sourceRecords.length
+        ? sourceRecords.map((source) => `${source.id}: ${source.title} (${source.url})`).join("; ")
+        : "No new source is assigned; reuse the authoritative sources from preceding sessions.";
+      const sections = papers.length
+        ? papers.map((paper) => `${paper.id}: ${paper.role_level_preparation}`).join("; ")
+        : "No section-level reading assignment is encoded for this synthesis/activity session.";
+      const prerequisiteIds = [
+        ...session.readiness.prior_session_ids,
+        ...session.relationship_gates.map((id) => this.relationshipById.get(id)?.source).filter(Boolean),
+      ];
+      const completedPrerequisites = prerequisiteIds.filter((id) => this.sessionById.has(id) ? this.isDone(id) : this.topicMetrics(id).readinessSatisfied);
+      const missingPrerequisites = prerequisiteIds.filter((id) => !completedPrerequisites.includes(id));
       const limitation = papers.map((paper) => `${paper.id}: ${paper.limitation}`).join(" ") || "identify the strongest evidence limitation yourself";
-      const guardrail = "Do not invent citations or findings. Separate source claims, your inference, and uncertainty. Ask me to verify against the original source.";
+      const profile = PROFILE[this.state.profile];
+      const context = `Session ${session.display_id} / stable ${session.id}; topic ${session.topic_id}. Objective: ${session.objective} Selected profile: ${profile.label}. Desired time budget: ${this.effortEstimate()}. Completed prerequisites: ${completedPrerequisites.join(", ") || "none recorded"}. Missing prerequisites: ${missingPrerequisites.join(", ") || "none encoded"}. Canonical sources: ${sources}. Relevant sections/preparation: ${sections}. Expected capability: ${session.completion}. Required artifact/evidence: ${session.artifact || session.competence_evidence || "the planned session evidence"}. Compression boundary: ${profile.compression}`;
+      const guardrail = "Ground the explanation primarily in the linked sources; distinguish source claims from external context and inference; expose uncertainty; teach only prerequisite material relevant to this target; identify everything skipped or compressed; do not invent citations or findings; finish with an active validation step and ask me to verify substantive claims against the original source.";
       return [
-        { label: "Orient", prompt: `I am studying ${session.display_id}, “${session.title}”. Objective: ${session.objective} Sources: ${sources}. Build a compact prerequisite check and concept map. ${guardrail}` },
-        { label: "Interrogate", prompt: `Act as a Socratic research mentor for ${session.title}. Ask one question at a time about assumptions, mechanism, evidence, and failure modes. Do not reveal the answer before I commit. ${guardrail}` },
-        { label: "Reconstruct", prompt: `Help me reconstruct ${session.title} from first principles. Require equations, interfaces, or pseudocode where appropriate, then compare my reconstruction with these sources: ${sources}. ${guardrail}` },
-        { label: "Critique", prompt: `Design an adversarial evidence review for ${session.title}. Start from these known positioning limits: ${limitation}. Distinguish what the evidence establishes, what it merely suggests, and the smallest falsifying experiment. ${guardrail}` },
-        { label: "Competence test", prompt: `Test whether I can satisfy this boundary without using notes: ${session.completion}. Give me a rubric, wait for my response, identify gaps, and require source-backed corrections. ${guardrail}` },
-        { label: "Synthesize", prompt: `Connect ${session.title} to its next research decision. Planned work: ${session.planned_component}. Help produce a concise artifact outline with claims, evidence, limitations, failure cases, and unresolved hypotheses. ${guardrail}` },
+        { label: "Explain prerequisites", prompt: `${context} Build a compact diagnostic for only the missing prerequisites, then explain the minimum chain I need. ${guardrail}` },
+        { label: "Walk through the source", prompt: `${context} Walk me through the decisive method, figures, evidence, and limitations in the assigned source sections. ${guardrail}` },
+        { label: "Accelerated version", prompt: `${context} Give me the fastest defensible route through this session while preserving the evidence gate. State exactly what you compressed. ${guardrail}` },
+        { label: "Quiz readiness", prompt: `${context} Ask one readiness question at a time. Do not reveal the answer before I commit; repair only the gaps I demonstrate. ${guardrail}` },
+        { label: "Check understanding", prompt: `${context} Test whether I can satisfy the expected capability without notes. Give a rubric, wait for my response, identify gaps, and require source-backed corrections. ${guardrail}` },
+        { label: "Reconstruct and critique", prompt: `${context} Help me reconstruct the method from first principles with equations, interfaces, or pseudocode where appropriate. Use these known limits: ${limitation}. End with the smallest falsifying experiment and an artifact outline. ${guardrail}` },
       ];
     }
 
     renderWorkspace() {
+      this.renderRevisionNotices();
       const sessions = this.data.sessions;
       const counts = Object.keys(STATUS_LABELS).map((status) => [status, sessions.filter((session) => this.statusOf(session.id) === status).length]);
       this.root.querySelector("[data-storage-badge]").textContent = this.store.persistent ? "IndexedDB · persistent" : "Memory only · export before leaving";
@@ -802,14 +974,64 @@
       for (const id of baseIds) if (!candidateIds.includes(id)) candidateIds.push(id);
       const violations = this.orderViolations(candidateIds);
       const unaccepted = violations.filter((edge) => !this.state.orderOverrides.includes(edge.id));
-      this.root.querySelector("[data-custom-route]").innerHTML = `${unaccepted.length ? `<div class="warning"><strong>Not active yet:</strong> this custom order places ${plural(unaccepted.length, "hard prerequisite")} after a dependent. Review and explicitly accept the override before the planner uses it.<ul>${unaccepted.map((edge) => `<li>${edge.source} must ordinarily precede ${edge.target}</li>`).join("")}</ul><button type="button" class="button secondary" data-accept-order-overrides>Accept ${plural(unaccepted.length, "override")}</button></div>` : `<p class="success-note">${violations.length ? "All dependency-order overrides are explicit." : "Order respects every hard prerequisite."}</p>`}<ol class="custom-route-list">${candidateIds.map((id, index) => {
+      const orderState = unaccepted.length
+        ? `<div class="warning"><strong>Not active yet:</strong> this custom order places ${plural(unaccepted.length, "hard prerequisite")} after a dependent. Review and explicitly accept the override before the planner uses it.<ul>${unaccepted.map((edge) => { const targetPosition = candidateIds.indexOf(edge.target) + 1; return `<li><strong>${edge.source} → ${edge.target}:</strong> ${escapeHTML(edge.rationale)} <span>Suggested repair: move ${edge.source} before ${edge.target} (position ${targetPosition} or earlier), or restore the valid route.</span></li>`; }).join("")}</ul><div class="panel-actions"><button type="button" class="button secondary" data-restore-valid-order>Restore valid order</button><button type="button" class="text-button" data-accept-order-overrides>Accept ${plural(unaccepted.length, "override")}</button></div></div>`
+        : violations.length
+          ? `<div class="warning"><strong>Dependency override active:</strong> ${plural(violations.length, "hard prerequisite")} remain out of canonical order. The warning stays visible until you restore a valid route.<button type="button" class="text-button" data-restore-valid-order>Restore valid order</button></div>`
+          : `<p class="success-note">Order respects every hard prerequisite.</p>`;
+      this.root.querySelector("[data-custom-route]").innerHTML = `${orderState}<ol class="custom-route-list">${candidateIds.map((id, index) => {
         const topic = this.topicById.get(id);
         const disabled = this.state.disabledIds.includes(id);
         return `<li class="${disabled ? "disabled" : ""}"><span>${index + 1}</span><strong>${id}</strong><span>${escapeHTML(topic.short_title)}</span><div><button type="button" title="Move up" data-route-move="up" data-route-id="${id}" ${index === 0 ? "disabled" : ""}>↑</button><button type="button" title="Move down" data-route-move="down" data-route-id="${id}" ${index === candidateIds.length - 1 ? "disabled" : ""}>↓</button><button type="button" data-toggle-disabled="${id}">${disabled ? "Enable" : "Disable"}</button></div></li>`;
       }).join("")}</ol>`;
 
       this.renderPersonalItems();
+      this.renderWorkspaceNotes();
+      this.renderWorkspaceArtifacts();
+      this.renderDisabledItems();
       this.renderOrphans();
+    }
+
+    renderWorkspaceNotes() {
+      const container = this.root.querySelector("[data-workspace-notes]");
+      const ids = Object.keys(this.state.notes).filter((id) => this.state.notes[id]?.trim());
+      if (this.workspaceFocusId && !ids.includes(this.workspaceFocusId)) ids.unshift(this.workspaceFocusId);
+      container.innerHTML = ids.length
+        ? `<div class="workspace-note-list">${ids.map((id) => { const entity = this.entityDescriptor(id); return `<article data-workspace-note-entry="${escapeHTML(id)}"><div class="workspace-entry-heading"><div><span>${escapeHTML(entity.kind)}</span><strong>${escapeHTML(entity.label)}</strong></div>${entity.open ? `<button type="button" class="text-button" ${entity.open}>Open canonical record →</button>` : ""}</div><textarea rows="5" data-note-id="${escapeHTML(id)}" aria-label="Notes for ${escapeHTML(entity.label)}" placeholder="Private research notes…">${escapeHTML(this.state.notes[id] || "")}</textarea></article>`; }).join("")}</div>`
+        : `<div class="empty-state compact"><p>No notes yet. Use “Add note” on a topic, session, paper, resource, or frontier record.</p></div>`;
+      this.bindAutosaveTextareas();
+      if (this.workspaceFocusId) {
+        const focusId = this.workspaceFocusId;
+        this.workspaceFocusId = null;
+        requestAnimationFrame(() => {
+          const entry = container.querySelector(`[data-workspace-note-entry="${CSS.escape(focusId)}"]`);
+          entry?.scrollIntoView({ behavior: "smooth", block: "center" });
+          entry?.querySelector("textarea")?.focus();
+        });
+      }
+    }
+
+    async renderWorkspaceArtifacts() {
+      const container = this.root.querySelector("[data-workspace-artifacts]");
+      try {
+        const records = await this.store.listAttachments();
+        container.innerHTML = records.length
+          ? `<ul class="workspace-record-list">${records.map((item) => { const entity = this.entityDescriptor(item.entityId); return `<li><div><strong>${escapeHTML(item.name)}</strong><small>${escapeHTML(entity.label)} · ${Math.ceil(item.size / 1024)} KB · ${escapeHTML(item.type)}</small></div><div><button type="button" class="text-button" data-download-attachment="${escapeHTML(item.id)}">Download</button><button type="button" class="danger" data-delete-attachment="${escapeHTML(item.id)}">Delete</button></div></li>`; }).join("")}</ul>`
+          : `<div class="empty-state compact"><p>No artifacts attached. Attach files from a session workspace.</p></div>`;
+      } catch (error) {
+        container.innerHTML = `<p class="warning">${escapeHTML(error.message)}</p>`;
+      }
+    }
+
+    renderDisabledItems() {
+      const container = this.root.querySelector("[data-disabled-items]");
+      const canonical = this.state.disabledIds.map((id) => this.entityDescriptor(id));
+      const personal = this.state.customItems.filter((item) => item.disabled);
+      if (!canonical.length && !personal.length) {
+        container.innerHTML = `<div class="empty-state compact"><p>No disabled items. Hiding canonical material is reversible and never deletes it.</p></div>`;
+        return;
+      }
+      container.innerHTML = `<ul class="workspace-record-list">${canonical.map((entity) => `<li><div><span>${escapeHTML(entity.kind)}</span><strong>${escapeHTML(entity.label)}</strong></div><div>${entity.open ? `<button type="button" class="text-button" ${entity.open}>Inspect</button>` : ""}<button type="button" class="text-button" data-toggle-disabled="${escapeHTML(entity.id)}">Re-enable</button></div></li>`).join("")}${personal.map((item) => `<li><div><span>Personal ${escapeHTML(item.kind)}</span><strong>${escapeHTML(item.title)}</strong></div><button type="button" class="text-button" data-toggle-personal="${escapeHTML(item.id)}">Re-enable</button></li>`).join("")}</ul>`;
     }
 
     renderPersonalItems() {
@@ -818,7 +1040,7 @@
         container.innerHTML = `<div class="empty-state compact"><p>No personal additions yet. Add a session or source when the canonical route does not cover a personal need.</p></div>`;
         return;
       }
-      container.innerHTML = `<div class="personal-item-list">${this.state.customItems.map((item, index) => `<article class="${item.disabled ? "disabled" : ""}"><div><div class="card-kicker"><span class="origin-badge personal">Personal ${escapeHTML(item.kind)}</span><span>${escapeHTML(item.topicId)}</span>${item.disabled ? "<span>Disabled</span>" : ""}</div><h4>${escapeHTML(item.title)}</h4><p>${escapeHTML(item.objective)}</p>${item.source ? `<p class="muted">${escapeHTML(item.source)}</p>` : ""}</div><div class="item-actions"><button type="button" data-personal-move="up" data-item-id="${escapeHTML(item.id)}" ${index === 0 ? "disabled" : ""}>↑</button><button type="button" data-personal-move="down" data-item-id="${escapeHTML(item.id)}" ${index === this.state.customItems.length - 1 ? "disabled" : ""}>↓</button><button type="button" data-edit-personal="${escapeHTML(item.id)}">Edit</button><button type="button" data-toggle-personal="${escapeHTML(item.id)}">${item.disabled ? "Enable" : "Disable"}</button><button type="button" class="danger" data-delete-personal="${escapeHTML(item.id)}">Delete</button></div></article>`).join("")}</div>`;
+      container.innerHTML = `<div class="personal-item-list">${this.state.customItems.map((item, index) => `<article class="${item.disabled ? "disabled" : ""}"><div><div class="card-kicker"><span class="origin-badge personal">Personal ${escapeHTML(item.kind)}</span><span>${escapeHTML(item.topicId)}</span>${item.sessionId ? `<span>${escapeHTML(this.sessionById.get(item.sessionId)?.display_id || item.sessionId)}</span>` : ""}${item.disabled ? "<span>Disabled</span>" : ""}</div><h4>${escapeHTML(item.title)}</h4><p>${escapeHTML(item.objective)}</p>${item.source ? `<p class="muted">${escapeHTML(item.source)}</p>` : ""}</div><div class="item-actions"><button type="button" data-personal-move="up" data-item-id="${escapeHTML(item.id)}" ${index === 0 ? "disabled" : ""}>↑</button><button type="button" data-personal-move="down" data-item-id="${escapeHTML(item.id)}" ${index === this.state.customItems.length - 1 ? "disabled" : ""}>↓</button><button type="button" data-edit-personal="${escapeHTML(item.id)}">Edit</button><button type="button" data-toggle-personal="${escapeHTML(item.id)}">${item.disabled ? "Enable" : "Disable"}</button><button type="button" class="danger" data-delete-personal="${escapeHTML(item.id)}">Delete</button></div></article>`).join("")}</div>`;
     }
 
     renderOrphans() {
@@ -913,7 +1135,8 @@
         if (Object.entries(competenceEvidence).some(([id, record]) => id.length > 160 || !record || typeof record !== "object" || typeof record.evidence !== "string" || record.evidence.length > 200000)) throw new Error("Workspace competence evidence is malformed or too large.");
         const orphanArchive = raw.orphanArchive ?? [];
         if (!Array.isArray(orphanArchive) || orphanArchive.length > 500 || orphanArchive.some((item) => JSON.stringify(item).length > 10000)) throw new Error("Workspace orphan archive is malformed or too large.");
-        const customItems = validateCustomItems(raw.customItems ?? [], this.topicById);
+        const customItems = validateCustomItems(raw.customItems ?? [], this.topicById, this.sessionById);
+        const recentActivity = validateRecentActivity(raw.recentActivity);
         incoming = window.GolemWorkspaceStore.normalizeState({
           ...raw,
           ...checkedArrays,
@@ -922,6 +1145,7 @@
           competenceEvidence,
           orphanArchive,
           customItems,
+          recentActivity,
         });
         attachments = Array.isArray(parsed.attachments) ? parsed.attachments : [];
       } else {
@@ -953,6 +1177,8 @@
       next.competenceEvidence = Object.fromEntries(Object.entries(incoming.competenceEvidence).filter(([id]) => this.topicById.has(id)));
       next.sprintCovered = incoming.sprintCovered.map((id) => this.migrateEntityId(id)).filter(Boolean);
       next.activatedSessionIds = incoming.activatedSessionIds.map((id) => this.migrateEntityId(id)).filter((id) => id && ["Frontier Continuation", "Optional Specialization"].includes(this.sessionById.get(id)?.classification));
+      next.recentActivity = incoming.recentActivity.filter((item) => this.knownEntityIds.has(item.entityId)
+        || incoming.customItems.some((custom) => custom.id === item.entityId)).slice(0, 20);
       next.orphanArchive = incoming.orphanArchive.slice();
       let migrated = 0;
       let archived = 0;
@@ -971,6 +1197,12 @@
         if (id) next.disabledIds.push(id);
         else { next.orphanArchive.push({ kind: "disabled", originalId: rawId, importedAt: new Date().toISOString() }); archived += 1; }
       }
+      const importedRevision = parsed.curriculum?.source_revision || incoming.curriculumRevision;
+      if (typeof importedRevision === "string" && /^[0-9a-f]{64}$/.test(importedRevision)
+          && importedRevision !== this.data.source_revision) {
+        this.revisionNotice = { previous: importedRevision, current: this.data.source_revision };
+      }
+      next.curriculumRevision = this.data.source_revision;
       this.state = await this.store.save(next);
       let attachmentCount = 0;
       for (const item of decodedAttachments) {
@@ -985,21 +1217,106 @@
       this.bundleStatus.textContent = `Imported workspace: ${migrated} legacy IDs migrated, ${archived} unknown records archived, ${attachmentCount} attachments restored.${revisionNote}`;
     }
 
-    exportProposal() {
+    proposalSessionDirectory(topic, session = null, fallbackTitle = "proposed materials") {
+      const prefix = session ? String(session.sequence).padStart(2, "0") : "99";
+      const name = session ? session.title : fallbackTitle;
+      return `curriculum_and_progress/topics/${topic.directory}/${prefix}_${slugify(name)}`;
+    }
+
+    patchNewFile(path, content) {
+      const normalized = `${String(content).replaceAll("\r\n", "\n").replaceAll("\r", "\n").replace(/\n+$/, "")}\n`;
+      const lines = normalized.slice(0, -1).split("\n");
+      return [
+        `diff --git a/${path} b/${path}`,
+        "new file mode 100644",
+        "--- /dev/null",
+        `+++ b/${path}`,
+        `@@ -0,0 +1,${lines.length} @@`,
+        ...lines.map((line) => `+${line}`),
+        "",
+      ].join("\n");
+    }
+
+    async exportProposal() {
       const context = this.root.querySelector("[data-proposal-context]").value.trim() || "No additional context supplied.";
       const items = this.state.customItems.filter((item) => !item.disabled);
-      const lines = [
-        "# Curriculum change proposal", "",
-        `- Created: ${new Date().toISOString()}`,
-        `- Curriculum version: ${this.data.curriculum_version}`,
-        `- Source revision: \`${this.data.source_revision}\``,
-        "- Publication path: review and apply through a pull request; this file contains no credentials.", "",
-        "## Context", "", context, "", "## Proposed additions", "",
-      ];
-      if (!items.length) lines.push("No enabled personal additions were selected.");
-      for (const item of items) lines.push(`### ${item.topicId} · ${item.title}`, "", `- Type: ${item.kind}`, `- Purpose: ${item.objective}`, `- Source or artifact: ${item.source || "Not supplied"}`, `- Personal stable ID: \`${item.id}\``, "");
-      lines.push("## Review checklist", "", "- [ ] Verify topic placement and relationship semantics", "- [ ] Verify authoritative sources and metadata", "- [ ] Assign canonical stable IDs", "- [ ] Run semantic validators and browser journeys", "");
-      download(`curriculum-proposal-${new Date().toISOString().slice(0, 10)}.md`, lines.join("\n"), "text/markdown");
+      const includeNotes = this.root.querySelector("[data-proposal-notes]").checked;
+      const includeArtifacts = this.root.querySelector("[data-proposal-artifacts]").checked;
+      const status = this.root.querySelector("[data-proposal-status]");
+      const targets = new Map();
+      const ensureTarget = (topic, session, title) => {
+        const directory = this.proposalSessionDirectory(topic, session, title);
+        if (!targets.has(directory)) targets.set(directory, { directory, topic, session, title, sessions: [], materials: [], notes: [], artifacts: [] });
+        return targets.get(directory);
+      };
+      for (const item of items) {
+        const topic = this.topicById.get(item.topicId);
+        const session = item.sessionId ? this.sessionById.get(item.sessionId) : null;
+        const target = ensureTarget(topic, session, item.kind === "session" ? item.title : "proposed materials");
+        target[item.kind === "session" ? "sessions" : "materials"].push(item);
+      }
+      if (includeNotes) {
+        for (const [entityId, note] of Object.entries(this.state.notes)) {
+          const session = this.sessionById.get(entityId);
+          if (!session || !note.trim()) continue;
+          const topic = this.topicById.get(session.topic_id);
+          ensureTarget(topic, session, session.title).notes.push(note);
+        }
+      }
+      if (includeArtifacts) {
+        for (const artifact of await this.store.listAttachments()) {
+          const session = this.sessionById.get(artifact.entityId);
+          if (!session) continue;
+          const topic = this.topicById.get(session.topic_id);
+          ensureTarget(topic, session, session.title).artifacts.push(artifact);
+        }
+      }
+      if (!targets.size) {
+        status.textContent = "Nothing selected. Enable a personal addition or explicitly include eligible notes/artifact manifests.";
+        return;
+      }
+      const createdAt = new Date().toISOString();
+      const patches = [];
+      for (const target of targets.values()) {
+        const heading = target.session ? target.session.title : target.title;
+        const plan = [
+          `# ${heading}`, "",
+          "> Generated as a review proposal from a private learner workspace. Apply only after human review through a pull request.", "",
+          "## Proposal provenance", "",
+          `- Created: ${createdAt}`,
+          `- Canonical topic: ${target.topic.id} — ${target.topic.title}`,
+          ...(target.session ? [`- Canonical session: ${target.session.display_id}`, `- Stable session ID: \`${target.session.id}\``] : []),
+          `- Curriculum version: ${this.data.curriculum_version}`,
+          `- Source revision: \`${this.data.source_revision}\``, "",
+          "## Context", "", context, "",
+        ];
+        if (target.session) plan.push("## Canonical objective", "", target.session.objective, "", "## Planned evidence", "", target.session.planned_component, "", `Expected capability: ${target.session.completion}`, "");
+        if (target.sessions.length) {
+          plan.push("## Proposed session additions", "");
+          for (const item of target.sessions) plan.push(`### ${item.title}`, "", item.objective, "", `Source or expected artifact: ${item.source || "Not supplied"}`, `Personal proposal ID: \`${item.id}\``, "");
+        }
+        if (target.materials.length) {
+          plan.push("## Proposed references or materials", "");
+          for (const item of target.materials) plan.push(`- **${item.title}** — ${item.objective} Source: ${item.source || "Not supplied"}. Personal proposal ID: \`${item.id}\`.`);
+          plan.push("");
+        }
+        plan.push("## Maintainer review", "", "- [ ] Confirm topic and session placement", "- [ ] Verify source identity, metadata, and preparation burden", "- [ ] Assign or preserve canonical stable identities", "- [ ] Run semantic validators and browser journeys", "- [ ] Confirm that only deliberately selected private work is included", "");
+        const noteLines = ["# Session notes", "", "> Private notes are never included automatically.", ""];
+        if (target.notes.length) {
+          noteLines.push("## Selected learner notes", "");
+          target.notes.forEach((note, index) => noteLines.push(`### Note ${index + 1}`, "", note, ""));
+        } else noteLines.push("No private notes were selected for this proposal.", "");
+        if (target.artifacts.length) {
+          noteLines.push("## Selected artifact manifest", "", "The files themselves are not embedded in this patch. Upload only the reviewed files to `code/` or `other_session_files/` as appropriate.", "");
+          for (const item of target.artifacts) noteLines.push(`- \`${item.name.replaceAll("`", "'")}\` — ${item.type}, ${item.size} bytes`);
+          noteLines.push("");
+        }
+        patches.push(this.patchNewFile(`${target.directory}/session_plan.md`, plan.join("\n")));
+        patches.push(this.patchNewFile(`${target.directory}/session_notes.md`, noteLines.join("\n")));
+      }
+      const patchText = patches.join("\n");
+      download(`golem-curriculum-proposal-${createdAt.slice(0, 10)}.patch`, patchText, "text/x-diff");
+      status.textContent = `Generated ${plural(targets.size, "session directory")} with explicit privacy choices. Review with git apply --check before creating a pull request.`;
     }
 
     showSearch() {
@@ -1035,6 +1352,56 @@
         if (button.dataset.routeView) { event.preventDefault(); this.showView(button.dataset.routeView); return; }
         if (button.dataset.openTopic) { this.openTopic(button.dataset.openTopic, button.dataset.topicTabTarget || "summary"); return; }
         if (button.dataset.openSession) { this.openSession(button.dataset.openSession); return; }
+        if (button.dataset.openLibraryEntity) {
+          this.libraryKind = button.dataset.libraryKindTarget;
+          this.root.querySelector("[data-library-search]").value = "";
+          this.root.querySelector("[data-library-topic]").value = "";
+          this.showView("library");
+          const card = this.root.querySelector(`[data-entity-id="${CSS.escape(button.dataset.openLibraryEntity)}"]`);
+          card?.scrollIntoView({ behavior: "smooth", block: "center" });
+          card?.classList.add("targeted");
+          return;
+        }
+        if (button.dataset.openWorkspaceNote) {
+          this.workspaceFocusId = button.dataset.openWorkspaceNote;
+          this.showView("workspace");
+          return;
+        }
+        if (button.dataset.addReference) {
+          const session = this.sessionById.get(button.dataset.addReference);
+          this.showView("workspace");
+          this.resetAdditionForm();
+          const form = this.root.querySelector("[data-addition-form]");
+          form.elements.kind.value = "material";
+          form.elements.topicId.value = session.topic_id;
+          form.elements.sessionId.value = session.id;
+          form.elements.title.focus();
+          form.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+        if (button.dataset.suggestEntity) {
+          const entity = this.entityDescriptor(button.dataset.suggestEntity);
+          this.showView("workspace");
+          const context = this.root.querySelector("[data-proposal-context]");
+          if (!context.value.trim()) context.value = `Proposed change to ${entity.label}: `;
+          context.focus();
+          this.root.querySelector(".proposal-panel").scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+        if (button.dataset.planFastest) {
+          this.state.profile = "ai_sprint";
+          this.state.targetTopicId = button.dataset.planFastest;
+          this.state.customOrder = [];
+          this.state.orderOverrides = [];
+          await this.saveState();
+          this.showView("curriculum");
+          return;
+        }
+        if (button.matches("[data-dismiss-revision]")) {
+          this.revisionNotice = null;
+          this.renderRevisionNotices();
+          return;
+        }
         if (button.dataset.topicTab) { this.currentTab = button.dataset.topicTab; this.renderTopic(); window.history.replaceState({}, "", this.routeURL("topic")); return; }
         if (button.dataset.topicTabJump) { this.currentTab = button.dataset.topicTabJump; this.renderTopic(); window.history.replaceState({}, "", this.routeURL("topic")); return; }
         if (button.matches("[data-start-learning]")) { const next = this.nextSession(); next ? this.openSession(next.session.id) : this.showView("workspace"); return; }
@@ -1065,9 +1432,11 @@
           if (evidence.trim()) {
             if (!this.state.competenceValidated.includes(topicId)) this.state.competenceValidated.push(topicId);
             this.state.competenceEvidence[topicId] = { evidence: evidence.trim(), recordedAt: new Date().toISOString() };
+            this.recordActivity("competence", topicId, "Competence evidence recorded");
           } else {
             this.state.competenceValidated = this.state.competenceValidated.filter((id) => id !== topicId);
             delete this.state.competenceEvidence[topicId];
+            this.recordActivity("competence", topicId, "Competence validation removed");
           }
           await this.saveState(); this.renderAll(); return;
         }
@@ -1101,6 +1470,12 @@
           this.state.orderOverrides = this.orderViolations(this.state.customOrder).map((edge) => edge.id);
           await this.saveState(); this.renderWorkspace(); this.renderCurriculum(); return;
         }
+        if (button.matches("[data-restore-valid-order]")) {
+          this.state.customOrder = [];
+          this.state.orderOverrides = [];
+          this.state.customOrder = this.routeTo().map((topic) => topic.id);
+          await this.saveState(); this.renderWorkspace(); this.renderCurriculum(); return;
+        }
         if (button.dataset.personalMove) {
           const index = this.state.customItems.findIndex((item) => item.id === button.dataset.itemId);
           const offset = button.dataset.personalMove === "up" ? -1 : 1;
@@ -1113,7 +1488,7 @@
         if (button.dataset.editPersonal) { this.editPersonal(button.dataset.editPersonal); return; }
         if (button.dataset.togglePersonal) {
           const item = this.state.customItems.find((candidate) => candidate.id === button.dataset.togglePersonal);
-          if (item) { item.disabled = !item.disabled; await this.saveState(); this.renderPersonalItems(); }
+          if (item) { item.disabled = !item.disabled; await this.saveState(); this.renderWorkspace(); }
           return;
         }
         if (button.dataset.deletePersonal) {
@@ -1126,11 +1501,14 @@
         if (button.matches("[data-cancel-edit]")) { this.resetAdditionForm(); return; }
         if (button.matches("[data-export-bundle]")) { await this.exportBundle(); return; }
         if (button.matches("[data-import-bundle]")) { this.root.querySelector("[data-bundle-input]").click(); return; }
-        if (button.matches("[data-export-proposal]")) { this.exportProposal(); return; }
+        if (button.matches("[data-export-proposal]")) { await this.exportProposal(); return; }
         if (button.matches("[data-reset-workspace]")) {
           if (window.confirm("Reset all personal progress, notes, additions, ordering, and attachments in this browser? Export a bundle first if you may need recovery.")) {
             await this.store.clearAll();
             this.state = window.GolemWorkspaceStore.blankState();
+            this.state.curriculumRevision = this.data.source_revision;
+            this.revisionNotice = null;
+            this.state = await this.store.save(this.state);
             this.renderAll();
             this.bundleStatus.textContent = "Personal workspace reset. Canonical curriculum unchanged.";
           }
@@ -1144,6 +1522,7 @@
         if (button.dataset.deleteAttachment) {
           await this.store.deleteAttachment(button.dataset.deleteAttachment);
           await this.renderAttachments(this.currentSessionId);
+          await this.renderWorkspaceArtifacts();
         }
       });
 
@@ -1163,14 +1542,25 @@
         if (target.matches("[data-map-scope]")) { this.mapScope = target.value; this.applyMapScope(); this.cy?.fit(undefined, 35); return; }
         if (target.matches("[data-library-topic]")) { this.renderLibrary(); return; }
         if (target.matches("[data-map-topic-select]")) { if (target.value) this.openTopic(target.value); return; }
+        if (target.matches('[data-addition-form] select[name="topicId"]')) {
+          const sessionSelect = this.root.querySelector('[data-addition-form] select[name="sessionId"]');
+          if (sessionSelect.value && this.sessionById.get(sessionSelect.value)?.topic_id !== target.value) sessionSelect.value = "";
+          return;
+        }
+        if (target.matches('[data-addition-form] select[name="sessionId"]') && target.value) {
+          this.root.querySelector('[data-addition-form] select[name="topicId"]').value = this.sessionById.get(target.value).topic_id;
+          return;
+        }
         if (target.matches("[data-session-status]")) {
           this.state.entityStatus[target.dataset.sessionStatus] = target.value;
+          this.recordActivity("status", target.dataset.sessionStatus, `Marked ${STATUS_LABELS[target.value].toLowerCase()}`);
           await this.saveState(); this.renderAll(); return;
         }
         if (target.matches("[data-sprint-covered]")) {
           const id = target.dataset.sprintCovered;
           if (target.checked && !this.state.sprintCovered.includes(id)) this.state.sprintCovered.push(id);
           if (!target.checked) this.state.sprintCovered = this.state.sprintCovered.filter((candidate) => candidate !== id);
+          this.recordActivity("sprint", id, target.checked ? "Recorded AI Sprint coverage" : "Removed AI Sprint coverage");
           await this.saveState(); this.renderAll(); return;
         }
         if (target.matches("[data-bundle-input]")) {
@@ -1190,6 +1580,8 @@
             if (records.length >= MAX_ATTACHMENTS) throw new Error(`The workspace supports at most ${MAX_ATTACHMENTS} attachments.`);
             if (totalBytes + file.size > MAX_TOTAL_ATTACHMENT_BYTES) throw new Error("Workspace attachments are limited to 24 MB total.");
             await this.store.putAttachment(target.dataset.attachmentInput, file);
+            this.recordActivity("artifact", target.dataset.attachmentInput, `Attached ${file.name}`);
+            await this.saveState();
             await this.renderAttachments(target.dataset.attachmentInput);
           }
           catch (error) { this.setStatus(error.message, true); }
@@ -1205,10 +1597,11 @@
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const id = data.get("itemId") || `PERSONAL-${crypto.randomUUID()}`;
-        const record = { id, kind: data.get("kind"), title: data.get("title").trim(), topicId: data.get("topicId"), objective: data.get("objective").trim(), source: data.get("source").trim(), disabled: false, updatedAt: new Date().toISOString() };
+        const record = { id, kind: data.get("kind"), title: data.get("title").trim(), topicId: data.get("topicId"), sessionId: data.get("sessionId") || null, objective: data.get("objective").trim(), source: data.get("source").trim(), disabled: false, updatedAt: new Date().toISOString() };
         const index = this.state.customItems.findIndex((item) => item.id === id);
         if (index >= 0) record.disabled = this.state.customItems[index].disabled;
         if (index >= 0) this.state.customItems[index] = record; else this.state.customItems.push(record);
+        this.recordActivity("personal", id, index >= 0 ? "Updated personal item" : "Added personal item");
         await this.saveState(); this.resetAdditionForm(); this.renderPersonalItems();
       });
       window.addEventListener("popstate", () => { this.restoreRoute(); this.showView(this.currentView, { history: "none" }); });
@@ -1222,6 +1615,7 @@
       form.elements.kind.value = item.kind;
       form.elements.title.value = item.title;
       form.elements.topicId.value = item.topicId;
+      form.elements.sessionId.value = item.sessionId || "";
       form.elements.objective.value = item.objective;
       form.elements.source.value = item.source;
       form.querySelector("[data-cancel-edit]").hidden = false;

@@ -21,6 +21,8 @@
     orderOverrides: [],
     customItems: [],
     orphanArchive: [],
+    recentActivity: [],
+    curriculumRevision: null,
     lastRoute: { view: "home" },
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -48,9 +50,15 @@
     state.entityStatus = value.entityStatus && typeof value.entityStatus === "object" ? value.entityStatus : {};
     state.notes = value.notes && typeof value.notes === "object" ? value.notes : {};
     state.competenceEvidence = value.competenceEvidence && typeof value.competenceEvidence === "object" ? value.competenceEvidence : {};
-    for (const key of ["competenceValidated", "sprintCovered", "activatedSessionIds", "disabledIds", "customOrder", "orderOverrides", "customItems", "orphanArchive"]) {
+    for (const key of ["competenceValidated", "sprintCovered", "activatedSessionIds", "disabledIds", "customOrder", "orderOverrides", "customItems", "orphanArchive", "recentActivity"]) {
       state[key] = Array.isArray(value[key]) ? value[key] : [];
     }
+    state.recentActivity = state.recentActivity.filter((item) => item && typeof item === "object"
+      && typeof item.kind === "string" && typeof item.entityId === "string"
+      && typeof item.label === "string" && typeof item.at === "string").slice(0, 100);
+    state.curriculumRevision = typeof value.curriculumRevision === "string" && /^[0-9a-f]{64}$/.test(value.curriculumRevision)
+      ? value.curriculumRevision
+      : null;
     if (!["guided", "accelerated", "ai_sprint"].includes(state.profile)) state.profile = "guided";
     return state;
   }

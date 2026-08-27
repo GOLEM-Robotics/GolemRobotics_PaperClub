@@ -85,12 +85,12 @@ The primary navigation is deliberately task-oriented:
 - Home: onboarding, profile, target, next action, resume, route explanation, and provenance.
 - Curriculum: learning path, topic catalog, and relationship map.
 - Library: active papers, supporting resources, and frontier records.
-- Workspace: progress, competence evidence, personal ordering, additions, bundles, and proposals.
+- Workspace: progress, aggregated notes and artifacts, disabled-item recovery, competence evidence, personal ordering, additions, bundles, and proposals.
 - Reference: methodology, canonical records, provenance, and maintenance.
 
 Topic and Session are contextual workspaces reached from those sections. URLs encode shareable navigation state; personal filters and private state do not leak into shared links.
 
-The three profiles—Guided, Accelerated, and AI Sprint—change traversal guidance, not canonical truth. AI prompts are generated from the current session's objective, sources, artifact, and evidence boundary. They explicitly require source verification and separate source claims, inference, and uncertainty.
+The three profiles—Guided, Accelerated, and AI Sprint—change traversal guidance, not canonical truth. Each profile exposes a planning-duration range, assistance strategy, validation requirement, and compression boundary. AI prompts are generated from the session/topic identity, objective, current prerequisite state, canonical source URLs and assigned sections, selected profile, time budget, expected capability, artifact, and evidence boundary. They explicitly require source verification and separate source claims, inference, and uncertainty.
 
 ## Personal workspace and portability
 
@@ -104,11 +104,13 @@ The three profiles—Guided, Accelerated, and AI Sprint—change traversal guida
 - personal ordering and explicit overrides;
 - custom sessions and materials;
 - orphaned migration records;
+- recent meaningful activity;
+- the last observed curriculum source revision;
 - the last route.
 
 Legacy localStorage completion data is migrated through stable aliases. Malformed or unknown records are preserved in the orphan archive instead of being discarded. If IndexedDB is unavailable, the application clearly falls back to memory for that visit; attachments require persistent storage.
 
-A Workspace Bundle is a versioned JSON export containing the source revision and, only when selected, attachment data. Import migrates aliases, restores known records, and archives unknown IDs. Because browser storage is local and can be cleared, learners should export a bundle when they need a durable backup or a move between devices.
+A Workspace Bundle is a versioned JSON export containing the source revision and, only when selected, attachment data. Import migrates aliases, restores known records, archives unknown IDs, and reports a changed source revision while preserving personal work. Because browser storage is local and can be cleared, learners should export a bundle when they need a durable backup or a move between devices.
 
 Bundles are treated as untrusted input. Imports validate schema, enums, canonical references, personal UUIDs, string and record bounds, attachment counts, and payload sizes. Attachments must be local base64 `data:` payloads; remote URLs are rejected. Current limits are 40 MB per bundle, 32 attachments, 8 MB per attachment, and 24 MB of attachments in total.
 
@@ -126,7 +128,7 @@ IndexedDB isolates by origin rather than URL path. The default organization proj
 
 MathJax and Cytoscape are pinned, vendored runtime assets. The normal learner application does not load executable code or fonts from a third-party origin.
 
-Publishing is intentionally explicit. The current supported path exports a repository-compatible proposal for a human-reviewed pull request. An authenticated publishing bridge is not deployed. If one is ever introduced, it must be a trusted server-side component and must never write directly to `main`.
+Publishing is intentionally explicit. The current supported path exports a repository-compatible Git patch for a human-reviewed pull request. The patch creates the topic/session `session_plan.md` and `session_notes.md` structure required by the club framework. Enabled personal additions are included; private session notes and attachment manifests require separate opt-in controls, and attachment contents are never embedded. An authenticated publishing bridge is not deployed. If one is ever introduced, it must be a trusted server-side component and must never write directly to `main`.
 
 ## Maintenance
 

@@ -4,13 +4,13 @@
 
 A source-grounded research curriculum for robot learning, embodied intelligence, and physical AI—paired with a browser-local, portable learning workspace.
 
-[Open the Curriculum Explorer](https://golem-robotics.github.io/GolemRobotics_PaperClub/) · [Inspect the curriculum map](curriculum_and_progress/curriculum_map.md) · [Contribute](CONTRIBUTING.md)
+[Open the Curriculum Explorer](https://golem-robotics.github.io/GolemRobotics_PaperClub/) · [Read the product contract](Golem%20Robotics%20Research%20Curriculum%20%E2%80%94%20Product%20Contract.md) · [Contribute](CONTRIBUTING.md)
 
 ## What this repository provides
 
 - A reviewed club framework in the five numbered root documents.
 - An authoritative Markdown curriculum. The audited 27 August 2026 snapshot has 37 topics, 400 stable sessions, 192 active primary papers, 41 supporting resources, 12 frontier records, and 255 typed relationships.
-- A static learner application with target-based planning, source-aware sessions, private notes and attachments, progress tracking, personal path customization, and portable Workspace Bundles.
+- A static learner application with explainable recommendations, target-based planning, source-aware sessions, private notes and attachments, reversible personal customization, portable Workspace Bundles, and repository-ready proposal patches.
 
 On first use, choose Guided, Accelerated, or AI Sprint; optionally choose a target capability; then open the recommended ready session. The route explains every hard gate and keeps Required Core separate from opt-in continuation work.
 
@@ -42,6 +42,7 @@ The expected project URL is `https://<owner>.github.io/<repository>/`. Pull requ
 ```text
 .
 ├── 1_operating_principles.md … 5_repo_structure.md   # protected club framework
+├── Golem Robotics Research Curriculum — Product Contract.md
 ├── curriculum_and_progress/
 │   ├── topics/                                        # canonical topic and session plans
 │   ├── paper_index.md                                 # active primary-paper records
@@ -55,7 +56,7 @@ The expected project URL is `https://<owner>.github.io/<repository>/`. Pull requ
 ├── tools/                                             # validation, projection, and maintenance
 ├── hooks/                                             # MkDocs integration
 ├── tests/                                             # semantic and browser journeys
-└── docs/                                              # product and architecture documentation
+└── docs/                                              # system architecture documentation
 ```
 
 Markdown under `curriculum_and_progress/` is authoritative. `viewer/assets/data/curriculum_graph.json` is a deterministic browser projection and is regenerated during every strict build.
@@ -75,7 +76,7 @@ python -m http.server 8001 --directory site
 CHROME_PATH=/path/to/google-chrome BASE_URL=http://127.0.0.1:8001 npm run test:browser
 ```
 
-See [the architecture](docs/architecture.md) for data contracts and privacy boundaries, and [the contribution guide](CONTRIBUTING.md) before changing curriculum identities or relationships.
+See [the architecture](docs/architecture.md) for data contracts and privacy boundaries, and [the contribution guide](CONTRIBUTING.md) before changing curriculum identities or relationships. Every rendered source document links back to its exact repository file.
 
 Pushes to `main` are validated and deployed through GitHub Actions. Scheduled research maintenance records evidence and opens a review proposal only when attention is required; it never silently rewrites curriculum content.
 

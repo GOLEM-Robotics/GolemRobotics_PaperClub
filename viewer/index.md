@@ -39,6 +39,7 @@ A rigorous, paper-driven learning workspace for building research competence in 
 
   <div class="app-main">
     <section class="app-view home-view" data-view-panel="home" aria-labelledby="home-title">
+      <div class="revision-notice" data-revision-notice role="status" hidden></div>
       <div class="hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Research apprenticeship</p>
@@ -76,6 +77,13 @@ A rigorous, paper-driven learning workspace for building research competence in 
         </article>
       </section>
 
+      <section class="home-context-grid" aria-label="Learning context">
+        <article class="panel"><p class="eyebrow">Alternatives</p><h3>Two other sensible moves</h3><div data-alternative-actions></div></article>
+        <article class="panel"><p class="eyebrow">Readiness</p><h3>Blockers and prerequisite repair</h3><div data-home-blockers></div></article>
+        <article class="panel"><p class="eyebrow">Required Core</p><h3>Your active-route progress</h3><div data-home-core-progress></div></article>
+        <article class="panel"><p class="eyebrow">Research horizon</p><h3>Frontier and review context</h3><div data-home-frontier></div></article>
+      </section>
+
       <section class="stat-strip" data-stat-strip aria-label="Curriculum inventory"></section>
 
       <section class="panel pathway-preview">
@@ -88,7 +96,7 @@ A rigorous, paper-driven learning workspace for building research competence in 
 
     <section class="app-view curriculum-view" data-view-panel="curriculum" aria-labelledby="curriculum-title" hidden>
       <header class="page-heading">
-        <div><p class="eyebrow">Canonical learning graph</p><h2 id="curriculum-title">Curriculum</h2><p>Plan from a capability target, then study prerequisites in a defensible order. The graph is available as context—not as the starting point.</p></div>
+        <div><p class="eyebrow">Canonical learning graph</p><h2 id="curriculum-title">Curriculum</h2><p>Plan from a capability target, then study prerequisites in a defensible order. The graph is available as context—not as the starting point.</p><p class="page-heading-links"><a href="curriculum_table/">Curriculum matrix</a><a href="curriculum_map/">Area overview</a><button type="button" class="text-button" data-curriculum-mode="path">Focused dependency path</button></p></div>
         <div class="segmented" role="group" aria-label="Curriculum presentation">
           <button type="button" data-curriculum-mode="path" aria-pressed="true">Learning path</button>
           <button type="button" data-curriculum-mode="catalog" aria-pressed="false">Topic catalog</button>
@@ -144,6 +152,7 @@ A rigorous, paper-driven learning workspace for building research competence in 
     </section>
 
     <section class="app-view workspace-view" data-view-panel="workspace" aria-labelledby="workspace-title" hidden>
+      <div class="revision-notice" data-revision-notice role="status" hidden></div>
       <header class="page-heading">
         <div><p class="eyebrow">Private, durable, portable</p><h2 id="workspace-title">Workspace</h2><p>Your personal overlay is stored in IndexedDB. It never rewrites canonical curriculum data.</p></div>
         <span class="storage-badge" data-storage-badge>Checking storage…</span>
@@ -154,6 +163,12 @@ A rigorous, paper-driven learning workspace for building research competence in 
         <section class="panel workspace-route"><header><div><p class="eyebrow">Personal route</p><h3>Ordering and exclusions</h3></div></header><div data-custom-route></div></section>
       </div>
 
+      <div class="workspace-collections-grid">
+        <section class="panel"><header><div><p class="eyebrow">My notes</p><h3>Private research notes</h3></div></header><div data-workspace-notes></div></section>
+        <section class="panel"><header><div><p class="eyebrow">My artifacts</p><h3>Attached session outputs</h3></div></header><div data-workspace-artifacts></div></section>
+        <section class="panel"><header><div><p class="eyebrow">My disabled items</p><h3>Recover hidden canonical material</h3></div></header><div data-disabled-items></div></section>
+      </div>
+
       <section class="panel personal-additions">
         <header><div><p class="eyebrow">Clearly personal</p><h3>Custom sessions and materials</h3></div><span class="origin-badge personal">Personal overlay</span></header>
         <form class="addition-form" data-addition-form>
@@ -161,6 +176,7 @@ A rigorous, paper-driven learning workspace for building research competence in 
           <label>Type<select name="kind"><option value="session">Custom session</option><option value="material">Added material</option></select></label>
           <label>Title<input name="title" required maxlength="180"></label>
           <label>Topic<select name="topicId" required></select></label>
+          <label class="wide">Related canonical session (optional)<select name="sessionId"><option value="">Topic-level addition</option></select></label>
           <label class="wide">Purpose or objective<textarea name="objective" rows="2" required maxlength="4000"></textarea></label>
           <label class="wide">Source URL or expected artifact<input name="source" maxlength="2048" placeholder="https://… or a concrete artifact"></label>
           <div class="form-actions wide"><button type="submit" class="button primary">Save personal item</button><button type="button" class="button secondary" data-cancel-edit hidden>Cancel edit</button></div>
@@ -171,6 +187,7 @@ A rigorous, paper-driven learning workspace for building research competence in 
       <section class="panel bundle-panel">
         <header><div><p class="eyebrow">Recovery and portability</p><h3>Workspace Bundle</h3></div><span data-bundle-status role="status" aria-live="polite"></span></header>
         <p>Export progress, notes, custom paths, additions, disabled items, source revision, and optionally private attachments. Unknown IDs are archived during import instead of discarded. Bundles are plaintext private files; import only bundles you created or trust.</p>
+        <p class="muted">Account-based sync is not deployed. Export/import is the supported way to transfer or back up a workspace across browsers, devices, local hosts, and GitHub Pages.</p>
         <p class="muted">Browser storage is origin-scoped. On the default GitHub Pages host, other GOLEM-Robotics project sites share the <code>golem-robotics.github.io</code> origin and must be treated as part of the same trust boundary.</p>
         <div class="bundle-actions">
           <label class="check-label"><input type="checkbox" data-include-attachments> Include attachments</label>
@@ -184,9 +201,13 @@ A rigorous, paper-driven learning workspace for building research competence in 
 
       <section class="panel proposal-panel">
         <header><div><p class="eyebrow">Safe publication fallback</p><h3>Prepare a curriculum proposal</h3></div><span class="origin-badge canonical">No repository credentials</span></header>
-        <p>Package selected personal additions as a reviewable Markdown proposal. Publishing remains a deliberate pull-request workflow.</p>
+        <p>Generate a credential-free Git patch that creates the reviewed session-artifact structure. Enabled personal additions are included; private notes and artifact manifests remain excluded unless you select them.</p>
         <label>Proposal context<textarea rows="3" data-proposal-context placeholder="Why should this become part of the canonical curriculum?"></textarea></label>
-        <button type="button" class="button secondary" data-export-proposal>Download proposal bundle</button>
+        <div class="proposal-options">
+          <label class="check-label"><input type="checkbox" data-proposal-notes> Include eligible session notes</label>
+          <label class="check-label"><input type="checkbox" data-proposal-artifacts> Include attachment manifests (not private file contents)</label>
+        </div>
+        <div class="panel-actions"><button type="button" class="button secondary" data-export-proposal>Download repository patch</button><span data-proposal-status role="status" aria-live="polite"></span></div>
       </section>
     </section>
 

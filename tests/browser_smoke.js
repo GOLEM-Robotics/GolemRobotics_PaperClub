@@ -1,6 +1,7 @@
 "use strict";
 
 const assert = require("node:assert/strict");
+const { execFileSync } = require("node:child_process");
 const fs = require("node:fs/promises");
 const { chromium } = require("playwright-core");
 
@@ -93,6 +94,10 @@ async function runMainJourney(errors) {
     ["Home", "Curriculum", "Library", "Workspace", "Reference"],
   );
   assert.match(await page.locator("[data-next-title]").innerText(), /F1-S01|F2-S01|F6-S01|L1-S01/);
+  assert.equal(await page.locator("[data-alternative-actions] li").count(), 2);
+  assert.match(await page.locator("[data-home-blockers]").innerText(), /Needs/);
+  assert.match(await page.locator("[data-home-core-progress]").innerText(), /Required Core sessions completed/);
+  assert.match(await page.locator("[data-home-frontier]").innerText(), /review/i);
   assert.equal(await page.locator("[data-stat-strip] article").count(), 4);
   assert.deepEqual(
     await page.evaluate(() => window.__curriculumExplorer.data.statistics),
@@ -130,6 +135,9 @@ async function runMainJourney(errors) {
 
   await page.locator(".primary-nav [data-view='curriculum']").click();
   assert.match(page.url(), /view=curriculum/);
+  assert.equal(await page.locator(".page-heading-links a").count(), 2);
+  assert.match(await page.locator(".page-heading-links").innerText(), /Curriculum matrix/);
+  assert.match(await page.locator(".page-heading-links").innerText(), /Area overview/);
   assert.match(await page.locator("[data-learning-path]").innerText(), /Why here:/);
   await page.locator("[data-curriculum-mode='map']").click();
   await page.waitForFunction(() => window.__curriculumExplorer.cy?.nodes().length === 37);
@@ -148,11 +156,31 @@ async function runMainJourney(errors) {
   await page.goto(`${baseURL}/?view=topic&topic=F3&tab=sessions`, { waitUntil: "networkidle" });
   await waitForApp(page);
   assert.match(await page.locator("[data-topic-header]").innerText(), /F3/);
+  assert.match(await page.locator("[data-topic-header]").innerText(), /Required Core/);
+  assert.match(await page.locator("[data-topic-header]").innerText(), /Continuation/);
+  assert.match(await page.locator("[data-topic-header]").innerText(), /My competence/);
+  assert.match(await page.locator("[data-topic-header]").innerText(), /Estimated remaining effort/i);
+  assert.match(await page.locator("[data-topic-header]").innerText(), /Prerequisites/i);
+  assert.match(await page.locator("[data-topic-header]").innerText(), /Downstream/i);
+  assert.equal(await page.locator("[data-topic-header] [data-plan-fastest]").count(), 1);
+  assert.equal(await page.locator("[data-topic-header] a").filter({ hasText: "Canonical source" }).count(), 1);
   assert.equal(await page.locator("[data-topic-tab='sessions']").getAttribute("aria-pressed"), "true");
   await page.locator('[data-entity-id="SES-220A3F0A-B416-5E1B-AC37-685EA460EE0D"] [data-open-session]').first().click();
   assert.match(page.url(), /view=session/);
   assert.match(await page.locator("[data-session-header]").innerText(), /Attention Is All You Need/);
   assert.match(await page.locator("[data-session-content]").innerText(), /Hard prerequisites/);
+  assert.match(await page.locator("[data-session-content]").innerText(), /Why assigned/);
+  assert.match(await page.locator("[data-session-content]").innerText(), /Sections \/ preparation/);
+  assert.match(await page.locator("[data-session-content]").innerText(), /Project \/ code/);
+  assert.match(await page.locator("[data-session-content]").innerText(), /Expected duration/i);
+  assert.match(await page.locator("[data-session-content]").innerText(), /Skipped \/ compressed/i);
+  assert.equal(await page.locator("[data-session-content] .prompt-grid article").count(), 6);
+  const generatedPrompt = await page.evaluate(() => window.__curriculumExplorer.currentPrompts[0].prompt);
+  assert.match(generatedPrompt, /stable SES-/);
+  assert.match(generatedPrompt, /Desired time budget/);
+  assert.match(generatedPrompt, /Canonical sources:/);
+  assert.equal(await page.locator("[data-session-content] .prompt-grid details").count(), 6);
+  assert.equal(await page.locator("[data-session-side] [data-add-reference]").count(), 1);
   assert.equal(await page.locator("[data-session-side] [data-delete-personal]").count(), 0);
 
   await openBySearch(page, "P010", "paper", "P010");
@@ -201,9 +229,15 @@ async function runMainJourney(errors) {
   page.once("dialog", (dialog) => dialog.accept("Explained the architecture and reconstructed the attention equations."));
   await page.locator("[data-validate-topic='F3']").click();
   assert.equal(
-    await page.evaluate(() => window.__curriculumExplorer.state.competenceValidated.includes("F3")),
+    await page.evaluate(() => {
+      const metrics = window.__curriculumExplorer.topicMetrics("F3");
+      return metrics.validated && metrics.readinessSatisfied && !metrics.coreComplete;
+    }),
     true,
   );
+  await page.locator("[data-session-topic-link]").click();
+  assert.match(await page.locator("[data-topic-content]").innerText(), /Required Core complete\s+13%/);
+  assert.match(await page.locator("[data-topic-content]").innerText(), /Validated competence\s+Yes/);
   await page.locator(".primary-nav [data-view='home']").click();
   await page.locator("[data-view-panel='home'] [data-profile-select]").selectOption("guided");
   assert.equal(
@@ -224,8 +258,13 @@ async function runMainJourney(errors) {
   );
   await page.waitForFunction(() => document.querySelector("[data-session-side]")?.textContent.includes("Disabled personally"));
   assert.match(await page.locator("[data-session-side]").innerText(), /Disabled personally/);
-  await page.locator("[data-session-side] [data-toggle-disabled]").click();
+  await page.locator(".primary-nav [data-view='workspace']").click();
+  const disabledSession = page.locator("[data-disabled-items] li").filter({ hasText: "F3-S03" });
+  await disabledSession.waitFor();
+  assert.match(await disabledSession.innerText(), /Session/i);
+  await disabledSession.locator("[data-toggle-disabled]").click();
   await page.waitForFunction(() => !window.__curriculumExplorer.state.disabledIds.includes(window.__curriculumExplorer.currentSessionId));
+  await page.waitForFunction(() => document.querySelector("[data-disabled-items]")?.textContent.includes("No disabled items"));
   assert.equal(
     await page.evaluate(() => window.__curriculumExplorer.state.disabledIds.includes(window.__curriculumExplorer.currentSessionId)),
     false,
@@ -274,6 +313,9 @@ async function runMainJourney(errors) {
 
   // Personal route ordering: one valid move and one explicit invalid override.
   await page.locator(".primary-nav [data-view='workspace']").click();
+  assert.match(await page.locator("[data-workspace-notes] textarea").inputValue(), /masking ablation/);
+  assert.match(await page.locator("[data-workspace-artifacts]").innerText(), /attention-notes\.md/);
+  assert.match(await page.locator("[data-disabled-items]").innerText(), /No disabled items/);
   await page.waitForSelector("[data-custom-route] li");
   const validMoveId = await page.evaluate(() => {
     const app = window.__curriculumExplorer;
@@ -308,12 +350,32 @@ async function runMainJourney(errors) {
     await page.locator(`[data-route-id="${violatingEdge.target}"][data-route-move="up"]`).click();
   }
   assert.match(await page.locator("[data-custom-route] .warning").innerText(), /hard prerequisite/);
+  assert.match(await page.locator("[data-custom-route] .warning").innerText(), /Suggested repair:/);
+  assert.equal(await page.locator("[data-restore-valid-order]").count(), 1);
   await page.locator("[data-accept-order-overrides]").click();
-  await page.waitForSelector("[data-custom-route] .success-note");
-  assert.match(await page.locator("[data-custom-route]").innerText(), /overrides are explicit/);
+  await page.waitForFunction(() => document.querySelector("[data-custom-route]")?.textContent.includes("Dependency override active"));
+  assert.match(await page.locator("[data-custom-route]").innerText(), /Dependency override active/);
+  await page.locator("[data-restore-valid-order]").click();
+  await page.waitForFunction(() => document.querySelector("[data-custom-route]")?.textContent.includes("Order respects every hard prerequisite"));
+  assert.deepEqual(await page.evaluate(() => window.__curriculumExplorer.orderViolations(window.__curriculumExplorer.state.customOrder).length), 0);
 
   // Personal additions support create, edit, move, disable, re-enable, and delete.
+  await page.goto(`${baseURL}/?view=session&session=F3-S03`, { waitUntil: "networkidle" });
+  await waitForApp(page);
+  await page.locator("[data-session-side] [data-add-reference]").click();
+  await page.waitForFunction(() => window.__curriculumExplorer.currentView === "workspace");
   const form = page.locator("[data-addition-form]");
+  assert.equal(await form.locator("[name='kind']").inputValue(), "material");
+  assert.equal(await form.locator("[name='topicId']").inputValue(), "F3");
+  assert.match(await form.locator("[name='sessionId'] option:checked").innerText(), /F3-S03/);
+  await form.locator("[name='title']").fill("Attention implementation companion");
+  await form.locator("[name='objective']").fill("Compare the paper reconstruction with an implementation-oriented reference.");
+  await form.locator("[name='source']").fill("https://example.org/attention-companion");
+  await form.locator("button[type='submit']").click();
+  await page.waitForFunction(() => window.__curriculumExplorer.state.customItems.some((item) => item.title === "Attention implementation companion"));
+  await page.waitForFunction(() => document.querySelector("[data-personal-items]")?.textContent.includes("Attention implementation companion"));
+  assert.match(await page.locator("[data-personal-items]").innerText(), /F3-S03/);
+
   await form.locator("[name='kind']").selectOption("session");
   await form.locator("[name='title']").fill("Personal latency reading");
   await form.locator("[name='topicId']").selectOption("D4");
@@ -345,15 +407,33 @@ async function runMainJourney(errors) {
   await page.waitForFunction(() => !document.querySelector("[data-personal-items]")?.textContent.includes("Disposable personal source"));
   assert.equal(await page.locator("[data-personal-items]").getByText("Disposable personal source").count(), 0);
 
-  // Proposal generation is credential-free and leaves canonical files untouched.
+  // Proposal generation is credential-free, repository-compatible, and private by default.
   await page.locator("[data-proposal-context]").fill("A hardware-specific extension for review.");
   const proposalPromise = page.waitForEvent("download");
   await page.locator("[data-export-proposal]").click();
   const proposalDownload = await proposalPromise;
-  const proposalText = await fs.readFile(await proposalDownload.path(), "utf8");
+  const proposalPath = await proposalDownload.path();
+  const proposalText = await fs.readFile(proposalPath, "utf8");
+  assert.match(proposalText, /^diff --git /);
   assert.match(proposalText, /Personal latency evidence/);
+  assert.match(proposalText, /Attention implementation companion/);
+  assert.match(proposalText, /curriculum_and_progress\/topics\/f3_neural_architectures_and_sequence_models\/03_p010_attention_is_all_you_need\/session_plan\.md/);
+  assert.match(proposalText, /session_notes\.md/);
   assert.match(proposalText, /pull request/);
+  assert.doesNotMatch(proposalText, /masking ablation/);
+  assert.doesNotMatch(proposalText, /attention-notes\.md/);
   assert.doesNotMatch(proposalText, /ghp_|github_pat_|Bearer\s/);
+  execFileSync("git", ["apply", "--check", proposalPath], { cwd: process.cwd() });
+
+  await page.locator("[data-proposal-notes]").check();
+  await page.locator("[data-proposal-artifacts]").check();
+  const selectedProposalPromise = page.waitForEvent("download");
+  await page.locator("[data-export-proposal]").click();
+  const selectedProposal = await selectedProposalPromise;
+  const selectedProposalText = await fs.readFile(await selectedProposal.path(), "utf8");
+  assert.match(selectedProposalText, /masking ablation/);
+  assert.match(selectedProposalText, /attention-notes\.md/);
+  assert.match(await page.locator("[data-proposal-status]").innerText(), /explicit privacy choices/);
 
   // Bundle round trip includes state, source revision, orphan-safe migration, and optional files.
   await page.locator("[data-include-attachments]").check();
@@ -377,7 +457,12 @@ async function runMainJourney(errors) {
   await page.locator("[data-bundle-input]").setInputFiles(bundlePath);
   await page.waitForFunction(() => document.querySelector("[data-bundle-status]").textContent.includes("Imported workspace"));
   assert.equal(
-    await page.evaluate(() => window.__curriculumExplorer.state.customItems.some((item) => item.title === "Personal latency evidence")),
+    await page.evaluate(() => {
+      const app = window.__curriculumExplorer;
+      const reference = app.state.customItems.find((item) => item.title === "Attention implementation companion");
+      return app.state.customItems.some((item) => item.title === "Personal latency evidence")
+        && reference?.sessionId === app.aliasToStable.get("F3-S03");
+    }),
     true,
   );
 
@@ -408,6 +493,8 @@ async function runMainJourney(errors) {
     buffer: Buffer.from(JSON.stringify(oldBundle)),
   });
   await page.waitForFunction(() => document.querySelector("[data-bundle-status]").textContent.includes("Source revision differed"));
+  assert.match(await page.locator("[data-view-panel='workspace'] [data-revision-notice]").innerText(), /Curriculum updated since your last visit/);
+  assert.match(await page.locator("[data-view-panel='workspace'] [data-revision-notice]").innerText(), /progress, notes, custom path, and artifacts were preserved/);
   assert.equal(
     await page.evaluate(() => {
       const app = window.__curriculumExplorer;
@@ -508,6 +595,24 @@ async function runMainJourney(errors) {
 }
 
 async function runRecoveryJourneys(errors) {
+  // Competence can satisfy route readiness without claiming Required Core completion.
+  const semanticContext = await browser.newContext();
+  const semanticPage = await semanticContext.newPage();
+  collectErrors(semanticPage, errors);
+  await semanticPage.goto(baseURL, { waitUntil: "networkidle" });
+  await waitForApp(semanticPage);
+  await semanticPage.evaluate(() => {
+    const app = window.__curriculumExplorer;
+    app.state.competenceValidated = ["F1", "F2", "F6", "L1"];
+    app.renderAll();
+  });
+  assert.match(await semanticPage.locator("[data-next-title]").innerText(), /No ready Required Core recommendation/);
+  assert.equal(await semanticPage.evaluate(() => ["F1", "F2", "F6", "L1"].every((id) => {
+    const metrics = window.__curriculumExplorer.topicMetrics(id);
+    return metrics.readinessSatisfied && !metrics.coreComplete;
+  })), true);
+  await semanticContext.close();
+
   // Legacy localStorage aliases migrate once into stable IDs.
   const legacyContext = await browser.newContext();
   const legacyPage = await legacyContext.newPage();
@@ -566,6 +671,40 @@ async function runRecoveryJourneys(errors) {
     { profile: "guided", entityStatus: {}, disabledIds: [], customItems: [] },
   );
   await malformedContext.close();
+
+  // A new repository revision is announced once while personal work is preserved.
+  const revisionContext = await browser.newContext();
+  const revisionPage = await revisionContext.newPage();
+  collectErrors(revisionPage, errors);
+  await revisionPage.goto(baseURL, { waitUntil: "networkidle" });
+  await waitForApp(revisionPage);
+  await revisionPage.evaluate(async () => {
+    const app = window.__curriculumExplorer;
+    app.state.curriculumRevision = "0".repeat(64);
+    app.state.notes.F1 = "Keep this note across a curriculum revision.";
+    await app.store.save(app.state);
+  });
+  await revisionPage.reload({ waitUntil: "networkidle" });
+  await waitForApp(revisionPage);
+  assert.match(await revisionPage.locator("[data-view-panel='home'] [data-revision-notice]").innerText(), /Curriculum updated since your last visit/);
+  assert.equal(await revisionPage.evaluate(() => {
+    const app = window.__curriculumExplorer;
+    return app.state.notes.F1 === "Keep this note across a curriculum revision."
+      && app.state.curriculumRevision === app.data.source_revision;
+  }), true);
+  await revisionPage.locator("[data-view-panel='home'] [data-dismiss-revision]").click();
+  assert.equal(await revisionPage.locator("[data-view-panel='home'] [data-revision-notice]").isHidden(), true);
+  await revisionContext.close();
+
+  // Rendered documentation links back to the exact authoritative repository source.
+  const docsContext = await browser.newContext();
+  const docsPage = await docsContext.newPage();
+  collectErrors(docsPage, errors);
+  await docsPage.goto(`${baseURL}/product_contract/`, { waitUntil: "networkidle" });
+  const sourceHref = await docsPage.locator(".document-source a").getAttribute("href");
+  assert.match(sourceHref, /Golem%20Robotics%20Research%20Curriculum%20%E2%80%94%20Product%20Contract\.md$/);
+  assert.match(await docsPage.locator("h1").first().innerText(), /Product Contract/);
+  await docsContext.close();
 
   // Browsers without IndexedDB get an explicit memory-only, export-first mode.
   const memoryContext = await browser.newContext();

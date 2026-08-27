@@ -2,6 +2,8 @@
 
 Contributions are welcome when they preserve the separation between club methodology, canonical curriculum, personal workspaces, and generated product data.
 
+The root [Product Contract](https://github.com/GOLEM-Robotics/GolemRobotics_PaperClub/blob/main/Golem%20Robotics%20Research%20Curriculum%20%E2%80%94%20Product%20Contract.md) defines the accepted learner experience, data boundaries, and completion criteria.
+
 ## Protected framework
 
 These jointly reviewed files are immutable during ordinary curriculum, application, and maintenance work:
@@ -77,6 +79,7 @@ Keep the static security boundary:
 - no analytics without a separate reviewed privacy decision;
 - canonical entities can be disabled personally but not deleted by the browser;
 - publishing remains an explicit proposal and pull-request action.
+- proposal patches must exclude private notes and artifact manifests unless the learner explicitly selects them.
 
 ## Validation
 

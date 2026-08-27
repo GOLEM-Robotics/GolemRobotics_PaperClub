@@ -1,10 +1,10 @@
 # Golem Robotics Research Curriculum — Product Contract
 
-**Status:** Implemented on `product-contract-v2`; awaiting required human review and protected merge
+**Status:** Implemented; protected `main` review and GitHub Pages publication remain the release boundary
 
 **Purpose:** Ground-truth product specification for the next implementation phase
 
-**Implementation:** Completed on 2026-08-27; implementation decisions and validation evidence are recorded in Section 31
+**Implementation:** Completed on 2026-08-27; durable implementation decisions and validation evidence are recorded in Section 31
 
 **Authority:** This contract derives from and must remain compatible with `1_operating_principles.md` through `5_repo_structure.md`
 
@@ -1228,7 +1228,7 @@ At the same time, a maintainer must be able to rely on the repository as a durab
 
 # 31. Implementation decision and evidence
 
-The contract was implemented on the `product-contract-v2` feature branch on 27 August 2026. Protected `main` review remains the publication boundary.
+The contract implementation was completed on 27 August 2026. Protected `main` review and successful GitHub Pages validation remain the publication boundary.
 
 Key decisions:
 
@@ -1238,13 +1238,17 @@ Key decisions:
 - P158–P162 remain uniquely owned E3 Frontier Continuation papers; their duplicate watchlist entries were removed.
 - P189 remains a stable, visible, no-credit quarantine slot because its former URL identified an unrelated work.
 - Browser-local IndexedDB plus explicit plaintext Workspace Bundles provide persistence and portability without an account or backend.
-- Safe publication uses a credential-free Markdown proposal download. The optional authenticated GitHub bridge is deferred rather than simulated in browser code.
+- Required Core completion, continuation progress, full activated-path progress, competence validation and Sprint coverage remain separate records; competence can satisfy a prerequisite without rewriting Required Core history.
+- The Home and Workspace surfaces expose alternatives, blockers, recent work, route progress, frontier context, aggregated notes and artifacts, and reversible disabled-item recovery.
+- The workspace records the last observed curriculum revision and reports revision changes while preserving personal data and archiving unknown identities.
+- Safe publication uses a credential-free Git patch that generates repository-compatible session artifact directories. Private notes and artifact manifests are excluded unless the learner selects them. The optional authenticated GitHub bridge is deferred rather than simulated in browser code.
 - Scheduled maintenance produces bounded evidence and review proposals; it never silently edits canonical curriculum.
+- The authoritative Product Contract lives at the repository root, while rendered source documents link back to their exact GitHub files without introducing runtime third-party requests.
 
 Validation evidence:
 
 - the complete semantic suite passes, including framework hashes, inventories, ownership, identity locks, completion partitions, projection agreement, and hard-gate coverage;
 - maintenance state validates against all 245 active paper, resource, and frontier entities, and offline report generation passes;
 - `mkdocs build --strict` succeeds;
-- the browser journey suite passes across persistence, migration, customization, adversarial bundle import, offline use, responsive layouts, dark mode, reduced motion, and the no-third-party-request boundary;
+- the browser journey suite passes across learner recommendations, distinct completion semantics, source/profile/prompt contracts, note/artifact aggregation, disabled-item recovery, valid and overridden ordering, repository patch validation, revision awareness, persistence, migration, adversarial bundle import, offline use, responsive layouts, dark mode, reduced motion, and the no-third-party-request boundary;
 - `git diff --check` succeeds.

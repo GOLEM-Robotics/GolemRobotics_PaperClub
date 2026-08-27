@@ -72,6 +72,14 @@ class CurriculumDataTests(unittest.TestCase):
         }
         self.assertEqual(actual, GOVERNANCE_SHA256)
 
+    def test_product_contract_has_one_authoritative_root_location(self) -> None:
+        contract = REPO_ROOT / "Golem Robotics Research Curriculum — Product Contract.md"
+        self.assertTrue(contract.is_file())
+        self.assertFalse((REPO_ROOT / "docs/product_contract.md").exists())
+        text = contract.read_text(encoding="utf-8")
+        self.assertTrue(text.startswith("# Golem Robotics Research Curriculum — Product Contract\n"))
+        self.assertIn("# 30. Definition of done", text)
+
     def test_vendored_runtime_assets_match_reviewed_hashes(self) -> None:
         expected = {
             "viewer/assets/vendor/cytoscape-3.33.1.esm.min.js": "38944c926eef34939819338782c1f5a9000e0f4c92208d73d6eb1c5b57cb2695",

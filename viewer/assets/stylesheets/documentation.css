@@ -27,6 +27,16 @@
   letter-spacing: -0.015em;
 }
 
+.document-source {
+  margin: 0 0 1rem;
+  text-align: right;
+  font-size: 0.72rem;
+}
+
+.document-source a {
+  color: var(--md-default-fg-color--light);
+}
+
 .md-typeset .grid.cards > ul > li,
 .md-typeset .grid.cards > ol > li,
 .md-typeset .grid.cards > .card {
