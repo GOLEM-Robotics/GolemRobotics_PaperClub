@@ -347,7 +347,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
-| 1 | [P048 — Mask R-CNN](https://openaccess.thecvf.com/content_ICCV_2017/html/He_Mask_R-CNN_ICCV_2017_paper.html) | Foundation | Intermediate |
+| 1 | [P048 — Mask R-CNN](https://openaccess.thecvf.com/content_iccv_2017/html/He_Mask_R-CNN_ICCV_2017_paper.html) | Foundation | Intermediate |
 | 2 | [P049 — End-to-End Object Detection with Transformers](https://arxiv.org/abs/2005.12872) | Bridge; Modern Core | Intermediate |
 | 3 | [P050 — Grounding DINO: Marrying DINO with Grounded Pre-Training for Open-Set Object Detection](https://arxiv.org/abs/2303.05499) | Modern Core | Intermediate |
 | 4 | [P051 — Segment Anything](https://openaccess.thecvf.com/content/ICCV2023/html/Kirillov_Segment_Anything_ICCV_2023_paper.html) | Modern Core | Intermediate |
@@ -410,7 +410,7 @@ E2 + P5 + L4/L5 + D5 ─────────► E3
 
 | Order | Paper | Role | Level |
 |---:|---|---|---|
-| 1 | [P066 — PILCO: A Model-Based and Data-Efficient Approach to Policy Search](https://proceedings.mlr.press/v15/deisenroth11a.html) | Foundation; Seminal | Expert |
+| 1 | [P066 — PILCO: A Model-Based and Data-Efficient Approach to Policy Search](https://icml.cc/2011/papers/323_icmlpaper.pdf) | Foundation; Seminal | Expert |
 | 2 | [P067 — Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://arxiv.org/abs/1805.12114) | Modern Core | Advanced |
 | 3 | [P068 — Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) | Bridge; Modern Core | Advanced |
 | 4 | [P069 — Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model](https://www.nature.com/articles/s41586-020-03051-4) | Bridge | Expert |

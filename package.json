@@ -1,0 +1,10 @@
+{
+  "name": "golem-robotics-paper-club-viewer",
+  "private": true,
+  "scripts": {
+    "test:browser": "node test_browser.js"
+  },
+  "devDependencies": {
+    "playwright-core": "1.55.0"
+  }
+}

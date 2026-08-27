@@ -1,83 +1,90 @@
-# Golem Robotics Paper Club Curriculum Viewer
+# Golem Robotics Paper Club Curriculum
 
-This repository renders the curriculum as a searchable Material for MkDocs site and adds a graphical **Curriculum Explorer** built with Cytoscape.js.
+A paper-driven, experiment-centered learning resource for robot learning, embodied intelligence, and physical AI.
 
-The Markdown files remain the only editable source of truth. A small standard-library Python hook reads the curriculum and generates `curriculum_graph.json` during each build. The browser then renders that static JSON. There is no backend, database, API server, React application, or Node.js build pipeline.
+The repository has two complementary interfaces:
+
+- Markdown documents are the authoritative curriculum, paper, resource, and topic records.
+- The static Curriculum Explorer makes that material easier to orient within, search, sequence, and track.
+
+There is no backend, database, account system, runtime API, React application, or frontend build step. A standard-library Python hook validates the Markdown and generates one normalized JSON file during every MkDocs build. The browser renders that file with a locally vendored Cytoscape.js module.
+
+## Use the curriculum
+
+The explorer provides five deliberate views:
+
+- **Overview** — inventory, six curriculum areas, progress, and recommended next topics.
+- **Map** — a stable, topic-only dependency map.
+- **Focus** — direct or transitive prerequisites and dependents for one selected topic.
+- **Topic** — summary, ordered sessions, primary papers, resources, and related topics.
+- **Table** — a dense, keyboard-accessible alternative to the graph.
+
+Search covers topics, sessions, papers, authors, resources, and frontier items. Every result opens the relevant topic tab. Progress is optional, stored only in the current browser, and used to calculate readiness and continuation suggestions. Selected topics, tabs, and Focus options are encoded in the URL for sharing and browser navigation.
+
+The graph is never the only route to curriculum information. The conventional documentation navigation, topic workspaces, table, and Markdown source links remain available without graph interaction.
 
 ## Local preview
 
-From the repository root:
+    python3 -m venv .venv
+    source .venv/bin/activate
+    python -m pip install -r requirements.txt
+    mkdocs serve
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-mkdocs serve
-```
+Open <http://127.0.0.1:8000>. If that port is occupied:
 
-Open <http://127.0.0.1:8000>.
+    mkdocs serve -a 127.0.0.1:8001
 
-When port 8000 is already occupied:
+## Validate
 
-```bash
-mkdocs serve -a 127.0.0.1:8001
-```
+Run the content and data-contract tests, then perform a strict site build:
 
-## Validate and build
+    python -m unittest discover -s tests -v
+    mkdocs build --strict
 
-```bash
-mkdocs build --strict
-```
+The browser smoke test is optional for curriculum-only edits and required for explorer changes:
 
-The build performs two stages:
+    npm install
+    mkdocs serve -a 127.0.0.1:8001
+    npm run test:browser
 
-1. `hooks/build_curriculum_graph.py` validates and extracts the Markdown curriculum into `curriculum_and_progress/assets/data/curriculum_graph.json`.
-2. MkDocs builds the static site into `site/`.
+The smoke test uses the installed Chrome binary by default. Override either dependency when needed:
 
-The graph generator can also be run directly:
+    CHROME_PATH=/path/to/chrome BASE_URL=http://127.0.0.1:8001 npm run test:browser
 
-```bash
-python hooks/build_curriculum_graph.py
-```
+The current validated inventory is:
 
-Expected source counts for the current curriculum are 37 topics, 400 sessions, 193 primary papers, 41 supporting resources, and 17 frontier items.
+- 37 topics;
+- 400 ordered sessions;
+- 193 primary papers;
+- 41 supporting resources;
+- 17 frontier-watchlist records;
+- 122 topic dependency edges.
 
-## Interactive explorer
+## Authoritative content
 
-The homepage supports:
+- **curriculum_and_progress/curriculum_map.md** — topic scope, relationships, and paper sequences.
+- **curriculum_and_progress/curriculum_table.md** — curriculum-wide topic and session matrix.
+- **curriculum_and_progress/paper_index.md** — verified primary-paper records.
+- **curriculum_and_progress/supporting_materials_index.md** — non-primary prerequisite and implementation resources.
+- **curriculum_and_progress/frontier_watchlist.md** — explicitly provisional candidates.
+- **curriculum_and_progress/topics/** — 37 detailed topic plans and ordered session timelines.
+- **1_…5_*.md** — governing goals, construction rules, planning process, and repository conventions.
 
-- deterministic curriculum and area layouts;
-- directed prerequisite edges and explicit feedback-cycle styling;
-- filters by curriculum area and execution status;
-- search across topics, sessions, papers, authors, resources, and frontier items;
-- direct prerequisite/dependent focus views;
-- on-demand expansion of a topic into its ordered sessions or paper inventory;
-- links from graph entities to the detailed Markdown timelines and canonical sources;
-- fullscreen, pan, zoom, fit, and reset controls.
+## Viewer implementation
 
-The explorer uses these files:
+- **hooks/build_curriculum_graph.py** — parses, normalizes, validates, and hashes authoritative Markdown.
+- **curriculum_and_progress/assets/data/curriculum_graph.json** — generated, disposable browser data.
+- **curriculum_and_progress/index.md** — semantic application shell and no-JavaScript alternatives.
+- **curriculum_and_progress/assets/javascripts/curriculum_explorer.js** — routing, search, graph, progress, and workspace behavior.
+- **curriculum_and_progress/assets/stylesheets/curriculum_explorer.css** — responsive visual system.
+- **curriculum_and_progress/assets/vendor/** — pinned local Cytoscape.js distribution and license.
+- **tests/test_curriculum_graph.py** — content and generated-data regression suite.
+- **test_browser.js** — desktop/mobile browser smoke suite.
+- **EXPLORER_DESIGN.md** — current implementation contract.
+- **CURRICULUM_EXPLORER_TARGET_DESIGN.md** — original product and interaction specification.
 
-- `hooks/build_curriculum_graph.py` — Markdown-to-JSON extraction and validation;
-- `curriculum_and_progress/index.md` — explorer page structure;
-- `curriculum_and_progress/assets/javascripts/curriculum_explorer.js` — interactions and rendering;
-- `curriculum_and_progress/assets/stylesheets/curriculum_explorer.css` — graphical layout;
-- `curriculum_and_progress/assets/vendor/cytoscape-3.33.1.esm.min.js` — vendored graph renderer;
-- `curriculum_and_progress/assets/data/curriculum_graph.json` — generated static data.
+## Deployment
 
-## GitHub Pages
+**.github/workflows/deploy_pages.yml** validates the curriculum, builds with strict warnings, and deploys **site/** on pushes to **main**. GitHub Pages must use **GitHub Actions** as its build source.
 
-The workflow at `.github/workflows/deploy_pages.yml` runs `mkdocs build --strict` and deploys the generated `site/` directory on pushes to `main`.
-
-In the GitHub repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions**.
-
-## Repository viewer files
-
-- `mkdocs.yml` — theme, navigation, hook, search, and Markdown configuration;
-- `requirements.txt` — pinned MkDocs dependency;
-- `curriculum_and_progress/overview.md` — conventional documentation landing page;
-- `curriculum_and_progress/reference/` — include pages for the five root workflow documents;
-- `curriculum_and_progress/stylesheets/extra.css` — table and reading-layout improvements;
-- `.github/workflows/deploy_pages.yml` — static deployment;
-- `THIRD_PARTY_NOTICES.md` — vendored dependency notice.
-
-Curriculum, paper, resource, frontier, and topic files remain in their original locations.
+Generated **site/**, local environments, editor databases, and Node dependencies are ignored. Historical bundles and transitional copies are intentionally not kept in the live tree; Git history provides provenance without allowing obsolete copies to compete with the authoritative curriculum.

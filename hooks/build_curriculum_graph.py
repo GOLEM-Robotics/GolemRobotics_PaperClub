@@ -8,10 +8,10 @@ browser-side Cytoscape.js explorer. It uses only the Python standard library.
 from __future__ import annotations
 
 import json
+import hashlib
 import logging
 import re
 from collections import Counter, defaultdict, deque
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -187,13 +187,6 @@ def topic_sort_key(topic_id: str) -> tuple[int, int]:
     prefix = topic_id[0]
     number = int(topic_id[1:])
     return AREA_DEFINITIONS[prefix]["order"], number
-
-def session_sort_key(session_id: str) -> tuple[int, int, int]:
-    topic_part, session_part = session_id.split("-")
-    topic_order, topic_num = topic_sort_key(topic_part)
-    session_num = int(session_part[1:])
-    return topic_order, topic_num, session_num
-
 
 def parse_markdown_link(value: str) -> tuple[str, str | None]:
     match = re.search(r"\[([^\]]+)\]\(([^)]+)\)", value)
@@ -390,7 +383,7 @@ def parse_resource_index(path: Path) -> list[dict[str, Any]]:
         if not RESOURCE_ID_RE.fullmatch(resource_id):
             continue
         title, url = parse_markdown_link(row.get("Resource", ""))
-        topics_raw = clean_inline(row.get("Primary topics", ""))
+        topics_raw = clean_inline(row.get("Primary topics", row.get("Supports", "")))
         resources.append(
             {
                 "id": resource_id,
@@ -433,11 +426,6 @@ def parse_frontier_index(path: Path) -> list[dict[str, Any]]:
             }
         )
     return items
-
-
-def session_sort_key(session_id: str) -> tuple[str, int]:
-    topic_id, sequence_part = session_id.split("-S")
-    return topic_id, int(sequence_part)
 
 
 def compute_topic_ranks(nodes: Iterable[str], dependencies: list[dict[str, str]], sort_key=topic_sort_key) -> tuple[dict[str, int], set[tuple[str, str]]]:
@@ -520,122 +508,23 @@ def compute_topic_ranks(nodes: Iterable[str], dependencies: list[dict[str, str]]
     return ranks, cycle_edges
 
 
-def assign_positions(topics: list[dict[str, Any]], dependencies: list[dict[str, str]]) -> tuple[list[dict[str, Any]], set[tuple[str, str]]]:
+def assign_positions(topics: list[dict[str, Any]], dependencies: list[dict[str, str]]) -> set[tuple[str, str]]:
+    """Assign one stable, compact position for the topic-only global map."""
     ranks, cycle_edges = compute_topic_ranks((topic["id"] for topic in topics), dependencies)
-    by_rank_area: dict[tuple[int, int], list[str]] = defaultdict(list)
+    by_area: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for topic in topics:
-        by_rank_area[(ranks[topic["id"]], topic["area_order"])].append(topic["id"])
-    for ids in by_rank_area.values():
-        ids.sort(key=topic_sort_key)
-
-    topic_by_id = {topic["id"]: topic for topic in topics}
-    for topic in topics:
-        rank = ranks[topic["id"]]
-        area_order = topic["area_order"]
-        local_index = by_rank_area[(rank, area_order)].index(topic["id"])
-        topic["rank"] = rank
-        topic["positions"] = {
-            "curriculum": {
-                "x": 140 + rank * 220,
-                "y": 115 + area_order * 235 + local_index * 88,
-            }
-        }
-
-    by_rank: dict[int, list[str]] = defaultdict(list)
-    for topic in topics:
-        by_rank[topic["rank"]].append(topic["id"])
-    for rank, ids in by_rank.items():
-        ids.sort(key=topic_sort_key)
-        for local_index, topic_id in enumerate(ids):
-            topic_by_id[topic_id]["positions"]["sequence"] = {
-                "x": 140 + rank * 240,
-                "y": 300 + local_index * 95 - (len(ids) - 1) * 47.5,
-            }
-
-
-    area_boxes: list[dict[str, Any]] = []
-    cluster_width = 570
-    cluster_height = 430
-    gap_x = 70
-    gap_y = 80
-    cols = 3
-    for prefix, area in sorted(AREA_DEFINITIONS.items(), key=lambda item: item[1]["order"]):
-        area_topics = sorted((topic for topic in topics if topic["id"].startswith(prefix)), key=lambda item: topic_sort_key(item["id"]))
-        area_order = area["order"]
-        cluster_col = area_order % cols
-        cluster_row = area_order // cols
-        center_x = 315 + cluster_col * (cluster_width + gap_x)
-        center_y = 245 + cluster_row * (cluster_height + gap_y)
-        columns = 3
-        rows = (len(area_topics) + columns - 1) // columns
-        x_spacing = 160
-        y_spacing = 112
+        by_area[topic["area_id"]].append(topic)
+    for area_topics in by_area.values():
+        area_topics.sort(key=lambda topic: topic_sort_key(topic["id"]))
         for index, topic in enumerate(area_topics):
-            row, col = divmod(index, columns)
-            used_columns = min(columns, len(area_topics) - row * columns)
-            x_offset = (col - (used_columns - 1) / 2) * x_spacing
-            y_offset = (row - (rows - 1) / 2) * y_spacing + 20
-            topic["positions"]["areas"] = {
-                "x": center_x + x_offset,
-                "y": center_y + y_offset,
-            }
-        area_boxes.append(
-            {
-                "id": f"area:{area['id']}",
-                "area_id": area["id"],
-                "label": area["label"],
-                "short_label": area["short_label"],
-                "position": {"x": center_x, "y": center_y},
-                "width": cluster_width,
-                "height": cluster_height,
-                "order": area_order,
-            }
-        )
-    return area_boxes, cycle_edges
-
-
-def assign_session_positions(topics: list[dict[str, Any]], dependencies: list[tuple[str, str, str]]) -> list[dict[str, str]]:
-    topic_by_id = {topic["id"]: topic for topic in topics}
-    session_edges: list[dict[str, str]] = []
-    
-    for topic in topics:
-        topic_sessions = topic.get("sessions", [])
-        for i in range(len(topic_sessions) - 1):
-            session_edges.append({
-                "source": topic_sessions[i]["id"],
-                "target": topic_sessions[i+1]["id"],
-                "type": "intra_topic"
-            })
-            
-    for source, target, _ in dependencies:
-        source_topic = topic_by_id.get(source)
-        target_topic = topic_by_id.get(target)
-        if source_topic and target_topic and source_topic.get("sessions") and target_topic.get("sessions"):
-            session_edges.append({
-                "source": source_topic["sessions"][-1]["id"],
-                "target": target_topic["sessions"][0]["id"],
-                "type": "inter_topic"
-            })
-            
-    nodes = [session["id"] for topic in topics for session in topic.get("sessions", [])]
-    ranks, _ = compute_topic_ranks(nodes, session_edges, sort_key=session_sort_key)
-    
-    by_rank = defaultdict(list)
-    for topic in topics:
-        for session in topic.get("sessions", []):
-            by_rank[ranks[session["id"]]].append(session)
-            
-    for rank, sessions_in_rank in by_rank.items():
-        sessions_in_rank.sort(key=lambda s: (topic_by_id[s["topic_id"]]["rank"], topic_sort_key(s["topic_id"]), s["sequence"]))
-        for local_index, session in enumerate(sessions_in_rank):
-            session["positions"] = {
-                "global_sessions": {
-                    "x": 140 + rank * 240,
-                    "y": 300 + local_index * 95 - (len(sessions_in_rank) - 1) * 47.5,
+            topic["rank"] = ranks[topic["id"]]
+            topic["positions"] = {
+                "map": {
+                    "x": 125 + topic["area_order"] * 205,
+                    "y": 80 + index * 98,
                 }
             }
-            
-    return session_edges
+    return cycle_edges
 
 
 def build_dataset(repo_root: Path) -> dict[str, Any]:
@@ -658,8 +547,7 @@ def build_dataset(repo_root: Path) -> dict[str, Any]:
     )
     dependency_records = [{"source": source, "target": target, "type": edge_type} for source, target, edge_type in dependencies]
 
-    area_boxes, cycle_edges = assign_positions(topics, dependency_records)
-    global_session_edges = assign_session_positions(topics, dependencies)
+    cycle_edges = assign_positions(topics, dependency_records)
     for edge in dependency_records:
         edge["cycle"] = (edge["source"], edge["target"]) in cycle_edges
 
@@ -688,8 +576,12 @@ def build_dataset(repo_root: Path) -> dict[str, Any]:
         docs_dir / "supporting_materials_index.md",
         docs_dir / "frontier_watchlist.md",
     ]
-    latest_mtime = max(path.stat().st_mtime for path in source_files)
-    source_updated_at = datetime.fromtimestamp(latest_mtime, tz=timezone.utc).isoformat(timespec="seconds")
+    source_digest = hashlib.sha256()
+    for path in sorted(source_files):
+        source_digest.update(path.relative_to(repo_root).as_posix().encode("utf-8"))
+        source_digest.update(b"\0")
+        source_digest.update(path.read_bytes())
+        source_digest.update(b"\0")
 
     area_records = [
         {
@@ -715,7 +607,7 @@ def build_dataset(repo_root: Path) -> dict[str, Any]:
 
     return {
         "schema_version": 1,
-        "source_updated_at": source_updated_at,
+        "source_revision": source_digest.hexdigest(),
         "source_of_truth": "Markdown files under curriculum_and_progress/",
         "statistics": {
             "topics": len(topics),
@@ -727,10 +619,8 @@ def build_dataset(repo_root: Path) -> dict[str, Any]:
         },
         "areas": area_records,
         "statuses": statuses,
-        "area_boxes": area_boxes,
         "topics": topics,
         "dependencies": dependency_records,
-        "global_session_edges": global_session_edges,
         "sessions": sessions,
         "papers": papers,
         "resources": resources,
@@ -782,8 +672,8 @@ def validate_dataset(dataset: dict[str, Any], repo_root: Path) -> None:
             errors.append(f"Unknown resources in {topic_id}: {', '.join(unknown_resources)}")
         used_papers.update(topic["papers"])
         used_resources.update(topic["resources"])
-        if not topic.get("positions", {}).get("curriculum") or not topic.get("positions", {}).get("areas"):
-            errors.append(f"Missing graph positions for {topic_id}")
+        if not topic.get("positions", {}).get("map"):
+            errors.append(f"Missing global-map position for {topic_id}")
 
     for session in dataset["sessions"]:
         if session["topic_id"] not in topic_ids:
@@ -806,6 +696,13 @@ def validate_dataset(dataset: dict[str, Any], repo_root: Path) -> None:
     unused_resources = sorted(resource_ids - used_resources)
     if unused_resources:
         errors.append(f"Supporting resources not assigned to any topic timeline: {', '.join(unused_resources)}")
+
+    for resource in dataset["resources"]:
+        unknown_topics = sorted(set(resource["topic_ids"]) - topic_ids)
+        if unknown_topics:
+            errors.append(f"Resource {resource['id']} references unknown topics: {', '.join(unknown_topics)}")
+        if not resource["topic_ids"]:
+            errors.append(f"Resource {resource['id']} is not mapped to any topic")
 
     for item in dataset["frontier_items"]:
         unknown_topics = sorted(set(item["topic_ids"]) - topic_ids)

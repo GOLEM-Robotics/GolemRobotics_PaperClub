@@ -599,7 +599,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 #### P2. Detection, segmentation, grounding, and tracking
 
-##### P048. [Mask R-CNN](https://openaccess.thecvf.com/content_ICCV_2017/html/He_Mask_R-CNN_ICCV_2017_paper.html)
+##### P048. [Mask R-CNN](https://openaccess.thecvf.com/content_iccv_2017/html/He_Mask_R-CNN_ICCV_2017_paper.html)
 
 - **Authors / year / venue:** Kaiming He et al. · 2017 · ICCV
 - **Authoritative version used:** Version of record / official proceedings
@@ -821,7 +821,7 @@ Each paper appears here once under its primary topic. Cross-topic relationships 
 
 #### P5. Learned dynamics, model-based RL, and world models
 
-##### P066. [PILCO: A Model-Based and Data-Efficient Approach to Policy Search](https://proceedings.mlr.press/v15/deisenroth11a.html)
+##### P066. [PILCO: A Model-Based and Data-Efficient Approach to Policy Search](https://icml.cc/2011/papers/323_icmlpaper.pdf)
 
 - **Authors / year / venue:** Marc Peter Deisenroth and Carl Edward Rasmussen · 2011 · ICML
 - **Authoritative version used:** Version of record / official proceedings

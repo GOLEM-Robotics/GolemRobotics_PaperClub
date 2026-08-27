@@ -14,8 +14,8 @@ hooks:
 theme:
   name: material
   language: en
-  logo: material/robot-industrial
   icon:
+    logo: material/robot-industrial
     admonition:
       note: material/note-text
   font: false

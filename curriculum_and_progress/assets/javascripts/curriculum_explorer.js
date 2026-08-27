@@ -1,45 +1,21 @@
 (() => {
   "use strict";
 
-
+  const STORAGE_KEY = "golem-curriculum-progress-v1";
+  const LEGACY_STORAGE_KEY = "golem-curriculum-completed";
+  const VIEWS = new Set(["overview", "map", "focus", "topic", "table"]);
+  const TABS = new Set(["summary", "sessions", "papers", "resources", "related"]);
+  const AREA_COLORS = {
+    shared_foundations: "#4666d5",
+    perception_world_models: "#148f86",
+    learning_to_act: "#7950c7",
+    data_research_systems: "#bd6b20",
+    language_embodied_reasoning: "#c94f65",
+    specialization_branches: "#607084",
+  };
 
   let activeInstance = null;
   let cytoscapePromise = null;
-
-  const AREA_COLORS = {
-    shared_foundations: "#4f7cff",
-    perception_world_models: "#13a89e",
-    learning_to_act: "#8a5cf6",
-    data_research_systems: "#e49335",
-    language_embodied_reasoning: "#e25d68",
-    specialization_branches: "#718096",
-  };
-
-  const STATUS_LABELS = {
-    shared_core: "Shared Core",
-    active_research_track: "Active Research Track",
-    specialization: "Specialization",
-    optional: "Optional",
-    frontier_watchlist: "Frontier Watchlist",
-    deferred: "Deferred",
-  };
-
-  const ENTITY_LABELS = {
-    topic: "Topic",
-    session: "Session",
-    paper: "Paper",
-    resource: "Resource",
-    frontier: "Frontier",
-  };
-
-  function loadCytoscape(graphUrlStr) {
-    if (!cytoscapePromise) {
-      const baseUrl = graphUrlStr ? new URL(graphUrlStr, document.baseURI).href : document.baseURI;
-      const cytoscapeUrl = new URL("../vendor/cytoscape-3.33.1.esm.min.js", baseUrl).href;
-      cytoscapePromise = import(cytoscapeUrl).then((module) => module.c || module.default);
-    }
-    return cytoscapePromise;
-  }
 
   function escapeHTML(value) {
     return String(value ?? "")
@@ -50,121 +26,120 @@
       .replaceAll("'", "&#039;");
   }
 
-  function compactText(value, limit = 180) {
-    const text = String(value ?? "").trim();
-    return text.length <= limit ? text : `${text.slice(0, limit - 1).trimEnd()}…`;
-  }
-
   function normalise(value) {
     return String(value ?? "")
       .normalize("NFKD")
       .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase();
+      .toLowerCase()
+      .trim();
   }
 
-  function entityURL(path) {
+  function compact(value, limit = 150) {
+    const text = String(value ?? "").trim();
+    return text.length <= limit ? text : `${text.slice(0, limit - 1).trimEnd()}…`;
+  }
+
+  function localURL(path) {
     return new URL(path, window.location.href).href;
   }
 
-  function icon(name) {
-    const paths = {
-      search: '<path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/>',
-      fit: '<path d="M8 3H3v5m13-5h5v5M8 21H3v-5m13 5h5v-5"/>',
-      reset: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8m0-5v5h5"/>',
-      fullscreen: '<path d="M8 3H3v5m13-5h5v5M8 21H3v-5m13 5h5v-5"/>',
-      graph: '<circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="m7.7 7.1 3.1 8.1m5.5-8.1-3.1 8.1M8 6h8"/>',
-      external: '<path d="M14 3h7v7m0-7-9 9"/><path d="M10 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/>',
-      chevron: '<path d="m9 18 6-6-6-6"/>',
-      layers: '<path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 17l9 5 9-5"/>',
-      nodes: '<circle cx="5" cy="12" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="m7 11 10-5M7 13l10 5"/>',
-      minus: '<path d="M5 12h14"/>',
-      plus: '<path d="M12 5v14M5 12h14"/>',
-    };
-    return `<svg viewBox="0 0 24 24" aria-hidden="true">${paths[name] || paths.graph}</svg>`;
+  function loadCytoscape(graphURL) {
+    if (!cytoscapePromise) {
+      const dataURL = new URL(graphURL, document.baseURI);
+      const moduleURL = new URL("../vendor/cytoscape-3.33.1.esm.min.js", dataURL);
+      cytoscapePromise = import(moduleURL.href).then((module) => module.c || module.default);
+    }
+    return cytoscapePromise;
   }
 
   class CurriculumExplorer {
     constructor(root, cytoscape) {
       this.root = root;
       this.cytoscape = cytoscape;
-      this.cy = null;
       this.data = null;
-      this.currentView = "curriculum";
-      this.focusDirection = "both";
+      this.cy = null;
+      this.focusCy = null;
+      this.currentView = "overview";
+      this.currentTab = "summary";
       this.selectedTopicId = null;
-      this.selectedEntity = null;
-      this.expandedMode = null;
+      this.selectedEntityId = null;
+      this.focusDirection = "both";
       this.transitiveFocus = true;
-      this.searchEntries = [];
+      this.readyOnly = false;
       this.activeAreas = new Set();
       this.activeStatuses = new Set();
-      this.themeObserver = null;
+      this.searchEntries = [];
       this.cleanup = [];
-      this.boundResize = () => {
-        if (this.cy) {
-          this.cy.resize();
-        }
-      };
+      this.themeObserver = null;
     }
 
     async init() {
       document.body.classList.add("curriculum-explorer-page");
       this.cacheDOM();
-      this.setLoading("Generating the curriculum graph…");
+      this.setLoading("Loading the curriculum…");
 
-      const graphURL = new URL(this.root.dataset.graphUrl, document.baseURI);
-      const response = await fetch(graphURL, { cache: "no-cache" });
-      if (!response.ok) {
-        throw new Error(`Could not load curriculum_graph.json (${response.status}).`);
-      }
+      const response = await fetch(new URL(this.root.dataset.graphUrl, document.baseURI), { cache: "no-cache" });
+      if (!response.ok) throw new Error(`Could not load curriculum data (HTTP ${response.status}).`);
       this.data = await response.json();
+      if (this.data.schema_version !== 1) throw new Error(`Unsupported curriculum data schema: ${this.data.schema_version}.`);
+
       this.indexData();
-      this.populateSummary();
-      this.populateFilters();
-      this.createGraph();
-      this.bindControls();
-      this.renderEmptyDetails();
-      this.applyView("curriculum", false);
+      this.renderFilters();
+      this.renderOverview();
+      this.renderTable();
+      this.createMap();
+      this.bindEvents();
+      this.restoreURLState();
+      this.applyFilters(false);
+      this.renderInspector();
+      this.showView(this.currentView, { history: "replace", fit: true });
       this.setLoading(null);
       this.watchTheme();
-      window.addEventListener("resize", this.boundResize, { passive: true });
-      this.cleanup.push(() => window.removeEventListener("resize", this.boundResize));
     }
 
     cacheDOM() {
-      this.graphContainer = this.root.querySelector("[data-explorer-graph]");
-      this.loading = this.root.querySelector("[data-explorer-loading]");
-      this.details = this.root.querySelector("[data-explorer-details]");
+      this.viewPanels = new Map(
+        [...this.root.querySelectorAll("[data-view-panel]")].map((panel) => [panel.dataset.viewPanel, panel])
+      );
+      this.viewButtons = [...this.root.querySelectorAll("[data-view]")];
+      this.tabButtons = [...this.root.querySelectorAll("[data-topic-tab]")];
       this.areaFilters = this.root.querySelector("[data-area-filters]");
       this.statusFilters = this.root.querySelector("[data-status-filters]");
+      this.readyToggle = this.root.querySelector("[data-ready-only]");
       this.searchInput = this.root.querySelector("[data-explorer-search]");
       this.searchResults = this.root.querySelector("[data-search-results]");
-      this.stats = this.root.querySelector("[data-explorer-stats]");
-      this.viewButtons = [...this.root.querySelectorAll("[data-view]")];
-      this.fitButton = this.root.querySelector("[data-fit]");
-      this.resetButton = this.root.querySelector("[data-reset]");
-      this.fullscreenButton = this.root.querySelector("[data-fullscreen]");
-      this.zoomInButton = this.root.querySelector("[data-zoom-in]");
-      this.zoomOutButton = this.root.querySelector("[data-zoom-out]");
-      this.transitiveToggle = this.root.querySelector("[data-transitive-focus]");
+      this.graphContainer = this.root.querySelector("[data-explorer-graph]");
+      this.focusContainer = this.root.querySelector("[data-focus-graph]");
+      this.loading = this.root.querySelector("[data-explorer-loading]");
       this.graphStatus = this.root.querySelector("[data-graph-status]");
+      this.focusStatus = this.root.querySelector("[data-focus-status]");
+      this.focusTitle = this.root.querySelector("[data-focus-title]");
+      this.mapTopicSelect = this.root.querySelector("[data-map-topic-select]");
+      this.details = this.root.querySelector("[data-explorer-details]");
+      this.topicHeader = this.root.querySelector("[data-topic-header]");
+      this.topicContent = this.root.querySelector("[data-topic-content]");
+      this.tableContent = this.root.querySelector("[data-table-content]");
+      this.context = this.root.querySelector("[data-current-context]");
     }
 
     setLoading(message) {
       if (!this.loading) return;
       this.loading.hidden = !message;
-      if (message) this.loading.textContent = message;
+      this.loading.textContent = message || "";
     }
 
     indexData() {
-      this.topicById = new Map(this.data.topics.map((topic) => [topic.id, topic]));
-      this.sessionById = new Map(this.data.sessions.map((session) => [session.id, session]));
-      this.paperById = new Map(this.data.papers.map((paper) => [paper.id, paper]));
-      this.resourceById = new Map(this.data.resources.map((resource) => [resource.id, resource]));
+      this.topicById = new Map(this.data.topics.map((item) => [item.id, item]));
+      this.sessionById = new Map(this.data.sessions.map((item) => [item.id, item]));
+      this.paperById = new Map(this.data.papers.map((item) => [item.id, item]));
+      this.resourceById = new Map(this.data.resources.map((item) => [item.id, item]));
       this.frontierById = new Map(this.data.frontier_items.map((item) => [item.id, item]));
+      this.sessionsByTopic = new Map(this.data.topics.map((topic) => [topic.id, []]));
       this.incoming = new Map(this.data.topics.map((topic) => [topic.id, new Set()]));
       this.outgoing = new Map(this.data.topics.map((topic) => [topic.id, new Set()]));
 
+      for (const session of this.data.sessions) this.sessionsByTopic.get(session.topic_id)?.push(session);
+      for (const sessions of this.sessionsByTopic.values()) sessions.sort((a, b) => a.sequence - b.sequence);
       for (const edge of this.data.dependencies) {
         this.incoming.get(edge.target)?.add(edge.source);
         this.outgoing.get(edge.source)?.add(edge.target);
@@ -181,510 +156,856 @@
         entries.push({
           type: "topic",
           id: topic.id,
+          topicId: topic.id,
           title: topic.title,
           subtitle: `${topic.area_short_label} · ${topic.status}`,
-          topicId: topic.id,
-          search: normalise([topic.id, topic.title, topic.covers, topic.target_competence, topic.curriculum_role].join(" ")),
+          haystack: normalise([topic.id, topic.title, topic.covers, topic.target_competence, topic.curriculum_role].join(" ")),
         });
       }
       for (const session of this.data.sessions) {
         entries.push({
           type: "session",
           id: session.id,
+          topicId: session.topic_id,
           title: session.title,
           subtitle: `${session.topic_id} · ${session.classification}`,
-          topicId: session.topic_id,
-          search: normalise([session.id, session.title, session.stage, session.objective, session.planned_component].join(" ")),
+          haystack: normalise([session.id, session.title, session.stage, session.objective, session.planned_component].join(" ")),
         });
       }
       for (const paper of this.data.papers) {
         entries.push({
           type: "paper",
           id: paper.id,
-          title: paper.title,
-          subtitle: `${paper.topic_id || "—"} · ${[paper.authors, paper.year, paper.venue].filter(Boolean).join(" · ")}`,
           topicId: paper.topic_id,
-          search: normalise([paper.id, paper.title, paper.authors, paper.year, paper.venue, paper.contribution, paper.lineage].join(" ")),
+          title: paper.title,
+          subtitle: [paper.authors, paper.year, paper.venue].filter(Boolean).join(" · "),
+          haystack: normalise([paper.id, paper.title, paper.authors, paper.year, paper.venue, paper.contribution].join(" ")),
         });
       }
       for (const resource of this.data.resources) {
+        const assignedTopic = this.data.topics.find((topic) => topic.resources.includes(resource.id));
         entries.push({
           type: "resource",
           id: resource.id,
+          topicId: assignedTopic?.id || resource.topic_ids[0] || null,
           title: resource.title,
           subtitle: `${resource.type} · ${resource.topic_ids.join(", ") || "Cross-topic"}`,
-          topicId: resource.topic_ids[0] || null,
-          search: normalise([resource.id, resource.title, resource.type, resource.role, resource.topics_raw].join(" ")),
+          haystack: normalise([resource.id, resource.title, resource.type, resource.role, resource.topics_raw].join(" ")),
         });
       }
       for (const item of this.data.frontier_items) {
         entries.push({
           type: "frontier",
           id: item.id,
-          title: item.title,
-          subtitle: `${item.topic_ids.join(", ") || "Cross-topic"} · ${item.decision || "Monitor"}`,
           topicId: item.topic_ids[0] || null,
-          search: normalise([item.id, item.title, item.reason, item.maturity, item.related_topics_raw].join(" ")),
+          title: item.title,
+          subtitle: `Frontier · ${item.topic_ids.join(", ") || "Cross-topic"}`,
+          haystack: normalise([item.id, item.title, item.reason, item.maturity, item.related_topics_raw].join(" ")),
         });
       }
       return entries;
     }
 
-    populateSummary() {
-      if (!this.stats) return;
-      const stats = this.data.statistics;
-      const values = [
-        [stats.topics, "topics"],
-        [stats.sessions, "sessions"],
-        [stats.papers, "papers"],
-        [stats.resources, "resources"],
-        [stats.dependencies, "dependencies"],
-      ];
-      this.stats.innerHTML = values
-        .map(([value, label]) => `<span class="explorer-stat"><strong>${escapeHTML(value)}</strong>${escapeHTML(label)}</span>`)
+    getProgress() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+        if (parsed && parsed.version === 1 && Array.isArray(parsed.completedSessions)) {
+          return new Set(parsed.completedSessions.filter((id) => this.sessionById.has(id)));
+        }
+        const legacy = JSON.parse(localStorage.getItem(LEGACY_STORAGE_KEY) || "[]");
+        return new Set(Array.isArray(legacy) ? legacy.filter((id) => this.sessionById.has(id)) : []);
+      } catch {
+        return new Set();
+      }
+    }
+
+    saveProgress(completed) {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ version: 1, completedSessions: [...completed].sort(), updatedAt: new Date().toISOString() })
+      );
+    }
+
+    setSessionComplete(sessionId, complete) {
+      if (!this.sessionById.has(sessionId)) return;
+      const completed = this.getProgress();
+      if (complete) completed.add(sessionId);
+      else completed.delete(sessionId);
+      this.saveProgress(completed);
+      this.updateCompletionStyles();
+      this.renderOverview();
+      this.renderTable();
+      this.renderInspector();
+      if (this.currentView === "topic") this.renderTopicWorkspace();
+      this.applyFilters(false);
+    }
+
+    topicProgress(topicId) {
+      const sessions = this.sessionsByTopic.get(topicId) || [];
+      const completed = this.getProgress();
+      const done = sessions.filter((session) => completed.has(session.id)).length;
+      return {
+        done,
+        total: sessions.length,
+        state: done === 0 ? "not-started" : done === sessions.length ? "complete" : "in-progress",
+      };
+    }
+
+    isTopicComplete(topicId) {
+      const progress = this.topicProgress(topicId);
+      return progress.total > 0 && progress.done === progress.total;
+    }
+
+    isTopicReady(topicId) {
+      const prerequisites = [...(this.incoming.get(topicId) || [])];
+      return prerequisites.every((id) => this.isTopicComplete(id));
+    }
+
+    renderFilters() {
+      this.areaFilters.innerHTML = this.data.areas
+        .map((area) => `
+          <label>
+            <input type="checkbox" value="${escapeHTML(area.id)}" checked>
+            <i style="--filter-color:${AREA_COLORS[area.id] || "#718096"}"></i>
+            <span>${escapeHTML(area.short_label)}</span>
+            <small>${area.topic_ids.length}</small>
+          </label>`)
+        .join("");
+      this.statusFilters.innerHTML = this.data.statuses
+        .map((status) => `
+          <label>
+            <input type="checkbox" value="${escapeHTML(status.id)}" checked>
+            <span>${escapeHTML(status.label)}</span>
+            <small>${status.count}</small>
+          </label>`)
         .join("");
     }
 
-    populateFilters() {
-      this.areaFilters.innerHTML = this.data.areas
-        .map((area) => {
-          const color = AREA_COLORS[area.id];
-          return `
-            <label class="explorer-filter-row">
-              <input type="checkbox" value="${escapeHTML(area.id)}" checked data-area-filter>
-              <span class="explorer-filter-dot" style="--filter-color:${color}"></span>
-              <span>${escapeHTML(area.short_label)}</span>
-              <small>${area.topic_ids.length}</small>
-            </label>`;
-        })
+    renderOverview() {
+      const stats = this.data.statistics;
+      const completed = this.getProgress().size;
+      const percent = Math.round((completed / stats.sessions) * 100);
+      const statItems = [
+        [stats.topics, "Topics", "A connected knowledge map"],
+        [stats.sessions, "Sessions", "Ordered learning stages"],
+        [stats.papers, "Primary papers", "Durable research lineage"],
+        [stats.resources, "Resources", "Targeted prerequisite support"],
+      ];
+      this.root.querySelector("[data-explorer-stats]").innerHTML = statItems
+        .map(([value, label, note]) => `
+          <article><strong>${value}</strong><span>${escapeHTML(label)}</span><small>${escapeHTML(note)}</small></article>`)
         .join("");
 
-      this.statusFilters.innerHTML = this.data.statuses
-        .map(
-          (status) => `
-            <label class="explorer-filter-row">
-              <input type="checkbox" value="${escapeHTML(status.id)}" checked data-status-filter>
-              <span class="explorer-status-mark explorer-status-${escapeHTML(status.id)}"></span>
-              <span>${escapeHTML(status.label)}</span>
-              <small>${status.count}</small>
-            </label>`,
-        )
+      this.root.querySelector("[data-progress-summary]").textContent =
+        completed ? `${completed}/${stats.sessions} sessions · ${percent}%` : "No progress recorded yet";
+
+      const nextTopics = this.recommendedTopics().slice(0, 5);
+      this.root.querySelector("[data-next-steps]").innerHTML = nextTopics.length
+        ? `<ol class="explorer-next-list">${nextTopics.map(({ topic, reason }) => {
+            const progress = this.topicProgress(topic.id);
+            return `
+              <li>
+                <button type="button" data-topic-id="${topic.id}" data-open-view="topic">
+                  <span class="explorer-topic-id">${topic.id}</span>
+                  <span><strong>${escapeHTML(topic.title)}</strong><small>${escapeHTML(reason)}</small></span>
+                  <span class="explorer-mini-progress">${progress.done}/${progress.total}</span>
+                </button>
+              </li>`;
+          }).join("")}</ol>`
+        : `<div class="explorer-empty-state"><strong>Curriculum complete</strong><p>Every planned session is marked complete. Revisit the frontier watchlist or synthesis topics next.</p></div>`;
+
+      this.root.querySelector("[data-area-cards]").innerHTML = this.data.areas
+        .map((area) => {
+          const topics = area.topic_ids.map((id) => this.topicById.get(id)).filter(Boolean);
+          const complete = topics.filter((topic) => this.isTopicComplete(topic.id)).length;
+          return `
+            <button type="button" data-area-id="${area.id}" style="--area-color:${AREA_COLORS[area.id] || "#718096"}">
+              <span><strong>${escapeHTML(area.short_label)}</strong><small>${topics.length} topics · ${complete} complete</small></span>
+              <b aria-hidden="true">→</b>
+            </button>`;
+        })
         .join("");
+    }
+
+    recommendedTopics() {
+      const candidates = this.data.topics
+        .filter((topic) => !this.isTopicComplete(topic.id))
+        .map((topic) => {
+          const progress = this.topicProgress(topic.id);
+          const prerequisites = [...(this.incoming.get(topic.id) || [])];
+          const completedPrerequisites = prerequisites.filter((id) => this.isTopicComplete(id)).length;
+          const ready = completedPrerequisites === prerequisites.length;
+          const statusPriority = topic.status === "Shared Core" ? 30 : topic.status === "Active Research Track" ? 15 : 0;
+          const progressPriority = progress.done > 0 ? 60 + progress.done / Math.max(progress.total, 1) * 20 : 0;
+          const readinessPriority = ready ? 40 : (completedPrerequisites / Math.max(prerequisites.length, 1)) * 20;
+          return {
+            topic,
+            score: progressPriority + readinessPriority + statusPriority - topic.rank,
+            reason: progress.done > 0
+              ? `Continue at session ${progress.done + 1} of ${progress.total}`
+              : ready
+                ? prerequisites.length ? "All topic prerequisites are complete" : "A foundation with no topic prerequisites"
+                : `${completedPrerequisites} of ${prerequisites.length} prerequisites complete`,
+          };
+        });
+      return candidates.sort((a, b) => b.score - a.score || a.topic.area_order - b.topic.area_order || a.topic.id.localeCompare(b.topic.id));
     }
 
     graphElements() {
-      const elements = [];
-      for (const box of this.data.area_boxes) {
-        elements.push({
-          group: "nodes",
-          classes: "area-box",
-          data: {
-            id: box.id,
-            label: box.short_label,
-            area_id: box.area_id,
-            width: box.width,
-            height: box.height,
-          },
-          position: box.position,
-          selectable: false,
-          grabbable: false,
-        });
-      }
+      const nodes = this.data.topics.map((topic) => ({
+        group: "nodes",
+        classes: `topic status-${topic.status_id}`,
+        data: {
+          id: `topic:${topic.id}`,
+          topic_id: topic.id,
+          label: `${topic.id}\n${compact(topic.title, 42)}`,
+          area_id: topic.area_id,
+        },
+        position: this.mapPosition(topic),
+      }));
+      const edges = this.data.dependencies.map((edge) => ({
+        group: "edges",
+        classes: `dependency${edge.cycle ? " feedback-edge" : ""}`,
+        data: {
+          id: `dependency:${edge.source}:${edge.target}`,
+          source: `topic:${edge.source}`,
+          target: `topic:${edge.target}`,
+        },
+      }));
+      return [...nodes, ...edges];
+    }
 
-      for (const topic of this.data.topics) {
-        elements.push({
-          group: "nodes",
-          classes: `topic status-${topic.status_id}`,
-          data: {
-            id: `topic:${topic.id}`,
-            topic_id: topic.id,
-            label: `${topic.id}\n${topic.short_title}`,
-            title: topic.title,
-            area_id: topic.area_id,
-            status_id: topic.status_id,
-            status: topic.status,
-            paper_count: topic.papers.length,
-            session_count: topic.planned_sessions,
-          },
-          position: topic.positions.curriculum,
-        });
-      }
-
-      for (const edge of this.data.dependencies) {
-        elements.push({
-          group: "edges",
-          classes: `dependency${edge.cycle ? " feedback-edge" : ""}`,
-          data: {
-            id: `dependency:${edge.source}:${edge.target}`,
-            source: `topic:${edge.source}`,
-            target: `topic:${edge.target}`,
-            source_topic: edge.source,
-            target_topic: edge.target,
-            cycle: Boolean(edge.cycle),
-          },
-        });
-      }
-
-      for (const session of this.data.sessions) {
-        elements.push({
-          group: "nodes",
-          classes: "session-global",
-          data: {
-            id: `session-global:${session.id}`,
-            entity_id: session.id,
-            topic_id: session.topic_id,
-            label: `${session.id}\n${session.title}`,
-            area_id: this.topicById.get(session.topic_id)?.area_id,
-            status_id: this.topicById.get(session.topic_id)?.status_id,
-          },
-          position: session.positions?.global_sessions || { x: 0, y: 0 },
-        });
-      }
-
-      if (this.data.global_session_edges) {
-        for (const edge of this.data.global_session_edges) {
-          elements.push({
-            group: "edges",
-            classes: `global-dependency ${edge.type}`,
-            data: {
-              id: `global-dependency:${edge.source}:${edge.target}`,
-              source: `session-global:${edge.source}`,
-              target: `session-global:${edge.target}`,
-              type: edge.type,
-            },
-          });
-        }
-      }
-
-      return elements;
+    mapPosition(topic) {
+      return topic.positions.map;
     }
 
     graphStyles() {
       const dark = this.isDarkTheme();
-      const text = dark ? "#f4f7fb" : "#172033";
-      const muted = dark ? "#aeb8c7" : "#657089";
-      const edge = dark ? "#596579" : "#95a0b4";
-      const selected = dark ? "#f8fafc" : "#111827";
-      const background = dark ? "#161b24" : "#ffffff";
-      const styles = [
+      const text = dark ? "#edf2f7" : "#172033";
+      const edge = dark ? "#69758a" : "#8d98aa";
+      const muted = dark ? "#2b3443" : "#edf1f6";
+      return [
         {
-          selector: "node.topic",
+          selector: "node",
           style: {
-            width: 154,
-            height: 68,
+            width: 150,
+            height: 62,
             shape: "round-rectangle",
-            "background-color": (node) => AREA_COLORS[node.data("area_id")] || "#64748b",
-            "background-opacity": dark ? 0.88 : 0.93,
-            "border-color": dark ? "#d8e1ee" : "#233047",
+            "background-color": muted,
+            "border-color": "#718096",
             "border-width": 2,
             label: "data(label)",
-            color: "#ffffff",
-            "font-size": 10.5,
-            "font-weight": 600,
+            color: text,
+            "font-size": 10,
+            "font-weight": 650,
             "text-wrap": "wrap",
             "text-max-width": 132,
             "text-valign": "center",
             "text-halign": "center",
-            "overlay-opacity": 0,
-            "transition-property": "opacity, border-width, border-color, background-opacity",
-            "transition-duration": "160ms",
           },
         },
-        { selector: "node.topic.status-shared_core", style: { "border-width": 5 } },
-        { selector: "node.topic.status-active_research_track", style: { "border-width": 3 } },
-        { selector: "node.topic.status-specialization", style: { "border-style": "dashed", "border-width": 3 } },
-        { selector: "node.topic.status-optional", style: { "border-style": "dotted", "border-width": 3 } },
-        { selector: "node.topic.status-frontier_watchlist", style: { shape: "round-diamond", "border-style": "dashed", "border-width": 3 } },
-        { selector: "node.topic.status-deferred", style: { "background-opacity": 0.45, "border-style": "dotted", opacity: 0.7 } },
-        {
-          selector: "node.area-box",
+        ...Object.entries(AREA_COLORS).map(([area, color]) => ({
+          selector: `node[area_id = "${area}"]`,
           style: {
-            width: "data(width)",
-            height: "data(height)",
-            shape: "round-rectangle",
-            "background-color": (node) => AREA_COLORS[node.data("area_id")] || "#64748b",
-            "background-opacity": dark ? 0.055 : 0.045,
-            "border-color": (node) => AREA_COLORS[node.data("area_id")] || "#64748b",
-            "border-opacity": 0.35,
-            "border-width": 1.5,
-            label: "data(label)",
-            color: muted,
-            "font-size": 17,
-            "font-weight": 700,
-            "text-valign": "top",
-            "text-margin-y": 18,
-            "z-index": 0,
-            events: "no",
+            "border-color": color,
+            "background-color": dark ? `${color}33` : `${color}16`,
+          },
+        })),
+        { selector: "node.status-shared_core", style: { "border-width": 4 } },
+        {
+          selector: "node.status-specialization, node.status-optional, node.status-frontier_watchlist",
+          style: { "border-style": "dashed" },
+        },
+        {
+          selector: "node.completed",
+          style: {
+            "border-color": "#169b62",
+            "border-width": 5,
+            "background-color": dark ? "#143c2b" : "#e8f7ef",
           },
         },
         {
-          selector: "edge.dependency",
+          selector: "node:selected, node.is-selected",
+          style: { "overlay-color": "#f6b73c", "overlay-opacity": 0.16, "overlay-padding": 8, "border-color": "#f6b73c" },
+        },
+        {
+          selector: "edge",
           style: {
             width: 1.6,
             "line-color": edge,
             "target-arrow-color": edge,
             "target-arrow-shape": "triangle",
+            "arrow-scale": 0.8,
             "curve-style": "bezier",
-            "arrow-scale": 0.85,
             opacity: 0.58,
-            "overlay-opacity": 0,
-            "transition-property": "opacity, width, line-color, target-arrow-color",
-            "transition-duration": "150ms",
           },
         },
         {
           selector: "edge.feedback-edge",
-          style: {
-            "line-style": "dashed",
-            "line-color": dark ? "#f0a454" : "#c66c13",
-            "target-arrow-color": dark ? "#f0a454" : "#c66c13",
-          },
+          style: { "line-style": "dashed", "line-color": "#e05263", "target-arrow-color": "#e05263" },
         },
-        {
-          selector: "node.session",
-          style: {
-            width: 188,
-            height: 58,
-            shape: "round-rectangle",
-            "background-color": dark ? "#273244" : "#edf2f8",
-            "border-color": dark ? "#91a0b7" : "#657089",
-            "border-width": 1.5,
-            label: "data(label)",
-            color: text,
-            "font-size": 10,
-            "font-weight": 600,
-            "text-wrap": "wrap",
-            "text-max-width": 168,
-            "text-valign": "center",
-            "text-halign": "center",
-            "overlay-opacity": 0,
-          },
-        },
-        {
-          selector: "node.paper",
-          style: {
-            width: 190,
-            height: 62,
-            shape: "round-rectangle",
-            "background-color": dark ? "#312d45" : "#f2effa",
-            "border-color": dark ? "#ad9ee3" : "#7357bd",
-            "border-width": 1.5,
-            label: "data(label)",
-            color: text,
-            "font-size": 9.8,
-            "font-weight": 600,
-            "text-wrap": "wrap",
-            "text-max-width": 172,
-            "text-valign": "center",
-            "text-halign": "center",
-            "overlay-opacity": 0,
-          },
-        },
-        {
-          selector: "edge.detail-edge",
-          style: {
-            width: 1.8,
-            "line-color": dark ? "#8998ae" : "#718096",
-            "target-arrow-color": dark ? "#8998ae" : "#718096",
-            "target-arrow-shape": "triangle",
-            "curve-style": "bezier",
-            "arrow-scale": 0.8,
-            opacity: 0.72,
-          },
-        },
-        {
-          selector: "node.session-global",
-          style: {
-            width: 130,
-            height: 55,
-            shape: "round-rectangle",
-            "background-color": (node) => AREA_COLORS[node.data("area_id")] || "#64748b",
-            "background-opacity": dark ? 0.8 : 0.9,
-            "border-color": dark ? "#d8e1ee" : "#233047",
-            "border-width": 1.5,
-            label: "data(label)",
-            color: "#ffffff",
-            "font-size": 9.5,
-            "font-weight": 500,
-            "text-wrap": "wrap",
-            "text-max-width": 115,
-            "text-valign": "center",
-            "text-halign": "center",
-          },
-        },
-        {
-          selector: "edge.global-dependency",
-          style: {
-            width: 2.5,
-            "line-color": edge,
-            "target-arrow-color": edge,
-            "target-arrow-shape": "triangle",
-            "curve-style": "bezier",
-            "arrow-scale": 1.1,
-            opacity: 0.8,
-          },
-        },
-        {
-          selector: "edge.global-dependency.inter_topic",
-          style: {
-            "line-style": "dashed",
-            "line-dash-pattern": [6, 4],
-            opacity: 0.5,
-          },
-        },
-        {
-          selector: "node.filtered, edge.filtered",
-          style: { display: "none" },
-        },{ selector: ".dimmed", style: { opacity: 0.09 } },
-        {
-          selector: ".neighbour",
-          style: {
-            opacity: 1,
-            "border-width": 4,
-            "border-color": selected,
-          },
-        },
-        {
-          selector: "edge.neighbour",
-          style: {
-            opacity: 1,
-            width: 3.2,
-            "line-color": selected,
-            "target-arrow-color": selected,
-          },
-        },
-        {
-          selector: ":selected",
-          style: {
-            "border-width": 5,
-            "border-color": dark ? "#ffffff" : "#111827",
-            "background-opacity": 1,
-            "z-index": 20,
-          },
-        },
-        { selector: "core", style: { "active-bg-color": background, "active-bg-opacity": 0.12 } },
+        { selector: ".filtered", style: { display: "none" } },
+        { selector: ".dimmed", style: { opacity: 0.12 } },
+        { selector: "edge.is-path", style: { width: 3.5, opacity: 0.95, "line-color": "#f6b73c", "target-arrow-color": "#f6b73c" } },
       ];
-      return styles;
     }
 
-    createGraph() {
+    createMap() {
       this.cy = this.cytoscape({
         container: this.graphContainer,
         elements: this.graphElements(),
         style: this.graphStyles(),
-        layout: { name: "preset", fit: true, padding: 45 },
-        minZoom: 0.18,
-        maxZoom: 3.2,
+        layout: { name: "preset", fit: false },
+        minZoom: 0.2,
+        maxZoom: 2.4,
+        wheelSensitivity: 0.18,
         boxSelectionEnabled: false,
-        autoungrabify: false,
-        selectionType: "single",
+      });
+      this.cy.on("tap", "node", (event) => this.selectTopic(event.target.data("topic_id"), { history: true }));
+      this.cy.on("tap", (event) => {
+        if (event.target === this.cy) this.cy.elements().unselect();
+      });
+      this.updateCompletionStyles();
+    }
+
+    createFocusGraph() {
+      if (this.focusCy) return;
+      this.focusCy = this.cytoscape({
+        container: this.focusContainer,
+        elements: this.graphElements(),
+        style: this.graphStyles(),
+        layout: { name: "preset", fit: false },
+        minZoom: 0.25,
+        maxZoom: 2.4,
+        wheelSensitivity: 0.18,
+        boxSelectionEnabled: false,
+      });
+      this.focusCy.on("tap", "node", (event) => this.selectTopic(event.target.data("topic_id"), { history: true, rerenderFocus: true }));
+      this.updateCompletionStyles();
+    }
+
+    updateCompletionStyles() {
+      for (const graph of [this.cy, this.focusCy].filter(Boolean)) {
+        graph.batch(() => {
+          graph.nodes().removeClass("completed is-selected");
+          for (const topic of this.data.topics) {
+            const node = graph.getElementById(`topic:${topic.id}`);
+            if (this.isTopicComplete(topic.id)) node.addClass("completed");
+            if (topic.id === this.selectedTopicId) node.addClass("is-selected");
+          }
+        });
+      }
+    }
+
+    bindEvents() {
+      const listen = (target, type, handler, options) => {
+        target.addEventListener(type, handler, options);
+        this.cleanup.push(() => target.removeEventListener(type, handler, options));
+      };
+
+      listen(this.root, "click", (event) => {
+        const viewButton = event.target.closest("[data-view]");
+        if (viewButton && !viewButton.disabled) {
+          this.showView(viewButton.dataset.view, { history: "push", fit: true });
+          return;
+        }
+        const tabButton = event.target.closest("[data-topic-tab]");
+        if (tabButton) {
+          this.showTopicTab(tabButton.dataset.topicTab, { history: "push" });
+          return;
+        }
+        const topicButton = event.target.closest("[data-topic-id]");
+        if (topicButton) {
+          this.selectTopic(topicButton.dataset.topicId, { history: false });
+          const view = topicButton.dataset.openView || "topic";
+          const tab = topicButton.dataset.openTab || "summary";
+          this.currentTab = TABS.has(tab) ? tab : "summary";
+          this.showView(view, { history: "push", fit: true });
+          return;
+        }
+        const areaButton = event.target.closest("[data-area-id]");
+        if (areaButton) {
+          this.activeAreas = new Set([areaButton.dataset.areaId]);
+          this.syncFilterInputs();
+          this.applyFilters(false);
+          this.showView("table", { history: "push" });
+          return;
+        }
+        if (event.target.closest("[data-overview-map]")) this.showView("map", { history: "push", fit: true });
+        if (event.target.closest("[data-filter-toggle]")) this.toggleMobileFilters();
+        if (event.target.closest("[data-clear-filters]")) this.clearFilters();
+        if (event.target.closest("[data-reset]")) this.reset();
+        if (event.target.closest("[data-fullscreen]")) this.toggleFullscreen();
+        const fitButton = event.target.closest("[data-fit]");
+        if (fitButton) this.fitCurrentGraph();
+        if (event.target.closest("[data-zoom-in]")) this.adjustZoom(1.2);
+        if (event.target.closest("[data-zoom-out]")) this.adjustZoom(0.83);
       });
 
-      this.cy.on("tap", "node.topic", (event) => {
-        this.selectTopic(event.target.data("topic_id"));
-      });
-      this.cy.on("dbltap", "node.topic", (event) => {
-        this.openTopic(event.target.data("topic_id"));
-      });
-      this.cy.on("mouseover", "node.topic", (event) => {
-        this.highlightNeighbourhood(event.target.data("topic_id"), false);
-      });
-      this.cy.on("mouseout", "node.topic", () => {
-        this.restoreHighlight();
-      });
-      this.cy.on("tap", "node.session, node.session-global", (event) => {
-        const session = this.sessionById.get(event.target.data("entity_id"));
-        if (session) this.renderSessionDetails(session);
-      });
-      this.cy.on("tap", "node.paper", (event) => {
-        const paper = this.paperById.get(event.target.data("entity_id"));
-        if (paper) this.renderPaperDetails(paper);
-      });
-      this.cy.on("tap", (event) => {
-        if (event.target === this.cy && this.currentView !== "detail") {
-          this.clearSelection();
+      listen(this.root, "change", (event) => {
+        if (event.target.matches("[data-area-filters] input")) {
+          this.updateFilterSets();
+        } else if (event.target.matches("[data-status-filters] input")) {
+          this.updateFilterSets();
+        } else if (event.target === this.readyToggle) {
+          this.readyOnly = event.target.checked;
+          this.applyFilters(true);
+        } else if (event.target.matches("[data-session-complete]")) {
+          this.setSessionComplete(event.target.value, event.target.checked);
+        } else if (event.target.matches("[data-transitive-focus]")) {
+          this.transitiveFocus = event.target.checked;
+          this.renderFocus();
+          this.updateURL("replace");
+        } else if (event.target === this.mapTopicSelect && event.target.value) {
+          this.selectTopic(event.target.value, { history: true });
         }
+      });
+
+      for (const button of this.root.querySelectorAll("[data-focus-direction]")) {
+        listen(button, "click", () => {
+          this.focusDirection = button.dataset.focusDirection;
+          this.renderFocus();
+          this.updateURL("replace");
+        });
+      }
+
+      listen(this.searchInput, "input", () => this.renderSearchResults());
+      listen(this.searchInput, "keydown", (event) => this.handleSearchKeydown(event));
+      listen(document, "click", (event) => {
+        if (!event.target.closest(".explorer-search")) this.closeSearch();
+      });
+      listen(window, "popstate", () => {
+        this.restoreURLState();
+        this.applyFilters(false);
+        this.renderInspector();
+        this.showView(this.currentView, { history: "none", fit: true });
+      });
+      listen(window, "resize", () => {
+        this.cy?.resize();
+        this.focusCy?.resize();
+      }, { passive: true });
+    }
+
+    updateFilterSets() {
+      this.activeAreas = new Set(
+        [...this.areaFilters.querySelectorAll("input:checked")].map((input) => input.value)
+      );
+      this.activeStatuses = new Set(
+        [...this.statusFilters.querySelectorAll("input:checked")].map((input) => input.value)
+      );
+      this.applyFilters(true);
+    }
+
+    clearFilters() {
+      this.activeAreas = new Set(this.data.areas.map((area) => area.id));
+      this.activeStatuses = new Set(this.data.statuses.map((status) => status.id));
+      this.readyOnly = false;
+      this.readyToggle.checked = false;
+      this.syncFilterInputs();
+      this.applyFilters(true);
+    }
+
+    syncFilterInputs() {
+      for (const input of this.areaFilters.querySelectorAll("input")) input.checked = this.activeAreas.has(input.value);
+      for (const input of this.statusFilters.querySelectorAll("input")) input.checked = this.activeStatuses.has(input.value);
+    }
+
+    visibleTopicIds() {
+      return new Set(
+        this.data.topics
+          .filter((topic) =>
+            this.activeAreas.has(topic.area_id) &&
+            this.activeStatuses.has(topic.status_id) &&
+            (!this.readyOnly || this.isTopicReady(topic.id))
+          )
+          .map((topic) => topic.id)
+      );
+    }
+
+    applyFilters(refit = true) {
+      const visible = this.visibleTopicIds();
+      if (this.cy) {
+        this.cy.batch(() => {
+          for (const topic of this.data.topics) {
+            this.cy.getElementById(`topic:${topic.id}`).toggleClass("filtered", !visible.has(topic.id));
+          }
+          for (const edge of this.data.dependencies) {
+            const hidden = !visible.has(edge.source) || !visible.has(edge.target);
+            this.cy.getElementById(`dependency:${edge.source}:${edge.target}`).toggleClass("filtered", hidden);
+          }
+        });
+      }
+      this.populateMapSelect(visible);
+      this.renderTable();
+      if (this.currentView === "focus") this.renderFocus();
+      if (refit && this.currentView === "map") this.fitGraph(this.cy);
+      const count = visible.size;
+      this.graphStatus.textContent = `${count} of ${this.data.topics.length} topics visible`;
+    }
+
+    populateMapSelect(visible) {
+      const selected = this.mapTopicSelect.value;
+      this.mapTopicSelect.innerHTML = '<option value="">Choose a topic…</option>' +
+        this.data.topics
+          .filter((topic) => visible.has(topic.id))
+          .map((topic) => `<option value="${topic.id}">${topic.id} — ${escapeHTML(topic.title)}</option>`)
+          .join("");
+      if (visible.has(selected)) this.mapTopicSelect.value = selected;
+    }
+
+    showView(view, options = {}) {
+      const requested = VIEWS.has(view) ? view : "overview";
+      const guarded = (requested === "focus" || requested === "topic") && !this.selectedTopicId ? "overview" : requested;
+      this.currentView = guarded;
+      for (const [name, panel] of this.viewPanels) panel.hidden = name !== guarded;
+      for (const button of this.viewButtons) button.setAttribute("aria-pressed", String(button.dataset.view === guarded));
+      this.updateNavigationState();
+
+      if (guarded === "map") {
+        requestAnimationFrame(() => {
+          this.cy.resize();
+          if (options.fit) this.fitGraph(this.cy);
+        });
+      } else if (guarded === "focus") {
+        this.createFocusGraph();
+        this.renderFocus();
+      } else if (guarded === "topic") {
+        this.renderTopicWorkspace();
+      } else if (guarded === "table") {
+        this.renderTable();
+      } else {
+        this.renderOverview();
+      }
+
+      const selected = this.selectedTopicId ? this.topicById.get(this.selectedTopicId) : null;
+      this.context.textContent = selected ? `${selected.id} · ${selected.short_title}` : "Research learning workspace";
+      if (options.history && options.history !== "none") this.updateURL(options.history);
+    }
+
+    updateNavigationState() {
+      for (const button of this.viewButtons) {
+        if (button.dataset.view === "focus" || button.dataset.view === "topic") {
+          button.disabled = !this.selectedTopicId;
+          button.title = this.selectedTopicId ? "" : "Select a topic first";
+        }
+      }
+    }
+
+    selectTopic(topicId, options = {}) {
+      if (!this.topicById.has(topicId)) return;
+      this.selectedTopicId = topicId;
+      this.selectedEntityId = null;
+      this.updateNavigationState();
+      this.updateCompletionStyles();
+      this.renderInspector();
+      if (this.currentView === "topic") this.renderTopicWorkspace();
+      if (this.currentView === "focus" || options.rerenderFocus) this.renderFocus();
+      this.context.textContent = `${topicId} · ${this.topicById.get(topicId).short_title}`;
+      this.cy?.getElementById(`topic:${topicId}`).select();
+      if (options.history) this.updateURL("push");
+    }
+
+    renderInspector() {
+      if (!this.selectedTopicId) {
+        const starters = this.recommendedTopics().slice(0, 3);
+        this.details.innerHTML = `
+          <div class="explorer-inspector-empty">
+            <p class="explorer-eyebrow">Getting started</p>
+            <h2>Select a topic</h2>
+            <p>Choose a map node, search result, or table row to inspect its role and dependencies.</p>
+            <h3>Suggested now</h3>
+            <div class="explorer-inspector-suggestions">
+              ${starters.map(({ topic }) => `<button type="button" data-topic-id="${topic.id}" data-open-view="topic"><b>${topic.id}</b><span>${escapeHTML(topic.short_title)}</span></button>`).join("")}
+            </div>
+          </div>`;
+        return;
+      }
+
+      const topic = this.topicById.get(this.selectedTopicId);
+      const prerequisites = [...(this.incoming.get(topic.id) || [])].sort();
+      const dependents = [...(this.outgoing.get(topic.id) || [])].sort();
+      const progress = this.topicProgress(topic.id);
+      const ready = this.isTopicReady(topic.id);
+      this.details.innerHTML = `
+        <div class="explorer-inspector-topic">
+          <div class="explorer-inspector-id"><span style="--area-color:${AREA_COLORS[topic.area_id]}">${topic.id}</span><small>${escapeHTML(topic.status)}</small></div>
+          <h2>${escapeHTML(topic.title)}</h2>
+          <p>${escapeHTML(compact(topic.curriculum_role || topic.covers, 260))}</p>
+          <div class="explorer-progress-block">
+            <div><strong>${progress.done} of ${progress.total}</strong><span> sessions complete</span></div>
+            <div class="explorer-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="${progress.total}" aria-valuenow="${progress.done}"><i style="width:${progress.total ? progress.done / progress.total * 100 : 0}%"></i></div>
+            <small class="explorer-readiness ${ready ? "is-ready" : ""}">${ready ? "Ready to study" : "Complete prerequisites first"}</small>
+          </div>
+          <div class="explorer-inspector-links">
+            <button type="button" data-view="focus">Explain dependencies</button>
+            <button type="button" data-view="topic">Open topic workspace</button>
+            <a href="${escapeHTML(localURL(topic.url))}">Open source document ↗</a>
+          </div>
+          <section>
+            <h3>Prerequisites <span>${prerequisites.length}</span></h3>
+            ${this.topicChipList(prerequisites, "No curriculum-topic prerequisite.")}
+          </section>
+          <section>
+            <h3>Unlocks <span>${dependents.length}</span></h3>
+            ${this.topicChipList(dependents, "No direct dependent topic.")}
+          </section>
+        </div>`;
+    }
+
+    topicChipList(ids, emptyText) {
+      if (!ids.length) return `<p class="explorer-muted">${escapeHTML(emptyText)}</p>`;
+      return `<div class="explorer-topic-chips">${ids.map((id) => {
+        const topic = this.topicById.get(id);
+        return `<button type="button" data-topic-id="${id}"><b>${id}</b><span>${escapeHTML(topic?.short_title || id)}</span></button>`;
+      }).join("")}</div>`;
+    }
+
+    focusTopicIds() {
+      if (!this.selectedTopicId) return new Set();
+      const result = new Set([this.selectedTopicId]);
+      const includeIncoming = this.focusDirection !== "dependents";
+      const includeOutgoing = this.focusDirection !== "prerequisites";
+      if (includeIncoming) for (const id of this.traverse(this.selectedTopicId, this.incoming, this.transitiveFocus)) result.add(id);
+      if (includeOutgoing) for (const id of this.traverse(this.selectedTopicId, this.outgoing, this.transitiveFocus)) result.add(id);
+      const allowed = this.visibleTopicIds();
+      return new Set([...result].filter((id) => id === this.selectedTopicId || allowed.has(id)));
+    }
+
+    traverse(start, adjacency, transitive) {
+      const result = new Set();
+      const queue = [...(adjacency.get(start) || [])];
+      while (queue.length) {
+        const id = queue.shift();
+        if (result.has(id)) continue;
+        result.add(id);
+        if (transitive) queue.push(...(adjacency.get(id) || []));
+      }
+      return result;
+    }
+
+    distances(start, adjacency) {
+      const result = new Map([[start, 0]]);
+      const queue = [start];
+      while (queue.length) {
+        const id = queue.shift();
+        for (const next of adjacency.get(id) || []) {
+          if (!result.has(next)) {
+            result.set(next, result.get(id) + 1);
+            queue.push(next);
+          }
+        }
+      }
+      return result;
+    }
+
+    renderFocus() {
+      if (!this.selectedTopicId) return;
+      this.createFocusGraph();
+      const visible = this.focusTopicIds();
+      const upstream = this.distances(this.selectedTopicId, this.incoming);
+      const downstream = this.distances(this.selectedTopicId, this.outgoing);
+      const columns = new Map();
+      for (const id of visible) {
+        if (id === this.selectedTopicId) columns.set(id, 0);
+        else if (upstream.has(id)) columns.set(id, -upstream.get(id));
+        else columns.set(id, downstream.get(id) || 1);
+      }
+      const grouped = new Map();
+      for (const [id, column] of columns) {
+        if (!grouped.has(column)) grouped.set(column, []);
+        grouped.get(column).push(id);
+      }
+      this.focusCy.batch(() => {
+        this.focusCy.nodes().removeClass("is-selected");
+        for (const topic of this.data.topics) {
+          const node = this.focusCy.getElementById(`topic:${topic.id}`);
+          node.toggleClass("filtered", !visible.has(topic.id));
+          if (topic.id === this.selectedTopicId) node.addClass("is-selected");
+        }
+        for (const edge of this.data.dependencies) {
+          const shown = visible.has(edge.source) && visible.has(edge.target);
+          const element = this.focusCy.getElementById(`dependency:${edge.source}:${edge.target}`);
+          element.toggleClass("filtered", !shown);
+          element.toggleClass("is-path", shown);
+        }
+        for (const [column, ids] of grouped) {
+          ids.sort((a, b) => this.topicById.get(a).area_order - this.topicById.get(b).area_order || a.localeCompare(b));
+          ids.forEach((id, index) => {
+            this.focusCy.getElementById(`topic:${id}`).position({
+              x: 140 + (column - Math.min(...grouped.keys())) * 240,
+              y: 100 + index * 100,
+            });
+          });
+        }
+      });
+      const topic = this.topicById.get(this.selectedTopicId);
+      this.focusTitle.textContent = `${topic.id} · ${topic.title}`;
+      this.focusStatus.textContent = `${visible.size} topics in ${this.transitiveFocus ? "transitive" : "direct"} ${this.focusDirection} context`;
+      for (const button of this.root.querySelectorAll("[data-focus-direction]")) {
+        button.setAttribute("aria-pressed", String(button.dataset.focusDirection === this.focusDirection));
+      }
+      this.root.querySelector("[data-transitive-focus]").checked = this.transitiveFocus;
+      requestAnimationFrame(() => {
+        this.focusCy.resize();
+        this.fitGraph(this.focusCy);
       });
     }
 
-    bindControls() {
-      for (const button of this.viewButtons) {
-        button.addEventListener("click", () => this.applyView(button.dataset.view));
+    renderTopicWorkspace() {
+      if (!this.selectedTopicId) return;
+      const topic = this.topicById.get(this.selectedTopicId);
+      const progress = this.topicProgress(topic.id);
+      this.topicHeader.innerHTML = `
+        <div>
+          <p class="explorer-eyebrow">${escapeHTML(topic.area_short_label)} · ${escapeHTML(topic.status)}</p>
+          <h2 id="topic-workspace-title"><span>${topic.id}</span> ${escapeHTML(topic.title)}</h2>
+          <p>${escapeHTML(topic.curriculum_role)}</p>
+        </div>
+        <div class="explorer-topic-header-actions">
+          <span>${progress.done}/${progress.total} sessions</span>
+          <button type="button" data-view="focus">Focus dependencies</button>
+          <a href="${escapeHTML(localURL(topic.url))}">Open Markdown ↗</a>
+        </div>`;
+      for (const button of this.tabButtons) button.setAttribute("aria-pressed", String(button.dataset.topicTab === this.currentTab));
+
+      const renderers = {
+        summary: () => this.renderTopicSummary(topic),
+        sessions: () => this.renderTopicSessions(topic),
+        papers: () => this.renderTopicPapers(topic),
+        resources: () => this.renderTopicResources(topic),
+        related: () => this.renderTopicRelated(topic),
+      };
+      this.topicContent.innerHTML = renderers[this.currentTab]();
+      if (this.selectedEntityId) {
+        requestAnimationFrame(() => {
+          const row = this.topicContent.querySelector(`[data-entity-id="${CSS.escape(this.selectedEntityId)}"]`);
+          row?.scrollIntoView({ block: "center", behavior: "smooth" });
+          row?.classList.add("is-target");
+        });
       }
-      this.fitButton?.addEventListener("click", () => this.fitGraph());
-      this.resetButton?.addEventListener("click", () => this.resetExplorer());
-      this.fullscreenButton?.addEventListener("click", () => this.toggleFullscreen());
-      this.zoomInButton?.addEventListener("click", () => this.adjustZoom(1.22));
-      this.zoomOutButton?.addEventListener("click", () => this.adjustZoom(0.82));
-      this.transitiveToggle?.addEventListener("change", (event) => {
-        this.transitiveFocus = event.target.checked;
-        if (this.currentView === "focus") this.applyView("focus");
-      });
+    }
 
-      this.areaFilters.addEventListener("change", () => {
-        this.activeAreas = new Set(
-          [...this.areaFilters.querySelectorAll("input:checked")].map((input) => input.value),
-        );
-        this.applyFilters(true);
-      });
-      this.statusFilters.addEventListener("change", () => {
-        this.activeStatuses = new Set(
-          [...this.statusFilters.querySelectorAll("input:checked")].map((input) => input.value),
-        );
-        this.applyFilters(true);
-      });
+    showTopicTab(tab, options = {}) {
+      this.currentTab = TABS.has(tab) ? tab : "summary";
+      this.selectedEntityId = null;
+      this.renderTopicWorkspace();
+      if (options.history) this.updateURL(options.history);
+    }
 
-      this.searchInput.addEventListener("input", () => this.renderSearchResults());
-      this.searchInput.addEventListener("keydown", (event) => {
-        const first = this.searchResults.querySelector("button");
-        if (event.key === "Enter" && first) {
-          event.preventDefault();
-          first.click();
-        } else if (event.key === "Escape") {
-          this.closeSearchResults();
-          this.searchInput.blur();
-        }
-      });
-      document.addEventListener("click", this.handleOutsideSearch = (event) => {
-        if (!this.root.querySelector(".explorer-search").contains(event.target)) {
-          this.closeSearchResults();
-        }
-      });
-      this.cleanup.push(() => document.removeEventListener("click", this.handleOutsideSearch));
+    renderTopicSummary(topic) {
+      const prerequisites = [...(this.incoming.get(topic.id) || [])].sort();
+      const dependents = [...(this.outgoing.get(topic.id) || [])].sort();
+      return `
+        <div class="explorer-topic-summary-grid">
+          <section class="explorer-card"><p class="explorer-eyebrow">Scope</p><h3>What this topic covers</h3><p>${escapeHTML(topic.covers)}</p><h4>Explicitly excluded</h4><p>${escapeHTML(topic.excludes)}</p></section>
+          <section class="explorer-card"><p class="explorer-eyebrow">Target</p><h3>Competence to develop</h3><p>${escapeHTML(topic.target_competence)}</p><h4>Completion boundary</h4><p>${escapeHTML(topic.completion_boundary)}</p></section>
+          <section class="explorer-card"><p class="explorer-eyebrow">Continuity</p><h3>Foundations and dependencies</h3><p>${escapeHTML(topic.foundations.other_topics || "No curriculum-topic prerequisite.")}</p><h4>Topic-local preparation</h4><p>${escapeHTML(topic.foundations.topic_local)}</p></section>
+          <section class="explorer-card"><p class="explorer-eyebrow">Connections</p><h3>${prerequisites.length} prerequisites · ${dependents.length} dependents</h3>${this.topicChipList([...new Set([...prerequisites, ...dependents])], "No direct topic connections.")}</section>
+        </div>`;
+    }
 
-      this.details.addEventListener("click", (event) => {
-        const action = event.target.closest("[data-detail-action]");
-        if (!action) return;
-        const actionName = action.dataset.detailAction;
-        const topicId = action.dataset.topicId || this.selectedTopicId;
-        if (actionName === "open-topic" && topicId) this.openTopic(topicId);
-        if (actionName === "focus-prerequisites" && topicId) this.focusTopic(topicId, "upstream");
-        if (actionName === "focus-dependents" && topicId) this.focusTopic(topicId, "downstream");
-        if (actionName === "focus-both" && topicId) this.focusTopic(topicId, "both");
-        if (actionName === "expand-sessions" && topicId) this.expandSessions(topicId);
-        if (actionName === "expand-papers" && topicId) this.expandPapers(topicId);
-        if (actionName === "collapse-detail" && topicId) {
-          this.removeDetailNodes();
-          this.applyView("curriculum");
-          this.selectTopic(topicId, false);
-        }
-        if (actionName === "select-topic" && topicId) this.selectTopic(topicId);
-      });
+    renderTopicSessions(topic) {
+      const completed = this.getProgress();
+      const sessions = this.sessionsByTopic.get(topic.id) || [];
+      return `
+        <div class="explorer-content-intro"><div><h3>Ordered session timeline</h3><p>Mark completed sessions to get useful continuation and readiness recommendations.</p></div><span>${sessions.length} sessions</span></div>
+        <div class="explorer-session-list">
+          ${sessions.map((session) => `
+            <article data-entity-id="${session.id}" class="${completed.has(session.id) ? "is-complete" : ""}">
+              <label class="explorer-session-check">
+                <input type="checkbox" value="${session.id}" data-session-complete ${completed.has(session.id) ? "checked" : ""}>
+                <span class="explorer-sr-only">Mark ${escapeHTML(session.id)} complete</span>
+              </label>
+              <div class="explorer-session-sequence"><span>S${session.sequence}</span><small>${escapeHTML(session.classification)}</small></div>
+              <div>
+                <h4>${escapeHTML(session.title)}</h4>
+                ${session.stage ? `<p class="explorer-session-stage">${escapeHTML(session.stage)}</p>` : ""}
+                <p>${escapeHTML(session.objective)}</p>
+                <details><summary>Planned work and completion evidence</summary><p><strong>Component:</strong> ${escapeHTML(session.planned_component || "Not specified.")}</p><p><strong>Completion:</strong> ${escapeHTML(session.completion || "Not specified.")}</p></details>
+              </div>
+              <div class="explorer-session-materials">
+                <span>${session.papers.length} papers</span><span>${session.resources.length} resources</span>
+              </div>
+            </article>`).join("")}
+        </div>`;
+    }
 
-      document.addEventListener("fullscreenchange", this.handleFullscreenChange = () => {
-        this.root.classList.toggle("is-fullscreen", document.fullscreenElement === this.root);
-        setTimeout(() => {
-          this.cy?.resize();
-          this.fitGraph();
-        }, 120);
-      });
-      this.cleanup.push(() => document.removeEventListener("fullscreenchange", this.handleFullscreenChange));
+    renderTopicPapers(topic) {
+      const papers = topic.papers.map((id) => this.paperById.get(id)).filter(Boolean);
+      return `
+        <div class="explorer-content-intro"><div><h3>Primary paper sequence</h3><p>The durable research lineage assigned to this topic.</p></div><span>${papers.length} papers</span></div>
+        <div class="explorer-record-list">
+          ${papers.map((paper, index) => `
+            <article data-entity-id="${paper.id}">
+              <span class="explorer-record-order">${index + 1}</span>
+              <div><p class="explorer-eyebrow">${paper.id} · ${escapeHTML([paper.year, paper.venue].filter(Boolean).join(" · "))}</p><h4><a href="${escapeHTML(paper.url)}">${escapeHTML(paper.title)} ↗</a></h4><p>${escapeHTML(paper.authors)}</p><p>${escapeHTML(paper.contribution)}</p><details><summary>Lineage and limitations</summary><p>${escapeHTML(paper.lineage)}</p><p><strong>Positioning limitation:</strong> ${escapeHTML(paper.limitation)}</p></details></div>
+            </article>`).join("")}
+        </div>`;
+    }
+
+    renderTopicResources(topic) {
+      const resources = topic.resources.map((id) => this.resourceById.get(id)).filter(Boolean);
+      const frontier = this.data.frontier_items.filter((item) => item.topic_ids.includes(topic.id));
+      return `
+        <div class="explorer-content-intro"><div><h3>Supporting resources</h3><p>Targeted preparation and implementation references, separate from primary papers.</p></div><span>${resources.length} resources</span></div>
+        <div class="explorer-record-list">
+          ${resources.map((resource, index) => `
+            <article data-entity-id="${resource.id}">
+              <span class="explorer-record-order">${index + 1}</span>
+              <div><p class="explorer-eyebrow">${resource.id} · ${escapeHTML(resource.type)}</p><h4>${resource.url ? `<a href="${escapeHTML(resource.url)}">${escapeHTML(resource.title)} ↗</a>` : escapeHTML(resource.title)}</h4><p>${escapeHTML(resource.role)}</p><small>${escapeHTML(resource.status)} · confidence ${escapeHTML(resource.confidence)}</small></div>
+            </article>`).join("") || '<div class="explorer-empty-state"><p>No dedicated supporting resources are assigned.</p></div>'}
+        </div>
+        ${frontier.length ? `<div class="explorer-content-intro explorer-frontier-heading"><div><h3>Related frontier watchlist</h3><p>Recent candidates to monitor, not durable curriculum commitments.</p></div><span>${frontier.length} items</span></div>
+          <div class="explorer-record-list">${frontier.map((item) => `<article data-entity-id="${item.id}"><span class="explorer-record-order">◎</span><div><p class="explorer-eyebrow">${item.id} · ${escapeHTML(item.decision || "Monitor")}</p><h4>${item.url ? `<a href="${escapeHTML(item.url)}">${escapeHTML(item.title)} ↗</a>` : escapeHTML(item.title)}</h4><p>${escapeHTML(item.reason)}</p><small>${escapeHTML(item.maturity)}</small></div></article>`).join("")}</div>` : ""}
+      `;
+    }
+
+    renderTopicRelated(topic) {
+      const prerequisites = [...(this.incoming.get(topic.id) || [])].sort();
+      const dependents = [...(this.outgoing.get(topic.id) || [])].sort();
+      const crossLinks = Object.entries(topic.cross_topic_links || {});
+      const group = (title, subtitle, ids) => `
+        <section class="explorer-card"><p class="explorer-eyebrow">${escapeHTML(subtitle)}</p><h3>${escapeHTML(title)}</h3>${this.topicChipList(ids, "None.")}</section>`;
+      return `
+        <div class="explorer-related-grid">
+          ${group("Prerequisites", "Capabilities needed first", prerequisites)}
+          ${group("Direct dependents", "Capabilities this topic unlocks", dependents)}
+          <section class="explorer-card explorer-related-notes"><p class="explorer-eyebrow">Curriculum interfaces</p><h3>Cross-topic relationships</h3>${crossLinks.map(([label, value]) => `<div><h4>${escapeHTML(label)}</h4><p>${escapeHTML(value)}</p></div>`).join("")}</section>
+        </div>`;
+    }
+
+    renderTable() {
+      if (!this.tableContent || !this.data) return;
+      const visible = this.visibleTopicIds();
+      const rows = this.data.topics.filter((topic) => visible.has(topic.id));
+      this.tableContent.innerHTML = `
+        <table>
+          <thead><tr><th scope="col">Topic</th><th scope="col">Area</th><th scope="col">Status</th><th scope="col">Depth</th><th scope="col">Sessions</th><th scope="col">Progress</th><th scope="col">Readiness</th><th scope="col"><span class="explorer-sr-only">Actions</span></th></tr></thead>
+          <tbody>
+            ${rows.map((topic) => {
+              const progress = this.topicProgress(topic.id);
+              const ready = this.isTopicReady(topic.id);
+              return `
+                <tr class="progress-${progress.state}">
+                  <th scope="row"><button type="button" data-topic-id="${topic.id}" data-open-view="topic"><b>${topic.id}</b><span>${escapeHTML(topic.title)}</span></button></th>
+                  <td>${escapeHTML(topic.area_short_label)}</td>
+                  <td><span class="explorer-status-badge status-${topic.status_id}">${escapeHTML(topic.status)}</span></td>
+                  <td>${topic.rank}</td>
+                  <td>${topic.planned_sessions}</td>
+                  <td><span class="explorer-table-progress"><i style="width:${progress.total ? progress.done / progress.total * 100 : 0}%"></i></span><small>${progress.done}/${progress.total}</small></td>
+                  <td><span class="explorer-readiness ${ready ? "is-ready" : ""}">${ready ? "Ready" : "Prerequisites"}</span></td>
+                  <td><a href="${escapeHTML(localURL(topic.url))}" aria-label="Open ${escapeHTML(topic.id)} source document">↗</a></td>
+                </tr>`;
+            }).join("")}
+          </tbody>
+        </table>
+        ${rows.length ? "" : '<div class="explorer-empty-state"><strong>No topics match these filters.</strong><p>Clear one or more filters to restore the curriculum.</p></div>'}`;
     }
 
     renderSearchResults() {
-      const query = normalise(this.searchInput.value).trim();
-      if (query.length < 2) {
-        this.closeSearchResults();
+      const query = normalise(this.searchInput.value);
+      if (!query) {
+        this.closeSearch();
         return;
       }
       const tokens = query.split(/\s+/).filter(Boolean);
@@ -693,31 +1014,18 @@
         .filter((item) => item.score > 0)
         .sort((a, b) => b.score - a.score || a.entry.id.localeCompare(b.entry.id))
         .slice(0, 12);
-
-      if (!matches.length) {
-        this.searchResults.innerHTML = '<div class="explorer-search-empty">No matching topics, sessions, papers, or resources.</div>';
-      } else {
-        this.searchResults.innerHTML = matches
-          .map(({ entry }) => `
-            <button type="button" data-search-type="${entry.type}" data-search-id="${escapeHTML(entry.id)}">
-              <span class="explorer-search-type">${escapeHTML(ENTITY_LABELS[entry.type])}</span>
-              <span class="explorer-search-copy">
-                <strong>${escapeHTML(entry.id)} · ${escapeHTML(entry.title)}</strong>
-                <small>${escapeHTML(entry.subtitle)}</small>
-              </span>
-              ${icon("chevron")}
-            </button>`)
-          .join("");
-        for (const button of this.searchResults.querySelectorAll("button")) {
-          button.addEventListener("click", () => {
-            const entry = this.searchEntries.find(
-              (candidate) => candidate.type === button.dataset.searchType && candidate.id === button.dataset.searchId,
-            );
-            if (entry) this.selectSearchEntry(entry);
-          });
-        }
-      }
       this.searchResults.hidden = false;
+      this.searchInput.setAttribute("aria-expanded", "true");
+      this.searchResults.innerHTML = matches.length
+        ? matches.map(({ entry }, index) => `
+            <button type="button" role="option" data-search-index="${index}" data-search-type="${entry.type}" data-search-id="${entry.id}">
+              <span class="explorer-search-type">${escapeHTML(entry.type)}</span>
+              <span><strong>${escapeHTML(entry.id)} · ${escapeHTML(entry.title)}</strong><small>${escapeHTML(entry.subtitle)}</small></span>
+            </button>`).join("")
+        : '<div class="explorer-search-empty"><strong>No matching curriculum item</strong><span>Try a topic ID, author, paper title, or concept.</span></div>';
+      for (const button of this.searchResults.querySelectorAll("button")) {
+        button.addEventListener("click", () => this.openSearchResult(button.dataset.searchType, button.dataset.searchId));
+      }
     }
 
     searchScore(entry, query, tokens) {
@@ -725,716 +1033,184 @@
       const title = normalise(entry.title);
       if (id === query) return 1000;
       if (title === query) return 900;
-      let score = 0;
-      if (id.startsWith(query)) score += 500;
-      if (title.startsWith(query)) score += 350;
-      if (title.includes(query)) score += 240;
-      if (entry.search.includes(query)) score += 150;
-      if (tokens.every((token) => entry.search.includes(token))) score += 100 + tokens.length * 20;
-      return score;
+      let score = id.startsWith(query) ? 250 : title.startsWith(query) ? 180 : 0;
+      if (entry.haystack.includes(query)) score += 100;
+      for (const token of tokens) if (entry.haystack.includes(token)) score += 18;
+      return tokens.every((token) => entry.haystack.includes(token)) ? score : 0;
     }
 
-    selectSearchEntry(entry) {
-      this.closeSearchResults();
-      this.searchInput.value = `${entry.id} — ${entry.title}`;
-      if (entry.topicId) this.ensureTopicVisible(entry.topicId);
-      if (entry.type === "topic") {
-        this.selectTopic(entry.topicId);
-      } else if (entry.type === "session") {
-        this.selectTopic(entry.topicId, false);
-        this.expandSessions(entry.topicId, entry.id);
-      } else if (entry.type === "paper") {
-        this.selectTopic(entry.topicId, false);
-        this.expandPapers(entry.topicId, entry.id);
-      } else if (entry.type === "resource") {
-        const resource = this.resourceById.get(entry.id);
-        if (entry.topicId) this.selectTopic(entry.topicId, false);
-        if (resource) this.renderResourceDetails(resource);
-      } else if (entry.type === "frontier") {
-        const item = this.frontierById.get(entry.id);
-        if (entry.topicId) this.selectTopic(entry.topicId, false);
-        if (item) this.renderFrontierDetails(item);
-      }
-    }
-
-    closeSearchResults() {
-      this.searchResults.hidden = true;
-    }
-
-    ensureTopicVisible(topicId) {
-      const topic = this.topicById.get(topicId);
-      if (!topic) return;
-      this.activeAreas.add(topic.area_id);
-      this.activeStatuses.add(topic.status_id);
-      const areaInput = this.areaFilters.querySelector(`input[value="${topic.area_id}"]`);
-      const statusInput = this.statusFilters.querySelector(`input[value="${topic.status_id}"]`);
-      if (areaInput) areaInput.checked = true;
-      if (statusInput) statusInput.checked = true;
-    }
-
-    applyView(view, animate = true) {
-      if (view === "focus" && !this.selectedTopicId) {
-        this.setGraphStatus("Select a topic before entering focus view.");
+    handleSearchKeydown(event) {
+      if (event.key === "Escape") {
+        this.closeSearch();
+        this.searchInput.blur();
         return;
       }
-      if (view !== "detail") this.removeDetailNodes(false);
-      this.currentView = view;
-      this.updateViewButtons();
-      this.applyFilters(false);
-
-      this.cy.stop(true, true);
-
-      if (view === "curriculum" || view === "sequence" || view === "areas" || view === "global-sessions") {
-        this.applyPresetPositions(view, animate);
-        const labels = {
-          curriculum: "Dependency view: arrows point from prerequisite to dependent topic.",
-          sequence: "Sequence view: ordered learning path by prerequisite rank.",
-          areas: "Area view: topics are grouped by the six curriculum areas.",
-          "global-sessions": "Global Sessions view: all sessions ordered topologically.",
-        };
-        this.setGraphStatus(labels[view]);
-      } else if (view === "focus") {
-        this.layoutFocus(animate);
-        const directionLabel = {
-          upstream: "prerequisite path",
-          downstream: "dependent topics",
-          both: "prerequisites and dependents",
-        }[this.focusDirection];
-        this.setGraphStatus(`Focus view: ${directionLabel} for ${this.selectedTopicId}.`);
+      const buttons = [...this.searchResults.querySelectorAll("button")];
+      if (!buttons.length) return;
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        buttons[0].focus();
+      } else if (event.key === "Enter") {
+        event.preventDefault();
+        buttons[0].click();
       }
     }
 
-    applyPresetPositions(view, animate) {
-      this.cy.batch(() => {
-        if (view === "global-sessions") {
-          for (const session of this.data.sessions) {
-            const node = this.cy.getElementById(`session-global:${session.id}`);
-            const position = session.positions?.global_sessions || { x: 0, y: 0 };
-            if (animate) node.animate({ position, duration: 380 });
-            else node.position(position);
-          }
-        } else {
-          for (const topic of this.data.topics) {
-            const node = this.cy.getElementById(`topic:${topic.id}`);
-            const position = topic.positions[view] || topic.positions.curriculum;
-            node.position(position);
-          }
-          for (const box of this.data.area_boxes) {
-            this.cy.getElementById(box.id).position(box.position);
-          }
-        }
-      });
-      if (animate) {
-        this.cy.animate({ fit: { eles: this.visibleElements(), padding: 44 }, duration: 420 });
-      } else {
-        this.fitGraph();
-      }
+    openSearchResult(type, id) {
+      const entry = this.searchEntries.find((item) => item.type === type && item.id === id);
+      if (!entry?.topicId) return;
+      this.selectTopic(entry.topicId, { history: false });
+      this.selectedEntityId = id;
+      this.currentTab = type === "session" ? "sessions" : type === "paper" ? "papers" : type === "resource" || type === "frontier" ? "resources" : "summary";
+      this.showView("topic", { history: "push" });
+      this.closeSearch();
+      this.searchInput.value = "";
     }
 
-    focusTopic(topicId, direction = "both") {
-      this.selectedTopicId = topicId;
-      this.focusDirection = direction;
-      this.applyView("focus");
-      this.selectTopic(topicId, false);
+    closeSearch() {
+      this.searchResults.hidden = true;
+      this.searchInput.setAttribute("aria-expanded", "false");
     }
 
-    layoutFocus(animate = true) {
-      if (!this.selectedTopicId) return;
-      const selected = this.cy.getElementById(`topic:${this.selectedTopicId}`);
-      const upstreamDistances = this.graphDistances(this.selectedTopicId, this.incoming);
-      const downstreamDistances = this.graphDistances(this.selectedTopicId, this.outgoing);
-      const columns = new Map();
-
-      for (const topic of this.data.topics) {
-        const node = this.cy.getElementById(`topic:${topic.id}`);
-        if (node.hasClass("filtered")) continue;
-        let column = 0;
-        if (topic.id !== this.selectedTopicId) {
-          const up = upstreamDistances.get(topic.id);
-          const down = downstreamDistances.get(topic.id);
-          if (this.focusDirection === "upstream") column = -(up || 1);
-          else if (this.focusDirection === "downstream") column = down || 1;
-          else if (up != null && down != null) column = up <= down ? -up : down;
-          else if (up != null) column = -up;
-          else column = down || 1;
-        }
-        if (!columns.has(column)) columns.set(column, []);
-        columns.get(column).push(topic.id);
-      }
-
-      const positionById = new Map();
-      for (const [column, ids] of [...columns.entries()].sort((a, b) => a[0] - b[0])) {
-        ids.sort((a, b) => {
-          const ta = this.topicById.get(a);
-          const tb = this.topicById.get(b);
-          return ta.area_order - tb.area_order || a.localeCompare(b, undefined, { numeric: true });
-        });
-        ids.forEach((topicId, index) => {
-          positionById.set(topicId, {
-            x: 620 + column * 285,
-            y: 180 + (index - (ids.length - 1) / 2) * 125,
-          });
-        });
-      }
-
-      this.cy.batch(() => {
-        for (const [topicId, position] of positionById) {
-          const node = this.cy.getElementById(`topic:${topicId}`);
-          if (animate) node.animate({ position, duration: 380 });
-          else node.position(position);
-        }
-      });
-      if (animate) {
-        this.cy.animate({ fit: { eles: this.visibleElements(), padding: 50 }, duration: 420 });
-      }
-      selected.select();
+    fitCurrentGraph() {
+      this.fitGraph(this.currentView === "focus" ? this.focusCy : this.cy);
     }
 
-    graphDistances(start, adjacency) {
-      const distances = new Map();
-      const queue = [[start, 0]];
-      while (queue.length) {
-        const [node, distance] = queue.shift();
-        for (const next of adjacency.get(node) || []) {
-          if (!distances.has(next)) {
-            distances.set(next, distance + 1);
-            if (this.transitiveFocus) queue.push([next, distance + 1]);
-          }
-        }
-        if (!this.transitiveFocus) break;
-      }
-      return distances;
-    }
-
-
-    visibleFocusTopics() {
-      if (!this.selectedTopicId) return new Set(this.data.topics.map((topic) => topic.id));
-      const result = new Set([this.selectedTopicId]);
-      if (this.focusDirection === "upstream" || this.focusDirection === "both") {
-        for (const topicId of this.traverse(this.selectedTopicId, this.incoming, this.transitiveFocus)) result.add(topicId);
-      }
-      if (this.focusDirection === "downstream" || this.focusDirection === "both") {
-        for (const topicId of this.traverse(this.selectedTopicId, this.outgoing, this.transitiveFocus)) result.add(topicId);
-      }
-      return result;
-    }
-
-    traverse(start, adjacency, transitive) {
-      const result = new Set();
-      const queue = [...(adjacency.get(start) || [])];
-      while (queue.length) {
-        const node = queue.shift();
-        if (result.has(node)) continue;
-        result.add(node);
-        if (transitive) queue.push(...(adjacency.get(node) || []));
-      }
-      return result;
-    }
-
-    applyFilters(refit = true) {
-      const focusTopics = this.currentView === "focus" ? this.visibleFocusTopics() : null;
-      const detailTopic = this.currentView === "detail" ? this.selectedTopicId : null;
-
-      this.cy.batch(() => {
-        for (const topic of this.data.topics) {
-          const node = this.cy.getElementById(`topic:${topic.id}`);
-          const allowedByFilter = this.activeAreas.has(topic.area_id) && this.activeStatuses.has(topic.status_id);
-          const allowedByView = focusTopics
-            ? focusTopics.has(topic.id)
-            : detailTopic
-              ? topic.id === detailTopic
-              : true;
-          node.toggleClass("filtered", !(allowedByFilter && allowedByView) || this.currentView === "global-sessions");
-        }
-
-        for (const edge of this.cy.edges("edge.dependency")) {
-          const hidden = edge.source().hasClass("filtered") || edge.target().hasClass("filtered") || this.currentView === "detail" || this.currentView === "global-sessions";
-          edge.toggleClass("filtered", hidden);
-        }
-
-        for (const box of this.data.area_boxes) {
-          const boxNode = this.cy.getElementById(box.id);
-          const hasVisibleTopic = this.data.topics.some(
-            (topic) => topic.area_id === box.area_id && !this.cy.getElementById(`topic:${topic.id}`).hasClass("filtered"),
-          );
-          boxNode.toggleClass("filtered", this.currentView !== "areas" || !hasVisibleTopic || this.currentView === "global-sessions");
-        }
-
-        for (const session of this.data.sessions) {
-          const node = this.cy.getElementById(`session-global:${session.id}`);
-          const topic = this.topicById.get(session.topic_id);
-          const allowedByFilter = topic && this.activeAreas.has(topic.area_id) && this.activeStatuses.has(topic.status_id);
-          node.toggleClass("filtered", !allowedByFilter || this.currentView !== "global-sessions");
-        }
-
-        for (const edge of this.cy.edges("edge.global-dependency")) {
-          const hidden = edge.source().hasClass("filtered") || edge.target().hasClass("filtered") || this.currentView !== "global-sessions";
-          edge.toggleClass("filtered", hidden);
-        }
-      });
-
-      this.restoreHighlight();
-      if (refit) {
-        if (this.currentView === "focus") this.layoutFocus();
-        else if (this.currentView === "detail") this.layoutDetail();
-        else this.fitGraph();
-      }
-    }
-
-    selectTopic(topicId, center = true) {
-      const topic = this.topicById.get(topicId);
-      if (!topic) return;
-      this.selectedTopicId = topicId;
-      this.selectedEntity = { type: "topic", id: topicId };
-      this.ensureTopicVisible(topicId);
-      this.cy.nodes().unselect();
-      const node = this.cy.getElementById(`topic:${topicId}`);
-      node.select();
-      this.renderTopicDetails(topic);
-      this.highlightNeighbourhood(topicId, true);
-      if (center && !node.hasClass("filtered")) {
-        this.cy.animate({ center: { eles: node }, zoom: Math.max(this.cy.zoom(), 0.75), duration: 280 });
-      }
-    }
-
-    clearSelection() {
-      this.selectedTopicId = null;
-      this.selectedEntity = null;
-      this.cy.nodes().unselect();
-      this.restoreHighlight(true);
-      this.renderEmptyDetails();
-    }
-
-    highlightNeighbourhood(topicId, persistent) {
-      if (!this.cy || this.currentView === "detail") return;
-      const node = this.cy.getElementById(`topic:${topicId}`);
-      const connectedEdges = node.connectedEdges("edge.dependency:visible");
-      const neighbours = connectedEdges.connectedNodes().union(node);
-      this.cy.elements(":visible").addClass("dimmed").removeClass("neighbour");
-      neighbours.removeClass("dimmed").addClass("neighbour");
-      connectedEdges.removeClass("dimmed").addClass("neighbour");
-      if (persistent) this.selectedTopicId = topicId;
-    }
-
-    restoreHighlight(force = false) {
-      if (!this.cy) return;
-      this.cy.elements().removeClass("dimmed neighbour");
-      if (!force && this.selectedTopicId && this.currentView !== "detail") {
-        this.highlightNeighbourhood(this.selectedTopicId, false);
-      }
-    }
-
-    renderEmptyDetails() {
-      this.details.innerHTML = `
-        <div class="explorer-empty-state">
-          ${icon("nodes")}
-          <h3>Select a topic</h3>
-          <p>Click a node to inspect its scope, prerequisites, sessions, papers, resources, and links to the detailed timeline.</p>
-        </div>`;
-    }
-
-    badge(text, className = "") {
-      return `<span class="explorer-badge ${className}">${escapeHTML(text)}</span>`;
-    }
-
-    topicButton(topicId) {
-      const topic = this.topicById.get(topicId);
-      if (!topic) return "";
-      return `<button type="button" class="explorer-topic-chip" data-detail-action="select-topic" data-topic-id="${topicId}" title="${escapeHTML(topic.title)}">${topicId}</button>`;
-    }
-
-    renderTopicDetails(topic) {
-      const prerequisites = [...(this.incoming.get(topic.id) || [])].sort();
-      const dependents = [...(this.outgoing.get(topic.id) || [])].sort();
-      const counts = Object.entries(topic.classification_counts)
-        .map(([classification, count]) => `${count} ${classification}`)
-        .join(" · ");
-      const resources = topic.resources
-        .map((id) => this.resourceById.get(id))
-        .filter(Boolean)
-        .slice(0, 8);
-
-      this.details.innerHTML = `
-        <article class="explorer-detail-card">
-          <header class="explorer-detail-header">
-            <div>
-              <span class="explorer-detail-id">${escapeHTML(topic.id)}</span>
-              <h2>${escapeHTML(topic.title)}</h2>
-            </div>
-            <div class="explorer-detail-badges">
-              ${this.badge(topic.area_short_label, `area-${topic.area_id}`)}
-              ${this.badge(topic.status, `status-${topic.status_id}`)}
-            </div>
-          </header>
-
-          <div class="explorer-detail-metrics">
-            <div><strong>${topic.planned_sessions}</strong><span>Sessions</span></div>
-            <div><strong>${topic.papers.length}</strong><span>Papers</span></div>
-            <div><strong>${topic.resources.length}</strong><span>Resources</span></div>
-          </div>
-
-          <section>
-            <h3>Target competence</h3>
-            <p>${escapeHTML(topic.target_competence)}</p>
-          </section>
-
-          <section>
-            <h3>Curriculum role</h3>
-            <p>${escapeHTML(topic.curriculum_role)}</p>
-          </section>
-
-          <div class="explorer-detail-grid">
-            <section>
-              <h3>Prerequisites</h3>
-              <div class="explorer-chip-list">${prerequisites.length ? prerequisites.map((id) => this.topicButton(id)).join("") : '<span class="explorer-muted">Topic-local or general foundations</span>'}</div>
-            </section>
-            <section>
-              <h3>Enables</h3>
-              <div class="explorer-chip-list">${dependents.length ? dependents.map((id) => this.topicButton(id)).join("") : '<span class="explorer-muted">No direct dependent topic</span>'}</div>
-            </section>
-          </div>
-
-          <section>
-            <h3>Completion boundary</h3>
-            <p><strong>${escapeHTML(topic.required_core_endpoint || "—")}</strong> · ${escapeHTML(topic.completion_boundary)}</p>
-            <p class="explorer-muted">${escapeHTML(counts)}</p>
-          </section>
-
-          <section>
-            <h3>Topic-local foundation</h3>
-            <p>${escapeHTML(topic.foundations.topic_local || "No dedicated topic-local foundation.")}</p>
-          </section>
-
-          ${resources.length ? `
-          <section>
-            <h3>Supporting resources</h3>
-            <ul class="explorer-compact-list">
-              ${resources.map((resource) => `<li><a href="${escapeHTML(resource.url || "#")}" target="_blank" rel="noopener">${escapeHTML(resource.id)} · ${escapeHTML(resource.title)}</a></li>`).join("")}
-            </ul>
-          </section>` : ""}
-
-          <div class="explorer-detail-actions">
-            <button type="button" class="md-button md-button--primary" data-detail-action="open-topic" data-topic-id="${topic.id}">${icon("external")} Open timeline</button>
-            <button type="button" class="md-button" data-detail-action="expand-sessions" data-topic-id="${topic.id}">${icon("layers")} Expand sessions</button>
-            <button type="button" class="md-button" data-detail-action="expand-papers" data-topic-id="${topic.id}">${icon("graph")} Show papers</button>
-          </div>
-          <div class="explorer-focus-actions">
-            <button type="button" data-detail-action="focus-prerequisites" data-topic-id="${topic.id}">Prerequisite path</button>
-            <button type="button" data-detail-action="focus-dependents" data-topic-id="${topic.id}">Dependents</button>
-            <button type="button" data-detail-action="focus-both" data-topic-id="${topic.id}">Both</button>
-          </div>
-        </article>`;
-    }
-
-    renderSessionDetails(session) {
-      const topic = this.topicById.get(session.topic_id);
-      const papers = session.papers.map((id) => this.paperById.get(id)).filter(Boolean);
-      const resources = session.resources.map((id) => this.resourceById.get(id)).filter(Boolean);
-      this.details.innerHTML = `
-        <article class="explorer-detail-card">
-          <header class="explorer-detail-header">
-            <div>
-              <span class="explorer-detail-id">${escapeHTML(session.id)}</span>
-              <h2>${escapeHTML(session.title)}</h2>
-            </div>
-            ${this.badge(session.classification, `status-${session.classification_id}`)}
-          </header>
-          <section><h3>Stage</h3><p>${escapeHTML(session.stage || "—")}</p></section>
-          <section><h3>Objective</h3><p>${escapeHTML(session.objective)}</p></section>
-          <section><h3>Prerequisites</h3><p>${escapeHTML(session.prerequisites)}</p></section>
-          <section><h3>Planned component</h3><p>${escapeHTML(session.planned_component)}</p></section>
-          <section><h3>Expected capability</h3><p>${escapeHTML(session.completion)}</p></section>
-          ${papers.length ? `<section><h3>Papers</h3><ul class="explorer-compact-list">${papers.map((paper) => `<li><a href="${escapeHTML(paper.url)}" target="_blank" rel="noopener">${escapeHTML(paper.id)} · ${escapeHTML(paper.title)}</a></li>`).join("")}</ul></section>` : ""}
-          ${resources.length ? `<section><h3>Resources</h3><ul class="explorer-compact-list">${resources.map((resource) => `<li><a href="${escapeHTML(resource.url || "#")}" target="_blank" rel="noopener">${escapeHTML(resource.id)} · ${escapeHTML(resource.title)}</a></li>`).join("")}</ul></section>` : ""}
-          <div class="explorer-detail-actions">
-            <button type="button" class="md-button md-button--primary" data-detail-action="open-topic" data-topic-id="${topic.id}">${icon("external")} Open topic timeline</button>
-            <button type="button" class="md-button" data-detail-action="collapse-detail" data-topic-id="${topic.id}">Back to topic graph</button>
-          </div>
-        </article>`;
-      this.selectedEntity = { type: "session", id: session.id };
-      this.cy.nodes().unselect();
-      this.cy.getElementById(`session:${session.id}`).select();
-    }
-
-    renderPaperDetails(paper) {
-      const topic = this.topicById.get(paper.topic_id);
-      this.details.innerHTML = `
-        <article class="explorer-detail-card">
-          <header class="explorer-detail-header">
-            <div>
-              <span class="explorer-detail-id">${escapeHTML(paper.id)}</span>
-              <h2>${escapeHTML(paper.title)}</h2>
-            </div>
-            ${this.badge(topic?.id || "Paper")}
-          </header>
-          <section><h3>Metadata</h3><p>${escapeHTML([paper.authors, paper.year, paper.venue].filter(Boolean).join(" · "))}</p></section>
-          <section><h3>Contribution</h3><p>${escapeHTML(paper.contribution || "—")}</p></section>
-          <section><h3>Lineage</h3><p>${escapeHTML(paper.lineage || "—")}</p></section>
-          <section><h3>Positioning limitation</h3><p>${escapeHTML(paper.limitation || "—")}</p></section>
-          <div class="explorer-detail-actions">
-            <a class="md-button md-button--primary" href="${escapeHTML(paper.url)}" target="_blank" rel="noopener">${icon("external")} Open paper</a>
-            ${topic ? `<button type="button" class="md-button" data-detail-action="open-topic" data-topic-id="${topic.id}">Open topic timeline</button>` : ""}
-            ${topic ? `<button type="button" class="md-button" data-detail-action="collapse-detail" data-topic-id="${topic.id}">Back to topic graph</button>` : ""}
-          </div>
-        </article>`;
-      this.selectedEntity = { type: "paper", id: paper.id };
-      this.cy.nodes().unselect();
-      this.cy.getElementById(`paper:${paper.id}`).select();
-    }
-
-    renderResourceDetails(resource) {
-      this.details.innerHTML = `
-        <article class="explorer-detail-card">
-          <header class="explorer-detail-header"><div><span class="explorer-detail-id">${escapeHTML(resource.id)}</span><h2>${escapeHTML(resource.title)}</h2></div>${this.badge("Resource")}</header>
-          <section><h3>Type</h3><p>${escapeHTML(resource.type)}</p></section>
-          <section><h3>Curriculum role</h3><p>${escapeHTML(resource.role)}</p></section>
-          <section><h3>Related topics</h3><div class="explorer-chip-list">${resource.topic_ids.map((id) => this.topicButton(id)).join("") || '<span class="explorer-muted">Cross-topic resource</span>'}</div></section>
-          <div class="explorer-detail-actions"><a class="md-button md-button--primary" href="${escapeHTML(resource.url || "#")}" target="_blank" rel="noopener">${icon("external")} Open resource</a></div>
-        </article>`;
-    }
-
-    renderFrontierDetails(item) {
-      this.details.innerHTML = `
-        <article class="explorer-detail-card">
-          <header class="explorer-detail-header"><div><span class="explorer-detail-id">${escapeHTML(item.id)}</span><h2>${escapeHTML(item.title)}</h2></div>${this.badge(item.decision || "Monitor", "status-frontier_watchlist")}</header>
-          <section><h3>Why it may matter</h3><p>${escapeHTML(item.reason)}</p></section>
-          <section><h3>Maturity / evidence</h3><p>${escapeHTML(item.maturity)}</p></section>
-          <section><h3>Related topics</h3><div class="explorer-chip-list">${item.topic_ids.map((id) => this.topicButton(id)).join("") || '<span class="explorer-muted">Cross-topic item</span>'}</div></section>
-          <div class="explorer-detail-actions"><a class="md-button md-button--primary" href="${escapeHTML(item.url || "#")}" target="_blank" rel="noopener">${icon("external")} Open source</a></div>
-        </article>`;
-    }
-
-    expandSessions(topicId, selectedSessionId = null) {
-      const topic = this.topicById.get(topicId);
-      if (!topic) return;
-      this.removeDetailNodes(false);
-      this.selectedTopicId = topicId;
-      this.expandedMode = "sessions";
-      this.currentView = "detail";
-      const sessions = this.data.sessions.filter((session) => session.topic_id === topicId).sort((a, b) => a.sequence - b.sequence);
-      const elements = [];
-      let previous = `topic:${topicId}`;
-      for (const session of sessions) {
-        const nodeId = `session:${session.id}`;
-        elements.push({
-          group: "nodes",
-          classes: "session detail-node",
-          data: {
-            id: nodeId,
-            entity_id: session.id,
-            label: `${session.id}\n${compactText(session.title, 52)}`,
-            classification: session.classification,
-          },
-        });
-        elements.push({
-          group: "edges",
-          classes: "detail-edge detail-node",
-          data: { id: `detail-edge:${previous}:${nodeId}`, source: previous, target: nodeId },
-        });
-        previous = nodeId;
-      }
-      this.cy.add(elements);
-      this.applyFilters(false);
-      this.layoutDetail();
-      this.updateViewButtons();
-      this.setGraphStatus(`${topicId}: ordered session timeline. Select a session for its complete timeline record.`);
-      if (selectedSessionId) {
-        const session = this.sessionById.get(selectedSessionId);
-        if (session) setTimeout(() => this.renderSessionDetails(session), 250);
-      } else {
-        this.renderTopicDetails(topic);
-      }
-    }
-
-    expandPapers(topicId, selectedPaperId = null) {
-      const topic = this.topicById.get(topicId);
-      if (!topic) return;
-      this.removeDetailNodes(false);
-      this.selectedTopicId = topicId;
-      this.expandedMode = "papers";
-      this.currentView = "detail";
-      const papers = topic.papers.map((id) => this.paperById.get(id)).filter(Boolean);
-      const elements = [];
-      for (const paper of papers) {
-        const nodeId = `paper:${paper.id}`;
-        elements.push({
-          group: "nodes",
-          classes: "paper detail-node",
-          data: {
-            id: nodeId,
-            entity_id: paper.id,
-            label: `${paper.id}\n${compactText(paper.title, 56)}`,
-          },
-        });
-        elements.push({
-          group: "edges",
-          classes: "detail-edge detail-node",
-          data: { id: `detail-edge:topic:${topicId}:${paper.id}`, source: `topic:${topicId}`, target: nodeId },
-        });
-      }
-      this.cy.add(elements);
-      this.applyFilters(false);
-      this.layoutDetail();
-      this.updateViewButtons();
-      this.setGraphStatus(`${topicId}: primary-paper inventory. Select a paper for metadata and positioning.`);
-      if (selectedPaperId) {
-        const paper = this.paperById.get(selectedPaperId);
-        if (paper) setTimeout(() => this.renderPaperDetails(paper), 250);
-      } else {
-        this.renderTopicDetails(topic);
-      }
-    }
-
-    layoutDetail() {
-      this.cy.stop(true, true);
-      const visible = this.cy.elements(":visible");
+    fitGraph(graph) {
+      if (!graph) return;
+      const visible = graph.elements(":visible");
       if (!visible.length) return;
-      if (this.expandedMode === "sessions") {
-        visible.layout({
-          name: "breadthfirst",
-          directed: true,
-          roots: this.cy.getElementById(`topic:${this.selectedTopicId}`),
-          direction: "downward",
-          spacingFactor: 1.08,
-          padding: 52,
-          animate: true,
-          animationDuration: 420,
-          fit: true,
-        }).run();
-      } else {
-        visible.layout({
-          name: "concentric",
-          concentric: (node) => (node.hasClass("topic") ? 10 : 1),
-          levelWidth: () => 1,
-          minNodeSpacing: 48,
-          padding: 55,
-          animate: true,
-          animationDuration: 420,
-          fit: true,
-        }).run();
-      }
-    }
-
-    removeDetailNodes(resetMode = true) {
-      if (!this.cy) return;
-      this.cy.elements(".detail-node").remove();
-      if (resetMode) this.expandedMode = null;
-    }
-
-    openTopic(topicId) {
-      const topic = this.topicById.get(topicId);
-      if (!topic) return;
-      window.location.href = entityURL(topic.url);
-    }
-
-    updateViewButtons() {
-      for (const button of this.viewButtons) {
-        button.classList.toggle("is-active", button.dataset.view === this.currentView);
-        button.setAttribute("aria-pressed", String(button.dataset.view === this.currentView));
-      }
-    }
-
-    fitGraph() {
-      const visible = this.visibleElements();
-      if (visible.length) this.cy.fit(visible, 44);
-    }
-
-    visibleElements() {
-      return this.cy.elements(":visible");
+      requestAnimationFrame(() => {
+        graph.stop();
+        graph.fit(visible, 44);
+      });
     }
 
     adjustZoom(factor) {
-      const zoom = Math.min(this.cy.maxZoom(), Math.max(this.cy.minZoom(), this.cy.zoom() * factor));
-      this.cy.animate({ zoom, duration: 150 });
+      const graph = this.currentView === "focus" ? this.focusCy : this.cy;
+      if (!graph) return;
+      const zoom = Math.max(graph.minZoom(), Math.min(graph.maxZoom(), graph.zoom() * factor));
+      graph.animate({ zoom, duration: this.prefersReducedMotion() ? 0 : 120 });
     }
 
     async toggleFullscreen() {
-      if (document.fullscreenElement === this.root) {
-        await document.exitFullscreen();
-      } else if (this.root.requestFullscreen) {
-        await this.root.requestFullscreen();
+      try {
+        if (!document.fullscreenElement) await this.root.requestFullscreen();
+        else await document.exitFullscreen();
+        requestAnimationFrame(() => {
+          this.cy?.resize();
+          this.focusCy?.resize();
+          this.fitCurrentGraph();
+        });
+      } catch {
+        // Fullscreen is optional; browsers can deny it without breaking navigation.
       }
     }
 
-    resetExplorer() {
-      this.removeDetailNodes(false);
-      this.currentView = "curriculum";
-      this.focusDirection = "both";
-      this.selectedTopicId = null;
-      this.selectedEntity = null;
-      this.expandedMode = null;
-      this.activeAreas = new Set(this.data.areas.map((area) => area.id));
-      this.activeStatuses = new Set(this.data.statuses.map((status) => status.id));
-      for (const input of this.root.querySelectorAll("[data-area-filter], [data-status-filter]")) input.checked = true;
-      this.searchInput.value = "";
-      this.closeSearchResults();
-      this.cy.nodes().unselect();
-      this.renderEmptyDetails();
-      this.applyView("curriculum");
+    toggleMobileFilters() {
+      const open = this.root.classList.toggle("is-filters-open");
+      this.root.querySelector("[data-filter-toggle]")?.setAttribute("aria-expanded", String(open));
     }
 
-    setGraphStatus(message) {
-      if (this.graphStatus) this.graphStatus.textContent = message;
+    reset() {
+      this.selectedTopicId = null;
+      this.selectedEntityId = null;
+      this.currentTab = "summary";
+      this.focusDirection = "both";
+      this.transitiveFocus = true;
+      this.searchInput.value = "";
+      this.root.classList.remove("is-filters-open");
+      this.clearFilters();
+      this.cy?.elements().unselect();
+      this.updateCompletionStyles();
+      this.renderInspector();
+      this.showView("overview", { history: "push" });
+    }
+
+    restoreURLState() {
+      const params = new URLSearchParams(window.location.search);
+      const topic = params.get("topic");
+      this.selectedTopicId = topic && this.topicById.has(topic.toUpperCase()) ? topic.toUpperCase() : null;
+      const view = params.get("view");
+      this.currentView = VIEWS.has(view) ? view : "overview";
+      if ((this.currentView === "focus" || this.currentView === "topic") && !this.selectedTopicId) this.currentView = "overview";
+      const tab = params.get("tab");
+      this.currentTab = TABS.has(tab) ? tab : "summary";
+      const direction = params.get("direction");
+      this.focusDirection = ["prerequisites", "both", "dependents"].includes(direction) ? direction : "both";
+      this.transitiveFocus = params.get("paths") !== "direct";
+      this.updateCompletionStyles();
+    }
+
+    updateURL(mode = "replace") {
+      const url = new URL(window.location.href);
+      url.search = "";
+      if (this.currentView !== "overview") url.searchParams.set("view", this.currentView);
+      if (this.selectedTopicId) url.searchParams.set("topic", this.selectedTopicId);
+      if (this.currentView === "topic" && this.currentTab !== "summary") url.searchParams.set("tab", this.currentTab);
+      if (this.currentView === "focus") {
+        if (this.focusDirection !== "both") url.searchParams.set("direction", this.focusDirection);
+        if (!this.transitiveFocus) url.searchParams.set("paths", "direct");
+      }
+      const method = mode === "push" ? "pushState" : "replaceState";
+      window.history[method]({}, "", url);
     }
 
     isDarkTheme() {
       const scheme = document.body.getAttribute("data-md-color-scheme") || document.documentElement.getAttribute("data-md-color-scheme");
-      return scheme === "slate" || document.body.classList.contains("dark");
+      return scheme === "slate" || window.matchMedia("(prefers-color-scheme: dark)").matches;
     }
 
     watchTheme() {
-      const update = () => {
-        if (!this.cy) return;
-        this.cy.style(this.graphStyles());
-      };
-      this.themeObserver = new MutationObserver(update);
-      this.themeObserver.observe(document.body, { attributes: true, attributeFilter: ["data-md-color-scheme", "class"] });
+      this.themeObserver = new MutationObserver(() => {
+        this.cy?.style(this.graphStyles());
+        this.focusCy?.style(this.graphStyles());
+        this.updateCompletionStyles();
+      });
       this.themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-md-color-scheme", "class"] });
+      this.themeObserver.observe(document.body, { attributes: true, attributeFilter: ["data-md-color-scheme", "class"] });
+    }
+
+    prefersReducedMotion() {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     }
 
     destroy() {
       for (const cleanup of this.cleanup) cleanup();
+      this.cleanup = [];
       this.themeObserver?.disconnect();
       this.cy?.destroy();
+      this.focusCy?.destroy();
+      this.root.classList.remove("is-fullscreen");
       document.body.classList.remove("curriculum-explorer-page");
-      this.root.dataset.explorerInitialised = "false";
     }
   }
 
   async function initialiseExplorer() {
     const root = document.getElementById("curriculum-explorer");
     if (!root) {
-      if (activeInstance) {
-        activeInstance.destroy();
-        activeInstance = null;
-        window.__curriculumExplorer = null;
-      }
+      activeInstance?.destroy();
+      activeInstance = null;
       return;
     }
-    if (activeInstance && activeInstance.root === root) return;
-    if (activeInstance) activeInstance.destroy();
-
+    if (activeInstance?.root === root) return;
+    activeInstance?.destroy();
     try {
       const cytoscape = await loadCytoscape(root.dataset.graphUrl);
-      const instance = new CurriculumExplorer(root, cytoscape);
-      activeInstance = instance;
-      await instance.init();
-      window.__curriculumExplorer = instance;
+      activeInstance = new CurriculumExplorer(root, cytoscape);
+      await activeInstance.init();
+      window.__curriculumExplorer = activeInstance;
     } catch (error) {
       console.error("Curriculum explorer failed to initialise", error);
       const loading = root.querySelector("[data-explorer-loading]");
       if (loading) {
         loading.hidden = false;
-        loading.innerHTML = `<strong>Explorer unavailable.</strong><br>${escapeHTML(error.message)}<br><a href="curriculum_map/">Open the curriculum map instead.</a>`;
+        loading.innerHTML = `<strong>Explorer unavailable.</strong><span>${escapeHTML(error.message)}</span><a href="curriculum_map/">Open the textual curriculum map</a>`;
       }
     }
   }
 
-  if (typeof document$ !== "undefined" && document$.subscribe) {
-    document$.subscribe(initialiseExplorer);
-  } else if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initialiseExplorer, { once: true });
-  } else {
-    initialiseExplorer();
-  }
+  if (window.document$?.subscribe) window.document$.subscribe(initialiseExplorer);
+  else if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initialiseExplorer, { once: true });
+  else initialiseExplorer();
 })();
