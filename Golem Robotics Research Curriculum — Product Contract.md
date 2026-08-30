@@ -2,9 +2,11 @@
 
 **Status:** Implemented; protected `main` review and GitHub Pages publication remain the release boundary
 
-**Purpose:** Ground-truth product specification for the next implementation phase
+**Purpose:** Ground-truth product specification
 
-**Implementation:** Completed on 2026-08-27; durable implementation decisions and validation evidence are recorded in Section 31
+**Implementation:** First implementation completed on 2026-08-27. The learner interface was redesigned on 2026-08-30 after a usability review, and reoriented on the same day around a personal plan after a second review. The interface sections below describe the converged design; Section 31 records each round of decisions and its evidence.
+
+**How to read this document:** Sections 1 to 8, 12 to 22 and 26 to 30 are product invariants. Sections 9 to 11, 11a, and 23 to 25 describe the interface that implements them. Interface sections may be revised when a better design is demonstrated and validated; invariants may not.
 
 **Authority:** This contract derives from and must remain compatible with `1_operating_principles.md` through `5_repo_structure.md`
 
@@ -63,6 +65,7 @@ A user's:
 
 - progress;
 - notes;
+- personal plan;
 - custom learning path;
 - disabled items;
 - added references;
@@ -183,6 +186,25 @@ Users should be able to inspect where a statement came from:
 - supporting-material index;
 - frontier record;
 - session record.
+
+## 3.7 The curriculum is a reference, not a track
+
+The canonical curriculum is a reviewed map of the field. It is not a syllabus every member must complete, and the
+product must not behave as though it were.
+
+Most members will read it the way one reads a good bibliography: to work out what to read next. The interface must
+therefore make it trivial to look, decide, and record that decision — without adopting the whole structure.
+
+Concretely:
+
+- the learner's own ordered **plan** is the primary surface, not the curriculum's recommendation;
+- the plan may reference canonical papers, sessions and topics, or contain material the curriculum knows nothing about;
+- the curriculum contributes **suggestions** that are added only on an explicit act;
+- nothing in the plan is required to come from the curriculum, and nothing in the curriculum is required to enter the plan;
+- canonical completion records and personal plan progress remain separate, and neither silently rewrites the other.
+
+This does not weaken the methodology. Required Core, competence validation and Sprint coverage keep their exact
+meanings for anyone who chooses to follow the curriculum. It changes who is in charge of the order.
 
 ---
 
@@ -395,111 +417,106 @@ The result changes according to Guided, Accelerated or AI Sprint mode.
 
 # 9. Primary information architecture
 
-The final application should use learner-oriented primary navigation.
+The application is a standalone workspace served at the site root. The reviewed Markdown documents are rendered
+alongside it and reached through Reference; the product is never presented inside documentation chrome.
 
-## Home
+Navigation has five destinations, in the order a learner actually uses them: **My plan · Papers · Curriculum ·
+Workspace · Reference**.
 
-Answers:
+## My plan
 
-> What should I do now?
+The landing surface, and the only one that is entirely the learner's. It answers:
 
-Contains:
+> What am I actually going to do next?
 
-- Resume;
-- recommended next session;
-- two alternatives;
-- selected learning profile;
-- target journey if active;
-- blockers;
-- recent work;
-- Required Core progress;
-- upcoming frontier/research context when relevant.
+Contains, in priority order:
+
+- the first unfinished item in the plan, presented in the form its kind deserves;
+- one box that adds anything — a canonical paper, session or topic, or free text the curriculum has never heard of;
+- the ordered plan itself: reorderable, annotatable, removable, with finished items collapsed;
+- what the curriculum *would* suggest, each with its reasons and an explicit "add to my plan";
+- the learning profile, the target and its route, the personal record, recent work and curriculum provenance.
+
+A first visit adds a short, dismissible orientation band explaining that the curriculum is a reference, how to make a
+plan from it, and how to be led instead if that is preferred. It disappears permanently once the learner records
+anything. Marketing hero copy is not used.
+
+Plan items reference canonical entities without owning them. A canonical item is ticked off by the record that already
+exists for it — a paper by its reading state, a session by its completion, a topic by its Required Core boundary — so
+the plan never becomes a second source of truth about progress.
 
 ## Curriculum
 
-Contains structural exploration.
+Structural exploration, in three presentations plus the map:
 
-Secondary views:
+- the route in a prerequisite-valid order (default);
+- the areas, as a browsable catalogue;
+- the matrix, for comparing prerequisites and unlocks as text;
+- the relationship map, which has its own address because it serves papers as well as topics.
 
-- dependency map;
-- curriculum matrix;
-- area overview;
-- focused dependency path;
-- topic browser.
+## Papers
 
-`Focus` is no longer a standalone top-level destination.
-
-It is a contextual tool.
-
-## Library
-
-Contains:
-
-- Papers
-- Supporting resources
-- Frontier
-
-Global paper browsing should therefore no longer require entering a topic first.
+The complete primary-source library as a first-class destination, with supporting resources and the frontier watchlist
+as sibling collections. Global paper browsing never requires entering a topic first, and is described in Section 11a.
 
 ## Workspace
 
-Contains:
+The personal record: progress, reading, notes, artifacts, personal additions, hidden canonical items, personal route
+order, raised proposals and portability.
 
-- My notes
-- My artifacts
-- My custom sessions/material
-- My disabled items
-- My learning paths
-- Import/export/sync
-- Published/proposed changes
+## Relationship map
+
+One surface, two layers over the same reviewed relationships, described in Section 24.
 
 ## Reference
 
-Pretty, readable rendering of:
+Pretty, readable rendering of documents 1 to 5, the curriculum map and table, typed relationships, the paper and
+supporting-material indexes, the frontier watchlist, topic source Markdown, the audit, and the architecture and
+governance documentation. Every rendered source document has stable section anchors, useful navigation and a link back
+into the workspace.
 
-- documents 1–5;
-- curriculum map;
-- curriculum table;
-- paper index;
-- supporting-material index;
-- frontier watchlist;
-- topic source Markdown;
-- architecture/product documentation.
+## Addressing
 
-Every rendered source document should have stable section anchors and useful navigation.
+Every view is a shareable deep link. Routing is hash-based (`#/papers/P104`, `#/topics/L6`, `#/sessions/SES-…`,
+`#/map?layer=papers&focus=P104`, `#/compare`, `#/place`, `#/workspace?tab=…`), so links survive a reload on any static
+host and browser history works without server rewrites. Filter, sort and presentation state belongs in the address; personal state never does.
+Historical `?view=` links are migrated on load.
 
 ---
 
 # 10. Topic workspace
 
-A topic page contains:
+A topic page presents everything in one scrollable surface with a sticky section index. Content is never hidden behind
+tabs: a learner deciding whether to enter a topic must be able to see its sessions and its papers without guessing
+which tab holds them.
 
-- Summary
-- Learning path
-- Sessions
-- Papers
-- Resources
-- Connections
-- Notes
-- Revision history
+Sections, in order:
 
-The topic header shows separately:
+- Overview — scope, deliberate exclusions, target competence, the Required Core boundary, assumed prior knowledge.
+- Sessions — the canonical timeline. Optional and frontier sessions are collapsed beneath it and can be activated into the personal route.
+- Papers — the curated lineage in teaching order, stating plainly how many are studied inside Required Core sessions.
+- Resources — supporting material and any frontier record touching the topic.
+- Connections — the four relationship types, incoming and outgoing, each with its rationale and its reviewed evidence.
+- My notes.
+- Revision history.
+
+A persistent side rail carries progress and action:
 
 ```text
 Required Core       7 / 8
 Continuation        1 / 3
-My competence       Validated / In progress / —
+Sprint covered      2
 ```
 
-It also shows:
+together with the current profile's estimated remaining effort, the Continue or Start action, "Plan the fastest route
+here", the readiness breakdown, and the personal overlay actions.
 
-- current learning profile;
-- estimated remaining effort;
-- prerequisites;
-- downstream topics;
-- "Continue" action;
-- "Plan fastest route here";
-- canonical source link.
+Readiness distinguishes the two hard-prerequisite scopes explicitly, because they mean different things to a learner:
+
+- **Topic-entry gates** block the whole topic;
+- **session-scoped gates** hold back only the sessions that name them.
+
+When a topic is gated, one banner above the timeline explains it. Individual rows are not each labelled "blocked".
 
 ---
 
@@ -531,11 +548,15 @@ Primary papers and supporting resources.
 Each source shows:
 
 - why it is assigned;
-- role;
+- role, technical level and preparation burden;
 - required sections when available;
-- expected preparation burden;
 - authoritative link;
-- code/project link when available.
+- code/project link when available;
+- the learner's reading state for that source;
+- a route to the paper's own workspace, described in Section 11a.
+
+When a session assigns more than one paper, it offers a direct comparison of them, because reconstruction and
+lineage-integration sessions exist precisely to compare sources.
 
 ### Learning profile
 
@@ -551,14 +572,17 @@ Changing the profile updates:
 
 ### AI assistance
 
-Actions such as:
+One prompt builder rather than a wall of pre-rendered prompts. The learner selects an intent:
 
-- Explain prerequisites
-- Walk me through this paper
-- Give me the accelerated version
+- Repair my prerequisites
+- Walk me through the source
+- Give me the fast version
 - Quiz my readiness
 - Check my understanding
 - Help me reconstruct the method
+
+The generated prompt is shown in full before it is copied, so the learner can see exactly what the model is being told
+about them and about the source.
 
 ### Notes
 
@@ -585,6 +609,80 @@ The interface explicitly records how the session was handled:
 - Sprint-covered;
 - skipped;
 - still in progress.
+
+---
+
+# 11a. Paper workspace
+
+Papers are a first-class research object and a central workflow, not passive references beneath lessons. Roughly half
+of the canonical sessions exist to study one specific paper, so an interface that reaches a paper only through a
+session inverts the real object model.
+
+## Library
+
+The library is reachable directly from primary navigation and lists every active primary paper without entering a
+topic first. It supports:
+
+- faceted narrowing by curriculum role, technical level, preparation burden, area, topic, personal reading state, and relevance to the learner's own route;
+- explicit filters for Required Core use, criticality, availability of official code, starred, annotated and hidden;
+- free-text search across title, authors, venue, contribution and lineage;
+- sorting by curriculum order, year, title, preparation burden and role;
+- paging rather than an unbounded list;
+- a zero-result state that names the way back.
+
+Facet and sort state is in the address, so a filtered library view is shareable. Every row states the paper's identity,
+authors, year, venue, owning topic, role, level, preparation burden, whether Required Core uses it, and how it relates
+to what the learner is doing now.
+
+Supporting resources and frontier records are sibling collections of the same destination.
+
+## Paper page
+
+Every paper has its own addressable workspace answering, in order:
+
+- **Why it is in the curriculum** — its contribution and what its curriculum role means.
+- **How to read it** — the assigned sections, technical level, preparation burden, authoritative version, project or code, and generated paper-level AI prompts.
+- **Read first** — the topics and earlier papers the curriculum assumes, each with the reason.
+- **Read after** — what it opens up.
+- **Lineage** — the topic's curated paper sequence with this paper's position, plus the canonical lineage note verbatim.
+- **Evidence and limitations** — the recorded limitation, quality and influence signals, and metadata confidence.
+- **Where it is used** — every session that assigns it, with classification and what it is studied alongside.
+- **Closely related papers** — with one action to compare them.
+- **My notes.**
+- **Provenance** — a link into the exact canonical record and a route to propose a correction.
+
+## Lineage honesty
+
+The per-topic paper sequence taken from the canonical session timeline is authoritative and is presented as such. The
+free-text lineage note is displayed unchanged; references resolved out of it by name matching are presented as
+inferred, and a direction that cannot be established from the canonical text is never asserted.
+
+## Comparison
+
+Two to four papers can be compared side by side on the dimensions the curriculum actually judges: topic, role, year and
+venue, authors, level, preparation burden, assigned reading, contribution, lineage, limitation, evidence signals,
+metadata confidence, the sessions that use them, Required Core use, and the learner's own reading state and note. The
+comparison is addressable and therefore shareable.
+
+## Reading state
+
+A paper carries a personal reading state — to read, reading, skimmed, read — and a star. Reading state is a personal
+overlay record: it never contributes to Required Core completion, competence validation or Sprint coverage.
+
+## Placing a paper found elsewhere
+
+The learner must be able to arrive with a paper and ask where it fits. Given a link, an arXiv identifier, a DOI or a
+title, the product either identifies the canonical record and states its exact placement, or reports that nothing
+canonical matches and ranks the topics it most plausibly belongs to by overlap with their stated scope and existing
+sources — labelled as term overlap, not curatorial judgement. Both outcomes end in an action: add it to the personal
+overlay, or raise a canonical proposal.
+
+## Paper management under the overlay model
+
+Canonical papers may be annotated, marked, starred, hidden from a personal route and restored. They are never deleted.
+Learners may add their own papers, alternatives and replacements, and may edit, move, disable, re-enable and delete
+those additions. Every canonical paper offers a proposal route for an addition, a replacement, a metadata correction, a
+retirement or a change of placement.
 
 ---
 
@@ -626,7 +724,12 @@ The prompt instructs the model to:
 
 > Get me to operational understanding of this session as quickly as possible. Read/reference the linked sources yourself, explain the minimum prerequisite chain and the paper's core method, evidence and limitations, then tell me which figures/sections I absolutely should inspect myself and quiz me before I continue.
 
-These prompts should be generated from each session rather than manually duplicated across 400 sessions.
+These prompts are generated from each session rather than manually duplicated across 400 sessions. The same contract
+applies to paper-level prompts generated from a paper's canonical metadata, its curriculum placement and the learner's
+profile.
+
+The learner can always inspect the full generated prompt before using it. Nothing is sent anywhere by the product: the
+prompt is copied into whichever assistant the learner already uses.
 
 ---
 
@@ -636,18 +739,46 @@ Canonical content is rendered as **Base curriculum**.
 
 The user's modifications form **My overlay**.
 
-For a canonical session/reference/topic, allowed personal actions include:
+## 13.1 The personal plan
+
+The plan is the overlay's primary object. It is an ordered list of intent.
+
+A plan item is either a reference to a canonical entity — a paper, a session, a topic or a supporting resource — or an
+item the learner wrote themselves, which need not correspond to anything in the curriculum.
+
+Rules:
+
+- **Adding is always explicit.** The curriculum proposes; the learner adds. Nothing is auto-planned.
+- **Adding is always one act.** Every canonical object carries an add control wherever it is shown: a paper row, a
+  paper page, a session, a topic, a filtered library in bulk, a target route in bulk, the search box, and the map.
+- **Order belongs to the learner.** Items move freely. A plan order that violates a hard prerequisite is not prevented,
+  because the plan is not a claim about the curriculum; the session itself still states its readiness honestly.
+- **Completion is not duplicated.** A canonical plan item is finished when its own canonical record says so. Only
+  learner-written items carry their own done flag.
+- **Removal is free.** Removing a plan item removes intent, never a record: notes, reading state and progress survive.
+
+The plan travels in the Workspace Bundle like every other personal record.
+
+## 13.2 Actions on canonical and personal material
+
+For a canonical session, reference, paper or topic, allowed personal actions include:
+
+- Add to my plan
+- Remove from my plan
 
 - Add note
 - Add attachment
 - Add alternative reference
+- Set a reading state and star a paper
 - Disable in my path
 - Re-enable
 - Mark skipped
 - Validate competence
+- Record Sprint coverage
 - Move within my custom plan
+- Propose a canonical change for review
 
-Canonical deletion is unavailable.
+Canonical deletion is unavailable, and no interface offers it.
 
 For user-created material:
 
@@ -656,6 +787,8 @@ For user-created material:
 - Disable
 - Re-enable
 - Delete
+
+A raised proposal is a personal record until the learner exports it. Withdrawing one changes nothing canonical.
 
 Disabled canonical items remain accessible through:
 
@@ -775,7 +908,14 @@ Changes are classified.
 
 Affects only the user's overlay.
 
-No GitHub review required.
+No GitHub review required. Reading state, notes, stars, hidden items, personal additions and personal route order are
+all personal changes.
+
+### Raised proposal
+
+A request for review recorded in the personal workspace. It is classified when raised — addition, replacement,
+metadata correction, retirement, changed placement, or other — carries a mandatory justification, and changes nothing
+until it is exported and reviewed through a pull request.
 
 ### Club execution artifact
 
@@ -1071,6 +1211,38 @@ Automated browser tests and targeted visual checks cover:
 - authentication failure, if an authenticated bridge is introduced;
 - GitHub proposal failure, if an authenticated bridge is introduced.
 
+The plan is validated as its own journey:
+
+- adding something the curriculum has never heard of;
+- adding a canonical paper, a whole topic's papers in bulk, and a target route in bulk, without duplicates;
+- reordering, annotating and removing items;
+- a canonical item being ticked off by its own record rather than a second one;
+- the curriculum's suggestions never entering the plan unasked.
+
+The relationship map is validated on both layers: every node keyboard-reachable, a click focusing rather than
+navigating, a double click opening, the focus surviving in the address and across the re-render, and the panel naming
+each relationship and holding the real link.
+
+Long side rails — the paper filters above all — are validated to scroll on their own without dragging the page.
+
+The paper workflow is validated as its own journey:
+
+- browsing, faceting, sorting and paging the whole library;
+- identifying a paper from a link, an arXiv identifier or a title;
+- placing a paper the curriculum does not contain;
+- reading a paper page end to end and reaching its prerequisites, its lineage neighbours and its sessions;
+- comparing two to four papers;
+- setting reading state, starring, annotating, hiding and restoring;
+- adding a personal paper and proposing a canonical replacement.
+
+Accessibility is validated mechanically rather than asserted. Every route is audited, in both colour schemes and at
+desktop and mobile widths, for a single `h1` per view, unbroken heading order, an accessible name on every interactive
+control, a minimum touch-target height, no duplicate identifiers, labelled or hidden graphics, and computed WCAG AA
+contrast against the actually rendered background. Horizontal overflow is checked from 320 px to 1440 px.
+
+Every test context also asserts that the application produced no page error, no failed request and no third-party
+request.
+
 No view may become blank, unreasonably zoomed, clipped or unrecoverable after valid navigation.
 
 ---
@@ -1088,7 +1260,9 @@ Priorities:
 5. explainable state;
 6. dense information without tiny typography.
 
-Normal explanatory text should not use miniature ~12 px sizing as the current viewer often does.
+Explanatory text is 16 px with a 1.55 line height; supporting text is 14 px. Twelve-pixel type is reserved for chips
+and field labels and is never used for prose. Interactive controls carry a visible focus ring, and no colour alone
+carries meaning.
 
 Graphs are used when relationships matter.
 
@@ -1098,7 +1272,34 @@ Timelines are used when sequence matters.
 
 Cards/lists are used when decisions and actions matter.
 
-The UI should not use the graph merely because graph data exists.
+The UI does not use the graph merely because graph data exists. The relationship map is deterministic SVG drawn from
+the reviewed layout coordinates — identical for every learner, stable across releases, keyboard-operable, and free of
+any graph-rendering dependency. The matrix view carries the same information as text for anyone who would rather read
+it.
+
+The map has two layers:
+
+- **Topics.** The 37 topics in their area columns. It defaults to the 56 topic-entry gates rather than all 187 hard
+  prerequisites, because that is the structure that actually blocks a learner.
+- **Papers.** Each topic's curated paper lineage as a column, read top to bottom, with the lineage chain drawn solid
+  and cross-lineage references inferred from lineage notes drawn dashed and labelled as inferred. Scoped to one area,
+  or to the lineages around one paper, because 192 nodes at once would be a decoration rather than a tool.
+
+Interaction is the same on both layers, and separates looking from leaving:
+
+- a single click, or Enter, **focuses** a node: it and its relationships are highlighted, everything else is dimmed,
+  and a panel names every relationship with its type and offers the real link;
+- a double click, or the panel's link, **opens** the entity's page;
+- the focused node is part of the address, so a focused map is shareable;
+- every node is reachable with Tab, keeps its keyboard focus across the re-render, and carries a full text label.
+
+Nodes are sized for reading, not for fitting everything on one screen. A map that has to be squinted at is a diagram
+nobody uses; horizontal scrolling is the acceptable cost.
+
+Vocabulary is the learner's, not the contract's. The interface says "hidden from my path" rather than "disabled
+entity", "my additions" rather than "custom items", "read first" rather than "prerequisite closure". Terms of art that
+carry real distinctions — Required Core, validated competence, Sprint coverage, topic-entry gate — are used precisely
+and explained where they first appear.
 
 ---
 
@@ -1120,13 +1321,14 @@ Each document should support:
 
 For canonical material, normal users see:
 
-> Add note
+> Add a note
 >
-> Disable in my path
+> Hide from my path
 >
-> Suggest change
+> Propose a canonical change
 
-rather than a destructive generic Edit/Delete interface.
+rather than a destructive generic Edit/Delete interface. No surface offers deletion of a canonical entity, and hiding
+always states where the item can be recovered.
 
 ---
 
@@ -1222,11 +1424,39 @@ The project is complete when a new technically competent club member can open th
 - publish selected work safely back to the club;
 - trust that curriculum changes are reviewed, traceable and continuously maintained.
 
+Because the curriculum is a reference rather than a track, the same member must also be able to:
+
+- keep an ordered plan of what they intend to do next, in their own order;
+- put anything into it in one act — a canonical paper, session or topic, a whole topic's papers, a target route, or
+  something the curriculum has never heard of;
+- see what the curriculum would suggest, with reasons, and decline it;
+- have a canonical plan item tick itself off from the record that already exists for it;
+- reorder, annotate, remove and finish plan items without touching canonical data.
+
+Because papers are the central research object, the same member must also be able to, without entering a session:
+
+- browse, search and filter every primary source, and see why each one matters;
+- see a paper's role, prerequisites, lineage position, contribution, limitations, evidence indicators, authoritative
+  and code links, assigned sections, and every session that uses it;
+- learn what to read before it and what it opens up;
+- compare papers side by side;
+- track reading state and keep paper-specific notes;
+- move naturally between a paper, its prerequisites, its lineage neighbours, its topic and its sessions, and back;
+- arrive with a paper found elsewhere and discover where it fits, or where it would fit;
+- annotate, mark, hide and restore canonical papers without ever deleting one;
+- add, edit, move, disable, re-enable and delete their own papers;
+- propose a canonical addition, replacement, metadata correction, retirement or change of placement through the safe
+  review workflow;
+- read the relationship map at the level they care about — topics and their gates, or paper lineages side by side —
+  focusing a node to understand it and opening it only when they mean to.
+
 At the same time, a maintainer must be able to rely on the repository as a durable, reproducible, reviewed research curriculum rather than a mutable application database.
 
 ---
 
 # 31. Implementation decision and evidence
+
+## 31.1 First implementation, 27 August 2026
 
 The contract implementation was completed on 27 August 2026. Protected `main` review and successful GitHub Pages validation remain the publication boundary.
 
@@ -1252,3 +1482,92 @@ Validation evidence:
 - `mkdocs build --strict` succeeds;
 - the browser journey suite passes across learner recommendations, distinct completion semantics, source/profile/prompt contracts, note/artifact aggregation, disabled-item recovery, valid and overridden ordering, repository patch validation, revision awareness, persistence, migration, adversarial bundle import, offline use, responsive layouts, dark mode, reduced motion, and the no-third-party-request boundary;
 - `git diff --check` succeeds.
+
+## 31.2 Interface redesign, 30 August 2026
+
+A usability review of the first implementation found that the product was a page inside a documentation site rather
+than a product: two competing global navigations, two search fields, a documentation page title and pager wrapped
+around the application, a content column it could not escape, and a sticky header that collided with the documentation
+tabs. Papers, which are the object roughly half the curriculum is built from, had no page of their own and existed only
+as cards in a thirty-thousand-pixel grid with no facets, no sort, no reading state and no comparison. The learner-facing
+surfaces were redesigned rather than patched.
+
+Decisions taken, and why:
+
+- **The product owns the site root.** The workspace is a standalone shell rendered from `overrides/app.html`; MkDocs
+  Material continues to render the reviewed documents at their own paths and is reached through Reference. There is now
+  one navigation, one search, and no documentation chrome around the application. Document URLs did not change.
+- **Papers became a first-class destination** with a faceted library, an addressable page per paper, comparison, reading
+  state, per-paper notes, lineage navigation, and a "where does this fit" entry point. Section 11a records the contract
+  this created.
+- **Routing became hash-based.** Every view — including a filtered library, a comparison and a workspace tab — is a
+  shareable deep link that survives reload on any static host, with working browser history and no server rewrites.
+  Historical `?view=` links are migrated on load.
+- **Relationship scope was being read incorrectly.** The projection distinguishes `topic_entry` from `target_sessions`,
+  and the first implementation treated the two identically. Topic-entry gates now block a topic; session-scoped gates
+  hold back only the sessions that name them. The interface states which is which.
+- **Cytoscape was removed.** The relationship map is deterministic SVG drawn from the reviewed layout coordinates in the
+  projection: 432 KB less vendored code, a keyboard-operable map, and a default view of the 56 blocking topic-entry
+  gates instead of an unreadable 187-edge hairball. The application now vendors nothing at all.
+- **Derived paper metadata is presented without overclaiming.** `role_level_preparation` is parsed into role,
+  criticality, level, preparation burden and reading assignment while the raw string stays visible; references resolved
+  out of free-text lineage notes are labelled inferred; and a lineage direction that cannot be established from
+  canonical text is not asserted. The authoritative lineage shown to learners is the topic's own curated paper
+  sequence.
+- **The marketing hero was replaced by a decision surface.** Home leads with one explained next move, and a first visit
+  gets a short dismissible orientation band instead of a permanent banner.
+- **The six pre-rendered AI prompt cards became one prompt builder** whose full text is inspectable before copying.
+- **Interface vocabulary was rewritten in the learner's language** while keeping the precise terms that carry real
+  distinctions.
+
+Validation evidence for this round:
+
+- the complete Python semantic suite passes, including the framework hashes, inventories, identity locks, completion
+  partitions, projection agreement and hard-gate coverage, plus a new assertion that the application vendors no
+  unreviewed dependency;
+- `tests/browser_journeys.js` passes sixteen end-to-end learner journeys covering first visit and explainable
+  recommendation, session execution with five distinct completion states, the complete paper workflow, placing a paper
+  found elsewhere, non-destructive canonical data beside fully editable personal data, personal ordering with
+  prerequisite violations and explicit overrides, credential-free publication, portability with revision migration and
+  adversarial bundles, navigation and error states, target planning, notes and artifacts and resuming, responsive
+  layouts, accessibility, keyboard operation with reduced motion, degraded environments, and the reference surface;
+- the built-in accessibility audit reports zero findings across fourteen routes in light and dark at 1440 px and
+  390 px, and no route overflows horizontally between 320 px and 1440 px;
+- every test context observed no page error, no failed request and no third-party request;
+- `mkdocs build --strict` succeeds and `git diff --check` is clean.
+
+## 31.3 Plan-led reorientation, 30 August 2026
+
+A second review made a product-direction correction rather than a design one. The interface still treated the
+canonical curriculum as the thing a learner follows: the landing surface was the curriculum's recommendation, and a
+learner's own intentions had nowhere to live. In practice most members read the curriculum the way one reads a good
+bibliography — to decide what to read next — and then keep that decision somewhere else.
+
+Decisions taken, and why:
+
+- **Principle 3.7 was added:** the curriculum is a reference, not a track. This is a product invariant, not an
+  interface preference, and it is what the rest of this round follows from.
+- **The personal plan became the landing surface and the first navigation item.** It is an ordered list of the
+  learner's own intent that may reference canonical material or contain none at all. The curriculum's recommendation
+  was demoted to a clearly-labelled suggestion with an explicit "add to my plan".
+- **Adding is one act from everywhere** — a paper row, a paper page, a session, a topic, a filtered library in bulk, a
+  target route in bulk, the quick-add box and the map — because a plan nobody can fill is not a plan.
+- **Completion is never duplicated.** A canonical plan item is ticked off by the record that already exists for it, so
+  the five completion states in Section 6 keep their exact meanings and the plan adds no sixth.
+- **The relationship map gained a paper layer** and moved to its own address. Each topic's curated lineage is a column;
+  the chain is solid, and references inferred from lineage notes are dashed and labelled as inferred.
+- **Map interaction now separates looking from leaving.** A click focuses and explains; a double click opens. Nodes
+  were enlarged to be read rather than squinted at, and the focused node lives in the address.
+- **Side rails scroll independently.** The paper filter rail was only reachable by scrolling the whole results list —
+  the single most irritating defect in the previous round.
+
+Validation evidence for this round:
+
+- the Python semantic suite, `python -m tools.maintenance --validate`, `mkdocs build --strict` and `git diff --check`
+  all pass, and the generated projection is byte-identical: no canonical data was touched;
+- `tests/browser_journeys.js` grew to nineteen journeys, adding one for the plan (free-text items, bulk adds without
+  duplicates, reordering, annotation, removal, canonical completion not duplicated), one for both map layers and their
+  interaction and keyboard behaviour, and one asserting that a side rail scrolls without moving the page;
+- the built-in accessibility audit reports zero findings across seventeen routes in light and dark at 1440 px and
+  390 px, and no route overflows horizontally between 320 px and 1440 px;
+- every test context observed no page error, no failed request and no third-party request.

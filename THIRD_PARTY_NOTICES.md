@@ -1,13 +1,7 @@
 # Third-party notices
 
-## Cytoscape.js
-
-The interactive curriculum explorer vendors **Cytoscape.js 3.33.1** under the MIT License.
-
-- Project: <https://js.cytoscape.org/>
-- Source: <https://github.com/cytoscape/cytoscape.js>
-- Vendored file: `viewer/assets/vendor/cytoscape-3.33.1.esm.min.js`
-- License: `viewer/assets/vendor/CYTOSCAPE_LICENSE.txt`
+The learner application itself has no runtime dependency. It is hand-written ES modules and one stylesheet;
+the relationship map is plain SVG drawn from the reviewed layout coordinates, so no graph library is vendored.
 
 ## MathJax
 
