@@ -98,7 +98,10 @@ Keep the static security boundary:
 
 ## Validation
 
-Every pull request should pass:
+`main` is not branch-protected: maintainers push to it directly and CI validates every push, deploying only a green
+build. That makes running these locally before you push the actual gate, not a formality.
+
+Every change should pass:
 
 ```bash
 python -m unittest discover -s tests -v
@@ -124,12 +127,13 @@ Adjust `CHROME_PATH` if Chrome or Chromium is installed elsewhere.
 
 `tests/browser_journeys.js` is a product contract, not a smoke test. It walks whole learner journeys and includes a
 built-in accessibility audit — landmarks, heading order, accessible names, tap-target size and computed WCAG AA
-contrast — across fourteen routes in light and dark at desktop and mobile widths, plus a horizontal-overflow check from
-320 px to 1440 px. Update an assertion only when a reviewed behaviour or inventory change justifies it.
+contrast — across seventeen routes in light and dark at desktop and mobile widths, plus a horizontal-overflow check
+from 320 px to 1440 px. It is run against the site served from a subdirectory, because that is the shape GitHub Pages
+serves. Update an assertion only when a reviewed behaviour or inventory change justifies it.
 
-## Pull requests
+## Describing a change
 
-Keep a pull request focused and explain:
+Whether you push to `main` or open a pull request, keep the change focused and explain:
 
 - what changed;
 - why the existing record or behavior was insufficient;

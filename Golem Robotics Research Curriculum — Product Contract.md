@@ -1,6 +1,6 @@
 # Golem Robotics Research Curriculum — Product Contract
 
-**Status:** Implemented; protected `main` review and GitHub Pages publication remain the release boundary
+**Status:** Implemented; a green CI build and GitHub Pages publication are the release boundary
 
 **Purpose:** Ground-truth product specification
 
@@ -889,14 +889,24 @@ It never writes directly to `main`.
 
 This path is optional and intentionally deferred. It must not be represented as available until its trusted service, failure handling, and security review exist.
 
-Before this capability is enabled, `main` must be protected with repository rules requiring:
+`main` is not branch-protected. Maintainers push to it directly; CI validates every push and only a green build is
+deployed. This is a deliberate choice for a small club repository where the maintainers are the reviewers, and it is
+what makes the contributor loop fast enough to be used.
+
+That choice belongs to the maintainers and not to the product. **If the authenticated publishing bridge is ever
+enabled, protection becomes mandatory before it goes live**, with repository rules requiring:
 
 - pull request;
 - successful validation/build checks;
 - no force pushes;
 - appropriate human review.
 
-Changes to framework documents 1–5 require stricter approval than ordinary notes or curriculum metadata.
+The reason is narrow and specific: a credential-free patch download cannot write to the repository at all, so a
+maintainer's own judgement is the only gate needed. A service that can open branches on a member's behalf is a
+different risk, and a human gate must exist before it does.
+
+Changes to framework documents 1–5 require stricter approval than ordinary notes or curriculum metadata, whatever the
+branch rules say.
 
 ---
 
@@ -1399,7 +1409,7 @@ The implementation agent should begin with correctness, not visual polish.
 12. Implement maintenance automation.
 13. Perform exhaustive browser/accessibility/visual validation.
 14. Update documentation and record the framework-amendment decision while preserving documents 1–5.
-15. Protect `main`, require CI and human review.
+15. Require CI to pass on every push to `main`.
 16. Deploy only after all contract acceptance tests pass.
 
 ---
@@ -1458,7 +1468,7 @@ At the same time, a maintainer must be able to rely on the repository as a durab
 
 ## 31.1 First implementation, 27 August 2026
 
-The contract implementation was completed on 27 August 2026. Protected `main` review and successful GitHub Pages validation remain the publication boundary.
+The contract implementation was completed on 27 August 2026. A successful CI build and GitHub Pages validation are the publication boundary.
 
 Key decisions:
 
@@ -1571,3 +1581,15 @@ Validation evidence for this round:
 - the built-in accessibility audit reports zero findings across seventeen routes in light and dark at 1440 px and
   390 px, and no route overflows horizontally between 320 px and 1440 px;
 - every test context observed no page error, no failed request and no third-party request.
+
+## 31.4 Branch protection removed, 30 August 2026
+
+`main` was branch-protected with a required pull request, a required `build` check and a required approving review.
+For a repository whose maintainers are also its only reviewers, that gate produced pull requests that nobody else
+could approve, so ordinary maintenance stalled behind a review that was never going to arrive.
+
+Protection was removed. Maintainers push to `main` directly and CI validates every push; only a green build is
+deployed to GitHub Pages, so a broken build never reaches a learner. Section 17 now records protection as a
+precondition of the authenticated publishing bridge specifically, rather than as a standing repository rule, because
+that is the only place where the risk actually requires a human gate: the deployed credential-free path cannot write
+to the repository at all.

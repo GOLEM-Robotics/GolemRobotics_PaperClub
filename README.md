@@ -43,7 +43,7 @@ Open <http://127.0.0.1:8000>; the workspace is at the site root and the reviewed
 
 The expected project URL is `https://<owner>.github.io/<repository>/`. Everything is served from relative paths and routed through the URL hash, so the same build works at a domain root, at a project subpath, or from any other static host without configuration. CI proves this by running the journey suite against the site served from a subdirectory rather than the server root.
 
-Pull requests validate without deploying; successful `main` builds deploy the static site. Hosting never synchronizes learner workspaces.
+`main` is not branch-protected: maintainers push to it directly. Every push and pull request is validated, and only a green `main` build is deployed, so a broken build never reaches a learner. Hosting never synchronizes learner workspaces.
 
 ## Repository structure
 
