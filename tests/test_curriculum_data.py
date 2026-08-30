@@ -82,11 +82,14 @@ class CurriculumDataTests(unittest.TestCase):
 
     def test_vendored_runtime_assets_match_reviewed_hashes(self) -> None:
         expected = {
-            "viewer/assets/vendor/cytoscape-3.33.1.esm.min.js": "38944c926eef34939819338782c1f5a9000e0f4c92208d73d6eb1c5b57cb2695",
-            "viewer/assets/vendor/CYTOSCAPE_LICENSE.txt": "2da8d07810e844d47bb58cc9a79c3708156058f857e431db758afa879c3190dd",
             "viewer/assets/vendor/mathjax-3.2.2-tex-svg.min.js": "d4295dc33744836935c1399feece5159577b34c5c8ffb9f1c6324cd82e03a882",
             "viewer/assets/vendor/MATHJAX_LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
         }
+        self.assertEqual(
+            sorted(path.name for path in (REPO_ROOT / "viewer/assets/vendor").iterdir()),
+            ["MATHJAX_LICENSE.txt", "mathjax-3.2.2-tex-svg.min.js"],
+            "the learner application must not gain an unreviewed vendored dependency",
+        )
         actual = {
             filename: hashlib.sha256((REPO_ROOT / filename).read_bytes()).hexdigest()
             for filename in expected

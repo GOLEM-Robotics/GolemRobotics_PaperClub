@@ -14,6 +14,7 @@ hooks:
 
 theme:
   name: material
+  custom_dir: overrides
   language: en
   icon:
     logo: material/robot-industrial
@@ -84,11 +85,8 @@ markdown_extensions:
 
 extra_css:
   - assets/stylesheets/documentation.css
-  - assets/stylesheets/curriculum_explorer.css
 
 extra_javascript:
-  - assets/javascripts/workspace_store.js
-  - assets/javascripts/curriculum_explorer.js
   - assets/javascripts/mathjax.js
   - assets/vendor/mathjax-3.2.2-tex-svg.min.js
 
@@ -100,7 +98,7 @@ extra:
 
 copyright: Golem Robotics Paper Club
 nav:
-  - Explorer: index.md
+  - "← Learning workspace": index.md
   - Club framework:
       - Operating principles: 1_operating_principles.md
       - Curriculum goal: 2_research_curriculum_goal.md

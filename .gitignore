@@ -9,3 +9,4 @@ __pycache__/
 maintenance-report.json
 maintenance-report.md
 golem-workspace-*.json
+.pages-check/

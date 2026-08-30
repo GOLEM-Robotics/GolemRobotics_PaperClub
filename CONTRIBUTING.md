@@ -70,7 +70,22 @@ Commit the regenerated `viewer/assets/data/curriculum_graph.json` with its Markd
 
 ## Application changes
 
-Application source belongs in `viewer/`; deterministic data and maintenance logic belongs in `tools/`; MkDocs integration belongs in `hooks/`.
+Application source belongs in `viewer/assets/app/` (ES modules: `model.js` derives the learner-facing model, `engine.js`
+holds readiness and recommendation logic, `store.js` owns the personal overlay, `views/` renders, `main.js` routes and
+binds actions), styling in `viewer/assets/styles/app.css`, the shell in `overrides/app.html`; deterministic data and
+maintenance logic belongs in `tools/`; MkDocs integration belongs in `hooks/`.
+
+There is no build step and no framework. Keep it that way: the application must stay directly readable in the
+repository and directly servable from any static host.
+
+Three rules keep the interface honest:
+
+- **Nothing derived may masquerade as canonical.** `model.js` parses semi-structured canonical fields for display, but
+  the raw value stays visible and inferred links are labelled as inferred.
+- **Every recommendation carries its reasons.** A priority score without an explanation is a contract violation.
+- **The curriculum suggests; the learner decides.** Nothing enters a learner's plan without an explicit act, and the
+  plan never becomes a second record of progress — a canonical plan item is resolved against the record that already
+  exists for it.
 
 Keep the static security boundary:
 
@@ -92,7 +107,7 @@ mkdocs build --strict
 git diff --check
 ```
 
-For viewer or workspace changes, also run:
+For any application change, also run the learner-journey suite:
 
 ```bash
 npm ci
@@ -107,7 +122,10 @@ CHROME_PATH=/usr/bin/google-chrome BASE_URL=http://127.0.0.1:8001 npm run test:b
 
 Adjust `CHROME_PATH` if Chrome or Chromium is installed elsewhere.
 
-The browser suite is a product contract, not merely a smoke test. Update an assertion only when a reviewed behavior or inventory change justifies it.
+`tests/browser_journeys.js` is a product contract, not a smoke test. It walks whole learner journeys and includes a
+built-in accessibility audit — landmarks, heading order, accessible names, tap-target size and computed WCAG AA
+contrast — across fourteen routes in light and dark at desktop and mobile widths, plus a horizontal-overflow check from
+320 px to 1440 px. Update an assertion only when a reviewed behaviour or inventory change justifies it.
 
 ## Pull requests
 
