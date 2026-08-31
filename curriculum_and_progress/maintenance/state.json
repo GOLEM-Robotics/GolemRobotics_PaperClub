@@ -2,102 +2,99 @@
   "schema_version": 1,
   "cadence_days": 2,
   "rotation_window_days": 31,
-  "last_run": null,
+  "last_run": "2026-08-31T10:55:17+00:00",
   "last_exhaustive_audit": "2026-08-27",
   "last_deep_review": "2026-08-27",
   "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
   "cursors": {
-    "primary_paper": 0,
-    "supporting_resource": 0,
-    "frontier_record": 0
+    "primary_paper": 6,
+    "supporting_resource": 6,
+    "frontier_record": 6
   },
   "checks": {
     "primary_paper:P001": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://arxiv.org/abs/1709.06560",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1709.06560",
-          "https://github.com/Breakend/DeepReinforcementLearningThatMatters"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1709.06560",
+        "content_type": "text/html",
+        "page_title": "[1709.06560] Deep Reinforcement Learning that Matters",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P002": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://arxiv.org/abs/2005.12729",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2005.12729",
-          "https://github.com/implementation-matters/code-for-paper"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2005.12729",
+        "content_type": "text/html",
+        "page_title": "[2005.12729] Implementation Matters in Deep Policy Gradients: A Case Study on PPO and TRPO",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P003": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://arxiv.org/abs/2108.13264",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2108.13264",
-          "https://github.com/google-research/rliable"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2108.13264",
+        "content_type": "text/html",
+        "page_title": "[2108.13264] Deep Reinforcement Learning at the Edge of the Statistical Precipice",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P004": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://www.jmlr.org/papers/v22/20-303.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://www.jmlr.org/papers/v22/20-303.html"
-        ]
+        "status": 206,
+        "effective_url": "https://www.jmlr.org/papers/v22/20-303.html",
+        "content_type": "text/html",
+        "page_title": "Improving Reproducibility in Machine Learning Research(A Report from the NeurIPS 2019 Reproducibility Program)",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P005": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://doi.org/10.1214/aoms/1177729586",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://doi.org/10.1214/aoms/1177729586"
-        ]
+        "status": 200,
+        "effective_url": "https://projecteuclid.org/euclid.aoms/1177729586",
+        "content_type": "text/html",
+        "page_title": null,
+        "error": null
       },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "not_observable",
+      "confidence": "medium",
+      "decision": "review_redirect"
     },
     "primary_paper:P006": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://arxiv.org/abs/1412.6980",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1412.6980"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1412.6980",
+        "content_type": "text/html",
+        "page_title": "[1412.6980] Adam: A Method for Stochastic Optimization",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P007": {
       "checked_at": "2026-08-27T00:00:00+00:00",
@@ -2877,93 +2874,88 @@
       "decision": "corrected_or_recorded_in_exhaustive_audit"
     },
     "supporting_resource:R001": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "http://incompleteideas.net/book/the-book-2nd.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "http://incompleteideas.net/book/the-book-2nd.html"
-        ]
+        "status": 206,
+        "effective_url": "http://incompleteideas.net/book/the-book-2nd.html",
+        "content_type": "text/html",
+        "page_title": "Sutton & Barto Book: Reinforcement Learning: An Introduction",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R002": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://sites.ualberta.ca/~szepesva/RLBook.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://sites.ualberta.ca/~szepesva/RLBook.html"
-        ]
+        "status": 206,
+        "effective_url": "https://sites.ualberta.ca/~szepesva/rlbook.html",
+        "content_type": "text/html",
+        "page_title": "Algorithms of Reinforcement Learning",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R003": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://spinningup.openai.com/",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://spinningup.openai.com/",
-          "https://github.com/openai/spinningup",
-          "https://spinningup.openai.com/en/latest/user/algorithms.html"
-        ]
+        "status": 200,
+        "effective_url": "https://spinningup.openai.com/en/latest/",
+        "content_type": "text/html",
+        "page_title": "Welcome to Spinning Up in Deep RL! — Spinning Up documentation",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R004": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://rail.eecs.berkeley.edu/deeprlcourse/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://rail.eecs.berkeley.edu/deeprlcourse/"
-        ]
+        "status": 0,
+        "effective_url": "https://rail.eecs.berkeley.edu/deeprlcourse/",
+        "content_type": null,
+        "page_title": null,
+        "error": "URLError: <urlopen error timed out>"
       },
-      "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "not_observable",
+      "confidence": "low",
+      "decision": "retry"
     },
     "supporting_resource:R005": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://modernrobotics.northwestern.edu/",
+      "checked_at": "2026-08-31T10:55:17+00:00",
+      "source": "https://modernrobotics.org",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://modernrobotics.northwestern.edu/",
-          "https://modernrobotics.org",
-          "https://hades.mech.northwestern.edu/index.php/Modern_Robotics",
-          "https://robotics.northwestern.edu/research/publications/modern-robotics-mechanics%2C-planning%2C-and-control.html"
-        ]
+        "status": 200,
+        "effective_url": "https://hades.mech.northwestern.edu/index.php/Modern_Robotics",
+        "content_type": "text/html",
+        "page_title": "Modern Robotics - Northwestern Mechatronics Wiki",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "review_redirect"
     },
     "supporting_resource:R006": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://underactuated.csail.mit.edu/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://underactuated.csail.mit.edu/"
-        ]
+        "status": 206,
+        "effective_url": "https://underactuated.csail.mit.edu/",
+        "content_type": "text/html",
+        "page_title": "Underactuated Robotics",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R007": {
       "checked_at": "2026-08-27T00:00:00+00:00",
@@ -3459,88 +3451,88 @@
       "decision": "corrected_or_recorded_in_exhaustive_audit"
     },
     "frontier_record:W001": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://arxiv.org/abs/2603.14482",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2603.14482"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2603.14482",
+        "content_type": "text/html",
+        "page_title": "[2603.14482] V-JEPA 2.1: Unlocking Dense Features in Video Self-Supervised Learning",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W002": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://arxiv.org/abs/2602.15922",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2602.15922"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2602.15922",
+        "content_type": "text/html",
+        "page_title": "[2602.15922] World Action Models are Zero-shot Policies",
+        "error": null
       },
-      "identity_result": "needs_correction",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W003": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://arxiv.org/abs/2602.16710",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2602.16710"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2602.16710",
+        "content_type": "text/html",
+        "page_title": "[2602.16710] EgoScale: Scaling Dexterous Manipulation with Diverse Egocentric Human Data",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W004": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://arxiv.org/abs/2606.28276",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2606.28276"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2606.28276",
+        "content_type": "text/html",
+        "page_title": "[2606.28276] SimFoundry: Modular and Automated Scene Generation for Policy Learning and Evaluation",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W005": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://arxiv.org/abs/2607.00272",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2607.00272"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2607.00272",
+        "content_type": "text/html",
+        "page_title": "[2607.00272] ASPIRE: Agentic /Skills Discovery for Robotics",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W006": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://ai.google.dev/gemini-api/docs/robotics-overview",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://ai.google.dev/gemini-api/docs/robotics-overview"
-        ]
+        "status": 200,
+        "effective_url": "https://ai.google.dev/gemini-api/docs/robotics-overview",
+        "content_type": "text/html",
+        "page_title": "Gemini Robotics ER | Gemini API | Google AI for Developers",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W007": {
       "checked_at": "2026-08-27T00:00:00+00:00",
@@ -3627,5 +3619,15 @@
       "decision": "corrected_or_recorded_in_exhaustive_audit"
     }
   },
-  "history": []
+  "history": [
+    {
+      "run_at": "2026-08-31T10:55:17+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "redirect_review": 2
+      },
+      "proposal_required": true
+    }
+  ]
 }
