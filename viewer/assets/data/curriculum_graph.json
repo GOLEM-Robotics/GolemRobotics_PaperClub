@@ -10,7 +10,7 @@
     "frontier_verification": "27 August 2026",
     "next_frontier_review": "2026-10-22",
     "maintenance_state": "curriculum_and_progress/maintenance/state.json",
-    "last_maintenance_scan": null,
+    "last_maintenance_scan": "2026-09-01T09:26:47+00:00",
     "last_exhaustive_audit": "2026-08-27",
     "last_deep_review": "2026-08-27"
   },
