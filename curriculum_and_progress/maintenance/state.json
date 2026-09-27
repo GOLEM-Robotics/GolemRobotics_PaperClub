@@ -2,1345 +2,1275 @@
   "schema_version": 1,
   "cadence_days": 2,
   "rotation_window_days": 31,
-  "last_run": null,
+  "last_run": "2026-09-27T10:02:51+00:00",
   "last_exhaustive_audit": "2026-08-27",
   "last_deep_review": "2026-08-27",
   "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
   "cursors": {
-    "primary_paper": 0,
-    "supporting_resource": 0,
-    "frontier_record": 0
+    "primary_paper": 90,
+    "supporting_resource": 8,
+    "frontier_record": 6
   },
   "checks": {
     "primary_paper:P001": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://arxiv.org/abs/1709.06560",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1709.06560",
-          "https://github.com/Breakend/DeepReinforcementLearningThatMatters"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1709.06560",
+        "content_type": "text/html",
+        "page_title": "[1709.06560] Deep Reinforcement Learning that Matters",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P002": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://arxiv.org/abs/2005.12729",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2005.12729",
-          "https://github.com/implementation-matters/code-for-paper"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2005.12729",
+        "content_type": "text/html",
+        "page_title": "[2005.12729] Implementation Matters in Deep Policy Gradients: A Case Study on PPO and TRPO",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P003": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://arxiv.org/abs/2108.13264",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2108.13264",
-          "https://github.com/google-research/rliable"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2108.13264",
+        "content_type": "text/html",
+        "page_title": "[2108.13264] Deep Reinforcement Learning at the Edge of the Statistical Precipice",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P004": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://www.jmlr.org/papers/v22/20-303.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://www.jmlr.org/papers/v22/20-303.html"
-        ]
+        "status": 206,
+        "effective_url": "https://www.jmlr.org/papers/v22/20-303.html",
+        "content_type": "text/html",
+        "page_title": "Improving Reproducibility in Machine Learning Research(A Report from the NeurIPS 2019 Reproducibility Program)",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P005": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://doi.org/10.1214/aoms/1177729586",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://doi.org/10.1214/aoms/1177729586"
-        ]
+        "status": 200,
+        "effective_url": "https://projecteuclid.org/euclid.aoms/1177729586",
+        "content_type": "text/html",
+        "page_title": null,
+        "error": null
       },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "not_observable",
+      "confidence": "medium",
+      "decision": "review_redirect"
     },
     "primary_paper:P006": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-08-31T10:55:17+00:00",
       "source": "https://arxiv.org/abs/1412.6980",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1412.6980"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1412.6980",
+        "content_type": "text/html",
+        "page_title": "[1412.6980] Adam: A Method for Stochastic Optimization",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P007": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-01T09:26:47+00:00",
       "source": "https://arxiv.org/abs/1711.05101",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1711.05101",
-          "https://github.com/loshchil/AdamW-and-SGDW"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1711.05101",
+        "content_type": "text/html",
+        "page_title": "[1711.05101] Decoupled Weight Decay Regularization",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P008": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-01T09:26:47+00:00",
       "source": "https://proceedings.mlr.press/v37/ioffe15.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://proceedings.mlr.press/v37/ioffe15.html"
-        ]
+        "status": 206,
+        "effective_url": "https://proceedings.mlr.press/v37/ioffe15.html",
+        "content_type": "text/html",
+        "page_title": "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P009": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-01T09:26:47+00:00",
       "source": "https://openaccess.thecvf.com/content_cvpr_2016/html/He_Deep_Residual_Learning_CVPR_2016_paper.html",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://openaccess.thecvf.com/content_cvpr_2016/html/He_Deep_Residual_Learning_CVPR_2016_paper.html",
-          "https://github.com/KaimingHe/deep-residual-networks"
-        ]
+        "status": 206,
+        "effective_url": "https://openaccess.thecvf.com/content_cvpr_2016/html/He_Deep_Residual_Learning_CVPR_2016_paper.html",
+        "content_type": "text/html",
+        "page_title": "CVPR 2016 Open Access Repository",
+        "error": null
       },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "manual_review",
+      "confidence": "medium",
+      "decision": "pass"
     },
     "primary_paper:P010": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-01T09:26:47+00:00",
       "source": "https://arxiv.org/abs/1706.03762",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1706.03762"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1706.03762",
+        "content_type": "text/html",
+        "page_title": "[1706.03762] Attention Is All You Need",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P011": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-01T09:26:47+00:00",
       "source": "https://arxiv.org/abs/2010.11929",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2010.11929",
-          "https://github.com/google-research/vision_transformer"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2010.11929",
+        "content_type": "text/html",
+        "page_title": "[2010.11929] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P012": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-01T09:26:47+00:00",
       "source": "https://arxiv.org/abs/2111.00396",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2111.00396",
-          "https://github.com/state-spaces/s4"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2111.00396",
+        "content_type": "text/html",
+        "page_title": "[2111.00396] Efficiently Modeling Long Sequences with Structured State Spaces",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P013": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-03T08:58:16+00:00",
       "source": "https://arxiv.org/abs/2312.00752",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2312.00752",
-          "https://github.com/state-spaces/mamba"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2312.00752",
+        "content_type": "text/html",
+        "page_title": "[2312.00752] Mamba: Linear-Time Sequence Modeling with Selective State Spaces",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P014": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-03T08:58:16+00:00",
       "source": "https://proceedings.mlr.press/v119/chen20j.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://proceedings.mlr.press/v119/chen20j.html",
-          "https://github.com/google-research/simclr"
-        ]
+        "status": 206,
+        "effective_url": "https://proceedings.mlr.press/v119/chen20j.html",
+        "content_type": "text/html",
+        "page_title": "A Simple Framework for Contrastive Learning of Visual Representations",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P015": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-03T08:58:16+00:00",
       "source": "https://openaccess.thecvf.com/content/CVPR2022/html/He_Masked_Autoencoders_Are_Scalable_Vision_Learners_CVPR_2022_paper.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://openaccess.thecvf.com/content/CVPR2022/html/He_Masked_Autoencoders_Are_Scalable_Vision_Learners_CVPR_2022_paper.html",
-          "https://github.com/facebookresearch/mae"
-        ]
+        "status": 206,
+        "effective_url": "https://openaccess.thecvf.com/content/CVPR2022/html/He_Masked_Autoencoders_Are_Scalable_Vision_Learners_CVPR_2022_paper.html",
+        "content_type": "text/html",
+        "page_title": "CVPR 2022 Open Access Repository",
+        "error": null
       },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "manual_review",
+      "confidence": "medium",
+      "decision": "pass"
     },
     "primary_paper:P016": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-03T08:58:16+00:00",
       "source": "https://arxiv.org/abs/2006.11239",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2006.11239",
-          "https://github.com/hojonathanho/diffusion"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2006.11239",
+        "content_type": "text/html",
+        "page_title": "[2006.11239] Denoising Diffusion Probabilistic Models",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P017": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-03T08:58:16+00:00",
       "source": "https://arxiv.org/abs/2011.13456",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2011.13456",
-          "https://github.com/yang-song/score_sde_pytorch"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2011.13456",
+        "content_type": "text/html",
+        "page_title": "[2011.13456] Score-Based Generative Modeling through Stochastic Differential Equations",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P018": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-03T08:58:16+00:00",
       "source": "https://arxiv.org/abs/2210.02747",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2210.02747",
-          "https://github.com/facebookresearch/flow_matching"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2210.02747",
+        "content_type": "text/html",
+        "page_title": "[2210.02747] Flow Matching for Generative Modeling",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P019": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-05T08:23:39+00:00",
       "source": "https://arxiv.org/abs/2209.03003",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2209.03003",
-          "https://github.com/gnobitab/RectifiedFlow"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2209.03003",
+        "content_type": "text/html",
+        "page_title": "[2209.03003] Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P020": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-05T08:23:39+00:00",
       "source": "https://arxiv.org/abs/2001.08361",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2001.08361"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2001.08361",
+        "content_type": "text/html",
+        "page_title": "[2001.08361] Scaling Laws for Neural Language Models",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P021": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-05T08:23:39+00:00",
       "source": "https://arxiv.org/abs/2203.15556",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2203.15556"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2203.15556",
+        "content_type": "text/html",
+        "page_title": "[2203.15556] Training Compute-Optimal Large Language Models",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P022": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-05T08:23:39+00:00",
       "source": "https://arxiv.org/abs/2203.02155",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2203.02155"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2203.02155",
+        "content_type": "text/html",
+        "page_title": "[2203.02155] Training language models to follow instructions with human feedback",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P023": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-05T08:23:39+00:00",
       "source": "https://arxiv.org/abs/2106.09685",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2106.09685",
-          "https://github.com/microsoft/LoRA"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2106.09685",
+        "content_type": "text/html",
+        "page_title": "[2106.09685] LoRA: Low-Rank Adaptation of Large Language Models",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P024": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-05T08:23:39+00:00",
       "source": "https://arxiv.org/abs/2305.14314",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2305.14314",
-          "https://github.com/artidoro/qlora"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2305.14314",
+        "content_type": "text/html",
+        "page_title": "[2305.14314] QLoRA: Efficient Finetuning of Quantized LLMs",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P025": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-07T09:25:19+00:00",
       "source": "https://arxiv.org/abs/2305.18290",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2305.18290",
-          "https://github.com/eric-mitchell/direct-preference-optimization"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2305.18290",
+        "content_type": "text/html",
+        "page_title": "[2305.18290] Direct Preference Optimization: Your Language Model is Secretly a Reward Model",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P026": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-07T09:25:19+00:00",
       "source": "https://arxiv.org/abs/2204.14198",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2204.14198"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2204.14198",
+        "content_type": "text/html",
+        "page_title": "[2204.14198] Flamingo: a Visual Language Model for Few-Shot Learning",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P027": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-07T09:25:19+00:00",
       "source": "https://arxiv.org/abs/2301.12597",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2301.12597",
-          "https://github.com/salesforce/LAVIS"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2301.12597",
+        "content_type": "text/html",
+        "page_title": "[2301.12597] BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P028": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-07T09:25:19+00:00",
       "source": "https://doi.org/10.1115/1.3140702",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://doi.org/10.1115/1.3140702"
-        ]
+        "status": 403,
+        "effective_url": "https://asmedigitalcollection.asme.org/dynamicsystems/article/107/1/1/400604/Impedance-Control-An-Approach-to-Manipulation-Part",
+        "content_type": "text/html",
+        "page_title": null,
+        "error": "HTTP 403"
       },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "not_observable",
+      "confidence": "medium",
+      "decision": "access_limited"
     },
     "primary_paper:P029": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-07T09:25:19+00:00",
       "source": "https://doi.org/10.1109/JRA.1987.1087068",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://doi.org/10.1109/JRA.1987.1087068"
-        ]
+        "status": 202,
+        "effective_url": "https://ieeexplore.ieee.org/document/1087068/",
+        "content_type": "text/html",
+        "page_title": "",
+        "error": null
       },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "not_observable",
+      "confidence": "medium",
+      "decision": "review_redirect"
     },
     "primary_paper:P030": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-07T09:25:19+00:00",
       "source": "https://doi.org/10.1007/4-431-31381-8_23",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "high",
-        "evidence_urls": [
-          "https://doi.org/10.1007/4-431-31381-8_23",
-          "https://link.springer.com/chapter/10.1007/4-431-31381-8_23"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P031": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://doi.org/10.1109/TAC.2016.2638961",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://doi.org/10.1109/TAC.2016.2638961"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P032": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://doi.org/10.1109/70.508439",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://doi.org/10.1109/70.508439"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P033": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://msl.cs.illinois.edu/~lavalle/papers/Lav98c.pdf",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://msl.cs.illinois.edu/~lavalle/papers/Lav98c.pdf"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P034": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://doi.org/10.1109/ROBOT.2009.5152817",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://doi.org/10.1109/ROBOT.2009.5152817"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P035": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/1311.5605",
-      "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "critical",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1311.5605",
-          "https://doi.org/10.1177/0278364914528132",
-          "https://journals.sagepub.com/doi/10.1177/0278364914528132",
-          "https://github.com/joschu/trajopt"
-        ]
-      },
-      "identity_result": "needs_correction",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P036": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://doi.org/10.1109/ICRA.2011.5980391",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://doi.org/10.1109/ICRA.2011.5980391"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P037": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/1707.02342",
-      "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1707.02342",
-          "https://github.com/ACDSLab/MPPI-Generic"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P038": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://doi.org/10.1115/1.3662552",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://doi.org/10.1115/1.3662552"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P039": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://doi.org/10.1177/0278364911430419",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://doi.org/10.1177/0278364911430419",
-          "https://github.com/borglab/gtsam"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P040": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/1512.02363",
-      "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1512.02363",
-          "https://github.com/borglab/gtsam"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P041": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/1708.03852",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1708.03852",
-          "https://github.com/HKUST-Aerial-Robotics/VINS-Mono"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P042": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/2007.11898",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2007.11898",
-          "https://github.com/UZ-SLAMLab/ORB_SLAM3"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P043": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://proceedings.mlr.press/v139/radford21a.html",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://proceedings.mlr.press/v139/radford21a.html",
-          "https://github.com/openai/CLIP"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P044": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://openaccess.thecvf.com/content/ICCV2021/html/Caron_Emerging_Properties_in_Self-Supervised_Vision_Transformers_ICCV_2021_paper.html",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://openaccess.thecvf.com/content/ICCV2021/html/Caron_Emerging_Properties_in_Self-Supervised_Vision_Transformers_ICCV_2021_paper.html",
-          "https://github.com/facebookresearch/dino"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P045": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/2304.07193",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2304.07193",
-          "https://github.com/facebookresearch/dinov2"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P046": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://openaccess.thecvf.com/content/ICCV2023/html/Zhai_Sigmoid_Loss_for_Language_Image_Pre-Training_ICCV_2023_paper.html",
-      "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://openaccess.thecvf.com/content/ICCV2023/html/Zhai_Sigmoid_Loss_for_Language_Image_Pre-Training_ICCV_2023_paper.html",
-          "https://github.com/google-research/big_vision"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P047": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/2107.12344",
-      "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "critical",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2107.12344",
-          "https://proceedings.mlr.press/v270/burns25a.html",
-          "https://arxiv.org/abs/2312.12444"
-        ]
-      },
-      "identity_result": "needs_correction",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P048": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://openaccess.thecvf.com/content_iccv_2017/html/He_Mask_R-CNN_ICCV_2017_paper.html",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://openaccess.thecvf.com/content_iccv_2017/html/He_Mask_R-CNN_ICCV_2017_paper.html",
-          "https://github.com/facebookresearch/Detectron"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P049": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/2005.12872",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2005.12872",
-          "https://github.com/facebookresearch/detr"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P050": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/2303.05499",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2303.05499",
-          "https://github.com/IDEA-Research/GroundingDINO"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P051": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://openaccess.thecvf.com/content/ICCV2023/html/Kirillov_Segment_Anything_ICCV_2023_paper.html",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://openaccess.thecvf.com/content/ICCV2023/html/Kirillov_Segment_Anything_ICCV_2023_paper.html",
-          "https://github.com/facebookresearch/segment-anything"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P052": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/2408.00714",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2408.00714",
-          "https://github.com/facebookresearch/sam2"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P053": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/2207.07115",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2207.07115",
-          "https://github.com/hkchengrex/XMem"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P054": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://openaccess.thecvf.com/content_cvpr_2017/html/Qi_PointNet_Deep_Learning_CVPR_2017_paper.html",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://openaccess.thecvf.com/content_cvpr_2017/html/Qi_PointNet_Deep_Learning_CVPR_2017_paper.html",
-          "https://github.com/charlesq34/pointnet"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P055": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/1706.02413",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1706.02413",
-          "https://github.com/charlesq34/pointnet2"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P056": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://openaccess.thecvf.com/content/ICCV2021/html/Zhao_Point_Transformer_ICCV_2021_paper.html",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://openaccess.thecvf.com/content/ICCV2021/html/Zhao_Point_Transformer_ICCV_2021_paper.html"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P057": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://openaccess.thecvf.com/content_CVPR_2019/html/Mescheder_Occupancy_Networks_Learning_3D_Reconstruction_in_Function_Space_CVPR_2019_paper.html",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://openaccess.thecvf.com/content_CVPR_2019/html/Mescheder_Occupancy_Networks_Learning_3D_Reconstruction_in_Function_Space_CVPR_2019_paper.html",
-          "https://github.com/autonomousvision/occupancy_networks"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P058": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/2003.08934",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2003.08934",
-          "https://github.com/bmild/nerf"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P059": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/",
-          "https://github.com/graphdeco-inria/gaussian-splatting"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P060": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/2302.07241",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2302.07241",
-          "https://github.com/concept-fusion/concept-fusion"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P061": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/1807.03748",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1807.03748"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P062": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/2203.12602",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2203.12602",
-          "https://github.com/MCG-NJU/VideoMAE"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P063": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://openaccess.thecvf.com/content/CVPR2023/html/Assran_Self-Supervised_Learning_From_Images_With_a_Joint-Embedding_Predictive_Architecture_CVPR_2023_paper.html",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://openaccess.thecvf.com/content/CVPR2023/html/Assran_Self-Supervised_Learning_From_Images_With_a_Joint-Embedding_Predictive_Architecture_CVPR_2023_paper.html",
-          "https://github.com/facebookresearch/ijepa"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P064": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/2404.08471",
-      "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2404.08471",
-          "https://github.com/facebookresearch/jepa",
-          "https://openreview.net/forum?id=QaCCuDfBk2",
-          "https://openreview.net/profile?id=~Adrien_Bardes1"
-        ]
-      },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
-    },
-    "primary_paper:P065": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/2506.09985",
-      "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2506.09985",
-          "https://github.com/facebookresearch/vjepa2"
-        ]
+        "status": 200,
+        "effective_url": "https://link.springer.com/chapter/10.1007/4-431-31381-8_23?error=cookies_not_supported&code=09311079-bfd2-4755-9cb2-bef958244d89",
+        "content_type": "text/html",
+        "page_title": "Dynamic Movement Primitives -A Framework for Motor Control in Humans and Humanoid Robotics | Springer Nature Link",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "review_redirect"
+    },
+    "primary_paper:P031": {
+      "checked_at": "2026-09-09T08:59:49+00:00",
+      "source": "https://doi.org/10.1109/TAC.2016.2638961",
+      "evidence": {
+        "status": 202,
+        "effective_url": "https://ieeexplore.ieee.org/document/7782377/",
+        "content_type": "text/html",
+        "page_title": "",
+        "error": null
+      },
+      "identity_result": "not_observable",
+      "confidence": "medium",
+      "decision": "review_redirect"
+    },
+    "primary_paper:P032": {
+      "checked_at": "2026-09-09T08:59:49+00:00",
+      "source": "https://doi.org/10.1109/70.508439",
+      "evidence": {
+        "status": 202,
+        "effective_url": "https://ieeexplore.ieee.org/document/508439/",
+        "content_type": "text/html",
+        "page_title": "",
+        "error": null
+      },
+      "identity_result": "not_observable",
+      "confidence": "medium",
+      "decision": "review_redirect"
+    },
+    "primary_paper:P033": {
+      "checked_at": "2026-09-09T08:59:49+00:00",
+      "source": "https://msl.cs.illinois.edu/~lavalle/papers/Lav98c.pdf",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://msl.cs.illinois.edu/~lavalle/papers/Lav98c.pdf",
+        "content_type": "application/pdf",
+        "page_title": null,
+        "error": null
+      },
+      "identity_result": "not_observable",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P034": {
+      "checked_at": "2026-09-09T08:59:49+00:00",
+      "source": "https://doi.org/10.1109/ROBOT.2009.5152817",
+      "evidence": {
+        "status": 202,
+        "effective_url": "https://ieeexplore.ieee.org/document/5152817/",
+        "content_type": "text/html",
+        "page_title": "",
+        "error": null
+      },
+      "identity_result": "not_observable",
+      "confidence": "medium",
+      "decision": "review_redirect"
+    },
+    "primary_paper:P035": {
+      "checked_at": "2026-09-09T08:59:49+00:00",
+      "source": "https://doi.org/10.1177/0278364914528132",
+      "evidence": {
+        "status": 403,
+        "effective_url": "https://journals.sagepub.com/doi/10.1177/0278364914528132",
+        "content_type": "text/html",
+        "page_title": null,
+        "error": "HTTP 403"
+      },
+      "identity_result": "not_observable",
+      "confidence": "medium",
+      "decision": "access_limited"
+    },
+    "primary_paper:P036": {
+      "checked_at": "2026-09-09T08:59:49+00:00",
+      "source": "https://doi.org/10.1109/ICRA.2011.5980391",
+      "evidence": {
+        "status": 202,
+        "effective_url": "https://ieeexplore.ieee.org/document/5980391/",
+        "content_type": "text/html",
+        "page_title": "",
+        "error": null
+      },
+      "identity_result": "not_observable",
+      "confidence": "medium",
+      "decision": "review_redirect"
+    },
+    "primary_paper:P037": {
+      "checked_at": "2026-09-11T08:57:25+00:00",
+      "source": "https://arxiv.org/abs/1707.02342",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1707.02342",
+        "content_type": "text/html",
+        "page_title": "[1707.02342] Information Theoretic Model Predictive Control: Theory and Applications to Autonomous Driving",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P038": {
+      "checked_at": "2026-09-11T08:57:25+00:00",
+      "source": "https://doi.org/10.1115/1.3662552",
+      "evidence": {
+        "status": 403,
+        "effective_url": "https://asmedigitalcollection.asme.org/fluidsengineering/article/82/1/35/397706/A-New-Approach-to-Linear-Filtering-and-Prediction",
+        "content_type": "text/html",
+        "page_title": null,
+        "error": "HTTP 403"
+      },
+      "identity_result": "not_observable",
+      "confidence": "medium",
+      "decision": "access_limited"
+    },
+    "primary_paper:P039": {
+      "checked_at": "2026-09-11T08:57:25+00:00",
+      "source": "https://doi.org/10.1177/0278364911430419",
+      "evidence": {
+        "status": 403,
+        "effective_url": "https://journals.sagepub.com/doi/10.1177/0278364911430419",
+        "content_type": "text/html",
+        "page_title": null,
+        "error": "HTTP 403"
+      },
+      "identity_result": "not_observable",
+      "confidence": "medium",
+      "decision": "access_limited"
+    },
+    "primary_paper:P040": {
+      "checked_at": "2026-09-11T08:57:25+00:00",
+      "source": "https://arxiv.org/abs/1512.02363",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1512.02363",
+        "content_type": "text/html",
+        "page_title": "[1512.02363] On-Manifold Preintegration for Real-Time Visual-Inertial Odometry",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P041": {
+      "checked_at": "2026-09-11T08:57:25+00:00",
+      "source": "https://arxiv.org/abs/1708.03852",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1708.03852",
+        "content_type": "text/html",
+        "page_title": "[1708.03852] VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P042": {
+      "checked_at": "2026-09-11T08:57:25+00:00",
+      "source": "https://arxiv.org/abs/2007.11898",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2007.11898",
+        "content_type": "text/html",
+        "page_title": "[2007.11898] ORB-SLAM3: An Accurate Open-Source Library for Visual, Visual-Inertial and Multi-Map SLAM",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P043": {
+      "checked_at": "2026-09-13T09:36:36+00:00",
+      "source": "https://proceedings.mlr.press/v139/radford21a.html",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://proceedings.mlr.press/v139/radford21a.html",
+        "content_type": "text/html",
+        "page_title": "Learning Transferable Visual Models From Natural Language Supervision",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P044": {
+      "checked_at": "2026-09-13T09:36:36+00:00",
+      "source": "https://openaccess.thecvf.com/content/ICCV2021/html/Caron_Emerging_Properties_in_Self-Supervised_Vision_Transformers_ICCV_2021_paper.html",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://openaccess.thecvf.com/content/ICCV2021/html/Caron_Emerging_Properties_in_Self-Supervised_Vision_Transformers_ICCV_2021_paper.html",
+        "content_type": "text/html",
+        "page_title": "ICCV 2021 Open Access Repository",
+        "error": null
+      },
+      "identity_result": "manual_review",
+      "confidence": "medium",
+      "decision": "pass"
+    },
+    "primary_paper:P045": {
+      "checked_at": "2026-09-13T09:36:36+00:00",
+      "source": "https://arxiv.org/abs/2304.07193",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2304.07193",
+        "content_type": "text/html",
+        "page_title": "[2304.07193] DINOv2: Learning Robust Visual Features without Supervision",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P046": {
+      "checked_at": "2026-09-13T09:36:36+00:00",
+      "source": "https://openaccess.thecvf.com/content/ICCV2023/html/Zhai_Sigmoid_Loss_for_Language_Image_Pre-Training_ICCV_2023_paper.html",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://openaccess.thecvf.com/content/ICCV2023/html/Zhai_Sigmoid_Loss_for_Language_Image_Pre-Training_ICCV_2023_paper.html",
+        "content_type": "text/html",
+        "page_title": "ICCV 2023 Open Access Repository",
+        "error": null
+      },
+      "identity_result": "manual_review",
+      "confidence": "medium",
+      "decision": "pass"
+    },
+    "primary_paper:P047": {
+      "checked_at": "2026-09-13T09:36:36+00:00",
+      "source": "https://proceedings.mlr.press/v270/burns25a.html",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://proceedings.mlr.press/v270/burns25a.html",
+        "content_type": "text/html",
+        "page_title": "What Makes Pre-Trained Visual Representations Successful for Robust Manipulation?",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P048": {
+      "checked_at": "2026-09-13T09:36:36+00:00",
+      "source": "https://openaccess.thecvf.com/content_iccv_2017/html/He_Mask_R-CNN_ICCV_2017_paper.html",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://openaccess.thecvf.com/content_iccv_2017/html/He_Mask_R-CNN_ICCV_2017_paper.html",
+        "content_type": "text/html",
+        "page_title": "ICCV 2017 Open Access Repository",
+        "error": null
+      },
+      "identity_result": "manual_review",
+      "confidence": "medium",
+      "decision": "pass"
+    },
+    "primary_paper:P049": {
+      "checked_at": "2026-09-15T09:28:04+00:00",
+      "source": "https://arxiv.org/abs/2005.12872",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2005.12872",
+        "content_type": "text/html",
+        "page_title": "[2005.12872] End-to-End Object Detection with Transformers",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P050": {
+      "checked_at": "2026-09-15T09:28:04+00:00",
+      "source": "https://arxiv.org/abs/2303.05499",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2303.05499",
+        "content_type": "text/html",
+        "page_title": "[2303.05499] Grounding DINO: Marrying DINO with Grounded Pre-Training for Open-Set Object Detection",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P051": {
+      "checked_at": "2026-09-15T09:28:04+00:00",
+      "source": "https://openaccess.thecvf.com/content/ICCV2023/html/Kirillov_Segment_Anything_ICCV_2023_paper.html",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://openaccess.thecvf.com/content/ICCV2023/html/Kirillov_Segment_Anything_ICCV_2023_paper.html",
+        "content_type": "text/html",
+        "page_title": "ICCV 2023 Open Access Repository",
+        "error": null
+      },
+      "identity_result": "manual_review",
+      "confidence": "medium",
+      "decision": "pass"
+    },
+    "primary_paper:P052": {
+      "checked_at": "2026-09-15T09:28:04+00:00",
+      "source": "https://arxiv.org/abs/2408.00714",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2408.00714",
+        "content_type": "text/html",
+        "page_title": "[2408.00714] SAM 2: Segment Anything in Images and Videos",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P053": {
+      "checked_at": "2026-09-15T09:28:04+00:00",
+      "source": "https://arxiv.org/abs/2207.07115",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2207.07115",
+        "content_type": "text/html",
+        "page_title": "[2207.07115] XMem: Long-Term Video Object Segmentation with an Atkinson-Shiffrin Memory Model",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P054": {
+      "checked_at": "2026-09-15T09:28:04+00:00",
+      "source": "https://openaccess.thecvf.com/content_cvpr_2017/html/Qi_PointNet_Deep_Learning_CVPR_2017_paper.html",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://openaccess.thecvf.com/content_cvpr_2017/html/Qi_PointNet_Deep_Learning_CVPR_2017_paper.html",
+        "content_type": "text/html",
+        "page_title": "CVPR 2017 Open Access Repository",
+        "error": null
+      },
+      "identity_result": "manual_review",
+      "confidence": "medium",
+      "decision": "pass"
+    },
+    "primary_paper:P055": {
+      "checked_at": "2026-09-17T09:29:28+00:00",
+      "source": "https://arxiv.org/abs/1706.02413",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1706.02413",
+        "content_type": "text/html",
+        "page_title": "[1706.02413] PointNet++: Deep Hierarchical Feature Learning on Point Sets in a Metric Space",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P056": {
+      "checked_at": "2026-09-17T09:29:28+00:00",
+      "source": "https://openaccess.thecvf.com/content/ICCV2021/html/Zhao_Point_Transformer_ICCV_2021_paper.html",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://openaccess.thecvf.com/content/ICCV2021/html/Zhao_Point_Transformer_ICCV_2021_paper.html",
+        "content_type": "text/html",
+        "page_title": "ICCV 2021 Open Access Repository",
+        "error": null
+      },
+      "identity_result": "manual_review",
+      "confidence": "medium",
+      "decision": "pass"
+    },
+    "primary_paper:P057": {
+      "checked_at": "2026-09-17T09:29:28+00:00",
+      "source": "https://openaccess.thecvf.com/content_CVPR_2019/html/Mescheder_Occupancy_Networks_Learning_3D_Reconstruction_in_Function_Space_CVPR_2019_paper.html",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://openaccess.thecvf.com/content_CVPR_2019/html/Mescheder_Occupancy_Networks_Learning_3D_Reconstruction_in_Function_Space_CVPR_2019_paper.html",
+        "content_type": "text/html",
+        "page_title": "CVPR 2019 Open Access Repository",
+        "error": null
+      },
+      "identity_result": "manual_review",
+      "confidence": "medium",
+      "decision": "pass"
+    },
+    "primary_paper:P058": {
+      "checked_at": "2026-09-17T09:29:28+00:00",
+      "source": "https://arxiv.org/abs/2003.08934",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2003.08934",
+        "content_type": "text/html",
+        "page_title": "[2003.08934] NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P059": {
+      "checked_at": "2026-09-17T09:29:28+00:00",
+      "source": "https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/",
+        "content_type": "text/html",
+        "page_title": "3D Gaussian Splatting for Real-Time Radiance Field Rendering",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P060": {
+      "checked_at": "2026-09-17T09:29:28+00:00",
+      "source": "https://arxiv.org/abs/2302.07241",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2302.07241",
+        "content_type": "text/html",
+        "page_title": "[2302.07241] ConceptFusion: Open-set Multimodal 3D Mapping",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P061": {
+      "checked_at": "2026-09-19T08:50:17+00:00",
+      "source": "https://arxiv.org/abs/1807.03748",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1807.03748",
+        "content_type": "text/html",
+        "page_title": "[1807.03748] Representation Learning with Contrastive Predictive Coding",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P062": {
+      "checked_at": "2026-09-19T08:50:17+00:00",
+      "source": "https://arxiv.org/abs/2203.12602",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2203.12602",
+        "content_type": "text/html",
+        "page_title": "[2203.12602] VideoMAE: Masked Autoencoders are Data-Efficient Learners for Self-Supervised Video Pre-Training",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
+    },
+    "primary_paper:P063": {
+      "checked_at": "2026-09-19T08:50:17+00:00",
+      "source": "https://openaccess.thecvf.com/content/CVPR2023/html/Assran_Self-Supervised_Learning_From_Images_With_a_Joint-Embedding_Predictive_Architecture_CVPR_2023_paper.html",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://openaccess.thecvf.com/content/CVPR2023/html/Assran_Self-Supervised_Learning_From_Images_With_a_Joint-Embedding_Predictive_Architecture_CVPR_2023_paper.html",
+        "content_type": "text/html",
+        "page_title": "CVPR 2023 Open Access Repository",
+        "error": null
+      },
+      "identity_result": "manual_review",
+      "confidence": "medium",
+      "decision": "pass"
+    },
+    "primary_paper:P064": {
+      "checked_at": "2026-09-19T08:50:17+00:00",
+      "source": "https://openreview.net/forum?id=QaCCuDfBk2",
+      "evidence": {
+        "status": 200,
+        "effective_url": "https://openreview.net/challenge?redirect=%2Fforum%3Fid%3DQaCCuDfBk2",
+        "content_type": "text/html",
+        "page_title": "Verifying your browser | OpenReview",
+        "error": null
+      },
+      "identity_result": "manual_review",
+      "confidence": "medium",
+      "decision": "pass"
+    },
+    "primary_paper:P065": {
+      "checked_at": "2026-09-19T08:50:17+00:00",
+      "source": "https://arxiv.org/abs/2506.09985",
+      "evidence": {
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2506.09985",
+        "content_type": "text/html",
+        "page_title": "[2506.09985] V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning",
+        "error": null
+      },
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
     },
     "primary_paper:P066": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-19T08:50:17+00:00",
       "source": "https://icml.cc/2011/papers/323_icmlpaper.pdf",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://icml.cc/2011/papers/323_icmlpaper.pdf"
-        ]
+        "status": 206,
+        "effective_url": "https://icml.cc/2011/papers/323_icmlpaper.pdf",
+        "content_type": "application/pdf",
+        "page_title": null,
+        "error": null
       },
-      "identity_result": "pass",
+      "identity_result": "not_observable",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P067": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-21T09:59:56+00:00",
       "source": "https://arxiv.org/abs/1805.12114",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1805.12114",
-          "https://github.com/kchua/handful-of-trials"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1805.12114",
+        "content_type": "text/html",
+        "page_title": "[1805.12114] Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P068": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-21T09:59:56+00:00",
       "source": "https://proceedings.mlr.press/v97/hafner19a.html",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://proceedings.mlr.press/v97/hafner19a.html",
-          "https://github.com/google-research/planet"
-        ]
+        "status": 206,
+        "effective_url": "https://proceedings.mlr.press/v97/hafner19a.html",
+        "content_type": "text/html",
+        "page_title": "Learning Latent Dynamics for Planning from Pixels",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P069": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-21T09:59:56+00:00",
       "source": "https://www.nature.com/articles/s41586-020-03051-4",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://www.nature.com/articles/s41586-020-03051-4"
-        ]
+        "status": 200,
+        "effective_url": "https://www.nature.com/articles/s41586-020-03051-4?error=cookies_not_supported&code=b2873c46-9784-4841-835e-02492be86fc1",
+        "content_type": "text/html",
+        "page_title": "Mastering Atari, Go, chess and shogi by planning with a learned model | Nature",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P070": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://arxiv.org/abs/2301.04104",
+      "checked_at": "2026-09-21T09:59:56+00:00",
+      "source": "https://doi.org/10.1038/s41586-025-08744-2",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "high",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2301.04104",
-          "https://github.com/danijar/dreamerv3",
-          "https://doi.org/10.1038/s41586-025-08744-2",
-          "https://www.nature.com/articles/s41586-025-08744-2",
-          "https://danijar.com/project/dreamerv3/"
-        ]
+        "status": 200,
+        "effective_url": "https://www.nature.com/articles/s41586-025-08744-2?error=cookies_not_supported&code=f714fc6c-3fee-4f33-a6bd-5296c8af3d58",
+        "content_type": "text/html",
+        "page_title": "Mastering diverse control tasks through world models | Nature",
+        "error": null
       },
-      "identity_result": "needs_correction",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "pass",
+      "confidence": "medium",
+      "decision": "review_redirect"
     },
     "primary_paper:P071": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-21T09:59:56+00:00",
       "source": "https://arxiv.org/abs/2310.16828",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2310.16828",
-          "https://github.com/nicklashansen/tdmpc2"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2310.16828",
+        "content_type": "text/html",
+        "page_title": "[2310.16828] TD-MPC2: Scalable, Robust World Models for Continuous Control",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P072": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-21T09:59:56+00:00",
       "source": "https://doi.org/10.1007/BF00115009",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://doi.org/10.1007/BF00115009"
-        ]
+        "status": 200,
+        "effective_url": "https://link.springer.com/article/10.1007/BF00115009?error=cookies_not_supported&code=bc2037b8-159b-4fa0-8474-faba900a5b97",
+        "content_type": "text/html",
+        "page_title": "Learning to predict by the methods of temporal differences | Machine Learning | Springer Nature Link",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "medium",
+      "decision": "review_redirect"
     },
     "primary_paper:P073": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-23T09:21:09+00:00",
       "source": "https://doi.org/10.1007/BF00992698",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://doi.org/10.1007/BF00992698"
-        ]
+        "status": 200,
+        "effective_url": "https://link.springer.com/article/10.1007/BF00992698?error=cookies_not_supported&code=f0cdb480-9712-4b8e-91e6-bb096063e8b4",
+        "content_type": "text/html",
+        "page_title": "Q-learning | Machine Learning | Springer Nature Link",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "medium",
+      "decision": "review_redirect"
     },
     "primary_paper:P074": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-23T09:21:09+00:00",
       "source": "https://doi.org/10.1007/BF00992696",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://doi.org/10.1007/BF00992696"
-        ]
+        "status": 200,
+        "effective_url": "https://link.springer.com/article/10.1007/BF00992696?error=cookies_not_supported&code=e7234dc0-9f22-49f3-a09f-a071ea940900",
+        "content_type": "text/html",
+        "page_title": "Simple statistical gradient-following algorithms for connectionist reinforcement learning | Machine Learning | Springer Nature Link",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "medium",
+      "decision": "review_redirect"
     },
     "primary_paper:P075": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-23T09:21:09+00:00",
       "source": "https://www.nature.com/articles/nature14236",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://www.nature.com/articles/nature14236",
-          "https://github.com/google-deepmind/dqn"
-        ]
+        "status": 200,
+        "effective_url": "https://www.nature.com/articles/nature14236?error=cookies_not_supported&code=f76075fe-c7a8-4efd-8031-799b3675e8cd",
+        "content_type": "text/html",
+        "page_title": "Human-level control through deep reinforcement learning | Nature",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P076": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-23T09:21:09+00:00",
       "source": "https://proceedings.mlr.press/v48/mniha16.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://proceedings.mlr.press/v48/mniha16.html"
-        ]
+        "status": 206,
+        "effective_url": "https://proceedings.mlr.press/v48/mniha16.html",
+        "content_type": "text/html",
+        "page_title": "Asynchronous Methods for Deep Reinforcement Learning",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P077": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-23T09:21:09+00:00",
       "source": "https://proceedings.mlr.press/v37/schulman15.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://proceedings.mlr.press/v37/schulman15.html"
-        ]
+        "status": 206,
+        "effective_url": "https://proceedings.mlr.press/v37/schulman15.html",
+        "content_type": "text/html",
+        "page_title": "Trust Region Policy Optimization",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P078": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-23T09:21:09+00:00",
       "source": "https://arxiv.org/abs/1506.02438",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1506.02438"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1506.02438",
+        "content_type": "text/html",
+        "page_title": "[1506.02438] High-Dimensional Continuous Control Using Generalized Advantage Estimation",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P079": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://arxiv.org/abs/1707.06347",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1707.06347",
-          "https://github.com/openai/baselines"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1707.06347",
+        "content_type": "text/html",
+        "page_title": "[1707.06347] Proximal Policy Optimization Algorithms",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P080": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://arxiv.org/abs/1509.02971",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1509.02971"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1509.02971",
+        "content_type": "text/html",
+        "page_title": "[1509.02971] Continuous control with deep reinforcement learning",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P081": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://proceedings.mlr.press/v80/fujimoto18a.html",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://proceedings.mlr.press/v80/fujimoto18a.html",
-          "https://github.com/sfujim/TD3"
-        ]
+        "status": 206,
+        "effective_url": "https://proceedings.mlr.press/v80/fujimoto18a.html",
+        "content_type": "text/html",
+        "page_title": "Addressing Function Approximation Error in Actor-Critic Methods",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P082": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://proceedings.mlr.press/v80/haarnoja18b.html",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://proceedings.mlr.press/v80/haarnoja18b.html",
-          "https://github.com/haarnoja/sac"
-        ]
+        "status": 206,
+        "effective_url": "https://proceedings.mlr.press/v80/haarnoja18b.html",
+        "content_type": "text/html",
+        "page_title": "Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P083": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://arxiv.org/abs/1707.01495",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1707.01495",
-          "https://github.com/openai/baselines/tree/master/baselines/her"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1707.01495",
+        "content_type": "text/html",
+        "page_title": "[1707.01495] Hindsight Experience Replay",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P084": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://proceedings.mlr.press/v15/ross11a.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://proceedings.mlr.press/v15/ross11a.html"
-        ]
+        "status": 206,
+        "effective_url": "https://proceedings.mlr.press/v15/ross11a.html",
+        "content_type": "text/html",
+        "page_title": "A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P085": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://www.aaai.org/Papers/AAAI/2008/AAAI08-227.pdf",
+      "checked_at": "2026-09-27T10:02:51+00:00",
+      "source": "https://aaai-24.aaai.org/Library/AAAI/2008/aaai08-227.php",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://www.aaai.org/Papers/AAAI/2008/AAAI08-227.pdf",
-          "https://aaai-24.aaai.org/Library/AAAI/2008/aaai08-227.php",
-          "https://www.cs.cmu.edu/~bziebart/publications/maximum-entropy-inverse-reinforcement-learning.html"
-        ]
+        "status": 0,
+        "effective_url": "https://aaai-24.aaai.org/Library/AAAI/2008/aaai08-227.php",
+        "content_type": null,
+        "page_title": null,
+        "error": "ValueError: DNS resolution failed: [Errno -2] Name or service not known"
       },
-      "identity_result": "pass",
-      "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "not_observable",
+      "confidence": "low",
+      "decision": "retry"
     },
     "primary_paper:P086": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://arxiv.org/abs/1606.03476",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1606.03476",
-          "https://github.com/openai/imitation"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1606.03476",
+        "content_type": "text/html",
+        "page_title": "[1606.03476] Generative Adversarial Imitation Learning",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P087": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://arxiv.org/abs/1710.11248",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1710.11248",
-          "https://github.com/justinjfu/inverse_rl"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1710.11248",
+        "content_type": "text/html",
+        "page_title": "[1710.11248] Learning Robust Rewards with Adversarial Inverse Reinforcement Learning",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P088": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://arxiv.org/abs/1709.10087",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://arxiv.org/abs/1709.10087",
-          "https://github.com/aravindr93/hand_dapg"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/1709.10087",
+        "content_type": "text/html",
+        "page_title": "[1709.10087] Learning Complex Dexterous Manipulation with Deep Reinforcement Learning and Demonstrations",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P089": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://arxiv.org/abs/2108.03298",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2108.03298",
-          "https://github.com/ARISE-Initiative/robomimic"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2108.03298",
+        "content_type": "text/html",
+        "page_title": "[2108.03298] What Matters in Learning from Offline Human Demonstrations for Robot Manipulation",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P090": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://proceedings.mlr.press/v97/fujimoto19a.html",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://proceedings.mlr.press/v97/fujimoto19a.html",
-          "https://github.com/sfujim/BCQ"
-        ]
+        "status": 206,
+        "effective_url": "https://proceedings.mlr.press/v97/fujimoto19a.html",
+        "content_type": "text/html",
+        "page_title": "Off-Policy Deep Reinforcement Learning without Exploration",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "high",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "primary_paper:P091": {
       "checked_at": "2026-08-27T00:00:00+00:00",
@@ -2877,755 +2807,889 @@
       "decision": "corrected_or_recorded_in_exhaustive_audit"
     },
     "supporting_resource:R001": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "http://incompleteideas.net/book/the-book-2nd.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "http://incompleteideas.net/book/the-book-2nd.html"
-        ]
+        "status": 206,
+        "effective_url": "http://incompleteideas.net/book/the-book-2nd.html",
+        "content_type": "text/html",
+        "page_title": "Sutton & Barto Book: Reinforcement Learning: An Introduction",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R002": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://sites.ualberta.ca/~szepesva/RLBook.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://sites.ualberta.ca/~szepesva/RLBook.html"
-        ]
+        "status": 206,
+        "effective_url": "https://sites.ualberta.ca/~szepesva/rlbook.html",
+        "content_type": "text/html",
+        "page_title": "Algorithms of Reinforcement Learning",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R003": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://spinningup.openai.com/",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://spinningup.openai.com/",
-          "https://github.com/openai/spinningup",
-          "https://spinningup.openai.com/en/latest/user/algorithms.html"
-        ]
+        "status": 200,
+        "effective_url": "https://spinningup.openai.com/en/latest/",
+        "content_type": "text/html",
+        "page_title": "Welcome to Spinning Up in Deep RL! — Spinning Up documentation",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R004": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://rail.eecs.berkeley.edu/deeprlcourse/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://rail.eecs.berkeley.edu/deeprlcourse/"
-        ]
+        "status": 206,
+        "effective_url": "https://rail.eecs.berkeley.edu/deeprlcourse/",
+        "content_type": "text/html",
+        "page_title": "CS 185/285",
+        "error": null
       },
-      "identity_result": "pass",
+      "identity_result": "manual_review",
       "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "supporting_resource:R005": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://modernrobotics.northwestern.edu/",
+      "checked_at": "2026-09-27T10:02:51+00:00",
+      "source": "https://modernrobotics.org",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://modernrobotics.northwestern.edu/",
-          "https://modernrobotics.org",
-          "https://hades.mech.northwestern.edu/index.php/Modern_Robotics",
-          "https://robotics.northwestern.edu/research/publications/modern-robotics-mechanics%2C-planning%2C-and-control.html"
-        ]
+        "status": 200,
+        "effective_url": "https://hades.mech.northwestern.edu/index.php/Modern_Robotics",
+        "content_type": "text/html",
+        "page_title": "Modern Robotics - Northwestern Mechatronics Wiki",
+        "error": null
       },
       "identity_result": "pass",
       "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "review_redirect"
     },
     "supporting_resource:R006": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://underactuated.csail.mit.edu/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://underactuated.csail.mit.edu/"
-        ]
+        "status": 206,
+        "effective_url": "https://underactuated.csail.mit.edu/",
+        "content_type": "text/html",
+        "page_title": "Underactuated Robotics",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R007": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://lavalle.pl/planning/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://lavalle.pl/planning/"
-        ]
+        "status": 206,
+        "effective_url": "https://lavalle.pl/planning/",
+        "content_type": "text/html",
+        "page_title": "Planning Algorithms / Motion Planning",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R008": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://mitpress.mit.edu/9780262201629/probabilistic-robotics/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://mitpress.mit.edu/9780262201629/probabilistic-robotics/"
-        ]
+        "status": 403,
+        "effective_url": "https://mitpress.mit.edu/9780262201629/probabilistic-robotics/",
+        "content_type": "text/html",
+        "page_title": null,
+        "error": "HTTP 403"
       },
-      "identity_result": "pass",
+      "identity_result": "not_observable",
       "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "access_limited"
     },
     "supporting_resource:R009": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-15T09:28:04+00:00",
       "source": "https://www.cs.cmu.edu/~kaess/pub/Dellaert17fnt.pdf",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://www.cs.cmu.edu/~kaess/pub/Dellaert17fnt.pdf"
-        ]
+        "status": 206,
+        "effective_url": "https://www.cs.cmu.edu/~kaess/pub/Dellaert17fnt.pdf",
+        "content_type": "application/pdf",
+        "page_title": null,
+        "error": null
       },
-      "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "not_observable",
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R010": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-15T09:28:04+00:00",
       "source": "https://gtsam.org/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://gtsam.org/"
-        ]
+        "status": 206,
+        "effective_url": "https://gtsam.org/",
+        "content_type": "text/html",
+        "page_title": "GTSAM | GTSAM is a BSD-licensed C++ library that implements sensor fusion for robotics and computer vision using factor graphs.",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R011": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-15T09:28:04+00:00",
       "source": "https://www.deeplearningbook.org/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://www.deeplearningbook.org/"
-        ]
+        "status": 206,
+        "effective_url": "https://www.deeplearningbook.org/",
+        "content_type": "text/html",
+        "page_title": "Deep Learning",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R012": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-15T09:28:04+00:00",
       "source": "https://d2l.ai/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://d2l.ai/"
-        ]
+        "status": 206,
+        "effective_url": "https://d2l.ai/",
+        "content_type": "text/html",
+        "page_title": "Dive into Deep Learning — Dive into Deep Learning 1.0.3 documentation",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R013": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-15T09:28:04+00:00",
       "source": "https://cs231n.github.io/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://cs231n.github.io/"
-        ]
+        "status": 206,
+        "effective_url": "https://cs231n.github.io/",
+        "content_type": "text/html",
+        "page_title": "CS231n Deep Learning for Computer Vision",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R014": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-17T09:29:28+00:00",
       "source": "https://web.stanford.edu/class/cs224n/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://web.stanford.edu/class/cs224n/"
-        ]
+        "status": 206,
+        "effective_url": "https://web.stanford.edu/class/cs224n/",
+        "content_type": "text/html",
+        "page_title": "Stanford CS 224N | Natural Language Processing with Deep Learning",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R015": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-17T09:29:28+00:00",
       "source": "https://fullstackdeeplearning.com/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://fullstackdeeplearning.com/"
-        ]
+        "status": 206,
+        "effective_url": "https://fullstackdeeplearning.com/",
+        "content_type": "text/html",
+        "page_title": "The Full Stack",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R016": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-17T09:29:28+00:00",
       "source": "https://mlsysbook.ai/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://mlsysbook.ai/"
-        ]
+        "status": 206,
+        "effective_url": "https://mlsysbook.ai/",
+        "content_type": "text/html",
+        "page_title": "Machine Learning Systems",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R017": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-17T09:29:28+00:00",
       "source": "https://huggingface.co/docs/lerobot/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://huggingface.co/docs/lerobot/"
-        ]
+        "status": 200,
+        "effective_url": "https://huggingface.co/docs/lerobot/index",
+        "content_type": "text/html",
+        "page_title": "LeRobot · Hugging Face",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R018": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-17T09:29:28+00:00",
       "source": "https://robomimic.github.io/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://robomimic.github.io/"
-        ]
+        "status": 206,
+        "effective_url": "https://robomimic.github.io/",
+        "content_type": "text/html",
+        "page_title": "robomimic",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R019": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-17T09:29:28+00:00",
       "source": "https://maniskill.readthedocs.io/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://maniskill.readthedocs.io/"
-        ]
+        "status": 200,
+        "effective_url": "https://maniskill.readthedocs.io/en/latest/",
+        "content_type": "text/html",
+        "page_title": "ManiSkill — ManiSkill 3.0.1 documentation",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R020": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-19T08:50:17+00:00",
       "source": "https://mujoco.readthedocs.io/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://mujoco.readthedocs.io/"
-        ]
+        "status": 206,
+        "effective_url": "https://mujoco.readthedocs.io/en/stable/",
+        "content_type": "text/html",
+        "page_title": null,
+        "error": null
       },
-      "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "not_observable",
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R021": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-19T08:50:17+00:00",
       "source": "https://isaac-sim.github.io/IsaacLab/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://isaac-sim.github.io/IsaacLab/"
-        ]
+        "status": 206,
+        "effective_url": "https://isaac-sim.github.io/IsaacLab/",
+        "content_type": "text/html",
+        "page_title": "Redirecting to the latest Isaac Lab documentation",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R022": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-19T08:50:17+00:00",
       "source": "http://www.incompleteideas.net/IncIdeas/BitterLesson.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "http://www.incompleteideas.net/IncIdeas/BitterLesson.html"
-        ]
+        "status": 206,
+        "effective_url": "http://www.incompleteideas.net/IncIdeas/BitterLesson.html",
+        "content_type": "text/html",
+        "page_title": "The Bitter Lesson",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R023": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-19T08:50:17+00:00",
       "source": "https://arxiv.org/abs/2510.07077",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2510.07077"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2510.07077",
+        "content_type": "text/html",
+        "page_title": "[2510.07077] Vision-Language-Action Models for Robotics: A Review Towards Real-World Applications",
+        "error": null
       },
-      "identity_result": "needs_correction",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R024": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-19T08:50:17+00:00",
       "source": "https://arxiv.org/abs/2111.00956",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2111.00956"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2111.00956",
+        "content_type": "text/html",
+        "page_title": "[2111.00956] Robot Learning from Randomized Simulations: A Review",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R025": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-19T08:50:17+00:00",
       "source": "https://arxiv.org/abs/2005.01643",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2005.01643"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2005.01643",
+        "content_type": "text/html",
+        "page_title": "[2005.01643] Offline Reinforcement Learning: Tutorial, Review, and Perspectives on Open Problems",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R026": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-21T09:59:56+00:00",
       "source": "https://arxiv.org/abs/2006.16712",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2006.16712"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2006.16712",
+        "content_type": "text/html",
+        "page_title": "[2006.16712] Model-based Reinforcement Learning: A Survey",
+        "error": null
       },
-      "identity_result": "needs_correction",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R027": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-21T09:59:56+00:00",
       "source": "https://cs336.stanford.edu/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://cs336.stanford.edu/"
-        ]
+        "status": 206,
+        "effective_url": "https://cs336.stanford.edu/",
+        "content_type": "text/html",
+        "page_title": "Stanford CS336 | Language Modeling from Scratch",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R028": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-21T09:59:56+00:00",
       "source": "https://manipulation.mit.edu/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://manipulation.mit.edu/"
-        ]
+        "status": 206,
+        "effective_url": "https://manipulation.mit.edu/",
+        "content_type": "text/html",
+        "page_title": "Robotic Manipulation",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R029": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-21T09:59:56+00:00",
       "source": "https://docs.cleanrl.dev/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://docs.cleanrl.dev/"
-        ]
+        "status": 206,
+        "effective_url": "https://docs.cleanrl.dev/",
+        "content_type": "text/html",
+        "page_title": "CleanRL",
+        "error": null
       },
-      "identity_result": "pass",
+      "identity_result": "manual_review",
       "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "supporting_resource:R030": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
-      "source": "https://docs.ros.org/en/kilted/Tutorials/Demos/Real-Time-Programming.html",
+      "checked_at": "2026-09-21T09:59:56+00:00",
+      "source": "https://docs.ros.org/en/lyrical/Tutorials/Demos/Real-Time-Programming.html",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "low",
-        "evidence_urls": [
-          "https://docs.ros.org/en/kilted/Tutorials/Demos/Real-Time-Programming.html",
-          "https://docs.ros.org/en/lyrical/Tutorials/Demos/Real-Time-Programming.html",
-          "https://docs.ros.org/en/humble/Releases.html"
-        ]
+        "status": 404,
+        "effective_url": "https://docs.ros.org/en/lyrical/Tutorials/Demos/Real-Time-Programming.html",
+        "content_type": "text/html",
+        "page_title": null,
+        "error": "HTTP 404"
       },
-      "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "not_observable",
+      "confidence": "high",
+      "decision": "proposal_required"
     },
     "supporting_resource:R031": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-21T09:59:56+00:00",
       "source": "https://docs.nvidia.com/deeplearning/tensorrt/latest/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://docs.nvidia.com/deeplearning/tensorrt/latest/"
-        ]
+        "status": 200,
+        "effective_url": "https://docs.nvidia.com/deeplearning/tensorrt/latest/",
+        "content_type": "text/html",
+        "page_title": "NVIDIA TensorRT Documentation — NVIDIA TensorRT",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R032": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-23T09:21:09+00:00",
       "source": "https://aihabitat.org/docs/habitat-lab/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://aihabitat.org/docs/habitat-lab/"
-        ]
+        "status": 206,
+        "effective_url": "https://aihabitat.org/docs/habitat-lab/",
+        "content_type": "text/html",
+        "page_title": "Habitat Lab Documentation | Habitat Lab Docs",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R033": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-23T09:21:09+00:00",
       "source": "https://docs.pytorch.org/tutorials/distributed.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://docs.pytorch.org/tutorials/distributed.html"
-        ]
+        "status": 206,
+        "effective_url": "https://docs.pytorch.org/tutorials/distributed.html",
+        "content_type": "text/html",
+        "page_title": "Distributed — PyTorch Tutorials 2.14.0+cu130 documentation",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R034": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-23T09:21:09+00:00",
       "source": "https://drake.mit.edu/tutorials/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://drake.mit.edu/tutorials/"
-        ]
+        "status": 206,
+        "effective_url": "https://drake.mit.edu/tutorials/",
+        "content_type": "text/html",
+        "page_title": "index",
+        "error": null
       },
-      "identity_result": "pass",
+      "identity_result": "manual_review",
       "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "supporting_resource:R035": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-23T09:21:09+00:00",
       "source": "https://www.human-robot-interaction.org/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://www.human-robot-interaction.org/"
-        ]
+        "status": 200,
+        "effective_url": "https://www.human-robot-interaction.org/",
+        "content_type": "text/html",
+        "page_title": "Human Robot Interaction – Share and enjoy!",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R036": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-23T09:21:09+00:00",
       "source": "https://github.com/taichi-dev/difftaichi",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://github.com/taichi-dev/difftaichi"
-        ]
+        "status": 206,
+        "effective_url": "https://github.com/taichi-dev/difftaichi",
+        "content_type": "text/html",
+        "page_title": "GitHub - taichi-dev/difftaichi: 10 differentiable physical simulators built with Taichi differentiable programming (DiffTaichi, ICLR 2020) · GitHub",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R037": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-23T09:21:09+00:00",
       "source": "https://pettingzoo.farama.org/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://pettingzoo.farama.org/"
-        ]
+        "status": 206,
+        "effective_url": "https://pettingzoo.farama.org/",
+        "content_type": "text/html",
+        "page_title": "PettingZoo Documentation",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R038": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://corl-team.github.io/CORL/",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://corl-team.github.io/CORL/"
-        ]
+        "status": 206,
+        "effective_url": "https://corl-team.github.io/CORL/",
+        "content_type": "text/html",
+        "page_title": "Clean Offline RL",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R039": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://docs.isaacsim.omniverse.nvidia.com/latest/index.html",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://docs.isaacsim.omniverse.nvidia.com/latest/index.html"
-        ]
+        "status": 206,
+        "effective_url": "https://docs.isaacsim.omniverse.nvidia.com/latest/index.html",
+        "content_type": "text/html",
+        "page_title": "What Is Isaac Sim? — Isaac Sim Documentation",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R040": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://arxiv.org/abs/2511.04831",
       "evidence": {
-        "audit_status": "pass",
-        "severity": "none",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2511.04831"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2511.04831",
+        "content_type": "text/html",
+        "page_title": "[2511.04831] Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "supporting_resource:R041": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://arxiv.org/abs/2301.04195",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2301.04195",
-          "https://isaac-sim.github.io/IsaacLab/main/source/migration/migrating_from_orbit.html"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2301.04195",
+        "content_type": "text/html",
+        "page_title": "[2301.04195] Orbit: A Unified Simulation Framework for Interactive Robot Learning Environments",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W001": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://arxiv.org/abs/2603.14482",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2603.14482"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2603.14482",
+        "content_type": "text/html",
+        "page_title": "[2603.14482] V-JEPA 2.1: Unlocking Dense Features in Video Self-Supervised Learning",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W002": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://arxiv.org/abs/2602.15922",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2602.15922"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2602.15922",
+        "content_type": "text/html",
+        "page_title": "[2602.15922] World Action Models are Zero-shot Policies",
+        "error": null
       },
-      "identity_result": "needs_correction",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "identity_result": "pass",
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W003": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://arxiv.org/abs/2602.16710",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2602.16710"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2602.16710",
+        "content_type": "text/html",
+        "page_title": "[2602.16710] EgoScale: Scaling Dexterous Manipulation with Diverse Egocentric Human Data",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W004": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://arxiv.org/abs/2606.28276",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2606.28276"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2606.28276",
+        "content_type": "text/html",
+        "page_title": "[2606.28276] SimFoundry: Modular and Automated Scene Generation for Policy Learning and Evaluation",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W005": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://arxiv.org/abs/2607.00272",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2607.00272"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2607.00272",
+        "content_type": "text/html",
+        "page_title": "[2607.00272] ASPIRE: Agentic /Skills Discovery for Robotics",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W006": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-27T10:02:51+00:00",
       "source": "https://ai.google.dev/gemini-api/docs/robotics-overview",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://ai.google.dev/gemini-api/docs/robotics-overview"
-        ]
+        "status": 200,
+        "effective_url": "https://ai.google.dev/gemini-api/docs/robotics-overview",
+        "content_type": "text/html",
+        "page_title": "Gemini Robotics ER | Gemini API | Google AI for Developers",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W007": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://huggingface.co/blog/lerobot-release-v060",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://huggingface.co/blog/lerobot-release-v060"
-        ]
+        "status": 200,
+        "effective_url": "https://huggingface.co/blog/lerobot-release-v060",
+        "content_type": "text/html",
+        "page_title": "LeRobot v0.6.0: Imagine, Evaluate, Improve",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W008": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://huggingface.co/blog/lerobot-release-v060",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://huggingface.co/blog/lerobot-release-v060"
-        ]
+        "status": 200,
+        "effective_url": "https://huggingface.co/blog/lerobot-release-v060",
+        "content_type": "text/html",
+        "page_title": "LeRobot v0.6.0: Imagine, Evaluate, Improve",
+        "error": null
       },
-      "identity_result": "pass",
+      "identity_result": "manual_review",
       "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "frontier_record:W009": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://huggingface.co/blog/lerobot-release-v060",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://huggingface.co/blog/lerobot-release-v060"
-        ]
+        "status": 200,
+        "effective_url": "https://huggingface.co/blog/lerobot-release-v060",
+        "content_type": "text/html",
+        "page_title": "LeRobot v0.6.0: Imagine, Evaluate, Improve",
+        "error": null
       },
-      "identity_result": "pass",
+      "identity_result": "manual_review",
       "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "decision": "pass"
     },
     "frontier_record:W010": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://arxiv.org/abs/2607.01651",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2607.01651"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2607.01651",
+        "content_type": "text/html",
+        "page_title": "[2607.01651] One Demonstration Is Enough for Real-World Robotic Reinforcement Learning",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W011": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://arxiv.org/abs/2607.13059",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2607.13059"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2607.13059",
+        "content_type": "text/html",
+        "page_title": "[2607.13059] GPUSimBench: Towards Scalable and Reliable GPU-Accelerated Simulators in Embodied AI",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     },
     "frontier_record:W012": {
-      "checked_at": "2026-08-27T00:00:00+00:00",
+      "checked_at": "2026-09-25T09:38:59+00:00",
       "source": "https://arxiv.org/abs/2606.26265",
       "evidence": {
-        "audit_status": "needs_correction",
-        "severity": "medium",
-        "evidence_urls": [
-          "https://arxiv.org/abs/2606.26265"
-        ]
+        "status": 206,
+        "effective_url": "https://arxiv.org/abs/2606.26265",
+        "content_type": "text/html",
+        "page_title": "[2606.26265] NavIsaacLab: Generating Realistic Crowd via Parallel Robot Learning for Benchmarking Human-aware Navigation",
+        "error": null
       },
       "identity_result": "pass",
-      "confidence": "medium",
-      "decision": "corrected_or_recorded_in_exhaustive_audit"
+      "confidence": "high",
+      "decision": "pass"
     }
   },
-  "history": []
+  "history": [
+    {
+      "run_at": "2026-08-31T10:55:17+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "redirect_review": 2
+      },
+      "proposal_required": true
+    },
+    {
+      "run_at": "2026-09-01T09:26:47+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "destination_identity_review": 3
+      },
+      "proposal_required": true
+    },
+    {
+      "run_at": "2026-09-03T08:58:16+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "destination_identity_review": 1
+      },
+      "proposal_required": true
+    },
+    {
+      "run_at": "2026-09-05T08:23:39+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "destination_identity_review": 2
+      },
+      "proposal_required": true
+    },
+    {
+      "run_at": "2026-09-07T09:25:19+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "broken_link": 1,
+        "destination_identity_review": 1,
+        "redirect_review": 2
+      },
+      "proposal_required": true
+    },
+    {
+      "run_at": "2026-09-09T08:59:49+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "destination_identity_review": 3,
+        "redirect_review": 4
+      },
+      "proposal_required": true
+    },
+    {
+      "run_at": "2026-09-11T08:57:25+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {},
+      "proposal_required": false
+    },
+    {
+      "run_at": "2026-09-13T09:36:36+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "destination_identity_review": 6,
+        "redirect_review": 1
+      },
+      "proposal_required": true
+    },
+    {
+      "run_at": "2026-09-15T09:28:04+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "destination_identity_review": 2
+      },
+      "proposal_required": true
+    },
+    {
+      "run_at": "2026-09-17T09:29:28+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "destination_identity_review": 4
+      },
+      "proposal_required": true
+    },
+    {
+      "run_at": "2026-09-19T08:50:17+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "destination_identity_review": 2
+      },
+      "proposal_required": true
+    },
+    {
+      "run_at": "2026-09-21T09:59:56+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "broken_link": 1,
+        "destination_identity_review": 3,
+        "redirect_review": 2
+      },
+      "proposal_required": true
+    },
+    {
+      "run_at": "2026-09-23T09:21:09+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "destination_identity_review": 1,
+        "redirect_review": 2
+      },
+      "proposal_required": true
+    },
+    {
+      "run_at": "2026-09-25T09:38:59+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "destination_identity_review": 2
+      },
+      "proposal_required": true
+    },
+    {
+      "run_at": "2026-09-27T10:02:51+00:00",
+      "source_revision": "cfd646f724a07a6d68d053422d695cdec339b57562e57004b2b71795a5cf0657",
+      "checked": 18,
+      "finding_counts": {
+        "destination_identity_review": 1,
+        "redirect_review": 1
+      },
+      "proposal_required": true
+    }
+  ]
 }
